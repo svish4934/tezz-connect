@@ -101,3 +101,9 @@
 .gauge-needle{position:absolute;z-index:2;left:calc(50% - 1.5px);bottom:50%;width:3px;height:70px;transform-origin:50% 100%;border-radius:4px;background:linear-gradient(to top,#22D3EE 0%,#e9fbff 82%);box-shadow:0 0 9px #22d3ee99;transition:transform .16s ease-out;pointer-events:none}
 .gauge-needle span{position:absolute;left:50%;bottom:-5px;width:11px;height:11px;transform:translateX(-50%);border-radius:50%;background:#eafcff;border:2px solid #22D3EE;box-shadow:0 0 10px #22d3ee99}
 .gauge-inner{position:relative;z-index:1}
+
+
+/* High-contrast pointer, anchored at the exact center of the dial. */
+.gauge-halo{position:relative}
+.gauge-needle{position:absolute!important;z-index:10!important;top:50%!important;left:50%!important;bottom:auto!important;width:5px!important;height:68px!important;margin-left:-2.5px!important;margin-top:0!important;transform-origin:50% 100%!important;border-radius:6px 6px 2px 2px!important;background:linear-gradient(to top,#22D3EE 0%,#FFFFFF 88%)!important;box-shadow:0 0 5px #22d3ee,0 0 14px #22d3eeaa!important;pointer-events:none}
+.gauge-needle span{position:absolute!important;left:50%!important;bottom:-6px!important;width:14px!important;height:14px!important;transform:translateX(-50%)!important;border-radius:50%!important;background:#FFFFFF!important;border:3px solid #22D3EE!important;box-shadow:0 0 12px #22d3ee!important}
