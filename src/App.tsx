@@ -129,9 +129,11 @@ function App() {
 
       <main className="main">
         <header className="topbar">
-          <button className="mobile-menu" aria-label="Open menu"><Menu size={20} /></button>
-          <div className="breadcrumb">Workspace <span>/</span> {activeTab}</div>
-          <div className="topbar-right"><span className="live-dot" /> SYSTEM OPERATIONAL <div className="top-icon"><CircleHelp size={18} /></div></div>
+          <a className="brand" href="#" aria-label="TEZZ CONNECT home"><span className="brand-mark"><Zap size={20} fill="currentColor" /></span><span>TEZZ<span className="brand-light">CONNECT</span></span></a>
+          <nav className="desktop-nav">
+            {navItems.map(({ label, icon: Icon }) => <button key={label} className={`nav-item ${activeTab === label ? 'active' : ''}`} onClick={() => setActiveTab(label)}><Icon size={16}/><span>{label}</span></button>)}
+          </nav>
+          <div className="topbar-right"><span className="live-dot" /> SYSTEM READY <div className="top-icon"><CircleHelp size={18} /></div></div>
         </header>
 
         <div className="content">
