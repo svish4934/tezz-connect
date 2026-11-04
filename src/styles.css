@@ -573,3 +573,28 @@ html,body{overflow-x:hidden!important}
 .tezz-needle::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;transform:translateX(-50%);border-radius:50%;background:#eaffff;border:2px solid #22d3ee;box-shadow:0 0 10px #22d3ee}
 .tezz-go-icon,.tezz-go strong,.tezz-go>span:not(.tezz-needle){z-index:2}
 @media(max-width:800px){.tezz-needle{height:48px;width:3px}}
+
+
+/* Responsive hero composition: keep the approved centered mobile meter instead of a cramped side-by-side desktop layout. */
+@media(max-width:1050px){
+  .tezz-hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:18px!important;padding:28px 18px 58px!important;min-height:0!important}
+  .tezz-hero-copy{text-align:center!important;width:100%}
+  .tezz-hero-copy h1{font-size:clamp(32px,5vw,42px)!important;line-height:1.08}
+  .tezz-hero-copy p{max-width:440px!important;margin:0 auto 10px!important}
+  .tezz-hero-copy ul{display:none!important}
+  .tezz-meter-wrap{width:100%!important;min-height:clamp(285px,38vw,370px)!important;padding:0!important;margin:0 auto!important;overflow:visible}
+  .tezz-arc{width:min(100%,480px)!important;max-width:480px}
+  .tezz-go{width:clamp(132px,17vw,158px)!important;height:clamp(132px,17vw,158px)!important;top:50%!important}
+  .tezz-go strong{font-size:clamp(36px,4vw,44px)!important}
+  .tezz-health-card{width:100%;min-height:0!important;padding:18px!important}
+  .tezz-health-card p{max-width:440px;margin-bottom:8px}
+  .tezz-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .tezz-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:520px){
+  .tezz-hero{padding:24px 12px 48px!important;gap:14px!important}
+  .tezz-meter-wrap{min-height:270px!important}
+  .tezz-arc{width:min(100%,410px)!important}
+  .tezz-go{width:126px!important;height:126px!important}
+  .tezz-health-card{border-radius:18px}
+}
