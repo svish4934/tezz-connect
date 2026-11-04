@@ -17,7 +17,8 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
   const samples: number[] = []
   for (let i = 0; i < 4; i++) {
     const start = performance.now()
-    await fetch('/api/speed/ping', { cache: 'no-store' })
+    const response = await fetch('/api/speed/ping', { cache: 'no-store' })
+    if (!response.ok) throw new Error('Latency test endpoint unavailable')
     samples.push(performance.now() - start)
   }
   const ping = samples.reduce((a, b) => a + b, 0) / samples.length
@@ -207,7 +208,7 @@ function App() {
               <div className="network-primary"><span className={network.online ? 'finding-dot good' : 'finding-dot alert'} /><div><span className="section-kicker">INTERNET REACHABILITY</span><strong>{network.online ? 'Browser reports online' : 'Browser reports offline'}</strong><p>{network.online ? 'Your device reports an active network connection. This does not guarantee that every website is reachable.' : 'Your device reports no active network connection. Check Wi-Fi or mobile data, then reconnect.'}</p></div></div>
               <div className="network-detail"><span>Effective connection type</span><strong>{network.type}</strong></div>
               <div className="network-detail"><span>Estimated downlink</span><strong>{network.downlink}</strong></div>
-              <div className="network-detail"><span>Estimated round-trip time</span><strong>{network.rtt}</strong></div>
+              <div className="network-detail"><span>Browser HTTP round-trip</span><strong>{network.rtt}</strong></div>
               <div className="network-detail"><span>Data saver preference</span><strong>{network.supported ? (network.saveData ? 'Enabled' : 'Not requested') : 'Not available'}</strong></div>
             </div>
             <div className="network-capabilities"><div><strong>Wi-Fi signal strength</strong><span>Not exposed by standard browser APIs</span></div><div><strong>Router / gateway details</strong><span>Not exposed to this webpage</span></div><div><strong>Live connection updates</strong><span>{network.supported ? 'Browser API available' : 'Limited browser support'}</span></div></div>
@@ -216,18 +217,18 @@ function App() {
           {activeTab === 'Internet Doctor' && <section className="doctor-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ INTERNET DOCTOR</div><h2>Find out what is slowing you down.</h2><p>Use your latest speed test and browser network signals to identify likely connection issues.</p></div><span className="doctor-symbol"><Activity size={23}/></span></div>
             <div className="doctor-grid">
-              <div className="doctor-status"><span className="section-kicker">DIAGNOSTIC STATUS</span><strong>{result ? quality : 'Awaiting test'}</strong><p>{result ? `Measured download ${result.download} Mbps · latency ${result.ping} ms · jitter estimate ${result.jitter} ms.` : 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.'}</p></div>
+              <div className="doctor-status"><span className="section-kicker">DIAGNOSTIC STATUS</span><strong>{result ? quality : 'Awaiting test'}</strong><p>{result ? `Measured download ${result.download} Mbps · HTTP round-trip ${result.ping} ms · jitter estimate ${result.jitter} ms.` : 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.'}</p></div>
               <div className="doctor-findings">
                 {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Start a speed test on Overview to generate a connection report.</p></div></div> :
                   <>
                     <div className="doctor-finding"><span className={result.download < 10 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.download < 10 ? 'Low download throughput' : 'Download throughput'}</strong><p>{result.download < 10 ? 'Try moving closer to your router, pause large downloads, and retest over a wired connection if possible.' : 'Your measured download rate is not showing a severe throughput bottleneck.'}</p></div></div>
-                    <div className="doctor-finding"><span className={result.ping > 100 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.ping > 100 ? 'High latency detected' : 'Latency check'}</strong><p>{result.ping > 100 ? 'Restart the router, reduce competing traffic, and test again. For gaming or calls, use Ethernet where possible.' : 'Latency is within a generally workable range for everyday browsing and calls.'}</p></div></div>
+                    <div className="doctor-finding"><span className={result.ping > 100 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.ping > 100 ? 'High HTTP response time detected' : 'HTTP latency check'}</strong><p>{result.ping > 100 ? 'Restart the router, reduce competing traffic, and test again. For gaming or calls, use Ethernet where possible.' : 'Latency is within a generally workable range for everyday browsing and calls.'}</p></div></div>
                     <div className="doctor-finding"><span className={result.upload < 2 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.upload < 2 ? 'Limited upload capacity' : 'Upload check'}</strong><p>{result.upload < 2 ? 'Pause cloud backups and file uploads, then retest. Contact your ISP if the result remains consistently low.' : 'Upload throughput is not showing an obvious severe restriction.'}</p></div></div>
                   </>
                 }
               </div>
             </div>
-            <div className="doctor-disclaimer"><ShieldCheck size={15}/> These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
           <section className="test-panel">
             <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>Speed first, then automatically checks popular apps and services.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
@@ -241,11 +242,11 @@ function App() {
               <div className="metrics-grid">
                 <Metric icon={<ArrowDown size={17} />} label="Download" value={result ? result.download.toString() : '—'} unit="Mbps" tone="cyan" />
                 <Metric icon={<ArrowUp size={17} />} label="Upload" value={result ? result.upload.toString() : '—'} unit="Mbps" tone="violet" />
-                <Metric icon={<Clock3 size={17} />} label="Latency" value={result ? result.ping.toString() : '—'} unit="ms" tone="mint" />
-                <Metric icon={<Activity size={17} />} label="Jitter" value={result ? result.jitter.toString() : '—'} unit="ms" tone="amber" />
+                <Metric icon={<Clock3 size={17} />} label="HTTP latency" value={result ? result.ping.toString() : '—'} unit="ms" tone="mint" />
+                <Metric icon={<Activity size={17} />} label="HTTP jitter" value={result ? result.jitter.toString() : '—'} unit="ms" tone="amber" />
               </div>
             </div>
-            <div className="panel-foot"><span><ShieldCheck size={15} /> No account required</span><span><RefreshCw size={14} /> Results are estimates and vary by device and network</span></div>
+            <div className="panel-foot"><span><ShieldCheck size={15} /> No account required</span><span><RefreshCw size={14} /> HTTP timing estimates vary by device, edge location and network</span></div>
           </section>
 
           <section className="services-panel">
@@ -259,7 +260,7 @@ function App() {
               <div className="card-title"><div><div className="section-kicker">NETWORK SNAPSHOT</div><h3>Your connection</h3></div><span className="card-icon"><Signal size={18} /></span></div>
               <div className="network-row"><span>Connection type</span><strong>{network.type}</strong></div>
               <div className="network-row"><span>Estimated downlink</span><strong>{network.downlink}</strong></div>
-              <div className="network-row"><span>Browser RTT estimate</span><strong>{network.rtt}</strong></div>
+              <div className="network-row"><span>Browser HTTP RTT</span><strong>{network.rtt}</strong></div>
               <div className="network-note"><Monitor size={15} /> Some network details depend on browser support.</div>
             </section>
             <section className="info-card">
