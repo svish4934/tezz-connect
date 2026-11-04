@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ChevronDown, CircleHelp,
-  Clock3, Gauge, History, Menu, Monitor, Play, RefreshCw,
+  Clock3, Gauge, History, Monitor, Play, RefreshCw,
   ShieldCheck, Signal, Wifi, Zap
 } from 'lucide-react'
 
@@ -11,14 +11,16 @@ type TestResult = { download: number; upload: number; ping: number; jitter: numb
 const downloadUrl = '/api/speed/download?bytes=5000000'
 const uploadUrl = '/api/speed/upload'
 
-async function measurePing(): Promise<number> {
+async function measurePing(): Promise<{ ping: number; jitter: number }> {
   const samples: number[] = []
   for (let i = 0; i < 4; i++) {
     const start = performance.now()
     await fetch('/api/speed/ping', { cache: 'no-store' })
     samples.push(performance.now() - start)
   }
-  return samples.reduce((a, b) => a + b, 0) / samples.length
+  const ping = samples.reduce((a, b) => a + b, 0) / samples.length
+  const jitter = samples.slice(1).reduce((total, value, index) => total + Math.abs(value - samples[index]), 0) / Math.max(1, samples.length - 1)
+  return { ping, jitter }
 }
 
 async function measureDownload(): Promise<number> {
@@ -48,15 +50,36 @@ async function measureUpload(): Promise<number> {
   return (payload.byteLength * 8) / seconds / 1_000_000
 }
 
+const HISTORY_KEY = 'tezz-connect-test-history-v1'
+
+function loadHistory(): TestResult[] {
+  try {
+    const saved = localStorage.getItem(HISTORY_KEY)
+    if (!saved) return []
+    const parsed: unknown = JSON.parse(saved)
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((item): item is TestResult =>
+      item && typeof item.download === 'number' && typeof item.upload === 'number' &&
+      typeof item.ping === 'number' && typeof item.jitter === 'number' && typeof item.date === 'string'
+    ).slice(0, 50)
+  } catch {
+    return []
+  }
+}
+
 function App() {
   const [state, setState] = useState<TestState>('idle')
   const [progress, setProgress] = useState(0)
-  const [result, setResult] = useState<TestResult | null>(null)
-  const [history, setHistory] = useState<TestResult[]>([])
+  const [history, setHistory] = useState<TestResult[]>(loadHistory)
+  const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
   const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string }>({
     type: 'Checking', downlink: '—', rtt: '—'
   })
+
+  useEffect(() => {
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)) } catch { /* Storage may be unavailable or full. */ }
+  }, [history])
 
   useEffect(() => {
     const connection = (navigator as Navigator & { connection?: { effectiveType?: string; downlink?: number; rtt?: number } }).connection
@@ -81,16 +104,15 @@ function App() {
     setProgress(8)
     setResult(null)
     try {
-      const ping = await measurePing()
+      const latency = await measurePing()
       setProgress(32)
       const download = await measureDownload()
       setProgress(68)
       const upload = await measureUpload()
       setProgress(92)
-      const jitter = Math.max(0, ping * 0.12)
-      const next = { ping: Math.round(ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(jitter.toFixed(1)), date: new Date().toISOString() }
+      const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString() }
       setResult(next)
-      setHistory(current => [next, ...current].slice(0, 10))
+      setHistory(current => [next, ...current].slice(0, 50))
       setProgress(100)
       setState('complete')
     } catch {
@@ -122,7 +144,7 @@ function App() {
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="privacy-card"><ShieldCheck size={18} /><div><strong>Your data stays yours</strong><span>Tests run securely. History stays in this session.</span></div></div>
+          <div className="privacy-card"><ShieldCheck size={18} /><div><strong>Your data stays yours</strong><span>Tests run securely. History is saved on this device.</span></div></div>
           <div className="profile"><div className="avatar">T</div><div><strong>TEZZ CONNECT</strong><span>Personal workspace</span></div><ChevronDown size={15} /></div>
         </div>
       </aside>
