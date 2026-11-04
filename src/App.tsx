@@ -247,17 +247,14 @@ function App() {
               <p>Test your connection, diagnose problems, and improve your online experience.</p>
               <ul><li><CheckCircle2 size={17}/> Download & Upload Speed</li><li><CheckCircle2 size={17}/> Ping & Network Quality</li><li><CheckCircle2 size={17}/> Instant Results</li><li><CheckCircle2 size={17}/> Free & Easy to Use</li></ul>
             </div>
-            <div className="tezz-meter-wrap" id="tezz-speed-test">
-              <div className="tezz-dial-stage">
-              <svg className="tezz-arc" viewBox="0 0 340 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Internet speed meter">
-                <defs><linearGradient id="tezz-spectrum" x1="0%" y1="100%" x2="100%" y2="100%"><stop offset="0%" stopColor="#00f2e8"/><stop offset="30%" stopColor="#00bfff"/><stop offset="56%" stopColor="#6d5cff"/><stop offset="78%" stopColor="#c12cff"/><stop offset="100%" stopColor="#ff315e"/></linearGradient><filter id="tezz-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                <path d="M34 184 A136 136 0 0 1 306 184" fill="none" stroke="#17243c" strokeWidth="17" strokeLinecap="round"/>
-                <path d="M34 184 A136 136 0 0 1 306 184" fill="none" stroke="url(#tezz-spectrum)" strokeWidth="13" strokeLinecap="round" filter="url(#tezz-glow)"/>
-                {Array.from({length:19},(_,i)=>{const angle=(-180+i*10)*Math.PI/180;const major=i%3===0;const inner=major?108:114;const outer=major?128:125;const x1=170+inner*Math.cos(angle),y1=184+inner*Math.sin(angle),x2=170+outer*Math.cos(angle),y2=184+outer*Math.sin(angle);return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={i<6?'#19e9f2':i<12?'#8e6aff':i<16?'#d14cff':'#ff4777'} strokeWidth={major?3.2:2} strokeLinecap="round"/>})}
-                
-              </svg>
-              <button className={`tezz-go ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><span className="tezz-needle" style={{ transform: `translate(-50%, -100%) rotate(${-90 + (Math.min(Math.max(gaugeSpeed, 0), 300) / 300) * 180}deg)` }} aria-hidden="true"/><Zap className="tezz-go-icon" size={27} fill="currentColor"/><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'…'):result?result.download:'GO'}</strong><span>{state==='running'?'Mbps':result?'Mbps':'Start Test'}</span></button></div>
-              
+            <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
+              <div className="tezz-digital-meter" aria-live="polite">
+                <span className="tezz-digital-label">DOWNLOAD SPEED</span>
+                <div className="tezz-digital-reading"><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'0.0'):result?result.download.toFixed(1):'0.0'}</strong><span>Mbps</span></div>
+                <div className="tezz-digital-caption">{state==='running'?'Measuring your connection in real time':result?'Your latest measured download speed':'Ready to measure your internet speed'}</div>
+                <div className="tezz-digital-accent"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
+              </div>
+              <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
               {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span><strong>{(downloadBytes/1_000_000).toFixed(1)} / 100 MB</strong></div>}
               {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
             </div>
