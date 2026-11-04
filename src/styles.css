@@ -107,3 +107,14 @@
 .gauge-halo{position:relative}
 .gauge-needle{position:absolute!important;z-index:10!important;top:50%!important;left:50%!important;bottom:auto!important;width:5px!important;height:68px!important;margin-left:-2.5px!important;margin-top:0!important;transform-origin:50% 100%!important;border-radius:6px 6px 2px 2px!important;background:linear-gradient(to top,#22D3EE 0%,#FFFFFF 88%)!important;box-shadow:0 0 5px #22d3ee,0 0 14px #22d3eeaa!important;pointer-events:none}
 .gauge-needle span{position:absolute!important;left:50%!important;bottom:-6px!important;width:14px!important;height:14px!important;transform:translateX(-50%)!important;border-radius:50%!important;background:#FFFFFF!important;border:3px solid #22D3EE!important;box-shadow:0 0 12px #22d3ee!important}
+
+
+/* Refined instrument-style speedometer: precision indices and smooth needle motion. */
+.gauge-halo{overflow:visible}
+.gauge-ticks{position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:visible;pointer-events:none}
+.gauge-ticks line{stroke:#8da8bf;stroke-width:1.35;stroke-linecap:round;opacity:.62}
+.gauge-ticks line:nth-child(5n + 1){stroke:#d9faff;stroke-width:2;opacity:.95}
+.gauge-needle{height:72px!important;width:6px!important;margin-left:-3px!important;clip-path:polygon(50% 0,100% 100%,50% 88%,0 100%)!important;border-radius:0!important;transition:transform .48s cubic-bezier(.18,.82,.22,1)!important;filter:drop-shadow(0 0 5px #22d3eeaa)}
+.gauge-needle span{width:17px!important;height:17px!important;bottom:-8px!important;border-width:3px!important;background:radial-gradient(circle at 35% 30%,#fff,#b9faff 55%,#22d3ee)!important;box-shadow:0 0 0 4px #22d3ee22,0 0 18px #22d3eeaa!important}
+.gauge-halo.is-live{animation:none!important;box-shadow:0 0 32px #44d9d52a!important}
+@media(prefers-reduced-motion:reduce){.gauge-needle{transition:none!important}}
