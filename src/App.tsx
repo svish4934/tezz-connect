@@ -149,6 +149,14 @@ function App() {
     })
   }
 
+  async function runServiceChecks() {
+    setServicePhase('running')
+    setServiceResults(services.map(service => ({ name: service.name, status: 'Checking' })))
+    const checks = await Promise.all(services.map(checkService))
+    setServiceResults(checks)
+    setServicePhase('complete')
+  }
+
   async function copyReport() {
     if (!result) return
     const reachable = serviceResults.filter(item => item.status === 'Reachable').length
@@ -297,10 +305,10 @@ function App() {
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
-          <section className="services-panel">
-            <div className="services-heading"><div><div className="section-kicker">APP & PLATFORM CONNECTIVITY</div><h2>Your everyday apps, checked.</h2><p>Automatically tested after the speed test completes.</p></div><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span></div>
-            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Reachable' ? 'reachable' : item?.status === 'Unavailable' ? 'unavailable' : ''}`}>{item ? item.status === 'Reachable' ? `Reachable · ${item.ms} ms` : 'Not verified' : 'Not tested yet'}</div></div> })}</div>
-            <div className="service-note">These lightweight browser checks look for a response from each service's public website. A missing response can also be caused by content blockers, CDN rules or browser privacy settings; it does not prove the service is down. They do not verify login or in-app features.</div>
+          <section className="services-panel tezz-social-panel">
+            <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
+            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Reachable' ? 'reachable' : item?.status === 'Unavailable' ? 'unavailable' : ''}`}>{item ? item.status === 'Reachable' ? `Reachable · ${item.ms} ms` : item.status === 'Checking' ? 'Checking…' : 'Not verified' : 'Not checked'}</div></div> })}</div>
+            <div className="service-note">Checks confirm that a public website endpoint responds from this browser. They do not test account login, feeds, messages or in-app playback. Privacy tools, network filters and CDN rules can affect results.</div>
           </section>
 
           {state === 'complete' && result && <section className="report-panel">
