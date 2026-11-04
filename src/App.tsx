@@ -139,7 +139,7 @@ function App() {
       `HTTP jitter estimate: ${result.jitter} ms`,
       `Public service endpoints reachable: ${reachable}/${services.length}`,
       'Note: HTTP timing is measured to the TEZZ CONNECT edge. Service checks confirm public endpoint reachability only; they do not test login or in-app functionality.'
-    ].join('\\n')
+    ].join('\n')
     try {
       await navigator.clipboard.writeText(report)
       setReportMessage('Report copied')
