@@ -528,3 +528,9 @@
 .tezz-go-icon{filter:drop-shadow(0 0 5px #00eaff)}
 .tezz-go strong,.tezz-go>span:not(.tezz-needle){text-shadow:0 1px 4px #06101f}
 @media(prefers-reduced-motion:reduce){.tezz-needle{transition:none}}
+
+
+/* Keep the speedometer dial mathematically circular and the arc/tick layout symmetrical. */
+.tezz-arc{display:block;flex:none;width:min(100%,390px);height:auto;aspect-ratio:340 / 220;object-fit:contain}
+.tezz-go{width:142px;height:142px;min-width:142px;min-height:142px;aspect-ratio:1/1;border-radius:50%;padding:0;flex:none}
+@media(max-width:760px){.tezz-go{width:128px;height:128px;min-width:128px;min-height:128px}}
