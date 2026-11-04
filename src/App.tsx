@@ -137,6 +137,12 @@ function App() {
       const download = await measureDownload()
       setProgress(68)
       const upload = await measureUpload()
+      setProgress(72)
+      setServicePhase('running')
+      setServiceResults(services.map(service => ({ name: service.name, status: 'Checking' })))
+      const checks = await Promise.all(services.map(checkService))
+      setServiceResults(checks)
+      setServicePhase('complete')
       setProgress(92)
       const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString() }
       setResult(next)
