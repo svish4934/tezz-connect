@@ -462,7 +462,7 @@
 .home-content .services-panel,.home-content .report-panel,.home-content .lower-grid,.home-content .history-strip{display:none!important}
 .tezz-main .content:not(.home-content){padding-top:36px}
 .tezz-main footer{color:#75839c}
-@media(max-width:1050px){
+@media(max-width:900px){
  .tezz-header{padding:0 22px}.tezz-nav{gap:0}.tezz-nav button{padding:10px 9px;font-size:12px}
  .tezz-main .content{padding:0 22px 30px}
  .tezz-hero{grid-template-columns:1fr 1.15fr;gap:10px;padding:30px 8px 60px}
@@ -576,7 +576,7 @@ html,body{overflow-x:hidden!important}
 
 
 /* Responsive hero composition: keep the approved centered mobile meter instead of a cramped side-by-side desktop layout. */
-@media(max-width:1050px){
+@media(max-width:760px){
   .tezz-hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:18px!important;padding:28px 18px 58px!important;min-height:0!important}
   .tezz-hero-copy{text-align:center!important;width:100%}
   .tezz-hero-copy h1{font-size:clamp(32px,5vw,42px)!important;line-height:1.08}
@@ -704,7 +704,7 @@ body{background:#faf8f3!important}
 .doctor-panel,.network-intel-panel,.report-panel,.history-panel,.history-strip,.lower-grid{color:#101d3a}
 .tezz-main .content:not(.home-content) h2{color:#101d3a}
 .tezz-main .content:not(.home-content) p{color:#68758b}
-@media(max-width:1050px){
+@media(max-width:760px){
  .tezz-main .content{padding:0 22px 30px!important}
  .tezz-hero{padding:28px 20px 48px!important}
  .tezz-social-panel .services-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
@@ -744,5 +744,5 @@ body{background:#faf8f3!important}
 .tezz-digital-start.testing{background:linear-gradient(110deg,#427fd0,#16468e)!important}
 .tezz-digital-wrap .tezz-live-progress{margin:0 auto!important;flex-wrap:wrap!important;color:#1268d8!important}
 .tezz-digital-wrap .tezz-arc,.tezz-digital-wrap .tezz-dial-stage,.tezz-digital-wrap .tezz-go,.tezz-digital-wrap .tezz-needle{display:none!important}
-@media(max-width:1050px){.tezz-digital-wrap{min-height:0!important;width:100%!important;max-width:100%!important}.tezz-digital-meter{min-height:190px!important}}
+@media(max-width:760px){.tezz-digital-wrap{min-height:0!important;width:100%!important;max-width:100%!important}.tezz-digital-meter{min-height:190px!important}}
 @media(max-width:760px){.tezz-digital-wrap{gap:13px!important;padding:4px 0!important}.tezz-digital-meter{width:100%!important;min-height:180px!important;padding:23px 15px!important;border-radius:19px!important}.tezz-digital-reading strong{font-size:clamp(58px,17vw,78px)!important}.tezz-digital-reading span{font-size:16px!important}.tezz-digital-start{width:min(100%,290px)!important}.tezz-digital-caption{font-size:11px!important}}
