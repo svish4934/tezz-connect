@@ -6,7 +6,7 @@ import {
 } from 'lucide-react'
 
 type TestState = 'idle' | 'running' | 'complete' | 'error'
-type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }
+type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }\ntype ServiceResult = { name: string; status: 'Checking' | 'Reachable' | 'Unavailable'; ms?: number }\nconst services = [{ name: 'Facebook', host: 'https://www.facebook.com/favicon.ico', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', host: 'https://www.instagram.com/favicon.ico', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', host: 'https://www.youtube.com/favicon.ico', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', host: 'https://www.whatsapp.com/favicon.ico', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', host: 'https://www.netflix.com/favicon.ico', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', host: 'https://www.google.com/favicon.ico', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', host: 'https://x.com/favicon.ico', icon: 'https://cdn.simpleicons.org/x/FFFFFF' }, { name: 'TikTok', host: 'https://www.tiktok.com/favicon.ico', icon: 'https://cdn.simpleicons.org/tiktok/FFFFFF' }]
 
 const downloadUrl = '/api/speed/download?bytes=5000000'
 const uploadUrl = '/api/speed/upload'
@@ -69,7 +69,7 @@ function loadHistory(): TestResult[] {
 
 function App() {
   const [state, setState] = useState<TestState>('idle')
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0)\n  const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])\n  const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
@@ -111,7 +111,7 @@ function App() {
     return 'Needs attention'
   }, [result])
 
-  async function runTest() {
+  async function checkService(service: typeof services[number]): Promise<ServiceResult> {\n    const started = performance.now()\n    return new Promise(resolve => {\n      const image = new Image()\n      const timer = window.setTimeout(() => { image.src = ''; resolve({ name: service.name, status: 'Unavailable' }) }, 7000)\n      image.onload = () => { window.clearTimeout(timer); resolve({ name: service.name, status: 'Reachable', ms: Math.round(performance.now() - started) }) }\n      image.onerror = () => { window.clearTimeout(timer); resolve({ name: service.name, status: 'Unavailable' }) }\n      image.src = `${service.host}?tezz=${Date.now()}`\n    })\n  }\n\n  async function runTest() {
     if (state === 'running') return
     setState('running')
     setProgress(8)
@@ -206,11 +206,11 @@ function App() {
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
           <section className="test-panel">
-            <div className="panel-heading"><div><div className="section-kicker">SPEED TEST</div><h2>How fast is your internet?</h2><p>Run a quick test to see your real-world connection performance.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
+            <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>Speed first, then automatically checks popular apps and services.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
             <div className="speed-layout">
               <div className="speed-gauge">
                 <div className="gauge-halo"><div className="gauge-inner"><span className="gauge-label">DOWNLOAD</span><strong>{result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
-                <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? 'Testing…' : state === 'complete' ? 'Test again' : 'Start test'}</button>
+                <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? (servicePhase === 'running' ? 'Checking apps…' : 'Testing speed…') : state === 'complete' ? 'Run again' : 'GO — Start full test'}</button>
                 {state === 'running' && <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>}
                 {state === 'error' && <p className="error-note">Speed test service is not deployed yet. The interface is ready; deploy the Worker to enable live measurements.</p>}
               </div>
@@ -224,7 +224,7 @@ function App() {
             <div className="panel-foot"><span><ShieldCheck size={15} /> No account required</span><span><RefreshCw size={14} /> Results are estimates and vary by device and network</span></div>
           </section>
 
-          <div className="lower-grid">
+          <section className="services-panel">\n            <div className="services-heading"><div><div className="section-kicker">APP & PLATFORM CONNECTIVITY</div><h2>Your everyday apps, checked.</h2><p>Automatically tested after the speed test completes.</p></div><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span></div>\n            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Reachable' ? 'reachable' : item?.status === 'Unavailable' ? 'unavailable' : ''}`}>{item ? item.status === 'Reachable' ? `Reachable · ${item.ms} ms` : 'Not reachable' : 'Not tested yet'}</div></div> })}</div>\n            <div className="service-note">These checks confirm that each service's public website endpoint can be reached from this browser. They do not verify login, feeds, video playback or the service's full functionality.</div>\n          </section>\n\n          <div className="lower-grid">
             <section className="info-card">
               <div className="card-title"><div><div className="section-kicker">NETWORK SNAPSHOT</div><h3>Your connection</h3></div><span className="card-icon"><Signal size={18} /></span></div>
               <div className="network-row"><span>Connection type</span><strong>{network.type}</strong></div>
