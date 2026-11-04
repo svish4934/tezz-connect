@@ -130,6 +130,8 @@ function App() {
     if (state === 'running') return
     setState('running')
     setProgress(8)
+    setServicePhase('idle')
+    setServiceResults([])
     setResult(null)
     try {
       const latency = await measurePing()
@@ -151,6 +153,7 @@ function App() {
       setState('complete')
     } catch {
       setState('error')
+      setServicePhase('idle')
       setProgress(0)
     }
   }
