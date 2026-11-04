@@ -245,9 +245,9 @@ function App() {
                 <path d="M34 184 A136 136 0 0 1 306 184" fill="none" stroke="#17243c" strokeWidth="17" strokeLinecap="round"/>
                 <path d="M34 184 A136 136 0 0 1 306 184" fill="none" stroke="url(#tezz-spectrum)" strokeWidth="13" strokeLinecap="round" filter="url(#tezz-glow)"/>
                 {Array.from({length:17},(_,i)=>{const angle=(-180+i*11.25)*Math.PI/180;const x1=170+112*Math.cos(angle),y1=184+112*Math.sin(angle),x2=170+126*Math.cos(angle),y2=184+126*Math.sin(angle);return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={i<5?'#19e9f2':i<10?'#8e6aff':i<14?'#d14cff':'#ff4777'} strokeWidth={i%2===0?3:2} strokeLinecap="round"/>})}
-                {state==='running'&&<g transform={`rotate(${-90+(Math.min(Math.max(gaugeSpeed,0),300)/300)*180} 170 184)`}><path d="M170 184 L170 65" stroke="#eaffff" strokeWidth="3" strokeLinecap="round" filter="url(#tezz-glow)"/><circle cx="170" cy="184" r="6" fill="#fff" stroke="#24e7f0" strokeWidth="3"/></g>}
+                
               </svg>
-              <button className={`tezz-go ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={27} fill="currentColor"/><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'…'):result?result.download:'GO'}</strong><span>{state==='running'?'Mbps':result?'Mbps':'Start Test'}</span></button>
+              <button className={`tezz-go ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><span className="tezz-needle" style={{ transform: `translate(-50%, -100%) rotate(${-90 + (Math.min(Math.max(gaugeSpeed, 0), 300) / 300) * 180}deg)` }} aria-hidden="true"/><Zap className="tezz-go-icon" size={27} fill="currentColor"/><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'…'):result?result.download:'GO'}</strong><span>{state==='running'?'Mbps':result?'Mbps':'Start Test'}</span></button>
               {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span><strong>{(downloadBytes/1_000_000).toFixed(1)} / 100 MB</strong></div>}
               {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
             </div>
