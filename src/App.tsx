@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ChevronDown, CircleHelp,
-  Clock3, Gauge, Globe2, History, Menu, Monitor, Play, RefreshCw,
+  Clock3, Gauge, History, Menu, Monitor, Play, RefreshCw,
   ShieldCheck, Signal, Wifi, Zap
 } from 'lucide-react'
 
@@ -186,7 +186,7 @@ function App() {
   )
 }
 
-function Metric({ icon, label, value, unit, tone }: { icon: React.ReactNode; label: string; value: string; unit: string; tone: string }) {
+function Metric({ icon, label, value, unit, tone }: { icon: ReactNode; label: string; value: string; unit: string; tone: string }) {
   return <div className="metric"><div className={`metric-icon ${tone}`}>{icon}</div><div><span>{label}</span><strong>{value}<small> {unit}</small></strong></div></div>
 }
 
