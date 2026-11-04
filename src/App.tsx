@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
-  Activity, ArrowDown, ArrowUp, CheckCircle2, ChevronDown, CircleHelp,
+  Activity, ArrowDown, ArrowUp, CheckCircle2, ChevronDown, CircleHelp, ClipboardCopy,
   Clock3, Gauge, History, Monitor, Play, RefreshCw,
   ShieldCheck, Signal, Wifi, Zap
 } from 'lucide-react'
@@ -74,6 +74,7 @@ function App() {
   const [progress, setProgress] = useState(0)
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
+  const [reportMessage, setReportMessage] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
@@ -124,6 +125,27 @@ function App() {
       image.onerror = () => { window.clearTimeout(timer); resolve({ name: service.name, status: 'Unavailable' }) }
       image.src = `${service.host}?tezz=${Date.now()}`
     })
+  }
+
+  async function copyReport() {
+    if (!result) return
+    const reachable = serviceResults.filter(item => item.status === 'Reachable').length
+    const report = [
+      'TEZZ CONNECT — Internet Health Report',
+      `Test date: ${new Date(result.date).toLocaleString()}`,
+      `Download: ${result.download} Mbps`,
+      `Upload: ${result.upload} Mbps`,
+      `HTTP latency: ${result.ping} ms`,
+      `HTTP jitter estimate: ${result.jitter} ms`,
+      `Public service endpoints reachable: ${reachable}/${services.length}`,
+      'Note: HTTP timing is measured to the TEZZ CONNECT edge. Service checks confirm public endpoint reachability only; they do not test login or in-app functionality.'
+    ].join('\\n')
+    try {
+      await navigator.clipboard.writeText(report)
+      setReportMessage('Report copied')
+    } catch {
+      setReportMessage('Clipboard unavailable in this browser')
+    }
   }
 
   async function runTest() {
@@ -253,6 +275,13 @@ function App() {
             <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Reachable' ? 'reachable' : item?.status === 'Unavailable' ? 'unavailable' : ''}`}>{item ? item.status === 'Reachable' ? `Reachable · ${item.ms} ms` : 'Not reachable' : 'Not tested yet'}</div></div> })}</div>
             <div className="service-note">These checks confirm that each service's public website endpoint can be reached from this browser. They do not verify login, feeds, video playback or the service's full functionality.</div>
           </section>
+
+          {state === 'complete' && result && <section className="report-panel">
+            <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints reachable</span><strong>{serviceResults.filter(item => item.status === 'Reachable').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 6 MB</strong></div></div>
+            <p className="report-note">This report combines a 5 MB download, 1 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
+          </section>}
 
           <div className="lower-grid">
             <section className="info-card">
