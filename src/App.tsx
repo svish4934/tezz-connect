@@ -98,6 +98,8 @@ function App() {
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
+  const gaugeSpeed = state === 'running' ? liveSpeed : (result?.download ?? 0)
+  const needleAngle = -135 + (Math.min(Math.max(gaugeSpeed, 0), 100) / 100) * 270
   const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string; online: boolean; saveData: boolean; supported: boolean }>({
     type: 'Checking', downlink: '—', rtt: '—', online: navigator.onLine, saveData: false, supported: false
   })
@@ -286,7 +288,7 @@ function App() {
             <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>Speed first, then automatically checks popular apps and services.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
             <div className="speed-layout">
               <div className="speed-gauge">
-                <div className={`gauge-halo ${state === 'running' ? 'is-live' : ''}`}><div className="gauge-inner"><span className="gauge-label">{state === 'running' && liveSpeed > 0 ? 'LIVE DOWNLOAD' : 'DOWNLOAD'}</span><strong>{state === 'running' ? (liveSpeed > 0 ? liveSpeed.toFixed(1) : '…') : result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
+                <div className={`gauge-halo ${state === 'running' ? 'is-live' : ''}`}><div className="gauge-needle" style={{ transform: `rotate(${needleAngle}deg)` }} aria-hidden="true"><span /></div><div className="gauge-inner"><span className="gauge-label">{state === 'running' && liveSpeed > 0 ? 'LIVE DOWNLOAD' : 'DOWNLOAD'}</span><strong>{state === 'running' ? (liveSpeed > 0 ? liveSpeed.toFixed(1) : '…') : result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
                 {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 5.0 MB received</strong>}</div>}
                 <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? (servicePhase === 'running' ? 'Checking apps…' : 'Testing speed…') : state === 'complete' ? 'Run again' : 'GO — Start full test'}</button>
                 {state === 'running' && <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>}
