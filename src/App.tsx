@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ChevronDown, CircleHelp, ClipboardCopy,
-  Clock3, Gauge, History, Monitor, Play, RefreshCw,
-  ShieldCheck, Signal, Wifi, Zap
+  Clock3, Gauge, History, Monitor, Play, RefreshCw, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
+  ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
 
 type TestState = 'idle' | 'running' | 'complete' | 'error'
@@ -224,40 +224,55 @@ function App() {
 
   return (
     <div className="app-shell">
-      <aside className="sidebar">
-        <a className="brand" href="#" aria-label="TEZZ CONNECT home">
-          <span className="brand-mark"><Zap size={21} fill="currentColor" /></span>
-          <span>TEZZ<span className="brand-light">CONNECT</span></span>
-        </a>
-        <div className="workspace-label">WORKSPACE</div>
-        <nav>
-          {navItems.map(({ label, icon: Icon }) => (
-            <button key={label} className={`nav-item ${activeTab === label ? 'active' : ''}`} onClick={() => setActiveTab(label)}>
-              <Icon size={18} /><span>{label}</span>
-            </button>
-          ))}
-        </nav>
-        <div className="sidebar-bottom">
-          <div className="privacy-card"><ShieldCheck size={18} /><div><strong>Your data stays yours</strong><span>Tests run securely. History is saved on this device.</span></div></div>
-          <div className="profile"><div className="avatar">T</div><div><strong>TEZZ CONNECT</strong><span>Personal workspace</span></div><ChevronDown size={15} /></div>
-        </div>
-      </aside>
-
-      <main className="main">
-        <header className="topbar">
-          <a className="brand" href="#" aria-label="TEZZ CONNECT home"><span className="brand-mark"><Zap size={20} fill="currentColor" /></span><span>TEZZ<span className="brand-light">CONNECT</span></span></a>
-          <nav className="desktop-nav">
-            {navItems.map(({ label, icon: Icon }) => <button key={label} className={`nav-item ${activeTab === label ? 'active' : ''}`} onClick={() => setActiveTab(label)}><Icon size={16}/><span>{label}</span></button>)}
+      <main className="main tezz-main">
+        <header className="tezz-header">
+          <a className="tezz-logo" href="#" aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
+          <nav className="tezz-nav">
+            <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => setActiveTab('Overview')}><Home size={15}/> Home</button>
+            <button onClick={() => { setActiveTab('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
+            <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => setActiveTab('Internet Doctor')}>Internet Doctor</button>
+            <button onClick={() => setActiveTab('Network')}>Tools⌄</button>
+            <button onClick={() => setActiveTab('History')}>Guides</button>
           </nav>
-          <div className="topbar-right"><span className="live-dot" /> SYSTEM READY <div className="top-icon"><CircleHelp size={18} /></div></div>
+          <div className="tezz-header-actions"><button aria-label="Search"><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
         </header>
-
         <div className="content">
-          <section className="welcome">
-            <div><div className="eyebrow"><span className="eyebrow-line" /> YOUR INTERNET, DECODED</div><h1>Connection clarity.<br /><span>At full speed.</span></h1><p>Measure your connection, understand your network, and get more from every megabit.</p></div>
-            <div className="welcome-orbit"><div className="orbit-ring ring-one" /><div className="orbit-ring ring-two" /><div className="orbit-core"><Wifi size={34} /></div><span className="orbit-dot dot-one" /><span className="orbit-dot dot-two" /></div>
+          {activeTab === 'Overview' && <>
+          <section className="tezz-hero">
+            <div className="tezz-hero-copy">
+              <span className="tezz-pill">INTERNET SPEED TEST</span>
+              <h1>How fast is your <em>internet?</em></h1>
+              <p>Test your connection, diagnose problems, and improve your online experience.</p>
+              <ul><li><CheckCircle2 size={17}/> Download & Upload Speed</li><li><CheckCircle2 size={17}/> Ping & Network Quality</li><li><CheckCircle2 size={17}/> Instant Results</li><li><CheckCircle2 size={17}/> Free & Easy to Use</li></ul>
+            </div>
+            <div className="tezz-meter-wrap" id="tezz-speed-test">
+              <svg className="tezz-arc" viewBox="0 0 340 220" role="img" aria-label="Internet speed meter">
+                <defs><linearGradient id="tezz-spectrum" x1="0%" y1="100%" x2="100%" y2="100%"><stop offset="0%" stopColor="#00f2e8"/><stop offset="30%" stopColor="#00bfff"/><stop offset="56%" stopColor="#6d5cff"/><stop offset="78%" stopColor="#c12cff"/><stop offset="100%" stopColor="#ff315e"/></linearGradient><filter id="tezz-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                <path d="M34 184 A136 136 0 0 1 306 184" fill="none" stroke="#17243c" strokeWidth="17" strokeLinecap="round"/>
+                <path d="M34 184 A136 136 0 0 1 306 184" fill="none" stroke="url(#tezz-spectrum)" strokeWidth="13" strokeLinecap="round" filter="url(#tezz-glow)"/>
+                {Array.from({length:17},(_,i)=>{const angle=(-180+i*11.25)*Math.PI/180;const x1=170+112*Math.cos(angle),y1=184+112*Math.sin(angle),x2=170+126*Math.cos(angle),y2=184+126*Math.sin(angle);return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={i<5?'#19e9f2':i<10?'#8e6aff':i<14?'#d14cff':'#ff4777'} strokeWidth={i%2===0?3:2} strokeLinecap="round"/>})}
+                {state==='running'&&<g transform={`rotate(${-90+(Math.min(Math.max(gaugeSpeed,0),300)/300)*180} 170 184)`}><path d="M170 184 L170 65" stroke="#eaffff" strokeWidth="3" strokeLinecap="round" filter="url(#tezz-glow)"/><circle cx="170" cy="184" r="6" fill="#fff" stroke="#24e7f0" strokeWidth="3"/></g>}
+              </svg>
+              <button className={`tezz-go ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={27} fill="currentColor"/><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'…'):result?result.download:'GO'}</strong><span>{state==='running'?'Mbps':result?'Mbps':'Start Test'}</span></button>
+              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><strong>{(downloadBytes/1_000_000).toFixed(1)} / 100 MB</strong></div>}
+              {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
+            </div>
+            <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Your Internet Health</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your connection has been measured. Review your results for browsing, streaming and gaming.':'Run a test to see how your connection performs for browsing, streaming and gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
+            <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 90" preserveAspectRatio="none"><defs><linearGradient id="wave-spectrum"><stop stopColor="#a12bff"/><stop offset=".5" stopColor="#00d8ff"/><stop offset="1" stopColor="#8a48ff"/></linearGradient></defs><path d="M0 48 C110 4 155 88 265 48 S420 8 530 48 S700 88 800 43 S920 8 1000 45" fill="none" stroke="url(#wave-spectrum)" strokeWidth="2" strokeDasharray="2 7"/></svg></div>
           </section>
-
+          <section className="tezz-stat-grid">
+            <div className="tezz-stat cyan"><ArrowDown/><span>Download</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
+            <div className="tezz-stat violet"><ArrowUp/><span>Upload</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
+            <div className="tezz-stat green"><ArrowLeftRight/><span>Ping</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
+            <div className="tezz-stat red"><Activity/><span>Jitter</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
+          </section>
+          <section className="tezz-feature-grid">
+            <button onClick={()=>setActiveTab('Internet Doctor')}><Stethoscope/><strong>Internet Doctor</strong><span>Find and fix internet problems</span><b>›</b></button>
+            <button onClick={()=>setActiveTab('Network')}><ArrowLeftRight/><strong>Ping Test</strong><span>Check your latency</span><b>›</b></button>
+            <button onClick={()=>setActiveTab('Network')}><Wifi/><strong>Wi-Fi Test</strong><span>Test your Wi-Fi performance</span><b>›</b></button>
+            <button onClick={()=>setActiveTab('History')}><Grid2X2/><strong>More Tools</strong><span>Explore all network tools</span><b>›</b></button>
+          </section>
+          </>}
           {activeTab === 'Network' && <section className="network-intel-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ NETWORK INTELLIGENCE</div><h2>Know what your browser can see.</h2><p>Live device connectivity signals and network estimates, refreshed when the connection changes.</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
             <div className="network-intel-grid">
@@ -286,26 +301,6 @@ function App() {
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
-          <section className="test-panel">
-            <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>100 MB download test, then upload and app connectivity checks.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
-            <div className="speed-layout">
-              <div className="speed-gauge">
-                <div className={`gauge-halo ${state === 'running' ? 'is-live' : ''}`}><svg className="gauge-ticks" viewBox="0 0 200 200" aria-hidden="true">{Array.from({ length: 13 }, (_, index) => <line key={index} x1="100" y1="12" x2="100" y2={index % 3 === 0 ? "22" : "17"} transform={`rotate(${-135 + index * 22.5} 100 100)`} />)}</svg><div className="gauge-inner"><span className="gauge-label">{state === 'running' && liveSpeed > 0 ? 'LIVE DOWNLOAD' : 'DOWNLOAD'}</span><strong>{state === 'running' ? (liveSpeed > 0 ? liveSpeed.toFixed(1) : '…') : result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div><svg className="gauge-needle-svg" viewBox="0 0 200 200" aria-hidden="true" style={{ transform: `rotate(${needleAngle}deg)` }}><path d="M100 100 L100 31" /><circle cx="100" cy="100" r="5" /></svg></div>
-                {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 100 MB received</strong>}</div>}
-                <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? (servicePhase === 'running' ? 'Checking apps…' : 'Testing speed…') : state === 'complete' ? 'Run again' : 'GO — Start full test'}</button>
-                {state === 'running' && <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>}
-                {state === 'error' && <p className="error-note">Speed test service is not deployed yet. The interface is ready; deploy the Worker to enable live measurements.</p>}
-              </div>
-              <div className="metrics-grid">
-                <Metric icon={<ArrowDown size={17} />} label="Download" value={result ? result.download.toString() : '—'} unit="Mbps" tone="cyan" />
-                <Metric icon={<ArrowUp size={17} />} label="Upload" value={result ? result.upload.toString() : '—'} unit="Mbps" tone="violet" />
-                <Metric icon={<Clock3 size={17} />} label="HTTP latency" value={result ? result.ping.toString() : '—'} unit="ms" tone="mint" />
-                <Metric icon={<Activity size={17} />} label="HTTP jitter" value={result ? result.jitter.toString() : '—'} unit="ms" tone="amber" />
-              </div>
-            </div>
-            <div className="panel-foot"><span><ShieldCheck size={15} /> No account required · Approx. 101 MB per full test</span><span><RefreshCw size={14} /> HTTP timing estimates vary by device, edge location and network</span></div>
-          </section>
-
           <section className="services-panel">
             <div className="services-heading"><div><div className="section-kicker">APP & PLATFORM CONNECTIVITY</div><h2>Your everyday apps, checked.</h2><p>Automatically tested after the speed test completes.</p></div><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span></div>
             <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Reachable' ? 'reachable' : item?.status === 'Unavailable' ? 'unavailable' : ''}`}>{item ? item.status === 'Reachable' ? `Reachable · ${item.ms} ms` : 'Not verified' : 'Not tested yet'}</div></div> })}</div>
