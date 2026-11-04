@@ -10,7 +10,8 @@ type TestResult = { download: number; upload: number; ping: number; jitter: numb
 type ServiceResult = { name: string; status: 'Checking' | 'Reachable' | 'Unavailable'; ms?: number }
 const services = [{ name: 'Facebook', host: 'https://www.facebook.com/favicon.ico', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', host: 'https://www.instagram.com/favicon.ico', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', host: 'https://www.youtube.com/favicon.ico', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', host: 'https://www.whatsapp.com/favicon.ico', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', host: 'https://www.netflix.com/favicon.ico', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', host: 'https://www.google.com/favicon.ico', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', host: 'https://x.com/favicon.ico', icon: 'https://cdn.simpleicons.org/x/FFFFFF' }, { name: 'TikTok', host: 'https://www.tiktok.com/favicon.ico', icon: 'https://cdn.simpleicons.org/tiktok/FFFFFF' }]
 
-const downloadUrl = '/api/speed/download?bytes=5000000'
+const DOWNLOAD_BYTES = 100_000_000
+const downloadUrl = `/api/speed/download?bytes=${DOWNLOAD_BYTES}`
 const uploadUrl = '/api/speed/upload'
 
 async function measurePing(): Promise<{ ping: number; jitter: number }> {
@@ -285,11 +286,11 @@ function App() {
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
           <section className="test-panel">
-            <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>Speed first, then automatically checks popular apps and services.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
+            <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>100 MB download test, then upload and app connectivity checks.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
             <div className="speed-layout">
               <div className="speed-gauge">
                 <div className={`gauge-halo ${state === 'running' ? 'is-live' : ''}`}><svg className="gauge-ticks" viewBox="0 0 200 200" aria-hidden="true">{Array.from({ length: 31 }, (_, index) => <line key={index} x1="100" y1="13" x2="100" y2={index % 5 === 0 ? "24" : "19"} transform={`rotate(${-135 + index * 9} 100 100)`} />)}</svg><div className="gauge-needle" style={{ transform: `rotate(${needleAngle}deg)` }} aria-hidden="true"><span /></div><div className="gauge-inner"><span className="gauge-label">{state === 'running' && liveSpeed > 0 ? 'LIVE DOWNLOAD' : 'DOWNLOAD'}</span><strong>{state === 'running' ? (liveSpeed > 0 ? liveSpeed.toFixed(1) : '…') : result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
-                {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 5.0 MB received</strong>}</div>}
+                {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 100 MB received</strong>}</div>}
                 <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? (servicePhase === 'running' ? 'Checking apps…' : 'Testing speed…') : state === 'complete' ? 'Run again' : 'GO — Start full test'}</button>
                 {state === 'running' && <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>}
                 {state === 'error' && <p className="error-note">Speed test service is not deployed yet. The interface is ready; deploy the Worker to enable live measurements.</p>}
@@ -312,8 +313,8 @@ function App() {
 
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
-            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Reachable').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 6 MB</strong></div></div>
-            <p className="report-note">This report combines a 5 MB download, 1 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Reachable').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 101 MB</strong></div></div>
+            <p className="report-note">This report combines a 100 MB download, 1 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
