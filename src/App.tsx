@@ -73,8 +73,8 @@ function App() {
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
-  const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string }>({
-    type: 'Checking', downlink: '—', rtt: '—'
+  const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string; online: boolean; saveData: boolean; supported: boolean }>({
+    type: 'Checking', downlink: '—', rtt: '—', online: navigator.onLine, saveData: false, supported: false
   })
 
   useEffect(() => {
@@ -82,12 +82,25 @@ function App() {
   }, [history])
 
   useEffect(() => {
-    const connection = (navigator as Navigator & { connection?: { effectiveType?: string; downlink?: number; rtt?: number } }).connection
-    setNetwork({
-      type: connection?.effectiveType?.toUpperCase() ?? 'Browser limited',
-      downlink: connection?.downlink ? `${connection.downlink} Mbps` : 'Not reported',
-      rtt: connection?.rtt ? `${connection.rtt} ms` : 'Not reported',
+    type NetworkConnection = EventTarget & { effectiveType?: string; downlink?: number; rtt?: number; saveData?: boolean }
+    const connection = (navigator as Navigator & { connection?: NetworkConnection }).connection
+    const refresh = () => setNetwork({
+      type: connection?.effectiveType?.toUpperCase() ?? 'Not exposed by browser',
+      downlink: typeof connection?.downlink === 'number' ? `${connection.downlink} Mbps` : 'Not reported',
+      rtt: typeof connection?.rtt === 'number' ? `${connection.rtt} ms` : 'Not reported',
+      online: navigator.onLine,
+      saveData: connection?.saveData ?? false,
+      supported: Boolean(connection),
     })
+    refresh()
+    window.addEventListener('online', refresh)
+    window.addEventListener('offline', refresh)
+    connection?.addEventListener('change', refresh)
+    return () => {
+      window.removeEventListener('online', refresh)
+      window.removeEventListener('offline', refresh)
+      connection?.removeEventListener('change', refresh)
+    }
   }, [])
 
   const quality = useMemo(() => {
@@ -164,6 +177,18 @@ function App() {
             <div className="welcome-orbit"><div className="orbit-ring ring-one" /><div className="orbit-ring ring-two" /><div className="orbit-core"><Wifi size={34} /></div><span className="orbit-dot dot-one" /><span className="orbit-dot dot-two" /></div>
           </section>
 
+          {activeTab === 'Network' && <section className="network-intel-panel">
+            <div className="doctor-heading"><div><div className="section-kicker">TEZZ NETWORK INTELLIGENCE</div><h2>Know what your browser can see.</h2><p>Live device connectivity signals and network estimates, refreshed when the connection changes.</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
+            <div className="network-intel-grid">
+              <div className="network-primary"><span className={network.online ? 'finding-dot good' : 'finding-dot alert'} /><div><span className="section-kicker">INTERNET REACHABILITY</span><strong>{network.online ? 'Browser reports online' : 'Browser reports offline'}</strong><p>{network.online ? 'Your device reports an active network connection. This does not guarantee that every website is reachable.' : 'Your device reports no active network connection. Check Wi-Fi or mobile data, then reconnect.'}</p></div></div>
+              <div className="network-detail"><span>Effective connection type</span><strong>{network.type}</strong></div>
+              <div className="network-detail"><span>Estimated downlink</span><strong>{network.downlink}</strong></div>
+              <div className="network-detail"><span>Estimated round-trip time</span><strong>{network.rtt}</strong></div>
+              <div className="network-detail"><span>Data saver preference</span><strong>{network.supported ? (network.saveData ? 'Enabled' : 'Not requested') : 'Not available'}</strong></div>
+            </div>
+            <div className="network-capabilities"><div><strong>Wi-Fi signal strength</strong><span>Not exposed by standard browser APIs</span></div><div><strong>Router / gateway details</strong><span>Not exposed to this webpage</span></div><div><strong>Live connection updates</strong><span>{network.supported ? 'Browser API available' : 'Limited browser support'}</span></div></div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Estimates are browser-provided and may be unavailable or rounded. For accurate Wi-Fi signal strength and router diagnostics, a native device-level test is required.</div>
+          </section>}
           {activeTab === 'Internet Doctor' && <section className="doctor-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ INTERNET DOCTOR</div><h2>Find out what is slowing you down.</h2><p>Use your latest speed test and browser network signals to identify likely connection issues.</p></div><span className="doctor-symbol"><Activity size={23}/></span></div>
             <div className="doctor-grid">
