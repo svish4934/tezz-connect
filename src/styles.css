@@ -65,3 +65,32 @@
 .live-test-caption{display:flex;flex-direction:column;align-items:center;gap:5px;margin-top:10px;text-align:center;color:#8fa1b8;font:9px 'DM Mono',monospace;letter-spacing:.3px}
 .live-test-caption strong{color:#63d9d6;font-weight:500}
 @keyframes live-gauge-pulse{0%,100%{filter:brightness(1);transform:scale(1)}50%{filter:brightness(1.2);transform:scale(1.025)}}
+
+
+/* Compact viewport support: Android browsers using desktop-site layout can report a
+   wider CSS viewport than the physical screen. Collapse the fixed workspace early. */
+@media(max-width:1100px){
+  .sidebar{display:none}
+  .main{margin-left:0;width:100%}
+  .topbar{padding-left:20px;padding-right:20px}
+  .content{padding-left:24px;padding-right:24px}
+}
+@media(max-width:1100px){
+  .speed-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:18px}
+  .welcome-orbit{margin-right:12px}
+}
+@media(max-width:760px){
+  .topbar{height:auto;min-height:58px;flex-wrap:wrap;padding:10px 14px;gap:8px}
+  .desktop-nav{order:3;flex-basis:100%;justify-content:space-between;overflow-x:auto}
+  .desktop-nav .nav-item{padding:8px 7px;font-size:10px}
+  .content{padding:22px 14px 18px}
+  .welcome{min-height:145px;padding:0 0 20px}
+  .welcome h1{font-size:clamp(27px,6vw,36px)}
+  .welcome-orbit{width:90px;height:95px;transform:scale(.72);margin:0}
+  .speed-layout{grid-template-columns:1fr;gap:18px;padding:20px 0}
+  .gauge-halo{width:170px;height:170px}
+  .metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lower-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .report-summary{grid-template-columns:1fr}
+}
