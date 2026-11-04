@@ -118,3 +118,9 @@
 .gauge-needle span{width:17px!important;height:17px!important;bottom:-8px!important;border-width:3px!important;background:radial-gradient(circle at 35% 30%,#fff,#b9faff 55%,#22d3ee)!important;box-shadow:0 0 0 4px #22d3ee22,0 0 18px #22d3eeaa!important}
 .gauge-halo.is-live{animation:none!important;box-shadow:0 0 32px #44d9d52a!important}
 @media(prefers-reduced-motion:reduce){.gauge-needle{transition:none!important}}
+
+
+/* Correct pivot: needle rotates around the dial centre, like a real instrument. */
+.gauge-needle{position:absolute!important;z-index:10!important;top:50%!important;left:50%!important;bottom:auto!important;width:0!important;height:0!important;margin:0!important;transform-origin:0 0!important;transition:transform .42s cubic-bezier(.2,.75,.25,1)!important;pointer-events:none}
+.gauge-needle::before{content:"";position:absolute;left:-2.5px;bottom:0;width:5px;height:67px;background:linear-gradient(to top,#22D3EE 0%,#FFFFFF 88%);clip-path:polygon(50% 0,100% 100%,50% 91%,0 100%);filter:drop-shadow(0 0 5px #22d3eeaa)}
+.gauge-needle span{position:absolute!important;left:0!important;top:0!important;bottom:auto!important;width:16px!important;height:16px!important;margin:-8px 0 0 -8px!important;transform:none!important;border-radius:50%!important;background:radial-gradient(circle at 35% 30%,#fff,#b9faff 55%,#22d3ee)!important;border:3px solid #22D3EE!important;box-shadow:0 0 0 4px #22d3ee22,0 0 18px #22d3eeaa!important}
