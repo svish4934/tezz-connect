@@ -236,7 +236,7 @@ function App() {
           </nav>
           <div className="tezz-header-actions"><button aria-label="Search"><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
         </header>
-        <div className="content">
+        <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
           <section className="tezz-hero">
             <div className="tezz-hero-copy">
