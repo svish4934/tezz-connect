@@ -23,15 +23,26 @@ export default {
     if (url.pathname === "/api/speed/download") {
       if (request.method !== "GET") return json("Method not allowed", 405)
       const requested = Number(url.searchParams.get("bytes") ?? "1000000")
-      if (!Number.isFinite(requested) || requested < 1 || requested > 5_000_000) {
-        return json("Download size must be between 1 byte and 5 MB", 400)
+      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 100_000_000) {
+        return json("Download size must be between 1 byte and 100 MB", 400)
       }
-      const bytes = new Uint8Array(Math.floor(requested))
-      for (let offset = 0; offset < bytes.length; offset += 65_536) {
-        crypto.getRandomValues(bytes.subarray(offset, Math.min(offset + 65_536, bytes.length)))
-      }
-      return new Response(bytes, {
-        headers: { ...noStore, "Content-Type": "application/octet-stream", "Content-Length": String(bytes.byteLength) },
+      const totalBytes = requested
+      let sentBytes = 0
+      const stream = new ReadableStream<Uint8Array>({
+        pull(controller) {
+          if (sentBytes >= totalBytes) {
+            controller.close()
+            return
+          }
+          const chunkSize = Math.min(65_536, totalBytes - sentBytes)
+          const chunk = new Uint8Array(chunkSize)
+          crypto.getRandomValues(chunk)
+          sentBytes += chunkSize
+          controller.enqueue(chunk)
+        },
+      })
+      return new Response(stream, {
+        headers: { ...noStore, "Content-Type": "application/octet-stream", "Content-Length": String(totalBytes) },
       })
     }
 
