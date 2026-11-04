@@ -37,9 +37,8 @@ async function measureDownload(): Promise<number> {
 
 async function measureUpload(): Promise<number> {
   const payload = new Uint8Array(1_000_000)
-  crypto.getRandomValues(payload.subarray(0, 65_536))
-  for (let i = 65_536; i < payload.length; i += 65_536) {
-    payload.set(payload.subarray(0, Math.min(65_536, payload.length - i)), i)
+  for (let offset = 0; offset < payload.length; offset += 65_536) {
+    crypto.getRandomValues(payload.subarray(offset, Math.min(offset + 65_536, payload.length)))
   }
   const start = performance.now()
   const response = await fetch(uploadUrl, {
