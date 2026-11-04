@@ -27,10 +27,8 @@ export default {
         return json("Download size must be between 1 byte and 5 MB", 400)
       }
       const bytes = new Uint8Array(Math.floor(requested))
-      crypto.getRandomValues(bytes.subarray(0, Math.min(bytes.length, 65_536)))
-      for (let offset = 65_536; offset < bytes.length; offset += 65_536) {
-        const length = Math.min(65_536, bytes.length - offset)
-        bytes.set(bytes.subarray(0, length), offset)
+      for (let offset = 0; offset < bytes.length; offset += 65_536) {
+        crypto.getRandomValues(bytes.subarray(offset, Math.min(offset + 65_536, bytes.length)))
       }
       return new Response(bytes, {
         headers: { ...noStore, "Content-Type": "application/octet-stream", "Content-Length": String(bytes.byteLength) },
