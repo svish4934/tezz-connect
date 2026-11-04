@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
-  Activity, ArrowDown, ArrowUp, CheckCircle2, ChevronDown, CircleHelp, ClipboardCopy,
-  Clock3, Gauge, History, Monitor, Play, RefreshCw, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
+  Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy,
+  Gauge, History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
   ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
 
@@ -100,7 +100,6 @@ function App() {
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
   const gaugeSpeed = state === 'running' ? liveSpeed : (result?.download ?? 0)
-  const needleAngle = -135 + (Math.min(Math.max(gaugeSpeed, 0), 100) / 100) * 270
   const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string; online: boolean; saveData: boolean; supported: boolean }>({
     type: 'Checking', downlink: '—', rtt: '—', online: navigator.onLine, saveData: false, supported: false
   })
@@ -215,12 +214,7 @@ function App() {
     }
   }
 
-  const navItems = [
-    { label: 'Overview', icon: Gauge },
-    { label: 'Internet Doctor', icon: Activity },
-    { label: 'Network', icon: Wifi },
-    { label: 'History', icon: History },
-  ]
+
 
   return (
     <div className="app-shell">
@@ -254,7 +248,7 @@ function App() {
                 {state==='running'&&<g transform={`rotate(${-90+(Math.min(Math.max(gaugeSpeed,0),300)/300)*180} 170 184)`}><path d="M170 184 L170 65" stroke="#eaffff" strokeWidth="3" strokeLinecap="round" filter="url(#tezz-glow)"/><circle cx="170" cy="184" r="6" fill="#fff" stroke="#24e7f0" strokeWidth="3"/></g>}
               </svg>
               <button className={`tezz-go ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={27} fill="currentColor"/><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'…'):result?result.download:'GO'}</strong><span>{state==='running'?'Mbps':result?'Mbps':'Start Test'}</span></button>
-              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><strong>{(downloadBytes/1_000_000).toFixed(1)} / 100 MB</strong></div>}
+              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span><strong>{(downloadBytes/1_000_000).toFixed(1)} / 100 MB</strong></div>}
               {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
             </div>
             <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Your Internet Health</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your connection has been measured. Review your results for browsing, streaming and gaming.':'Run a test to see how your connection performs for browsing, streaming and gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
@@ -339,10 +333,6 @@ function App() {
       </main>
     </div>
   )
-}
-
-function Metric({ icon, label, value, unit, tone }: { icon: ReactNode; label: string; value: string; unit: string; tone: string }) {
-  return <div className="metric"><div className={`metric-icon ${tone}`}>{icon}</div><div><span>{label}</span><strong>{value}<small> {unit}</small></strong></div></div>
 }
 
 export default App
