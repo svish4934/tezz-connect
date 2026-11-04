@@ -99,7 +99,6 @@ function App() {
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
-  const gaugeSpeed = state === 'running' ? liveSpeed : (result?.download ?? 0)
   const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string; online: boolean; saveData: boolean; supported: boolean }>({
     type: 'Checking', downlink: '—', rtt: '—', online: navigator.onLine, saveData: false, supported: false
   })
