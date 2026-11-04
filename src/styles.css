@@ -617,3 +617,111 @@ html,body{overflow-x:hidden!important}
 .tezz-dial-stage .tezz-needle{position:absolute!important;left:50%!important;top:auto!important;bottom:50%!important;transform-origin:50% 100%!important}
 .tezz-live-progress{margin:12px auto 0!important;line-height:1.4}
 @media(max-width:520px){.tezz-dial-stage{width:min(100%,430px)!important}.tezz-dial-stage .tezz-go{top:66%!important;width:clamp(116px,34vw,142px)!important;height:clamp(116px,34vw,142px)!important}}
+\n
+
+
+/* TEZZ CONNECT — professional warm off-white visual system */
+:root{
+  color-scheme:light;
+  --tezz-navy:#101d3a;
+  --tezz-blue:#1268d8;
+  --tezz-cyan:#36b9ef;
+  --tezz-violet:#7955e8;
+  --tezz-mint:#20b982;
+  --tezz-red:#e85b62;
+  --tezz-white:#ffffff;
+  --tezz-slate:#68758b;
+  font-family:Manrope,system-ui,sans-serif;
+  color:#101d3a;
+  background:#faf8f3;
+}
+html,body,#root,.app-shell,.main.tezz-main{background:#faf8f3!important;color:#101d3a!important}
+body{background:#faf8f3!important}
+.tezz-main{min-height:100vh!important;background:#faf8f3!important}
+.tezz-main .content{max-width:1480px!important;padding:0 42px 36px!important}
+.tezz-header{height:78px!important;padding:0 4.5%!important;background:rgba(255,255,255,.94)!important;border-bottom:1px solid #e9e5de!important;box-shadow:0 3px 18px rgba(16,29,58,.045)!important;backdrop-filter:blur(14px)}
+.tezz-logo-word{color:#101d3a!important}
+.tezz-logo-word span{color:#1268d8!important}
+.tezz-logo i{border-top-color:#e84961!important}
+.tezz-nav button,.tezz-header-actions button{color:#182744!important}
+.tezz-nav button.selected{background:linear-gradient(110deg,#1678ed,#0848b8)!important;color:#fff!important;box-shadow:0 5px 14px rgba(18,104,216,.2)!important}
+.tezz-header-actions button{border-color:#e5eaf2!important;background:#fff!important}
+.tezz-header-actions .tezz-menu{color:#1268d8!important;border-color:#d7e5f8!important}
+.tezz-hero{background:radial-gradient(ellipse at 75% 12%,rgba(68,166,255,.13),transparent 38%),linear-gradient(115deg,#fffdf9 0%,#f7f9fd 100%)!important;border:1px solid #eeeae2!important;border-radius:26px!important;margin:22px 0 20px!important;padding:34px 28px 54px!important;box-shadow:0 12px 35px rgba(25,48,85,.055)!important}
+.tezz-pill{background:#e6f3ff!important;color:#1058b6!important;box-shadow:none!important;border:1px solid #cfe7ff!important}
+.tezz-hero-copy h1{color:#101d3a!important}
+.tezz-hero-copy h1 em{color:#1268d8!important}
+.tezz-hero-copy p,.tezz-hero-copy li{color:#46536b!important}
+.tezz-hero-copy li svg{color:#1268d8!important;fill:#1268d8!important;stroke:#fff!important}
+.tezz-dial-stage .tezz-arc{filter:drop-shadow(0 8px 12px rgba(18,104,216,.12))!important}
+.tezz-dial-stage .tezz-arc path:first-of-type{stroke:#dce7f5!important}
+.tezz-dial-stage .tezz-arc path:nth-of-type(2){stroke:url(#tezz-spectrum)!important;filter:none!important}
+.tezz-go{background:radial-gradient(circle at 35% 25%,#fff,#edf5ff 78%)!important;border:2px solid #2b8ce8!important;box-shadow:0 0 0 5px rgba(18,104,216,.08),0 12px 28px rgba(18,104,216,.18),inset 0 0 18px rgba(18,104,216,.08)!important;color:#101d3a!important}
+.tezz-go-icon{color:#1268d8!important;filter:none!important}
+.tezz-go strong{color:#101d3a!important;text-shadow:none!important}
+.tezz-go>span:not(.tezz-needle){color:#52617a!important;text-shadow:none!important}
+.tezz-needle{background:linear-gradient(to top,#1268d8,#36b9ef)!important;box-shadow:0 0 6px rgba(18,104,216,.4)!important}
+.tezz-needle::after{background:#fff!important;border-color:#1268d8!important;box-shadow:0 0 7px rgba(18,104,216,.35)!important}
+.tezz-live-progress{color:#1268d8!important}
+.tezz-health-card{background:rgba(255,255,255,.94)!important;border:1px solid #e5eaf2!important;box-shadow:0 12px 30px rgba(16,29,58,.09)!important}
+.tezz-health-title{color:#101d3a!important}
+.tezz-health-title svg{color:#1268d8!important;fill:none!important}
+.tezz-health-badge{background:#d9f8ec!important;color:#087b57!important}
+.tezz-health-badge.pending{background:#e8f2ff!important;color:#175db6!important}
+.tezz-health-card p{color:#53617a!important}
+.tezz-signal-bars i{background:#20b982!important;box-shadow:none!important}
+.tezz-wave{opacity:.22!important}
+.tezz-stat{background:#fff!important;border:1px solid #e7ebf2!important;box-shadow:0 6px 18px rgba(16,29,58,.055)!important}
+.tezz-stat>span{color:#68758b!important}
+.tezz-stat strong{color:#101d3a!important}
+.tezz-stat.cyan,.tezz-stat.violet,.tezz-stat.green,.tezz-stat.red{border-color:#e7ebf2!important;box-shadow:0 6px 18px rgba(16,29,58,.055)!important}
+.tezz-stat.cyan>svg{color:#1268d8!important}.tezz-stat.violet>svg{color:#7955e8!important}.tezz-stat.green>svg{color:#20b982!important}.tezz-stat.red>svg{color:#e58a35!important}
+.tezz-feature-grid button{background:#fff!important;border:1px solid #e7ebf2!important;color:#101d3a!important;box-shadow:0 6px 18px rgba(16,29,58,.05)!important;transition:transform .18s ease,box-shadow .18s ease}
+.tezz-feature-grid button:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,29,58,.09)!important}
+.tezz-feature-grid button>svg{color:#1268d8!important}.tezz-feature-grid button:nth-child(2)>svg{color:#7955e8!important}.tezz-feature-grid button:nth-child(3)>svg{color:#1268d8!important}.tezz-feature-grid button:nth-child(4)>svg{color:#20b982!important}
+.tezz-feature-grid span{color:#68758b!important}
+.home-content .services-panel{display:block!important}
+.tezz-social-panel{margin:22px 0 28px!important;padding:25px!important;background:#fff!important;border:1px solid #e7ebf2!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(16,29,58,.055)!important}
+.tezz-social-panel .services-heading{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;margin-bottom:20px!important}
+.tezz-social-panel .services-heading h2{color:#101d3a!important;margin:7px 0!important;font-size:clamp(21px,2.4vw,28px)!important;letter-spacing:-.7px}
+.tezz-social-panel .services-heading p{color:#68758b!important;margin:0!important}
+.tezz-social-panel .section-kicker{color:#1268d8!important}
+.social-heading-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.services-live{color:#1268d8!important;background:#edf5ff!important;border:1px solid #d9eaff!important;border-radius:30px!important;padding:8px 12px!important;font-size:10px!important;letter-spacing:1px!important}
+.social-check-button{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:999px;padding:12px 19px;background:linear-gradient(110deg,#1678ed,#0848b8);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 6px 16px rgba(18,104,216,.18)}
+.social-check-button:disabled{opacity:.65;cursor:wait}
+.tezz-social-panel .services-grid{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;gap:10px!important}
+.tezz-social-panel .service-tile{min-width:0!important;padding:15px 8px!important;text-align:center!important;background:#fbfcff!important;border:1px solid #e9eef6!important;border-radius:15px!important}
+.tezz-social-panel .service-logo{margin:0 auto 9px!important;width:38px!important;height:38px!important;display:grid!important;place-items:center!important;border-radius:12px!important;background:#fff!important}
+.tezz-social-panel .service-logo img{width:26px!important;height:26px!important;object-fit:contain!important}
+.tezz-social-panel .service-name{color:#182744!important;font-weight:800!important;font-size:12px!important}
+.tezz-social-panel .service-status{color:#8490a3!important;font-size:10px!important;margin-top:5px!important}
+.tezz-social-panel .service-status.reachable{color:#07865d!important}
+.tezz-social-panel .service-status.unavailable{color:#bd5960!important}
+.tezz-social-panel .service-note{color:#7a8597!important;font-size:11px!important;line-height:1.6!important;margin-top:15px!important}
+.tezz-main .content:not(.home-content){padding-top:36px!important}
+.tezz-main footer{display:flex!important;justify-content:space-between!important;gap:16px!important;padding:22px 8px!important;color:#748097!important;border-top:1px solid #e9e5de!important;font-size:11px!important}
+.doctor-panel,.network-intel-panel,.report-panel,.history-panel,.history-strip,.lower-grid{color:#101d3a}
+.tezz-main .content:not(.home-content) h2{color:#101d3a}
+.tezz-main .content:not(.home-content) p{color:#68758b}
+@media(max-width:1050px){
+ .tezz-main .content{padding:0 22px 30px!important}
+ .tezz-hero{padding:28px 20px 48px!important}
+ .tezz-social-panel .services-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+ .tezz-header{background:rgba(255,255,255,.97)!important}
+ .tezz-main .content{padding:0 14px 25px!important}
+ .tezz-hero{margin:14px 0 15px!important;padding:23px 12px 38px!important;border-radius:20px!important}
+ .tezz-hero-copy h1{color:#101d3a!important}
+ .tezz-meter-wrap{min-height:0!important}
+ .tezz-social-panel{padding:18px 13px!important;margin:18px 0 22px!important;border-radius:18px!important}
+ .tezz-social-panel .services-heading{align-items:flex-start!important;flex-direction:column!important}
+ .social-heading-actions{width:100%;justify-content:space-between}
+ .tezz-social-panel .services-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .tezz-social-panel .service-tile{display:grid!important;grid-template-columns:38px minmax(0,1fr)!important;grid-template-rows:auto auto!important;column-gap:10px!important;text-align:left!important;align-items:center!important;padding:11px!important}
+ .tezz-social-panel .service-logo{grid-row:1/3;margin:0!important}
+ .tezz-social-panel .service-name{align-self:end!important}
+ .tezz-social-panel .service-status{align-self:start!important;margin-top:2px!important}
+ .tezz-main footer{flex-direction:column!important;align-items:center!important;text-align:center!important}
+}
