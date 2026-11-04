@@ -26,13 +26,30 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
   return { ping, jitter }
 }
 
-async function measureDownload(): Promise<number> {
+async function measureDownload(onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
   const start = performance.now()
   const response = await fetch(downloadUrl, { cache: 'no-store' })
   if (!response.ok) throw new Error('Download test endpoint unavailable')
-  const data = await response.arrayBuffer()
+  if (!response.body) {
+    const data = await response.arrayBuffer()
+    const seconds = (performance.now() - start) / 1000
+    const mbps = (data.byteLength * 8) / Math.max(seconds, 0.001) / 1_000_000
+    onSample(mbps, data.byteLength)
+    return mbps
+  }
+  const reader = response.body.getReader()
+  let receivedBytes = 0
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    receivedBytes += value.byteLength
+    const seconds = (performance.now() - start) / 1000
+    const mbps = (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
+    onSample(mbps, receivedBytes)
+  }
+  if (!receivedBytes) throw new Error('Download test returned no data')
   const seconds = (performance.now() - start) / 1000
-  return (data.byteLength * 8) / seconds / 1_000_000
+  return (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
 }
 
 async function measureUpload(): Promise<number> {
@@ -72,6 +89,9 @@ function loadHistory(): TestResult[] {
 function App() {
   const [state, setState] = useState<TestState>('idle')
   const [progress, setProgress] = useState(0)
+  const [liveSpeed, setLiveSpeed] = useState(0)
+  const [downloadBytes, setDownloadBytes] = useState(0)
+  const [testPhase, setTestPhase] = useState('Ready to test')
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
   const [reportMessage, setReportMessage] = useState('')
@@ -152,16 +172,25 @@ function App() {
     if (state === 'running') return
     setState('running')
     setProgress(8)
+    setLiveSpeed(0)
+    setDownloadBytes(0)
+    setTestPhase('Measuring HTTP latency')
     setServicePhase('idle')
     setServiceResults([])
     setResult(null)
     try {
       const latency = await measurePing()
       setProgress(32)
-      const download = await measureDownload()
+      setTestPhase('Measuring live download throughput')
+      const download = await measureDownload((mbps, bytes) => {
+        setLiveSpeed(Number(mbps.toFixed(1)))
+        setDownloadBytes(bytes)
+      })
       setProgress(68)
+      setTestPhase('Measuring upload throughput')
       const upload = await measureUpload()
       setProgress(72)
+      setTestPhase('Checking public app endpoints')
       setServicePhase('running')
       setServiceResults(services.map(service => ({ name: service.name, status: 'Checking' })))
       const checks = await Promise.all(services.map(checkService))
@@ -172,8 +201,10 @@ function App() {
       setResult(next)
       setHistory(current => [next, ...current].slice(0, 50))
       setProgress(100)
+      setTestPhase('Test complete')
       setState('complete')
     } catch {
+      setTestPhase('Test could not complete')
       setState('error')
       setServicePhase('idle')
       setProgress(0)
@@ -255,7 +286,8 @@ function App() {
             <div className="panel-heading"><div><div className="section-kicker">COMPLETE INTERNET HEALTH CHECK</div><h2>One tap. Your whole internet picture.</h2><p>Speed first, then automatically checks popular apps and services.</p></div><div className="test-status"><span className={state === 'running' ? 'pulse-dot' : 'live-dot'} />{state === 'running' ? 'TEST IN PROGRESS' : state === 'complete' ? 'TEST COMPLETE' : state === 'error' ? 'TEST UNAVAILABLE' : 'READY WHEN YOU ARE'}</div></div>
             <div className="speed-layout">
               <div className="speed-gauge">
-                <div className="gauge-halo"><div className="gauge-inner"><span className="gauge-label">DOWNLOAD</span><strong>{result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
+                <div className={`gauge-halo ${state === 'running' ? 'is-live' : ''}`}><div className="gauge-inner"><span className="gauge-label">{state === 'running' && liveSpeed > 0 ? 'LIVE DOWNLOAD' : 'DOWNLOAD'}</span><strong>{state === 'running' ? (liveSpeed > 0 ? liveSpeed.toFixed(1) : '…') : result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
+                {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 5.0 MB received</strong>}</div>
                 <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? (servicePhase === 'running' ? 'Checking apps…' : 'Testing speed…') : state === 'complete' ? 'Run again' : 'GO — Start full test'}</button>
                 {state === 'running' && <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>}
                 {state === 'error' && <p className="error-note">Speed test service is not deployed yet. The interface is ready; deploy the Worker to enable live measurements.</p>}
