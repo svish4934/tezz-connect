@@ -519,3 +519,12 @@
  .tezz-feature-grid button>svg{left:12px;top:20px;width:31px;height:31px}
  .tezz-feature-grid strong{font-size:12px}.tezz-feature-grid span{font-size:10px}.tezz-wave{height:35px}
 }
+
+
+/* Visible speedometer needle: tracks live throughput and remains at the final measured value. */
+.tezz-go{isolation:isolate;overflow:visible}
+.tezz-needle{position:absolute;left:50%;top:50%;width:3px;height:48px;border-radius:4px;transform-origin:50% 100%;background:linear-gradient(to top,#eaffff 0%,#eaffff 72%,#22d3ee 100%);box-shadow:0 0 7px #22d3ee,0 0 15px #22d3ee88;z-index:0;transition:transform 180ms cubic-bezier(.2,.8,.2,1)}
+.tezz-go-icon,.tezz-go strong,.tezz-go>span:not(.tezz-needle){position:relative;z-index:1}
+.tezz-go-icon{filter:drop-shadow(0 0 5px #00eaff)}
+.tezz-go strong,.tezz-go>span:not(.tezz-needle){text-shadow:0 1px 4px #06101f}
+@media(prefers-reduced-motion:reduce){.tezz-needle{transition:none}}
