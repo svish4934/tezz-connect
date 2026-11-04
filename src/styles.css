@@ -496,3 +496,26 @@
  .tezz-feature-grid strong{font-size:12px}.tezz-feature-grid span{font-size:10px}
  .tezz-wave{height:35px}
 }
+
+
+/* Mobile-first breakpoint: prevent the desktop hero and four-column cards from shrinking on phones. */
+@media(max-width:760px){
+ .tezz-header{height:66px;padding:0 17px}.tezz-logo-word{font-size:22px}.tezz-logo i{width:68px;right:24px}
+ .tezz-nav{display:none}.tezz-header-actions button:first-child{display:none}
+ .tezz-main .content{padding:0 15px 28px}
+ .tezz-hero{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:24px 8px 50px;min-height:0}
+ .tezz-hero-copy{text-align:center}.tezz-pill{font-size:12px;padding:7px 14px}
+ .tezz-hero-copy h1{font-size:31px;letter-spacing:-1.2px;margin:14px 0 8px}
+ .tezz-hero-copy p{font-size:14px;max-width:340px;margin:0 auto 12px}.tezz-hero-copy ul{display:none}
+ .tezz-meter-wrap{width:100%;min-height:240px;padding-top:0;margin:0 auto}
+ .tezz-arc{width:min(100%,365px)}.tezz-go{width:128px;height:128px;top:52%}.tezz-go strong{font-size:35px}
+ .tezz-health-card{width:100%;min-height:0;padding:15px 16px}.tezz-health-title{font-size:13px}
+ .tezz-health-card p{font-size:12px;margin-bottom:8px;max-width:260px}.tezz-health-badge{margin:10px 0 7px 38px;font-size:14px}
+ .tezz-stat-grid{grid-template-columns:1fr 1fr;gap:10px;margin:0 0 17px}
+ .tezz-stat{min-height:77px;padding:12px 10px;grid-template-columns:34px 1fr;column-gap:8px}
+ .tezz-stat>svg{width:30px;height:30px}.tezz-stat>span{font-size:11px}.tezz-stat strong{font-size:19px}.tezz-stat small{font-size:10px}
+ .tezz-feature-grid{grid-template-columns:1fr 1fr;gap:10px}
+ .tezz-feature-grid button{min-height:108px;padding:14px 12px 13px 53px}
+ .tezz-feature-grid button>svg{left:12px;top:20px;width:31px;height:31px}
+ .tezz-feature-grid strong{font-size:12px}.tezz-feature-grid span{font-size:10px}.tezz-wave{height:35px}
+}
