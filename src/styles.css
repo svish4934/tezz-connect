@@ -608,3 +608,12 @@ html,body{overflow-x:hidden!important}
  .tezz-meter-wrap{width:100%!important;max-width:480px!important;margin:0 auto!important}
  .tezz-go{left:50%!important;top:52%!important}
 }
+
+/* Stable dial stage: anchor the readout to the gauge SVG itself. */
+.tezz-meter-wrap{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;min-height:0!important;gap:0!important}
+.tezz-dial-stage{position:relative!important;width:min(100%,480px)!important;margin:0 auto!important;line-height:0!important;isolation:isolate}
+.tezz-dial-stage .tezz-arc{display:block!important;width:100%!important;height:auto!important;max-width:none!important}
+.tezz-dial-stage .tezz-go{position:absolute!important;left:50%!important;top:66%!important;bottom:auto!important;transform:translate(-50%,-50%)!important;margin:0!important;z-index:5!important}
+.tezz-dial-stage .tezz-needle{position:absolute!important;left:50%!important;top:auto!important;bottom:50%!important;transform-origin:50% 100%!important}
+.tezz-live-progress{margin:12px auto 0!important;line-height:1.4}
+@media(max-width:520px){.tezz-dial-stage{width:min(100%,430px)!important}.tezz-dial-stage .tezz-go{top:66%!important;width:clamp(116px,34vw,142px)!important;height:clamp(116px,34vw,142px)!important}}
