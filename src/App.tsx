@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy,
   History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
