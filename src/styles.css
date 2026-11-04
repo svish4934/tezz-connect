@@ -60,3 +60,8 @@
 .report-note{margin:15px 0 0;padding-top:13px;border-top:1px solid #24384d;color:#8798ad;font-size:9px;line-height:1.7}
 .report-feedback{display:inline-block;margin-top:10px;color:var(--tezz-cyan);font-size:10px}
 @media(max-width:720px){.report-panel{padding:19px 15px}.report-heading h2{font-size:17px}.report-heading{align-items:flex-start}.report-copy{font-size:9px;padding:9px}.report-summary{grid-template-columns:1fr}.report-summary>div{display:flex;justify-content:space-between;align-items:center}.report-summary strong{font-size:16px}}
+
+.gauge-halo.is-live{animation:live-gauge-pulse 1.4s ease-in-out infinite;box-shadow:0 0 42px #44d9d54a}
+.live-test-caption{display:flex;flex-direction:column;align-items:center;gap:5px;margin-top:10px;text-align:center;color:#8fa1b8;font:9px 'DM Mono',monospace;letter-spacing:.3px}
+.live-test-caption strong{color:#63d9d6;font-weight:500}
+@keyframes live-gauge-pulse{0%,100%{filter:brightness(1);transform:scale(1)}50%{filter:brightness(1.2);transform:scale(1.025)}}
