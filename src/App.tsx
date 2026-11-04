@@ -188,6 +188,7 @@ function App() {
       const download = await measureDownload((mbps, bytes) => {
         setLiveSpeed(Number(mbps.toFixed(1)))
         setDownloadBytes(bytes)
+        setProgress(32 + Math.min(36, (bytes / DOWNLOAD_BYTES) * 36))
       })
       setProgress(68)
       setTestPhase('Measuring upload throughput')
@@ -302,7 +303,7 @@ function App() {
                 <Metric icon={<Activity size={17} />} label="HTTP jitter" value={result ? result.jitter.toString() : '—'} unit="ms" tone="amber" />
               </div>
             </div>
-            <div className="panel-foot"><span><ShieldCheck size={15} /> No account required</span><span><RefreshCw size={14} /> HTTP timing estimates vary by device, edge location and network</span></div>
+            <div className="panel-foot"><span><ShieldCheck size={15} /> No account required · Approx. 101 MB per full test</span><span><RefreshCw size={14} /> HTTP timing estimates vary by device, edge location and network</span></div>
           </section>
 
           <section className="services-panel">
