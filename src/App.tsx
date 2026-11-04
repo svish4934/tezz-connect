@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy,
-  Gauge, History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
+  History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
   ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
 
