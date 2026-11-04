@@ -746,3 +746,30 @@ body{background:#faf8f3!important}
 .tezz-digital-wrap .tezz-arc,.tezz-digital-wrap .tezz-dial-stage,.tezz-digital-wrap .tezz-go,.tezz-digital-wrap .tezz-needle{display:none!important}
 @media(max-width:760px){.tezz-digital-wrap{min-height:0!important;width:100%!important;max-width:100%!important}.tezz-digital-meter{min-height:190px!important}}
 @media(max-width:760px){.tezz-digital-wrap{gap:13px!important;padding:4px 0!important}.tezz-digital-meter{width:100%!important;min-height:180px!important;padding:23px 15px!important;border-radius:19px!important}.tezz-digital-reading strong{font-size:clamp(58px,17vw,78px)!important}.tezz-digital-reading span{font-size:16px!important}.tezz-digital-start{width:min(100%,290px)!important}.tezz-digital-caption{font-size:11px!important}}
+
+
+/* Desktop-site override: Android Chrome requests a ~980px CSS viewport in desktop mode.
+   Restore the full desktop composition at that width instead of tablet stacking. */
+@media(min-width:901px){
+  .tezz-header{height:78px!important;padding:0 3.2%!important;gap:14px!important}
+  .tezz-logo-word{font-size:clamp(20px,2vw,26px)!important}
+  .tezz-nav{display:flex!important;gap:2px!important;flex:1 1 auto!important;justify-content:center!important;min-width:0!important}
+  .tezz-nav button{padding:10px clamp(6px,.9vw,14px)!important;font-size:clamp(10px,1.05vw,14px)!important;white-space:nowrap!important}
+  .tezz-header-actions{display:flex!important;flex:none!important}
+  .tezz-header-actions button:first-child{display:flex!important}
+  .tezz-main .content{max-width:1480px!important;padding:0 clamp(18px,3vw,42px) 36px!important}
+  .tezz-hero{display:grid!important;grid-template-columns:minmax(190px,1fr) minmax(280px,1.18fr) minmax(180px,.82fr)!important;align-items:center!important;gap:clamp(12px,1.6vw,24px)!important;padding:30px clamp(16px,2vw,28px) 54px!important;min-height:370px!important}
+  .tezz-hero-copy{text-align:left!important;width:auto!important}
+  .tezz-hero-copy h1{font-size:clamp(27px,3.2vw,48px)!important}
+  .tezz-hero-copy p{max-width:350px!important;margin-left:0!important;margin-right:0!important}
+  .tezz-hero-copy ul{display:grid!important}
+  .tezz-digital-wrap{min-width:0!important;min-height:250px!important;max-width:none!important}
+  .tezz-digital-meter{width:100%!important;min-height:190px!important;padding:24px 12px!important}
+  .tezz-digital-reading strong{font-size:clamp(54px,6.2vw,88px)!important}
+  .tezz-digital-start{max-width:100%!important}
+  .tezz-health-card{grid-column:auto!important;align-self:center!important;width:100%!important;min-height:180px!important;padding:18px 14px!important}
+  .tezz-health-card p{max-width:none!important}
+  .tezz-stat-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+  .tezz-feature-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+  .tezz-social-panel .services-grid{grid-template-columns:repeat(8,minmax(0,1fr))!important}
+}
