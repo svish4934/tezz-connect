@@ -287,7 +287,7 @@ function App() {
             <div className="speed-layout">
               <div className="speed-gauge">
                 <div className={`gauge-halo ${state === 'running' ? 'is-live' : ''}`}><div className="gauge-inner"><span className="gauge-label">{state === 'running' && liveSpeed > 0 ? 'LIVE DOWNLOAD' : 'DOWNLOAD'}</span><strong>{state === 'running' ? (liveSpeed > 0 ? liveSpeed.toFixed(1) : '…') : result ? result.download : '—'}</strong><span className="gauge-unit">Mbps</span></div></div>
-                {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 5.0 MB received</strong></div>}
+                {state === 'running' && <div className="live-test-caption"><span>{testPhase}</span>{downloadBytes > 0 && <strong>{(downloadBytes / 1_000_000).toFixed(1)} / 5.0 MB received</strong>}</div>}
                 <button className="run-button" onClick={runTest} disabled={state === 'running'}><Play size={17} fill="currentColor" />{state === 'running' ? (servicePhase === 'running' ? 'Checking apps…' : 'Testing speed…') : state === 'complete' ? 'Run again' : 'GO — Start full test'}</button>
                 {state === 'running' && <div className="progress-track"><span style={{ width: `${progress}%` }} /></div>}
                 {state === 'error' && <p className="error-note">Speed test service is not deployed yet. The interface is ready; deploy the Worker to enable live measurements.</p>}
