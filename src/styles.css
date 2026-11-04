@@ -396,3 +396,103 @@
 .gauge-inner{background:radial-gradient(circle at 50% 35%,#14243b 0%,#091322 72%)!important;border-color:rgba(115,184,226,.22)!important}
 .gauge-unit{color:#62e8e2!important;text-shadow:0 0 10px rgba(35,227,229,.3)}
 .gauge-halo.is-live{box-shadow:0 0 0 1px rgba(93,213,255,.28),0 0 23px rgba(0,218,239,.34),0 0 40px rgba(142,77,255,.2),0 12px 28px rgba(0,0,0,.24)!important}
+
+
+/* APPROVED TEZZ CONNECT HOME — neon red/cyan speed-test landing page */
+.tezz-main{margin:0!important;width:100%!important;min-height:100vh;background:#030817}
+.tezz-main .content{max-width:1440px;padding:0 42px 38px}
+.tezz-header{height:76px;padding:0 5.5%;display:flex;align-items:center;justify-content:space-between;gap:24px;background:linear-gradient(180deg,#070d1e,#030817);border-bottom:1px solid #182541;position:relative;z-index:4}
+.tezz-logo{position:relative;display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;padding:8px 0 5px}
+.tezz-logo-word{font-size:26px;font-weight:900;font-style:italic;letter-spacing:-1.5px;color:#f7fbff}
+.tezz-logo-word span{color:#00e4ef}
+.tezz-logo i{position:absolute;width:83px;height:22px;border-top:4px solid #f52348;border-radius:70% 70% 0 0;right:29px;top:-1px;transform:rotate(-9deg)}
+.tezz-nav{display:flex;align-items:center;gap:8px}
+.tezz-nav button,.tezz-header-actions button{border:1px solid transparent;background:transparent;color:#f3f6ff;padding:11px 15px;border-radius:10px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.tezz-nav button.selected{background:linear-gradient(100deg,#f51e3d,#c9082e);box-shadow:0 5px 18px #ed1e453d}
+.tezz-header-actions{display:flex;align-items:center;gap:8px}
+.tezz-header-actions button{border-color:#34425c}
+.tezz-header-actions .tezz-menu{border-color:#f42a4b;color:#fff;font-size:12px;padding:9px 12px}
+.tezz-hero{position:relative;display:grid;grid-template-columns:minmax(250px,1fr) minmax(340px,1.2fr) minmax(220px,.82fr);align-items:center;gap:22px;min-height:390px;padding:30px 22px 60px;overflow:hidden;background:radial-gradient(ellipse at 54% 46%,rgba(11,38,83,.42),transparent 46%),linear-gradient(115deg,#050b1b,#030817 75%)}
+.tezz-hero-copy{position:relative;z-index:2;align-self:center}
+.tezz-pill{display:inline-flex;padding:8px 16px;border-radius:10px;background:linear-gradient(100deg,#ff2949,#d90b31);font-size:13px;font-weight:800;box-shadow:0 0 22px #f21c3e55}
+.tezz-hero-copy h1{font-size:clamp(34px,3.5vw,48px);line-height:1.08;letter-spacing:-1.8px;margin:18px 0 12px;font-weight:850;color:#fff}
+.tezz-hero-copy h1 em{font-style:normal;color:#00e5f0}
+.tezz-hero-copy p{max-width:330px;color:#e0e8f7;font-size:16px;line-height:1.5;margin:0 0 16px}
+.tezz-hero-copy ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.tezz-hero-copy li{display:flex;align-items:center;gap:9px;font-size:14px;color:#f2f6ff}
+.tezz-hero-copy li svg{color:#13e777;fill:#13e777;stroke:#061426}
+.tezz-meter-wrap{position:relative;z-index:2;min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:260px;padding-top:8px}
+.tezz-arc{width:min(100%,390px);height:auto;overflow:visible;filter:drop-shadow(0 0 12px #00cfff42)}
+.tezz-go{position:absolute;top:52%;left:50%;transform:translate(-50%,-50%);width:142px;height:142px;border-radius:50%;border:2px solid #00d9ff;background:radial-gradient(circle at 35% 25%,#102a50,#050c20 72%);box-shadow:0 0 0 5px #09152a,0 0 20px #00dfff8c,inset 0 0 22px #1475bd38;color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;cursor:pointer}
+.tezz-go svg{color:#00e9ff;margin-bottom:2px;filter:drop-shadow(0 0 6px #00dfff)}
+.tezz-go strong{font-size:39px;line-height:1;font-weight:900;letter-spacing:-1px}
+.tezz-go span{font-size:13px;color:#d7eaff}
+.tezz-go.testing{border-color:#8c6cff;box-shadow:0 0 0 5px #10102d,0 0 28px #00dfffaa,inset 0 0 25px #5a3ab855}
+.tezz-go:disabled{cursor:progress}
+.tezz-live-progress{display:flex;gap:12px;justify-content:center;align-items:center;color:#94eaf3;font:10px 'DM Mono',monospace;margin-top:-3px;text-align:center}
+.tezz-health-card{align-self:center;position:relative;padding:20px 18px;border:1px solid #293b59;border-radius:17px;background:linear-gradient(145deg,#0a1228ef,#061629f2);box-shadow:0 12px 35px #0008;min-height:195px}
+.tezz-health-title{display:flex;align-items:center;gap:10px;color:#fff;font-size:14px}
+.tezz-health-title svg{color:#ff3457;fill:#ff3457}
+.tezz-health-badge{display:inline-flex;margin:17px 0 8px 42px;padding:8px 20px;border-radius:30px;background:#087b45;color:#caffdf;font-size:16px;font-weight:850}
+.tezz-health-badge.pending{background:#16354c;color:#8deaff;font-size:13px}
+.tezz-health-card p{margin:2px 0 24px;color:#e0e8f7;font-size:13px;line-height:1.55}
+.tezz-signal-bars{position:absolute;right:19px;bottom:18px;display:flex;align-items:flex-end;gap:4px;height:31px}
+.tezz-signal-bars i{width:7px;border-radius:3px;background:#00e78b;box-shadow:0 0 10px #00e78b77}
+.tezz-signal-bars i:nth-child(1){height:10px}.tezz-signal-bars i:nth-child(2){height:16px}.tezz-signal-bars i:nth-child(3){height:23px}.tezz-signal-bars i:nth-child(4){height:30px}
+.tezz-wave{position:absolute;bottom:1px;left:0;width:100%;height:54px;opacity:.9;pointer-events:none}
+.tezz-wave svg{width:100%;height:100%}
+.tezz-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:6px 0 26px}
+.tezz-stat{min-height:90px;padding:16px 18px;border:1px solid;border-radius:15px;background:linear-gradient(145deg,#0a1527,#071020);display:grid;grid-template-columns:42px 1fr;grid-template-rows:24px 1fr;column-gap:12px;align-items:center;box-shadow:inset 0 0 24px #fff00005}
+.tezz-stat>svg{grid-row:1/3;width:37px;height:37px;stroke-width:2.5}
+.tezz-stat>span{font-size:13px;color:#f3f7ff}
+.tezz-stat strong{font-size:23px;line-height:1.1;white-space:nowrap}
+.tezz-stat small{font-size:12px}
+.tezz-stat.cyan{border-color:#07516a;color:#00e5ff;box-shadow:inset 0 0 22px #00cfff0c}
+.tezz-stat.violet{border-color:#4a2371;color:#c16bff;box-shadow:inset 0 0 22px #a64aff0c}
+.tezz-stat.green{border-color:#07583e;color:#00ed89;box-shadow:inset 0 0 22px #00e78b0c}
+.tezz-stat.red{border-color:#64243e;color:#ff3458;box-shadow:inset 0 0 22px #ff31580c}
+.tezz-feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:25px}
+.tezz-feature-grid button{position:relative;min-height:112px;text-align:left;padding:17px 16px 16px 70px;border:1px solid #35415d;border-radius:16px;background:linear-gradient(145deg,#0b1428,#070d1b);color:#fff;cursor:pointer}
+.tezz-feature-grid button>svg{position:absolute;left:17px;top:22px;width:39px;height:39px;color:#00e6f1;stroke-width:2.3}
+.tezz-feature-grid button:nth-child(2)>svg{color:#b45cff}.tezz-feature-grid button:nth-child(3)>svg{color:#00aaff}.tezz-feature-grid button:nth-child(4)>svg{color:#ae65ff}
+.tezz-feature-grid strong,.tezz-feature-grid span{display:block}
+.tezz-feature-grid strong{font-size:14px;margin:2px 0 7px}
+.tezz-feature-grid span{font-size:12px;line-height:1.45;color:#d0d9e9;max-width:145px}
+.tezz-feature-grid b{position:absolute;right:15px;bottom:13px;font-size:26px;font-weight:400;color:#dbe8ff}
+.home-content .services-panel,.home-content .report-panel,.home-content .lower-grid,.home-content .history-strip{display:none!important}
+.tezz-main .content:not(.home-content){padding-top:36px}
+.tezz-main footer{color:#75839c}
+@media(max-width:1050px){
+ .tezz-header{padding:0 22px}.tezz-nav{gap:0}.tezz-nav button{padding:10px 9px;font-size:12px}
+ .tezz-main .content{padding:0 22px 30px}
+ .tezz-hero{grid-template-columns:1fr 1.15fr;gap:10px;padding:30px 8px 60px}
+ .tezz-health-card{grid-column:1/-1;min-height:0;padding:14px 17px}
+ .tezz-health-card p{margin-bottom:8px}.tezz-health-badge{margin:8px 0 5px 40px}
+}
+@media(max-width:680px){
+ .tezz-header{height:66px;padding:0 17px}.tezz-logo-word{font-size:22px}.tezz-logo i{width:68px;right:24px}
+ .tezz-nav{display:none}.tezz-header-actions button:first-child{display:none}
+ .tezz-main .content{padding:0 15px 28px}
+ .tezz-hero{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:24px 8px 50px;min-height:0}
+ .tezz-hero-copy{text-align:center}
+ .tezz-pill{font-size:12px;padding:7px 14px}
+ .tezz-hero-copy h1{font-size:31px;letter-spacing:-1.2px;margin:14px 0 8px}
+ .tezz-hero-copy p{font-size:14px;max-width:340px;margin:0 auto 12px}
+ .tezz-hero-copy ul{display:none}
+ .tezz-meter-wrap{width:100%;min-height:240px;padding-top:0;margin:0 auto}
+ .tezz-arc{width:min(100%,365px)}
+ .tezz-go{width:128px;height:128px;top:52%}
+ .tezz-go strong{font-size:35px}
+ .tezz-health-card{width:100%;min-height:0;padding:15px 16px}
+ .tezz-health-title{font-size:13px}
+ .tezz-health-card p{font-size:12px;margin-bottom:8px;max-width:260px}
+ .tezz-health-badge{margin:10px 0 7px 38px;font-size:14px}
+ .tezz-stat-grid{grid-template-columns:1fr 1fr;gap:10px;margin:0 0 17px}
+ .tezz-stat{min-height:77px;padding:12px 10px;grid-template-columns:34px 1fr;column-gap:8px}
+ .tezz-stat>svg{width:30px;height:30px}.tezz-stat>span{font-size:11px}.tezz-stat strong{font-size:19px}.tezz-stat small{font-size:10px}
+ .tezz-feature-grid{grid-template-columns:1fr 1fr;gap:10px}
+ .tezz-feature-grid button{min-height:108px;padding:14px 12px 13px 53px}
+ .tezz-feature-grid button>svg{left:12px;top:20px;width:31px;height:31px}
+ .tezz-feature-grid strong{font-size:12px}.tezz-feature-grid span{font-size:10px}
+ .tezz-wave{height:35px}
+}
