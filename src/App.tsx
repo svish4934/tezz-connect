@@ -528,25 +528,25 @@ function App() {
           </section>
           </>}
           {activeTab === 'Global Network' && <section className="global-network-panel">
-            <div className="doctor-heading"><div><div className="section-kicker">TEZZ GLOBAL NETWORK INTELLIGENCE</div><h2>See the network edge serving your test.</h2><p>View the Cloudflare edge location and network metadata observed for this request, alongside your measured response time.</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
+            <div className="doctor-heading"><div><div className="section-kicker">TEZZ GLOBAL NETWORK INTELLIGENCE</div><h2>See the network edge serving your test.</h2><p>View the network edge location and connection metadata observed for this request, alongside your measured response time.</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
             <div className="global-edge-card">
               <div className="global-edge-top"><div><span className="section-kicker">CURRENT TEZZ EDGE</span><h3>{edgeInfo?.colo || (edgeLoading ? 'Identifying edge…' : 'Edge information not loaded')}</h3></div><span className={edgeLoading ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
               <div className="global-edge-grid">
-                <div><span>Cloudflare data-centre code</span><strong>{edgeInfo?.colo || '—'}</strong></div>
+                <div><span>Edge location code</span><strong>{edgeInfo?.colo || '—'}</strong></div>
                 <div><span>Country</span><strong>{edgeInfo?.country || '—'}</strong></div>
                 <div><span>Region</span><strong>{edgeInfo?.region || '—'}</strong></div>
                 <div><span>Network ASN</span><strong>{edgeInfo?.asn ? `AS${edgeInfo.asn}` : '—'}</strong></div>
                 <div className="global-edge-operator"><span>Network operator (ASN name)</span><strong>{edgeInfo?.organization || '—'}</strong></div>
               </div>
-              <div className="global-edge-footer"><span>{edgeInfo ? `Updated at ${edgeInfo.fetchedAt}` : 'Metadata is supplied by the Cloudflare edge handling this request.'}</span><button className="doctor-run-test" onClick={refreshEdgeInfo} disabled={edgeLoading}>{edgeLoading ? 'Refreshing…' : 'Refresh edge details'} <span aria-hidden="true">↻</span></button></div>
+              <div className="global-edge-footer"><span>{edgeInfo ? `Updated at ${edgeInfo.fetchedAt}` : 'Metadata is supplied by the network edge handling this request.'}</span><button className="doctor-run-test" onClick={refreshEdgeInfo} disabled={edgeLoading}>{edgeLoading ? 'Refreshing…' : 'Refresh edge details'} <span aria-hidden="true">↻</span></button></div>
               {edgeError && <p className="latency-error" role="alert">{edgeError}</p>}
             </div>
             <div className="global-route-card">
               <div className="section-kicker">WHAT THIS TELLS YOU</div><h3>Your request reaches TEZZ through this edge.</h3>
-              <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Cloudflare edge</strong><span>{edgeInfo?.colo || 'Edge location'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
+              <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Network edge</strong><span>{edgeInfo?.colo || 'Edge location'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
               <p>This is an edge-ingress view, not a traceroute. It does not reveal every router, your full ISP path, physical cable route or the destination path used by other websites. The edge location may change as network routing changes.</p>
             </div>
-            <div className="global-network-note"><ShieldCheck size={16}/><span>Privacy and accuracy: TEZZ displays only coarse edge metadata returned by Cloudflare. It does not request GPS, expose your street address or run an IP geolocation lookup. ASN information identifies the network associated with the request, when provided.</span></div>
+            <div className="global-network-note"><ShieldCheck size={16}/><span>Privacy and accuracy: TEZZ displays only coarse network-edge metadata returned for this request. It does not request GPS, expose your street address or run an IP geolocation lookup. ASN information identifies the network associated with the request, when provided.</span></div>
           </section>}
           {activeTab === 'Network' && <section className="network-intel-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ NETWORK INTELLIGENCE</div><h2>Understand your connection.</h2><p>Run independent response-time checks and review the network information your browser makes available.</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
