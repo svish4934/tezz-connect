@@ -1581,3 +1581,105 @@ img, svg { max-width:100%; }
 .about-page .about-cta .section-kicker{
   color:#8ce9e7!important;
 }
+
+
+/* Desktop refinement: give About content a wider editorial canvas on large screens. */
+@media (min-width: 1200px) {
+  .about-page {
+    width: min(100%, 1280px);
+    max-width: 1280px;
+    padding: 22px 0 54px;
+  }
+  .about-hero {
+    min-height: 310px;
+    padding: clamp(52px, 5vw, 76px);
+    border-radius: 22px;
+  }
+  .about-hero h1 {
+    max-width: 900px;
+    font-size: clamp(48px, 4.2vw, 66px);
+    letter-spacing: -2.6px;
+  }
+  .about-hero > p {
+    max-width: 820px;
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .about-hero-meta {
+    gap: 16px 30px;
+    margin-top: 30px;
+  }
+  .about-hero-meta span {
+    font-size: 12px;
+  }
+  .about-section-heading {
+    margin: 48px 0 22px;
+  }
+  .about-section-heading h2 {
+    font-size: 32px;
+  }
+  .about-section-heading p {
+    font-size: 14px;
+  }
+  .about-feature-grid {
+    gap: 18px;
+  }
+  .about-feature-grid article,
+  .about-info-card {
+    padding: 28px;
+    border-radius: 17px;
+    min-height: 205px;
+  }
+  .about-feature-grid h3 {
+    font-size: 18px;
+  }
+  .about-feature-grid p,
+  .about-info-card p {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+  .about-two-column {
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .about-info-card h3 {
+    font-size: 20px;
+  }
+  .about-method-note {
+    margin-top: 18px;
+    padding: 18px 22px;
+  }
+  .about-method-note p {
+    font-size: 12px;
+  }
+  .about-cta {
+    margin-top: 34px;
+    padding: 28px 32px;
+    border-radius: 17px;
+  }
+  .about-cta h2 {
+    font-size: 23px;
+  }
+  .about-cta button {
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}
+
+/* Keep the three-column About layout comfortable on laptop widths. */
+@media (min-width: 761px) and (max-width: 1199px) {
+  .about-page {
+    max-width: 100%;
+    padding: 14px 0 42px;
+  }
+  .about-hero {
+    padding: clamp(30px, 4vw, 48px);
+  }
+  .about-feature-grid {
+    gap: 12px;
+  }
+  .about-feature-grid article,
+  .about-info-card {
+    padding: 20px;
+  }
+}
