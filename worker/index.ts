@@ -22,9 +22,9 @@ export default {
 
     if (url.pathname === "/api/speed/download") {
       if (request.method !== "GET") return json("Method not allowed", 405)
-      const requested = Number(url.searchParams.get("bytes") ?? "1000000")
-      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 100_000_000) {
-        return json("Download size must be between 1 byte and 100 MB", 400)
+      const requested = Number(url.searchParams.get("bytes") ?? "50000000")
+      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 50_000_000) {
+        return json("Download size must be between 1 byte and 50 MB", 400)
       }
       const totalBytes = requested
       let sentBytes = 0
@@ -49,9 +49,9 @@ export default {
     if (url.pathname === "/api/speed/upload") {
       if (request.method !== "POST") return json("Method not allowed", 405)
       const declaredLength = Number(request.headers.get("Content-Length") ?? "0")
-      if (declaredLength > 1_000_000) return json("Upload payload exceeds 1 MB", 413)
+      if (declaredLength > 50_000_000) return json("Upload payload exceeds 50 MB", 413)
       const body = await request.arrayBuffer()
-      if (body.byteLength > 1_000_000) return json("Upload payload exceeds 1 MB", 413)
+      if (body.byteLength > 50_000_000) return json("Upload payload exceeds 1 MB", 413)
       return json("Upload received")
     }
 
