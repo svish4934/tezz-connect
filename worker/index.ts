@@ -51,6 +51,26 @@ export default {
       }
     }
 
+    if (url.pathname === "/api/network/edge") {
+      if (request.method !== "GET") return json("Method not allowed", 405)
+      const cf = (request as Request & { cf?: {
+        colo?: string
+        country?: string
+        region?: string
+        asn?: number
+        asOrganization?: string
+      } }).cf
+      return new Response(JSON.stringify({
+        colo: cf?.colo ?? null,
+        country: cf?.country ?? null,
+        region: cf?.region ?? null,
+        asn: cf?.asn ?? null,
+        organization: cf?.asOrganization ?? null,
+      }), {
+        headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" },
+      })
+    }
+
     if (url.pathname === "/api/speed/ping") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       return new Response(null, { status: 204, headers: noStore })
