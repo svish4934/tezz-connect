@@ -274,9 +274,9 @@ function App() {
           <section className="tezz-hero">
             <div className="tezz-hero-copy">
               <span className="tezz-pill">INTERNET SPEED TEST</span>
-              <h1>Free Internet Speed Test: Check Your <em>Connection Speed</em></h1>
-              <p>Measure your download and upload speed, check ping and network stability, and find out how your internet performs for browsing, streaming, gaming and video calls.</p>
-              <ul><li><CheckCircle2 size={17}/> Free 50 MB Download & Upload Speed Test</li><li><CheckCircle2 size={17}/> Check Ping, Jitter & Network Stability</li><li><CheckCircle2 size={17}/> Internet Performance for Gaming & Streaming</li><li><CheckCircle2 size={17}/> Free Online Internet Connection Test</li></ul>
+              <h1>Free Internet <em>Speed Test</em></h1>
+              <p>Check download, upload, ping and network stability in seconds.</p>
+              <ul><li><CheckCircle2 size={17}/> 50 MB download & upload tests</li><li><CheckCircle2 size={17}/> Ping, jitter & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
