@@ -1277,3 +1277,29 @@ img, svg { max-width:100%; }
 }
 .latency-run-button:disabled,.network-intel-panel .doctor-run-test:disabled{opacity:.58!important;cursor:wait!important}
 @media(max-width:760px){.network-intel-panel{padding:18px 14px!important}.latency-run-button{width:100%!important}}
+
+
+/* Persistent latency history and latest-vs-previous comparison. */
+.latency-history-section{margin:22px 0;padding:20px;border:1px solid #e9e5de;border-radius:17px;background:#fff;box-shadow:0 8px 24px rgba(16,28,58,.045)}
+.latency-history-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.latency-history-heading h3{margin:5px 0;color:#101c3a;font-size:19px;letter-spacing:-.4px}
+.latency-history-heading p{margin:0;color:#7b8798;font-size:11px;line-height:1.5}
+.latency-history-count{padding:6px 10px;border-radius:20px;background:#eaf3ff;color:#1268d8;font-size:10px;font-weight:800;white-space:nowrap}
+.latency-history-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:13px}
+.latency-history-comparison>div{display:flex;flex-direction:column;gap:7px;padding:13px;border:1px solid #e9eef5;border-radius:11px;background:#f8fbff;min-width:0}
+.latency-history-comparison span{font-size:10px;color:#7b8798}
+.latency-history-comparison strong{font-size:15px;color:#172b4d;overflow-wrap:anywhere}
+.latency-history-list{display:grid;gap:7px}
+.latency-history-row{display:grid;grid-template-columns:34px minmax(130px,1.5fr) minmax(85px,.7fr) minmax(90px,.8fr) minmax(75px,.6fr);align-items:center;gap:10px;padding:11px 12px;border:1px solid #edf0f5;border-radius:10px;background:#fff}
+.latency-history-index{color:#8a97a8;font:10px 'DM Mono',monospace}
+.latency-history-date{color:#64748b;font-size:10px}
+.latency-history-row strong{color:#12366a;font-size:13px;font-variant-numeric:tabular-nums}
+.latency-history-row>span:nth-last-child(-n+2){color:#78869a;font-size:10px}
+@media(max-width:760px){
+ .latency-history-section{padding:15px}
+ .latency-history-comparison{grid-template-columns:1fr}
+ .latency-history-row{grid-template-columns:26px minmax(0,1fr) auto;gap:7px}
+ .latency-history-row .latency-history-date{grid-column:2;grid-row:1}
+ .latency-history-row strong{grid-column:3;grid-row:1}
+ .latency-history-row>span:nth-last-child(-n+2){grid-column:2/-1}
+}
