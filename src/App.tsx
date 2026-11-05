@@ -157,6 +157,24 @@ function App() {
     return 'Needs attention'
   }, [result])
 
+  const doctorRecommendations = useMemo(() => {
+    if (!network.online) return [
+      { title: 'Restore your connection', detail: 'Your browser reports that the device is offline. Reconnect to Wi-Fi or mobile data, then run a fresh test.', priority: 'high' },
+    ]
+    if (!result) return [
+      { title: 'Run a baseline speed test', detail: 'Measure download, upload, HTTP response time and jitter before troubleshooting.', priority: 'info' },
+      { title: 'Check more than once', detail: 'Repeat the test at different times to see whether the slowdown is consistent.', priority: 'info' },
+    ]
+    const items: { title: string; detail: string; priority: 'high' | 'medium' | 'info' }[] = []
+    if (result.download < 10) items.push({ title: 'Reduce competing traffic', detail: 'Pause large downloads and video streams on other devices. Move closer to the router and retest.', priority: 'high' })
+    if (result.upload < 2) items.push({ title: 'Check upload activity', detail: 'Pause cloud backups, file syncing and outgoing video streams. Retest when the network is quieter.', priority: 'medium' })
+    if (result.ping > 100) items.push({ title: 'Investigate response delays', detail: 'Try a wired connection if available, pause background traffic and compare another test location or time.', priority: 'high' })
+    if (result.jitter > 30) items.push({ title: 'Improve connection consistency', detail: 'Use a stable Wi-Fi band, reduce distance and obstacles from the router, and avoid congested network periods.', priority: 'medium' })
+    if (items.length === 0) items.push({ title: 'Your measurements look stable', detail: 'No severe issue was flagged by these checks. Retest during a video call or gaming session if you still notice problems.', priority: 'info' })
+    items.push({ title: 'Compare another test', detail: 'Run a second test after these changes. A repeated pattern is more useful than a single measurement.', priority: 'info' })
+    return items
+  }, [network.online, result])
+
   async function checkService(service: typeof services[number]): Promise<ServiceResult> {
     const started = performance.now()
     const controller = new AbortController()
@@ -337,6 +355,10 @@ function App() {
                 }
                 {!network.online && <div className="doctor-finding"><span className="finding-dot alert" /><div><strong>Device reports offline</strong><p>Your browser currently reports no network connection. Check Wi-Fi or mobile data before running another test.</p></div></div>}
               </div>
+            </div>
+            <div className="doctor-next-steps">
+              <div className="doctor-next-heading"><div><span className="section-kicker">PERSONALISED TROUBLESHOOTING</span><h3>Recommended next steps</h3></div><button className="doctor-run-test" onClick={() => { setActiveTab('Overview'); window.setTimeout(() => { void runTest() }, 0) }} disabled={state === 'running'}>{state === 'running' ? 'Test running…' : 'Run new test'} <span aria-hidden="true">→</span></button></div>
+              <div className="doctor-next-grid">{doctorRecommendations.map((item, index) => <div className="doctor-next-item" key={item.title}><span className={`doctor-priority ${item.priority}`}>{item.priority === 'high' ? 'Priority' : item.priority === 'medium' ? 'Suggested' : 'Next step'}</span><strong>{item.title}</strong><p>{item.detail}</p></div>)}</div>
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
