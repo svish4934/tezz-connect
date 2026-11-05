@@ -15,6 +15,17 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
 
+    // Serve robots.txt directly from the Worker so crawlers receive a plain-text
+    // response independent of the static asset fallback.
+    if (url.pathname === "/robots.txt") {
+      if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method not allowed", { status: 405, headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" } })
+      const body = "User-agent: *\\nAllow: /\\n\\nSitemap: https://tezzconnect.online/sitemap.xml\\n"
+      return new Response(request.method === "HEAD" ? null : body, {
+        status: 200,
+        headers: { ...noStore, "Content-Type": "text/plain; charset=utf-8" },
+      })
+    }
+
     if (url.pathname === "/api/services/check") {
       if (request.method !== "GET") return json("Method not allowed", 405)
       const targets: Record<string, string> = {
