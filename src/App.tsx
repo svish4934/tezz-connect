@@ -8,6 +8,7 @@ import {
 type TestState = 'idle' | 'running' | 'complete' | 'error'
 type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }
 type LatencyRecord = { average: number; min: number; max: number; jitter: number; failures: number; date: string }
+type StabilityRecord = { average: number; highest: number; jitter: number; spikes: number; failures: number; samples: number; date: string }
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
 const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
@@ -90,6 +91,22 @@ async function measureUpload(onProgress: (sentBytes: number, mbps: number) => vo
 
 const HISTORY_KEY = 'tezz-connect-test-history-v1'
 const LATENCY_HISTORY_KEY = 'tezz-connect-latency-history-v1'
+const STABILITY_HISTORY_KEY = 'tezz-connect-stability-history-v1'
+
+function loadStabilityHistory(): StabilityRecord[] {
+  try {
+    const saved = localStorage.getItem(STABILITY_HISTORY_KEY)
+    if (!saved) return []
+    const parsed: unknown = JSON.parse(saved)
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((item): item is StabilityRecord =>
+      item && typeof item.average === 'number' && typeof item.highest === 'number' &&
+      typeof item.jitter === 'number' && typeof item.spikes === 'number' &&
+      typeof item.failures === 'number' && typeof item.samples === 'number' &&
+      typeof item.date === 'string'
+    ).slice(0, 30)
+  } catch { return [] }
+}
 
 function loadLatencyHistory(): LatencyRecord[] {
   try {
@@ -149,6 +166,7 @@ function App() {
   const [stabilityFailures, setStabilityFailures] = useState(0)
   const [stabilityFinished, setStabilityFinished] = useState('')
   const [stabilityError, setStabilityError] = useState('')
+  const [stabilityHistory, setStabilityHistory] = useState<StabilityRecord[]>(loadStabilityHistory)
 
   useEffect(() => {
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)) } catch { /* Storage may be unavailable or full. */ }
@@ -157,6 +175,10 @@ function App() {
   useEffect(() => {
     try { localStorage.setItem(LATENCY_HISTORY_KEY, JSON.stringify(latencyHistory)) } catch { /* Browser storage may be unavailable. */ }
   }, [latencyHistory])
+
+  useEffect(() => {
+    try { localStorage.setItem(STABILITY_HISTORY_KEY, JSON.stringify(stabilityHistory)) } catch { /* Browser storage may be unavailable. */ }
+  }, [stabilityHistory])
 
   useEffect(() => {
     type NetworkConnection = EventTarget & { effectiveType?: string; downlink?: number; rtt?: number; saveData?: boolean }
@@ -232,6 +254,40 @@ function App() {
     const checks = await Promise.all(services.map(checkService))
     setServiceResults(checks)
     setServicePhase('complete')
+  }
+
+  async function copyPerformanceReport() {
+    const latestSpeed = result
+    const latestLatency = latencyHistory[0]
+    const latestStability = stabilityHistory[0]
+    const reachable = serviceResults.filter(item => item.status === 'Responding').length
+    const lines = [
+      'TEZZ CONNECT — PERFORMANCE REPORT',
+      `Generated: ${new Date().toLocaleString()}`,
+      '',
+      'SPEED TEST',
+      latestSpeed ? `Date: ${new Date(latestSpeed.date).toLocaleString()}\nDownload: ${latestSpeed.download.toFixed(1)} Mbps\nUpload: ${latestSpeed.upload.toFixed(1)} Mbps\nHTTP latency: ${latestSpeed.ping} ms\nHTTP jitter estimate: ${latestSpeed.jitter.toFixed(1)} ms` : 'No speed test saved in this browser.',
+      '',
+      'LATENCY TEST',
+      latestLatency ? `Date: ${new Date(latestLatency.date).toLocaleString()}\nAverage HTTP response: ${latestLatency.average.toFixed(1)} ms\nMinimum: ${latestLatency.min.toFixed(1)} ms\nMaximum: ${latestLatency.max.toFixed(1)} ms\nJitter estimate: ${latestLatency.jitter.toFixed(1)} ms\nFailed requests: ${latestLatency.failures}/12` : 'No latency test saved in this browser.',
+      '',
+      'CONNECTION STABILITY',
+      latestStability ? `Date: ${new Date(latestStability.date).toLocaleString()}\nSuccessful samples: ${latestStability.samples}/30\nAverage HTTP response: ${latestStability.average.toFixed(1)} ms\nHighest response: ${latestStability.highest.toFixed(1)} ms\nAverage successive variation: ${latestStability.jitter.toFixed(1)} ms\nResponse spikes: ${latestStability.spikes}\nFailed requests: ${latestStability.failures}` : 'No completed stability monitor saved in this browser.',
+      '',
+      'NETWORK CONTEXT',
+      `Browser online: ${network.online ? 'Yes' : 'No'}\nEffective connection type: ${network.type}\nEstimated downlink: ${network.downlink}\nBrowser-reported RTT: ${network.rtt}\nPublic website endpoints responding: ${reachable}/${services.length}`,
+      '',
+      'MEASUREMENT NOTES',
+      'Latency and jitter are HTTP request/response measurements to the TEZZ CONNECT edge, not ICMP ping. Failed HTTP requests are not packet loss. Public website checks measure endpoint reachability only, not login or in-app functionality. Browser-reported network details may be estimates or unavailable. Results vary with device, Wi-Fi, server distance and ISP routing.',
+      '',
+      'History is stored locally in this browser and is not synced across devices.'
+    ]
+    try {
+      await navigator.clipboard.writeText(lines.join('\n'))
+      setReportMessage('Performance report copied')
+    } catch {
+      setReportMessage('Clipboard unavailable. Try your browser share or copy feature.')
+    }
   }
 
   async function copyReport() {
@@ -327,6 +383,10 @@ function App() {
         if (i < 29) await new Promise(resolve => window.setTimeout(resolve, 1000))
       }
       if (samples.length === 0) throw new Error('No successful samples were received. Check your connection and try again.')
+      const average = samples.reduce((sum, value) => sum + value, 0) / samples.length
+      const jitter = samples.length > 1 ? samples.slice(1).reduce((sum, value, index) => sum + Math.abs(value - samples[index]), 0) / (samples.length - 1) : 0
+      const spikes = samples.filter(value => value > average * 1.8 && value > average + 30).length
+      setStabilityHistory(previous => [{ average, highest: Math.max(...samples), jitter, spikes, failures, samples: samples.length, date: new Date().toISOString() }, ...previous].slice(0, 30))
       setStabilityFinished(new Date().toLocaleTimeString())
     } catch (error) {
       setStabilityError(error instanceof Error ? error.message : 'Stability monitoring could not complete.')
@@ -400,6 +460,7 @@ function App() {
             <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => setActiveTab('Internet Doctor')}>Internet Doctor</button>
             <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => setActiveTab('Network')}>Tools⌄</button>
             <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => setActiveTab('History')}>History</button>
+            <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => setActiveTab('Report')}>Report</button>
           </nav>
           <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => setActiveTab('Network')}><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
         </header>
@@ -527,6 +588,21 @@ function App() {
               </>}
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Speed and latency histories are stored locally in this browser and are not synced across devices. Clearing browser site data may remove these records.</div>
+          </section>}
+          {activeTab === 'Report' && <section className="performance-report-panel">
+            <div className="doctor-heading"><div><div className="section-kicker">TEZZ CONNECT PERFORMANCE SUMMARY</div><h2>Your internet performance report.</h2><p>A combined view of your latest speed, latency and connection stability measurements saved in this browser.</p></div><span className="doctor-symbol"><ClipboardCopy size={23}/></span></div>
+            <div className="performance-report-meta"><span>Generated {new Date().toLocaleString()}</span><span>Local browser data · Private</span></div>
+            <div className="performance-report-grid">
+              <div className="performance-report-card"><span className="section-kicker">SPEED TEST</span><strong>{result ? result.download.toFixed(1)+' Mbps' : 'Not tested'}</strong><p>{result ? `Download · Upload ${result.upload.toFixed(1)} Mbps` : 'Run a speed test to add measurements.'}</p><small>{result ? `HTTP latency ${result.ping} ms · Jitter ${result.jitter.toFixed(1)} ms` : 'No saved speed result'}</small></div>
+              <div className="performance-report-card"><span className="section-kicker">LATENCY TEST</span><strong>{latencyHistory[0] ? latencyHistory[0].average.toFixed(1)+' ms' : 'Not tested'}</strong><p>Average HTTP response time</p><small>{latencyHistory[0] ? `Jitter ${latencyHistory[0].jitter.toFixed(1)} ms · ${latencyHistory[0].failures}/12 failed` : 'No saved latency result'}</small></div>
+              <div className="performance-report-card"><span className="section-kicker">STABILITY MONITOR</span><strong>{stabilityHistory[0] ? stabilityHistory[0].average.toFixed(1)+' ms' : 'Not monitored'}</strong><p>Average response across 30 samples</p><small>{stabilityHistory[0] ? `${stabilityHistory[0].spikes} spikes · ${stabilityHistory[0].failures} failed` : 'No completed monitor saved'}</small></div>
+            </div>
+            <div className="performance-report-section"><h3>Recent performance trend</h3><p>Latest saved measurements on this device. Compare sessions over time; different test types are shown separately.</p>
+              <div className="performance-report-trend">{stabilityHistory.slice(0,5).map((item,index)=><div key={item.date}><span>{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><small>Stability average · {item.spikes} spikes</small></div>)}</div>
+              {stabilityHistory.length===0 && <div className="empty-history"><Activity size={18}/><span>Complete a stability monitor to start your trend history.</span></div>}
+            </div>
+            <div className="performance-report-actions"><button className="doctor-run-test" onClick={copyPerformanceReport}><ClipboardCopy size={15}/> Copy full report</button><span role="status">{reportMessage}</span></div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> This report combines the latest available measurements. It does not diagnose an ISP fault. HTTP latency is not ICMP ping, and HTTP request failures are not packet loss. Report data is stored locally and is not synced across devices.</div>
           </section>}
           {activeTab === 'Overview' && <>
           <section className="services-panel tezz-social-panel">
