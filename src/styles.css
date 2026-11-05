@@ -1683,3 +1683,18 @@ img, svg { max-width:100%; }
     padding: 20px;
   }
 }
+
+/* Accessibility: visible keyboard focus and respect reduced-motion preferences. */
+:where(a,button,input,select,textarea,[role="button"]):focus-visible {
+  outline:3px solid #22d3ee!important;
+  outline-offset:3px!important;
+  box-shadow:0 0 0 4px rgba(34,211,238,.18)!important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
