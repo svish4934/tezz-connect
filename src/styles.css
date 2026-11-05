@@ -1518,3 +1518,19 @@ img, svg { max-width:100%; }
 .about-cta{color:#f0f6ff}
 .about-cta h2{color:#f5f8ff}
 .about-cta .section-kicker{color:#7de1e3}
+
+
+/* Final About page legibility pass: explicit high-contrast text on dark surfaces. */
+.about-page .about-hero h1{color:#f7fbff!important}
+.about-page .about-hero>p{color:#d2deeb!important}
+.about-page .about-feature-grid article h3,
+.about-page .about-info-card h3{color:#f7fbff!important}
+.about-page .about-feature-grid article p,
+.about-page .about-info-card p{color:#cbd7e5!important}
+.about-page .about-info-card .section-kicker{color:#83e4e5!important}
+.about-page .about-method-note p{color:#d0e2da!important}
+.about-page .about-method-note strong{color:#ffffff!important}
+.about-page .about-cta h2{color:#f7fbff!important}
+.about-page .about-cta .section-kicker{color:#8ce9e7!important}
+.about-page .about-section-heading h2{color:#17263b!important}
+.about-page .about-section-heading p{color:#596b80!important}
