@@ -86,8 +86,23 @@ export default {
       if (request.method !== "POST") return json("Method not allowed", 405)
       const declaredLength = Number(request.headers.get("Content-Length") ?? "0")
       if (declaredLength > 50_000_000) return json("Upload payload exceeds 50 MB", 413)
-      const body = await request.arrayBuffer()
-      if (body.byteLength > 50_000_000) return json("Upload payload exceeds 50 MB", 413)
+      if (!request.body) return json("Upload payload is missing", 400)
+      const reader = request.body.getReader()
+      let receivedBytes = 0
+      try {
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+          receivedBytes += value.byteLength
+          if (receivedBytes > 50_000_000) {
+            await reader.cancel()
+            return json("Upload payload exceeds 50 MB", 413)
+          }
+        }
+      } catch {
+        return json("Upload payload could not be read completely", 400)
+      }
+      if (receivedBytes !== 50_000_000) return json("Upload payload must be exactly 50 MB", 400)
       return json("Upload received")
     }
 
