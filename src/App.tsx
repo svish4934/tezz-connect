@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
-  Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2,
+  Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2, Network, Server,
   History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
   ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
