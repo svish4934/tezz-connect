@@ -1228,3 +1228,52 @@ img, svg { max-width:100%; }
 .latency-stability-note.low{border-left:4px solid #20b982}
 .latency-stability-note.moderate{border-left:4px solid #e0a43b}
 .latency-stability-note.high{border-left:4px solid #d96b72;background:#fff9f8}
+
+
+/* Network Tools visual alignment: match TEZZ's light dashboard and blue CTA system. */
+.network-intel-panel{
+  background:linear-gradient(145deg,#ffffff 0%,#f4f8fd 100%)!important;
+  border:1px solid #e9e5de!important;border-radius:20px!important;
+  box-shadow:0 12px 34px rgba(16,28,58,.07)!important;
+}
+.network-intel-panel .doctor-heading h2{color:#101c3a!important}
+.network-intel-panel .doctor-heading p{color:#68758a!important}
+.network-intel-panel .section-kicker{color:#68809e!important}
+.network-intel-panel .doctor-symbol{background:#e7f2ff!important;color:#1268d8!important;border:1px solid #d6e8fc!important}
+.network-intel-panel .network-primary{
+  background:linear-gradient(110deg,#f0fbf7,#f7fcfa)!important;
+  border:1px solid #d4eee3!important;border-radius:13px!important;
+}
+.network-intel-panel .network-primary strong{color:#173b32!important}
+.network-intel-panel .network-primary p{color:#617c73!important}
+.network-intel-panel .network-detail{
+  background:#fff!important;border:1px solid #e9eef5!important;border-radius:12px!important;
+  box-shadow:0 3px 10px rgba(16,28,58,.025)!important;
+}
+.network-intel-panel .network-detail span{color:#7b8798!important}
+.network-intel-panel .network-detail strong{color:#172b4d!important}
+.network-intel-panel .network-capabilities>div{
+  background:#fff!important;border:1px solid #e9eef5!important;border-radius:12px!important;
+}
+.network-intel-panel .network-capabilities strong{color:#172b4d!important}
+.network-intel-panel .network-capabilities span{color:#7b8798!important}
+.network-intel-panel .doctor-disclaimer{color:#77859a!important;border-color:#e5eaf1!important}
+.network-intel-panel .doctor-disclaimer svg{color:#20a879!important}
+.latency-tool-card{
+  background:linear-gradient(145deg,#fff 0%,#f5f9ff 100%)!important;
+  border:1px solid #e5ebf3!important;border-radius:18px!important;
+  box-shadow:0 8px 24px rgba(16,28,58,.055)!important;
+}
+.latency-run-button,.network-intel-panel .doctor-run-test{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;
+  min-height:46px!important;padding:0 22px!important;border:0!important;border-radius:999px!important;
+  background:linear-gradient(110deg,#1678ed,#0848b8)!important;color:#fff!important;
+  font-family:Manrope,system-ui,sans-serif!important;font-size:13px!important;font-weight:800!important;
+  box-shadow:0 7px 17px rgba(18,104,216,.20)!important;cursor:pointer!important;
+  transition:transform .18s ease,box-shadow .18s ease!important;
+}
+.latency-run-button:hover:not(:disabled),.network-intel-panel .doctor-run-test:hover:not(:disabled){
+  transform:translateY(-1px)!important;box-shadow:0 10px 22px rgba(18,104,216,.27)!important;
+}
+.latency-run-button:disabled,.network-intel-panel .doctor-run-test:disabled{opacity:.58!important;cursor:wait!important}
+@media(max-width:760px){.network-intel-panel{padding:18px 14px!important}.latency-run-button{width:100%!important}}
