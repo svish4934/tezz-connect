@@ -587,7 +587,14 @@ function App() {
                 <div className="latency-history-list">{latencyHistory.map((item,index)=><div className="latency-history-row" key={item.date}><span className="latency-history-index">#{index+1}</span><span className="latency-history-date">{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><span>Jitter {item.jitter.toFixed(1)} ms</span><span>{item.failures}/12 failed</span></div>)}</div>
               </>}
             </div>
-            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Speed and latency histories are stored locally in this browser and are not synced across devices. Clearing browser site data may remove these records.</div>
+            <div className="latency-history-section stability-history-section">
+              <div className="latency-history-heading"><div><span className="section-kicker">CONNECTION CONSISTENCY RECORDS</span><h3>Stability monitor history</h3><p>Review completed 30-sample monitoring sessions saved on this device.</p></div><span className="latency-history-count">{stabilityHistory.length} / 30</span></div>
+              {stabilityHistory.length === 0 ? <div className="empty-history"><Activity size={18}/><span>No stability sessions saved yet. Run the Connection Stability Monitor in Tools to start tracking.</span></div> : <>
+                {stabilityHistory.length > 1 && <div className="latency-history-comparison"><div><span>Latest average</span><strong>{stabilityHistory[0].average.toFixed(1)} ms</strong></div><div><span>Previous average</span><strong>{stabilityHistory[1].average.toFixed(1)} ms</strong></div><div><span>Change</span><strong>{Math.abs(stabilityHistory[0].average-stabilityHistory[1].average).toFixed(1)} ms {stabilityHistory[0].average < stabilityHistory[1].average ? 'faster' : stabilityHistory[0].average > stabilityHistory[1].average ? 'slower' : 'unchanged'}</strong></div></div>}
+                <div className="latency-history-list stability-history-list">{stabilityHistory.map((item,index)=><div className="latency-history-row" key={item.date}><span className="latency-history-index">#{index+1}</span><span className="latency-history-date">{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><span>{item.spikes} spikes · {item.jitter.toFixed(1)} ms variation</span><span>{item.failures} failed</span></div>)}</div>
+              </>}
+            </div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Speed, latency and stability histories are stored locally in this browser and are not synced across devices. Clearing browser site data may remove these records.</div>
           </section>}
           {activeTab === 'Report' && <section className="performance-report-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ CONNECT PERFORMANCE SUMMARY</div><h2>Your internet performance report.</h2><p>A combined view of your latest speed, latency and connection stability measurements saved in this browser.</p></div><span className="doctor-symbol"><ClipboardCopy size={23}/></span></div>
