@@ -1009,3 +1009,89 @@ body{background:#faf8f3!important}
 .history-table-row{border-top:1px solid #edf0f4;color:#536176;font-size:13px}
 .history-table-row strong{color:#14213d;font-size:13px}
 @media(max-width:760px){.history-page-panel{padding:18px 14px;border-radius:18px}.history-page-summary{grid-template-columns:1fr;gap:8px}.history-page-summary>div{padding:12px 14px;flex-direction:row;align-items:center;justify-content:space-between}.history-page-summary strong{font-size:14px}}
+
+
+/* TEZZ CONNECT responsive correction — final mobile rules.
+   These device-capability rules also apply when Android Chrome is set to Desktop site. */
+html, body, #root { width:100%; min-width:320px; max-width:100%; }
+body { overflow-x:hidden; }
+img, svg { max-width:100%; }
+@media (hover:none) and (pointer:coarse), (max-width:760px) {
+  .app-shell { width:100%; min-width:0; overflow-x:clip; }
+  .tezz-main { width:100%!important; max-width:100%!important; min-width:0!important; margin:0!important; }
+  .tezz-header {
+    width:100%!important; min-height:64px!important; height:auto!important;
+    padding:10px 16px!important; gap:10px!important; flex-wrap:nowrap!important;
+  }
+  .tezz-logo { flex:0 0 auto!important; min-width:0!important; }
+  .tezz-logo-word { font-size:22px!important; letter-spacing:-.7px!important; }
+  .tezz-nav { display:none!important; }
+  .tezz-header-actions { display:flex!important; flex:0 0 auto!important; margin-left:auto!important; }
+  .tezz-header-actions button:first-child { display:none!important; }
+  .tezz-header-actions .tezz-menu { display:inline-flex!important; min-height:40px!important; padding:0 12px!important; }
+  .tezz-main .content {
+    width:100%!important; max-width:100%!important; min-width:0!important;
+    margin:0!important; padding:0 14px 26px!important; box-sizing:border-box!important;
+  }
+  .tezz-hero {
+    width:100%!important; min-width:0!important; min-height:0!important;
+    display:grid!important; grid-template-columns:minmax(0,1fr)!important;
+    grid-template-areas:"copy" "meter" "health"!important;
+    align-items:stretch!important; gap:16px!important;
+    margin:12px 0 14px!important; padding:22px 16px 42px!important;
+    border-radius:20px!important;
+  }
+  .tezz-hero-copy { grid-area:copy!important; width:100%!important; max-width:none!important; text-align:left!important; }
+  .tezz-hero-copy h1 { font-size:clamp(29px,7vw,36px)!important; line-height:1.12!important; letter-spacing:-1.1px!important; }
+  .tezz-hero-copy p { max-width:100%!important; font-size:13px!important; line-height:1.55!important; }
+  .tezz-hero-copy ul { display:grid!important; grid-template-columns:minmax(0,1fr)!important; gap:7px!important; padding:0!important; }
+  .tezz-hero-copy ul li { font-size:12px!important; line-height:1.4!important; }
+  .tezz-digital-wrap {
+    grid-area:meter!important; width:100%!important; max-width:none!important;
+    min-width:0!important; min-height:0!important; height:auto!important;
+    display:flex!important; flex-direction:column!important; align-items:center!important;
+    justify-content:center!important; padding:0!important; gap:11px!important;
+  }
+  .tezz-digital-meter { width:100%!important; min-width:0!important; min-height:172px!important; padding:20px 12px!important; border-radius:18px!important; }
+  .tezz-digital-label { font-size:10px!important; letter-spacing:1.7px!important; }
+  .tezz-digital-reading strong { font-size:clamp(56px,15vw,72px)!important; }
+  .tezz-digital-reading span { font-size:15px!important; }
+  .tezz-digital-caption { font-size:10px!important; line-height:1.4!important; }
+  .tezz-digital-start { width:min(100%,320px)!important; min-height:49px!important; }
+  .tezz-health-card { grid-area:health!important; width:100%!important; max-width:none!important; min-width:0!important; min-height:0!important; padding:15px!important; }
+  .tezz-health-title { gap:9px!important; }
+  .tezz-health-title strong { font-size:13px!important; line-height:1.35!important; }
+  .tezz-health-card p { font-size:11px!important; line-height:1.55!important; }
+  .tezz-stat-grid { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:9px!important; }
+  .tezz-stat { min-width:0!important; min-height:82px!important; padding:12px!important; border-radius:15px!important; }
+  .tezz-stat span { font-size:10px!important; }
+  .tezz-stat strong { font-size:16px!important; overflow-wrap:anywhere!important; }
+  .tezz-feature-grid { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:9px!important; }
+  .tezz-feature-grid button { min-width:0!important; min-height:96px!important; padding:12px!important; border-radius:15px!important; }
+  .tezz-social-panel { min-width:0!important; margin:15px 0!important; padding:16px 12px!important; border-radius:17px!important; }
+  .tezz-social-panel .services-heading { display:flex!important; flex-direction:column!important; align-items:flex-start!important; gap:10px!important; }
+  .tezz-social-panel .services-heading h2 { font-size:19px!important; line-height:1.25!important; }
+  .tezz-social-panel .services-heading p { font-size:11px!important; line-height:1.5!important; }
+  .tezz-social-panel .services-grid { display:grid!important; grid-template-columns:repeat(4,minmax(0,1fr))!important; gap:7px!important; }
+  .tezz-social-panel .service-tile { min-width:0!important; min-height:78px!important; height:auto!important; padding:7px 2px!important; gap:4px!important; }
+  .tezz-social-panel .service-logo { width:27px!important; height:27px!important; }
+  .tezz-social-panel .service-logo img { width:21px!important; height:21px!important; }
+  .tezz-social-panel .service-name { font-size:9px!important; line-height:1.2!important; }
+  .tezz-social-panel .service-status { font-size:8px!important; line-height:1.2!important; }
+  .usage-insights-panel { padding:16px 13px!important; }
+  .usage-insights-grid { grid-template-columns:minmax(0,1fr)!important; }
+  .history-page-panel { padding:17px 13px!important; }
+  .history-table { max-width:100%!important; }
+  .tezz-main footer { gap:8px!important; flex-direction:column!important; align-items:center!important; text-align:center!important; }
+}
+@media (max-width:380px) {
+  .tezz-main .content { padding-left:10px!important; padding-right:10px!important; }
+  .tezz-hero { padding-left:13px!important; padding-right:13px!important; }
+  .tezz-stat { padding:10px!important; }
+  .tezz-feature-grid button { padding:10px!important; }
+  .tezz-social-panel .services-grid { gap:5px!important; }
+}
+@media (min-width:761px) and (hover:hover) and (pointer:fine) {
+  .tezz-main { width:100%!important; max-width:100%!important; margin:0 auto!important; }
+  .tezz-main .content { width:100%!important; }
+}
