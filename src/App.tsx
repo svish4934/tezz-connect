@@ -564,6 +564,7 @@ function App() {
               <div className="about-hero-meta"><span><CheckCircle2 size={15}/> Free to use</span><span><Activity size={15}/> Independent measurements</span><span><ShieldCheck size={15}/> Privacy-conscious design</span></div>
             </div>
             <div className="about-section-heading"><span className="section-kicker">WHAT WE DO</span><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p></div>
+            <div className="about-origin"><span className="about-origin-mark" aria-hidden="true">🇮🇳</span><div><span className="section-kicker">OUR ROOTS, GLOBAL VISION</span><h2>Proudly built in India. Connecting the world.</h2><p>TEZZ CONNECT is an independent digital platform built with an international audience in mind.</p></div></div>
             <div className="about-feature-grid">
               <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Zap size={20}/></span><h3 style={{color:'#142B45'}}>Measure performance</h3><p style={{color:'#53677D'}}>Run download and upload throughput tests, plus HTTP response-time and jitter estimates, from your browser.</p></article>
               <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Stethoscope size={20}/></span><h3 style={{color:'#142B45'}}>Understand issues</h3><p style={{color:'#53677D'}}>Use Internet Doctor recommendations to investigate common causes such as congestion, weak Wi-Fi conditions and competing traffic.</p></article>
@@ -773,7 +774,7 @@ function App() {
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
           </>}
-          <footer><span>© 2026 TEZZ CONNECT</span><span>BUILT FOR A BETTER CONNECTION <span className="footer-dot">•</span> PRIVACY FIRST</span></footer>
+          <footer><span>© 2026 TEZZ CONNECT <span className="footer-dot">•</span> Proudly built in India 🇮🇳</span><span>BUILT FOR A BETTER CONNECTION <span className="footer-dot">•</span> PRIVACY FIRST</span></footer>
         </div>
       </main>
     </div>
