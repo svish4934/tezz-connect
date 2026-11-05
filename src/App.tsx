@@ -152,8 +152,10 @@ function App() {
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   function navigateTo(tab: string) {
+    setMobileMenuOpen(false)
     const nextPath = tab === 'About' ? '/about' : '/'
     if (window.location.pathname !== nextPath) window.history.pushState({}, '', nextPath)
     setActiveTab(tab)
@@ -506,8 +508,18 @@ function App() {
             <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => navigateTo('Report')}>Report</button>
             <button className={activeTab === 'About' ? 'selected' : ''} onClick={() => navigateTo('About')}>About</button>
           </nav>
-          <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => navigateTo('Network')}><Search size={18}/></button><button className="tezz-menu" onClick={() => navigateTo(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
+          <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => navigateTo('Network')}><Search size={18}/></button><button className="tezz-menu" aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕ Close' : '☰ Menu'}</button></div>
         </header>
+        {mobileMenuOpen && <nav className="tezz-mobile-nav" id="tezz-mobile-nav" aria-label="Mobile navigation">
+          <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => navigateTo('Overview')}>Home</button>
+          <button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>Speed Test</button>
+          <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => navigateTo('Internet Doctor')}>Internet Doctor</button>
+          <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => navigateTo('Network')}>Network Tools</button>
+          <button className={activeTab === 'Global Network' ? 'selected' : ''} onClick={() => { navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</button>
+          <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => navigateTo('History')}>History</button>
+          <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => navigateTo('Report')}>Performance Report</button>
+          <button className={activeTab === 'About' ? 'selected' : ''} onClick={() => navigateTo('About')}>About TEZZ CONNECT</button>
+        </nav>}
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
           <section className={`tezz-hero ${state === 'running' ? 'is-testing' : ''}`}>
