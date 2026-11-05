@@ -850,3 +850,17 @@ body{background:#faf8f3!important}
 @keyframes tezzSignalSweep{0%{background-position:0 0,-120% 0}100%{background-position:30px 30px,120% 0}}
 @keyframes tezzMeterSheen{0%,65%,100%{background-position:150% 0;opacity:0}75%{opacity:.55}90%{background-position:-40% 0;opacity:0}}
 @media(prefers-reduced-motion:reduce){.tezz-hero::before,.tezz-hero::after,.tezz-digital-meter::after{animation:none!important}}
+
+
+/* Signature digital signal waves: slow ambient flow, faster while testing. */
+.tezz-wave{height:112px!important;bottom:0!important;opacity:.82!important;z-index:1!important;overflow:hidden}
+.tezz-wave svg{overflow:visible!important}
+.tezz-wave .signal-wave{fill:none;stroke-linecap:round;stroke-width:2.2;stroke-dasharray:9 13;animation:tezzWaveTravel 22s linear infinite;filter:drop-shadow(0 0 4px rgba(35,151,224,.2))}
+.tezz-wave .signal-wave-back{stroke:url(#tezz-signal-cyan);stroke-width:1.7;stroke-dasharray:3 13;animation-duration:29s;opacity:.48}
+.tezz-wave .signal-wave-mid{stroke:url(#tezz-signal-blue);stroke-width:2.4;stroke-dasharray:12 11;animation-duration:19s;opacity:.8}
+.tezz-wave .signal-wave-front{stroke:#36aee8;stroke-width:1.5;stroke-dasharray:2 17;animation-duration:24s;opacity:.55}
+.tezz-hero.is-testing .tezz-wave .signal-wave{animation-duration:7s;opacity:1;filter:drop-shadow(0 0 7px rgba(35,151,224,.42))}
+.tezz-hero.is-testing .tezz-wave .signal-wave-back{animation-duration:10s}
+.tezz-hero.is-testing .tezz-wave .signal-wave-front{animation-duration:8s}
+@keyframes tezzWaveTravel{from{stroke-dashoffset:0}to{stroke-dashoffset:-440}}
+@media(prefers-reduced-motion:reduce){.tezz-wave .signal-wave{animation:none!important}}
