@@ -1366,3 +1366,28 @@ img, svg { max-width:100%; }
 .stability-insight.mixed{border-left-color:#e0a43b;background:#fffaf0}
 .stability-insight.variable{border-left-color:#d96b72;background:#fff8f8}
 @media(max-width:760px){.stability-monitor-card{padding:15px;margin:15px 0;border-radius:15px}.stability-monitor-heading h3{font-size:19px}.stability-monitor-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.stability-chart-wrap{padding:8px;min-height:150px}.stability-chart{height:140px}.stability-chart-empty{height:125px}.stability-monitor-card .latency-run-button{width:100%}}
+
+
+/* Unified TEZZ performance report page. */
+.performance-report-panel{padding:24px;border:1px solid #e9e5de;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5f9ff 100%);box-shadow:0 12px 34px rgba(16,28,58,.07)}
+.performance-report-panel .doctor-heading h2{color:#101c3a}
+.performance-report-panel .doctor-heading p{color:#68758a}
+.performance-report-panel .doctor-symbol{background:#e7f2ff;color:#1268d8;border:1px solid #d6e8fc}
+.performance-report-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:16px 0;color:#78869a;font-size:10px}
+.performance-report-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.performance-report-card{display:flex;flex-direction:column;gap:8px;min-width:0;padding:17px;border:1px solid #e8edf4;border-radius:13px;background:#fff}
+.performance-report-card strong{color:#12366a;font-size:clamp(21px,2.5vw,29px);letter-spacing:-.7px;overflow-wrap:anywhere}
+.performance-report-card p{margin:0;color:#53647b;font-size:11px}
+.performance-report-card small{color:#8491a3;font-size:10px;line-height:1.5}
+.performance-report-section{margin:21px 0;padding:18px;border:1px solid #e8edf4;border-radius:14px;background:#fff}
+.performance-report-section h3{margin:0 0 5px;color:#101c3a;font-size:17px}
+.performance-report-section>p{margin:0 0 13px;color:#78869a;font-size:11px;line-height:1.5}
+.performance-report-trend{display:grid;gap:7px}
+.performance-report-trend>div{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(85px,.7fr) minmax(100px,1fr);align-items:center;gap:10px;padding:11px;border:1px solid #edf0f5;border-radius:10px;background:#fbfdff}
+.performance-report-trend span,.performance-report-trend small{color:#78869a;font-size:10px}
+.performance-report-trend strong{color:#12366a;font-size:13px;font-variant-numeric:tabular-nums}
+.performance-report-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:16px 0}
+.performance-report-actions>span{color:#168b69;font-size:11px}
+.performance-report-panel .doctor-run-test{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 22px;border:0;border-radius:999px;background:linear-gradient(110deg,#1678ed,#0848b8);color:#fff;font-family:Manrope,system-ui,sans-serif;font-size:13px;font-weight:800;box-shadow:0 7px 17px rgba(18,104,216,.20);cursor:pointer}
+.performance-report-panel .doctor-disclaimer{color:#77859a;border-color:#e5eaf1}
+@media(max-width:760px){.performance-report-panel{padding:17px 14px}.performance-report-grid{grid-template-columns:1fr}.performance-report-card{padding:14px}.performance-report-section{padding:14px}.performance-report-trend>div{grid-template-columns:minmax(0,1fr) auto}.performance-report-trend small{grid-column:1/-1}.performance-report-actions .doctor-run-test{width:100%}}
