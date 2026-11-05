@@ -144,6 +144,11 @@ function App() {
   const [latencyError, setLatencyError] = useState('')
   const [latencyCompletedAt, setLatencyCompletedAt] = useState('')
   const [latencyHistory, setLatencyHistory] = useState<LatencyRecord[]>(loadLatencyHistory)
+  const [stabilityRunning, setStabilityRunning] = useState(false)
+  const [stabilitySamples, setStabilitySamples] = useState<number[]>([])
+  const [stabilityFailures, setStabilityFailures] = useState(0)
+  const [stabilityFinished, setStabilityFinished] = useState('')
+  const [stabilityError, setStabilityError] = useState('')
 
   useEffect(() => {
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)) } catch { /* Storage may be unavailable or full. */ }
@@ -294,6 +299,42 @@ function App() {
     }
   }
 
+  async function runStabilityMonitor() {
+    if (stabilityRunning) return
+    setStabilityRunning(true)
+    setStabilitySamples([])
+    setStabilityFailures(0)
+    setStabilityFinished('')
+    setStabilityError('')
+    const samples: number[] = []
+    let failures = 0
+    try {
+      for (let i = 0; i < 30; i++) {
+        if (!navigator.onLine) {
+          failures += 1
+        } else {
+          const started = performance.now()
+          try {
+            const response = await fetch(`/api/speed/ping?monitor=${i + 1}&t=${Date.now()}`, {
+              method: 'GET', cache: 'no-store', signal: AbortSignal.timeout(5000),
+            })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            samples.push(performance.now() - started)
+          } catch { failures += 1 }
+        }
+        setStabilitySamples([...samples])
+        setStabilityFailures(failures)
+        if (i < 29) await new Promise(resolve => window.setTimeout(resolve, 1000))
+      }
+      if (samples.length === 0) throw new Error('No successful samples were received. Check your connection and try again.')
+      setStabilityFinished(new Date().toLocaleTimeString())
+    } catch (error) {
+      setStabilityError(error instanceof Error ? error.message : 'Stability monitoring could not complete.')
+    } finally {
+      setStabilityRunning(false)
+    }
+  }
+
   async function runTest() {
     if (state === 'running') return
     setState('running')
@@ -424,6 +465,27 @@ function App() {
               <div className="latency-sample-track" aria-label={`${latencySamples.length} successful latency samples`}>{Array.from({length:12},(_,i)=><span key={i} className={i < latencySamples.length ? 'sample-done' : i < latencySamples.length + latencyFailures ? 'sample-failed' : ''} />)}</div>
               {latencyError && <p className="latency-error" role="alert">{latencyError}</p>}
               <button className="doctor-run-test latency-run-button" onClick={runLatencyCheck} disabled={latencyRunning || !network.online}>{latencyRunning ? 'Testing connection…' : latencyCompletedAt ? 'Run again' : 'Start latency test'} <span aria-hidden="true">→</span></button>
+            </div>
+            <div className="stability-monitor-card">
+              <div className="stability-monitor-heading"><div><span className="section-kicker">LIVE CONNECTION MONITOR</span><h3>Connection Stability Monitor</h3><p>30 response-time samples, approximately one second apart. Runs independently of the full speed test.</p></div><span className={stabilityRunning ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
+              <div className="stability-monitor-summary">
+                <div><span>Successful samples</span><strong>{stabilitySamples.length} / 30</strong></div>
+                <div><span>Failed requests</span><strong>{stabilityFailures}</strong></div>
+                <div><span>Average response</span><strong>{stabilitySamples.length ? (stabilitySamples.reduce((a,b)=>a+b,0)/stabilitySamples.length).toFixed(1)+' ms' : '—'}</strong></div>
+                <div><span>Highest response</span><strong>{stabilitySamples.length ? Math.max(...stabilitySamples).toFixed(1)+' ms' : '—'}</strong></div>
+              </div>
+              <div className="stability-chart-wrap">
+                {stabilitySamples.length > 1 ? <svg className="stability-chart" viewBox="0 0 600 170" role="img" aria-label="HTTP response time across monitoring samples">
+                  {[35,80,125].map(y=><line key={y} x1="0" y1={y} x2="600" y2={y} className="stability-grid-line"/>)}
+                  <polyline points={stabilitySamples.map((v,i)=>{const max=Math.max(...stabilitySamples,100);const min=Math.min(...stabilitySamples,0);const range=Math.max(max-min,20);return `${i/(Math.max(stabilitySamples.length-1,1))*600},${150-((v-min)/range)*125}`}).join(' ')} className="stability-chart-line"/>
+                  {stabilitySamples.map((v,i)=>{const max=Math.max(...stabilitySamples,100);const min=Math.min(...stabilitySamples,0);const range=Math.max(max-min,20);return <circle key={i} cx={i/(Math.max(stabilitySamples.length-1,1))*600} cy={150-((v-min)/range)*125} r="3" className="stability-chart-point"/>})}
+                </svg> : <div className="stability-chart-empty"><Activity size={20}/><span>{stabilityRunning ? 'Collecting response-time samples…' : 'Start monitoring to build your live stability graph.'}</span></div>}
+              </div>
+              <div className="stability-progress"><span style={{width:`${((stabilitySamples.length+stabilityFailures)/30)*100}%`}} /></div>
+              <div className="stability-status-line">{stabilityRunning ? `Monitoring in progress · sample ${stabilitySamples.length+stabilityFailures} of 30` : stabilityFinished ? `Monitoring completed at ${stabilityFinished}` : 'Monitoring duration: approximately 30 seconds'}</div>
+              {stabilitySamples.length > 1 && (() => {const avg=stabilitySamples.reduce((a,b)=>a+b,0)/stabilitySamples.length;const jitter=stabilitySamples.slice(1).reduce((sum,v,i)=>sum+Math.abs(v-stabilitySamples[i]),0)/(stabilitySamples.length-1);const spikes=stabilitySamples.filter(v=>v>avg*1.8 && v>avg+30).length;const level=stabilityFailures>0||spikes>=3||jitter>50?'variable':jitter>20||spikes>0?'mixed':'steady';return <div className={`stability-insight ${level}`}><strong>{level==='variable'?'Unstable response pattern':level==='mixed'?'Some response variation detected':'Steady response pattern'}</strong><p>{spikes} response spike(s) detected · {jitter.toFixed(1)} ms average successive variation. {level==='variable'?'Check competing traffic and Wi-Fi conditions, then repeat the monitor.':level==='mixed'?'Repeat at another time to see whether the variation persists.':'Responses were relatively consistent during this short monitoring window.'}</p></div>})()}
+              {stabilityError && <p className="latency-error" role="alert">{stabilityError}</p>}
+              <button className="doctor-run-test latency-run-button" onClick={runStabilityMonitor} disabled={stabilityRunning || !network.online}>{stabilityRunning ? 'Monitoring…' : stabilityFinished ? 'Run monitor again' : 'Start 30-second monitor'} <span aria-hidden="true">→</span></button>
             </div>
             <div className="network-capabilities"><div><strong>Wi-Fi signal strength</strong><span>Not exposed by standard browser APIs</span></div><div><strong>Router / gateway details</strong><span>Not exposed to this webpage</span></div><div><strong>Live connection updates</strong><span>{network.supported ? 'Browser API available' : 'Limited browser support'}</span></div></div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter are measured as HTTP request/response times to the TEZZ edge, not ICMP ping. Failed requests are not labelled packet loss. Results can vary with device load, Wi-Fi, server distance and ISP routing.</div>
