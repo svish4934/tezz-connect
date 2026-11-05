@@ -156,11 +156,11 @@ function App() {
   function navigateTo(tab: string) {
     const nextPath = tab === 'About' ? '/about' : '/'
     if (window.location.pathname !== nextPath) window.history.pushState({}, '', nextPath)
-    navigateTo(tab)
+    setActiveTab(tab)
   }
 
   useEffect(() => {
-    const handlePopState = () => navigateTo(window.location.pathname === '/about' ? 'About' : 'Overview')
+    const handlePopState = () => setActiveTab(window.location.pathname === '/about' ? 'About' : 'Overview')
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
