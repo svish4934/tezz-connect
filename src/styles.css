@@ -1339,3 +1339,30 @@ img, svg { max-width:100%; }
 }
 .doctor-panel .doctor-run-test:disabled{opacity:.58!important;cursor:wait!important}
 @media(max-width:760px){.doctor-panel{padding:18px 14px!important}.doctor-panel .doctor-run-test{width:100%!important}}
+
+
+/* Connection Stability Monitor — aligned with TEZZ light dashboard components. */
+.stability-monitor-card{margin:20px 0;padding:21px;border:1px solid #e5ebf3;border-radius:18px;background:linear-gradient(145deg,#fff 0%,#f5f9ff 100%);box-shadow:0 8px 24px rgba(16,28,58,.055)}
+.stability-monitor-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.stability-monitor-heading h3{margin:6px 0;color:#101c3a;font-size:21px;letter-spacing:-.5px}
+.stability-monitor-heading p{margin:0;color:#68758a;font-size:12px;line-height:1.55;max-width:620px}
+.stability-monitor-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:17px 0 12px}
+.stability-monitor-summary>div{display:flex;flex-direction:column;gap:7px;min-width:0;padding:12px;border:1px solid #e8edf4;border-radius:11px;background:#fff}
+.stability-monitor-summary span{color:#7b8798;font-size:10px}
+.stability-monitor-summary strong{color:#172b4d;font-size:15px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stability-chart-wrap{min-height:180px;padding:12px;border:1px solid #e8edf4;border-radius:13px;background:#fff}
+.stability-chart{display:block;width:100%;height:170px;overflow:visible}
+.stability-grid-line{stroke:#e9eff6;stroke-width:1;stroke-dasharray:4 5}
+.stability-chart-line{fill:none;stroke:#1686df;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.stability-chart-point{fill:#fff;stroke:#1686df;stroke-width:2}
+.stability-chart-empty{height:155px;display:flex;align-items:center;justify-content:center;gap:9px;color:#8492a5;font-size:11px;text-align:center}
+.stability-chart-empty svg{color:#1686df}
+.stability-progress{height:7px;margin:14px 0 7px;border-radius:9px;background:#e8eef5;overflow:hidden}
+.stability-progress>span{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#20b982,#1686df);transition:width .2s ease}
+.stability-status-line{color:#7b8798;font-size:10px}
+.stability-insight{margin:13px 0;padding:12px 14px;border:1px solid #e1eaf2;border-left:4px solid #20b982;border-radius:11px;background:#f7fbff}
+.stability-insight strong{display:block;color:#172b4d;font-size:12px}
+.stability-insight p{margin:5px 0 0;color:#68758a;font-size:11px;line-height:1.55}
+.stability-insight.mixed{border-left-color:#e0a43b;background:#fffaf0}
+.stability-insight.variable{border-left-color:#d96b72;background:#fff8f8}
+@media(max-width:760px){.stability-monitor-card{padding:15px;margin:15px 0;border-radius:15px}.stability-monitor-heading h3{font-size:19px}.stability-monitor-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.stability-chart-wrap{padding:8px;min-height:150px}.stability-chart{height:140px}.stability-chart-empty{height:125px}.stability-monitor-card .latency-run-button{width:100%}}
