@@ -1698,3 +1698,38 @@ img, svg { max-width:100%; }
     transition-duration:.01ms!important;
   }
 }
+
+/* Mobile navigation: expose every main section without changing the desktop header. */
+.tezz-mobile-nav{display:none}
+@media(max-width:800px){
+  .tezz-header{overflow:visible!important}
+  .tezz-mobile-nav{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    padding:12px 14px 15px;
+    border-bottom:1px solid #23344d;
+    background:linear-gradient(180deg,#081326,#050c19);
+  }
+  .tezz-mobile-nav button{
+    min-width:0;
+    min-height:43px;
+    padding:10px 12px;
+    border:1px solid #263a56;
+    border-radius:9px;
+    background:#101d31;
+    color:#eaf2ff;
+    font:600 12px Manrope,system-ui,sans-serif;
+    text-align:left;
+    cursor:pointer;
+  }
+  .tezz-mobile-nav button.selected{
+    border-color:#e52b4c;
+    background:linear-gradient(100deg,#e92749,#a90d31);
+    color:#fff;
+  }
+}
+@media(max-width:380px){
+  .tezz-mobile-nav{gap:6px;padding:10px}
+  .tezz-mobile-nav button{padding:9px;font-size:11px}
+}
