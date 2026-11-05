@@ -611,7 +611,7 @@ function App() {
               <div className="performance-report-trend">{stabilityHistory.slice(0,5).map(item=><div key={item.date}><span>{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><small>Stability average · {item.spikes} spikes</small></div>)}</div>
               {stabilityHistory.length===0 && <div className="empty-history"><Activity size={18}/><span>Complete a stability monitor to start your trend history.</span></div>}
             </div>
-            <div className="performance-report-actions"><button className="doctor-run-test" onClick={copyPerformanceReport}><ClipboardCopy size={15}/> Copy full report</button><button className="doctor-run-test report-pdf-button" onClick={() => window.print()}><FileText size={15}/> Download PDF</button><span role="status">{reportMessage}</span></div>
+            <div className="performance-report-actions"><button className="doctor-run-test" onClick={copyPerformanceReport}><ClipboardCopy size={15}/> Copy full report</button><button className="doctor-run-test report-pdf-button" onClick={() => window.print()}><ClipboardCopy size={15}/> Download PDF</button><span role="status">{reportMessage}</span></div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> This report combines the latest available measurements. It does not diagnose an ISP fault. HTTP latency is not ICMP ping, and HTTP request failures are not packet loss. Report data is stored locally and is not synced across devices.</div>
           </section>}
           {activeTab === 'Overview' && <>
