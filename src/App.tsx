@@ -258,14 +258,14 @@ function App() {
 
   return (
     <div className="app-shell">
-      <main className="main tezz-main">
+      <main className="main tezz-main" id="tezz-top">
         <header className="tezz-header">
-          <a className="tezz-logo" href="#" aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
+          <a className="tezz-logo" href="#tezz-top" onClick={() => setActiveTab('Overview')} aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
           <nav className="tezz-nav">
             <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => setActiveTab('Overview')}><Home size={15}/> Home</button>
             <button onClick={() => { setActiveTab('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
             <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => setActiveTab('Internet Doctor')}>Internet Doctor</button>
-            <button onClick={() => setActiveTab('Network')}>Tools⌄</button>
+            <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => setActiveTab('Network')}>Tools⌄</button>
             <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => setActiveTab('History')}>History</button>
           </nav>
           <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => setActiveTab('Network')}><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
@@ -343,6 +343,7 @@ function App() {
             </div>}
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> History is stored locally in this browser and is not synced across devices. Clearing browser site data may remove these records.</div>
           </section>}
+          {activeTab === 'Overview' && <>
           <section className="services-panel tezz-social-panel">
             <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
             <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Responding' ? 'reachable' : item?.status === 'Could not verify' ? 'inconclusive' : ''}`}>{item ? item.status === 'Responding' ? `Responding · ${item.ms} ms` : item.status === 'Checking' ? 'Checking…' : 'Could not verify' : 'Not checked'}</div></div> })}</div>
@@ -396,6 +397,7 @@ function App() {
             <div className="history-heading"><div><div className="section-kicker">RECENT ACTIVITY</div><h3>Test history</h3></div><button onClick={() => setActiveTab('History')}>View history <span>→</span></button></div>
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
+          </>}
           <footer><span>© 2026 TEZZ CONNECT</span><span>BUILT FOR A BETTER CONNECTION <span className="footer-dot">•</span> PRIVACY FIRST</span></footer>
         </div>
       </main>
