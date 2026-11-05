@@ -1534,3 +1534,50 @@ img, svg { max-width:100%; }
 .about-page .about-cta .section-kicker{color:#8ce9e7!important}
 .about-page .about-section-heading h2{color:#17263b!important}
 .about-page .about-section-heading p{color:#596b80!important}
+
+
+/* Refined About palette: lighter information cards for clear contrast against the dark hero. */
+.about-page .about-feature-grid article,
+.about-page .about-info-card{
+  background:linear-gradient(145deg,#f5faff 0%,#eaf3fa 100%)!important;
+  border:1px solid #d5e3ee!important;
+  color:#172b43!important;
+  box-shadow:0 8px 24px rgba(20,48,76,.07)!important;
+}
+.about-page .about-feature-grid article h3,
+.about-page .about-info-card h3{
+  color:#142b45!important;
+}
+.about-page .about-feature-grid article p,
+.about-page .about-info-card p{
+  color:#53677d!important;
+}
+.about-page .about-info-card .section-kicker{
+  color:#087f91!important;
+}
+.about-page .about-feature-icon{
+  background:#dff5f7!important;
+  border-color:#b9e7eb!important;
+  color:#087f91!important;
+}
+.about-page .about-method-note{
+  background:#e8f7f2!important;
+  border-color:#c5e8db!important;
+  color:#244c43!important;
+}
+.about-page .about-method-note p{
+  color:#365d53!important;
+}
+.about-page .about-method-note strong{
+  color:#153e34!important;
+}
+.about-page .about-cta{
+  background:linear-gradient(110deg,#102c43 0%,#16233c 100%)!important;
+  border-color:#294e67!important;
+}
+.about-page .about-cta h2{
+  color:#f7fbff!important;
+}
+.about-page .about-cta .section-kicker{
+  color:#8ce9e7!important;
+}
