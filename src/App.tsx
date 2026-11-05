@@ -49,7 +49,7 @@ async function measureDownload(onSample: (mbps: number, receivedBytes: number) =
     const mbps = (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
     onSample(mbps, receivedBytes)
   }
-  if (!receivedBytes) throw new Error('Download test returned no data')
+  if (receivedBytes !== DOWNLOAD_BYTES) throw new Error(`Download test incomplete: received ${receivedBytes} of ${DOWNLOAD_BYTES} bytes`)
   const seconds = (performance.now() - start) / 1000
   return (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
 }
@@ -63,6 +63,7 @@ async function measureUpload(onProgress: (sentBytes: number, mbps: number) => vo
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
     request.open('POST', uploadUrl)
+    request.timeout = 60000
     request.setRequestHeader('Content-Type', 'application/octet-stream')
     request.upload.onprogress = event => {
       const sentBytes = Math.min(event.loaded, UPLOAD_BYTES)
@@ -79,6 +80,7 @@ async function measureUpload(onProgress: (sentBytes: number, mbps: number) => vo
       resolve((UPLOAD_BYTES * 8) / seconds / 1_000_000)
     }
     request.onerror = () => reject(new Error('Upload test network error'))
+    request.ontimeout = () => reject(new Error('Upload test timed out after 60 seconds'))
     request.onabort = () => reject(new Error('Upload test was cancelled'))
     request.send(payload)
   })
@@ -264,9 +266,9 @@ function App() {
             <button onClick={() => { setActiveTab('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
             <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => setActiveTab('Internet Doctor')}>Internet Doctor</button>
             <button onClick={() => setActiveTab('Network')}>Tools⌄</button>
-            <button onClick={() => setActiveTab('History')}>Guides</button>
+            <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => setActiveTab('History')}>History</button>
           </nav>
-          <div className="tezz-header-actions"><button aria-label="Search"><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
+          <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => setActiveTab('Network')}><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
         </header>
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
@@ -294,12 +296,12 @@ function App() {
           <section className="tezz-stat-grid">
             <div className="tezz-stat cyan"><ArrowDown/><span>Download</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
             <div className="tezz-stat violet"><ArrowUp/><span>Upload</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
-            <div className="tezz-stat green"><ArrowLeftRight/><span>Ping</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
+            <div className="tezz-stat green"><ArrowLeftRight/><span>HTTP latency</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
             <div className="tezz-stat red"><Activity/><span>Jitter</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
           </section>
           <section className="tezz-feature-grid">
             <button onClick={()=>setActiveTab('Internet Doctor')}><Stethoscope/><strong>Internet Doctor</strong><span>Find and fix internet problems</span><b>›</b></button>
-            <button onClick={()=>setActiveTab('Network')}><ArrowLeftRight/><strong>Ping Test</strong><span>Check your latency</span><b>›</b></button>
+            <button onClick={()=>setActiveTab('Network')}><ArrowLeftRight/><strong>Latency Test</strong><span>Check browser response time</span><b>›</b></button>
             <button onClick={()=>setActiveTab('Network')}><Wifi/><strong>Wi-Fi Test</strong><span>Test your Wi-Fi performance</span><b>›</b></button>
             <button onClick={()=>setActiveTab('History')}><Grid2X2/><strong>More Tools</strong><span>Explore all network tools</span><b>›</b></button>
           </section>
@@ -331,6 +333,15 @@ function App() {
               </div>
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
+          </section>}
+          {activeTab === 'History' && <section className="history-page-panel">
+            <div className="doctor-heading"><div><div className="section-kicker">YOUR LOCAL TEST RECORDS</div><h2>Internet speed test history.</h2><p>Review your recent download, upload, HTTP latency and jitter measurements saved in this browser.</p></div><span className="doctor-symbol"><History size={23}/></span></div>
+            <div className="history-page-summary"><div><span>Saved tests</span><strong>{history.length}</strong></div><div><span>Storage</span><strong>This browser only</strong></div><div><span>Retention</span><strong>Up to 50 tests</strong></div></div>
+            {history.length === 0 ? <div className="empty-history"><History size={18}/><span>No saved tests yet. Run a speed test to build your history.</span></div> : <div className="history-table">
+              <div className="history-table-head"><span>Date & time</span><span>Download</span><span>Upload</span><span>HTTP latency</span><span>Jitter</span></div>
+              {history.map(item => <div className="history-table-row" key={item.date}><span>{new Date(item.date).toLocaleString()}</span><strong>{item.download.toFixed(1)} Mbps</strong><strong>{item.upload.toFixed(1)} Mbps</strong><span>{item.ping} ms</span><span>{item.jitter.toFixed(1)} ms</span></div>)}
+            </div>}
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> History is stored locally in this browser and is not synced across devices. Clearing browser site data may remove these records.</div>
           </section>}
           <section className="services-panel tezz-social-panel">
             <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
