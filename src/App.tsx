@@ -339,6 +339,26 @@ function App() {
             <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
           </section>
 
+          <section className="usage-insights-panel">
+            <div className="section-kicker">MAKE THE MOST OF YOUR CONNECTION</div>
+            <h2>What can your internet handle?</h2>
+            <p className="usage-insights-intro">A practical guide based on your latest speed test. Actual performance can vary by device, Wi-Fi signal and the number of people online.</p>
+            <div className="usage-insights-grid">
+              <article className="usage-insight-card">
+                <div className="usage-insight-icon streaming"><MonitorPlay size={22}/></div>
+                <div><h3>Streaming</h3><p>{result ? result.download >= 25 ? 'Your measured download speed is suitable for 4K streaming on one device, subject to service and network conditions.' : result.download >= 5 ? 'Your measured download speed is generally suitable for HD streaming on one device.' : 'Your measured download speed may struggle with HD streaming. Try lowering video quality or reducing other downloads.' : 'Run a speed test to check whether your connection can support HD or 4K streaming.'}</p></div>
+              </article>
+              <article className="usage-insight-card">
+                <div className="usage-insight-icon calls"><Video size={22}/></div>
+                <div><h3>Video calls</h3><p>{result ? result.upload >= 3 && result.download >= 5 ? 'Your measured upload and download speeds look suitable for many HD video calls. Stable Wi-Fi is also important.' : 'Your measured speeds may affect video-call quality, especially when several people or devices share the connection.' : 'Run a speed test to review upload and download capacity for video meetings.'}</p></div>
+              </article>
+              <article className="usage-insight-card">
+                <div className="usage-insight-icon gaming"><Gamepad2 size={22}/></div>
+                <div><h3>Online gaming</h3><p>{result ? result.ping <= 50 && result.jitter <= 20 ? 'Your measured latency and jitter look favourable for many online games. Actual gameplay also depends on the game server route.' : 'Your measured latency or jitter may affect responsiveness. Try a wired connection or stronger Wi-Fi and retest.' : 'Run a speed test to review latency and jitter, which often matter more than download speed for gaming.'}</p></div>
+              </article>
+            </div>
+          </section>
+
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
             <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 100 MB</strong></div></div>
