@@ -270,7 +270,7 @@ function App() {
         </header>
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
-          <section className="tezz-hero">
+          <section className={`tezz-hero ${state === 'running' ? 'is-testing' : ''}`}>
             <div className="tezz-hero-copy">
               <span className="tezz-pill">INTERNET SPEED TEST</span>
               <h1>Free Internet <em>Speed Test</em></h1>
@@ -289,7 +289,7 @@ function App() {
               {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
             </div>
             <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, ping and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
-            <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 90" preserveAspectRatio="none"><defs><linearGradient id="wave-spectrum"><stop stopColor="#a12bff"/><stop offset=".5" stopColor="#00d8ff"/><stop offset="1" stopColor="#8a48ff"/></linearGradient></defs><path d="M0 48 C110 4 155 88 265 48 S420 8 530 48 S700 88 800 43 S920 8 1000 45" fill="none" stroke="url(#wave-spectrum)" strokeWidth="2" strokeDasharray="2 7"/></svg></div>
+            <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 180" preserveAspectRatio="none"><defs><linearGradient id="tezz-signal-blue"><stop stopColor="#58b8ff" stopOpacity=".05"/><stop offset=".5" stopColor="#1686ed" stopOpacity=".9"/><stop offset="1" stopColor="#65d9ee" stopOpacity=".12"/></linearGradient><linearGradient id="tezz-signal-cyan"><stop stopColor="#64d8e8" stopOpacity=".05"/><stop offset=".55" stopColor="#36b8df" stopOpacity=".65"/><stop offset="1" stopColor="#1686ed" stopOpacity=".08"/></linearGradient></defs><path className="signal-wave signal-wave-back" d="M-20 95 C95 20 160 160 280 92 S470 22 590 94 S790 162 910 88 S1060 35 1100 95"/><path className="signal-wave signal-wave-mid" d="M-20 112 C100 52 170 168 300 108 S500 46 630 110 S820 168 950 104 S1070 58 1100 112"/><path className="signal-wave signal-wave-front" d="M-20 128 C100 80 185 158 315 126 S510 82 650 125 S850 158 980 122 S1080 92 1100 128"/></svg></div>
           </section>
           <section className="tezz-stat-grid">
             <div className="tezz-stat cyan"><ArrowDown/><span>Download</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
