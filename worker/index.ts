@@ -104,8 +104,15 @@ export default {
 
     if (url.pathname === "/api/speed/upload") {
       if (request.method !== "POST") return json("Method not allowed", 405)
-      const declaredLength = Number(request.headers.get("Content-Length") ?? "0")
-      if (declaredLength > 25_000_000) return json("Upload payload exceeds 25 MB", 413)
+      const contentLength = request.headers.get("Content-Length")
+      if (contentLength !== null) {
+        const declaredLength = Number(contentLength)
+        if (!Number.isSafeInteger(declaredLength) || declaredLength < 0) {
+          return json("Invalid upload Content-Length", 400)
+        }
+        if (declaredLength > 25_000_000) return json("Upload payload exceeds 25 MB", 413)
+        if (declaredLength !== 25_000_000) return json("Upload payload must be exactly 25 MB", 400)
+      }
       if (!request.body) return json("Upload payload is missing", 400)
       const reader = request.body.getReader()
       let receivedBytes = 0
