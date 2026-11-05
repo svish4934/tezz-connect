@@ -995,3 +995,17 @@ body{background:#faf8f3!important}
   .tezz-social-panel .service-name { font-size: 9px !important; }
   .tezz-social-panel .service-status { font-size: 8px !important; }
 }
+
+
+/* Test history page */
+.history-page-panel{margin:22px 0;padding:26px;border:1px solid #e8edf4;border-radius:22px;background:#fff;box-shadow:0 12px 34px rgba(25,48,84,.045)}
+.history-page-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.history-page-summary>div{display:flex;flex-direction:column;gap:7px;padding:16px;border:1px solid #edf0f4;border-radius:14px;background:#fafbfd}
+.history-page-summary span{font-size:12px;color:#69758a}
+.history-page-summary strong{font-size:17px;color:#101c3a}
+.history-table{width:100%;overflow-x:auto;border:1px solid #edf0f4;border-radius:14px}
+.history-table-head,.history-table-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr .8fr;gap:12px;align-items:center;min-width:680px;padding:14px 16px}
+.history-table-head{background:#f6f8fb;color:#687386;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.history-table-row{border-top:1px solid #edf0f4;color:#536176;font-size:13px}
+.history-table-row strong{color:#14213d;font-size:13px}
+@media(max-width:760px){.history-page-panel{padding:18px 14px;border-radius:18px}.history-page-summary{grid-template-columns:1fr;gap:8px}.history-page-summary>div{padding:12px 14px;flex-direction:row;align-items:center;justify-content:space-between}.history-page-summary strong{font-size:14px}}
