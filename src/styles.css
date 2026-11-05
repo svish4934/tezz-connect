@@ -1733,3 +1733,12 @@ img, svg { max-width:100%; }
   .tezz-mobile-nav{gap:6px;padding:10px}
   .tezz-mobile-nav button{padding:9px;font-size:11px}
 }
+
+
+/* India-built brand identity: restrained, global-facing About page treatment. */
+.about-origin{display:flex;align-items:center;gap:16px;margin:20px 0 8px;padding:19px 21px;border:1px solid #d5e3ee;border-radius:14px;background:linear-gradient(110deg,#f5faff 0%,#edf6fb 100%);box-shadow:0 8px 24px rgba(20,48,76,.05)}
+.about-origin-mark{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border:1px solid #dce7ef;border-radius:12px;background:#fff;font-size:25px}
+.about-origin .section-kicker{color:#087f91}
+.about-origin h2{margin:5px 0 4px;color:#142b45;font-size:clamp(17px,2vw,22px);letter-spacing:-.4px}
+.about-origin p{margin:0;color:#53677d;font-size:11px;line-height:1.7}
+@media(max-width:760px){.about-origin{align-items:flex-start;padding:16px;gap:12px}.about-origin-mark{flex-basis:42px;width:42px;height:42px;font-size:22px}}
