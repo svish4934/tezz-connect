@@ -592,6 +592,16 @@ function App() {
           {activeTab === 'Report' && <section className="performance-report-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ CONNECT PERFORMANCE SUMMARY</div><h2>Your internet performance report.</h2><p>A combined view of your latest speed, latency and connection stability measurements saved in this browser.</p></div><span className="doctor-symbol"><ClipboardCopy size={23}/></span></div>
             <div className="performance-report-meta"><span>Generated {new Date().toLocaleString()}</span><span>Local browser data · Private</span></div>
+            <div className="performance-report-visual">
+              <div className="performance-report-visual-head"><span className="section-kicker">AT A GLANCE</span><strong>{result && latencyHistory[0] && stabilityHistory[0] ? '3 measurement categories available' : 'Your measurement coverage'}</strong></div>
+              <div className="performance-report-coverage">
+                <div className={result ? 'covered' : ''}><span>Speed</span><i/></div>
+                <div className={latencyHistory[0] ? 'covered' : ''}><span>Latency</span><i/></div>
+                <div className={stabilityHistory[0] ? 'covered' : ''}><span>Stability</span><i/></div>
+              </div>
+              <p>{result && latencyHistory[0] && stabilityHistory[0] ? 'Your latest speed, latency and stability measurements are available for review.' : 'Run the missing tests to build a more complete performance picture. The report includes only measurements saved in this browser.'}</p>
+            </div>
+
             <div className="performance-report-grid">
               <div className="performance-report-card"><span className="section-kicker">SPEED TEST</span><strong>{result ? result.download.toFixed(1)+' Mbps' : 'Not tested'}</strong><p>{result ? `Download · Upload ${result.upload.toFixed(1)} Mbps` : 'Run a speed test to add measurements.'}</p><small>{result ? `HTTP latency ${result.ping} ms · Jitter ${result.jitter.toFixed(1)} ms` : 'No saved speed result'}</small></div>
               <div className="performance-report-card"><span className="section-kicker">LATENCY TEST</span><strong>{latencyHistory[0] ? latencyHistory[0].average.toFixed(1)+' ms' : 'Not tested'}</strong><p>Average HTTP response time</p><small>{latencyHistory[0] ? `Jitter ${latencyHistory[0].jitter.toFixed(1)} ms · ${latencyHistory[0].failures}/12 failed` : 'No saved latency result'}</small></div>
@@ -601,7 +611,7 @@ function App() {
               <div className="performance-report-trend">{stabilityHistory.slice(0,5).map(item=><div key={item.date}><span>{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><small>Stability average · {item.spikes} spikes</small></div>)}</div>
               {stabilityHistory.length===0 && <div className="empty-history"><Activity size={18}/><span>Complete a stability monitor to start your trend history.</span></div>}
             </div>
-            <div className="performance-report-actions"><button className="doctor-run-test" onClick={copyPerformanceReport}><ClipboardCopy size={15}/> Copy full report</button><span role="status">{reportMessage}</span></div>
+            <div className="performance-report-actions"><button className="doctor-run-test" onClick={copyPerformanceReport}><ClipboardCopy size={15}/> Copy full report</button><button className="doctor-run-test report-pdf-button" onClick={() => window.print()}><FileText size={15}/> Download PDF</button><span role="status">{reportMessage}</span></div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> This report combines the latest available measurements. It does not diagnose an ISP fault. HTTP latency is not ICMP ping, and HTTP request failures are not packet loss. Report data is stored locally and is not synced across devices.</div>
           </section>}
           {activeTab === 'Overview' && <>
