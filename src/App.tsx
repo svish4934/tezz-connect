@@ -34,6 +34,7 @@ async function measureDownload(onSample: (mbps: number, receivedBytes: number) =
   if (!response.ok) throw new Error('Download test endpoint unavailable')
   if (!response.body) {
     const data = await response.arrayBuffer()
+    if (data.byteLength !== DOWNLOAD_BYTES) throw new Error(`Download test incomplete: received ${data.byteLength} of ${DOWNLOAD_BYTES} bytes`)
     const seconds = (performance.now() - start) / 1000
     const mbps = (data.byteLength * 8) / Math.max(seconds, 0.001) / 1_000_000
     onSample(mbps, data.byteLength)
@@ -114,6 +115,7 @@ function App() {
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
   const [reportMessage, setReportMessage] = useState('')
+  const [testError, setTestError] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
@@ -215,7 +217,7 @@ function App() {
     setTestPhase('Measuring HTTP latency')
     setServicePhase('idle')
     setServiceResults([])
-    setResult(null)
+    setTestError('')
     try {
       const latency = await measurePing()
       setProgress(32)
@@ -246,7 +248,9 @@ function App() {
       setProgress(100)
       setTestPhase('Test complete')
       setState('complete')
-    } catch {
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : 'An unexpected network error occurred'
+      setTestError(reason)
       setTestPhase('Test could not complete')
       setState('error')
       setServicePhase('idle')
@@ -288,7 +292,7 @@ function App() {
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
               {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 50 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 50 MB</strong>:null}</div>}
-              {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
+              {state==='error'&&<div className="tezz-live-progress error-note" role="alert">{testError || 'The test could not complete. Please try again.'}</div>}
             </div>
             <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, ping and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
             <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 180" preserveAspectRatio="none"><defs><linearGradient id="tezz-signal-blue"><stop stopColor="#58b8ff" stopOpacity=".05"/><stop offset=".5" stopColor="#1686ed" stopOpacity=".9"/><stop offset="1" stopColor="#65d9ee" stopOpacity=".12"/></linearGradient><linearGradient id="tezz-signal-cyan"><stop stopColor="#64d8e8" stopOpacity=".05"/><stop offset=".55" stopColor="#36b8df" stopOpacity=".65"/><stop offset="1" stopColor="#1686ed" stopOpacity=".08"/></linearGradient></defs><path className="signal-wave signal-wave-back" d="M-20 95 C95 20 160 160 280 92 S470 22 590 94 S790 162 910 88 S1060 35 1100 95"/><path className="signal-wave signal-wave-mid" d="M-20 112 C100 52 170 168 300 108 S500 46 630 110 S820 168 950 104 S1070 58 1100 112"/><path className="signal-wave signal-wave-front" d="M-20 128 C100 80 185 158 315 126 S510 82 650 125 S850 158 980 122 S1080 92 1100 128"/></svg></div>
