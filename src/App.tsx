@@ -122,6 +122,11 @@ function App() {
   const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string; online: boolean; saveData: boolean; supported: boolean }>({
     type: 'Checking', downlink: '—', rtt: '—', online: navigator.onLine, saveData: false, supported: false
   })
+  const [latencyRunning, setLatencyRunning] = useState(false)
+  const [latencySamples, setLatencySamples] = useState<number[]>([])
+  const [latencyFailures, setLatencyFailures] = useState(0)
+  const [latencyError, setLatencyError] = useState('')
+  const [latencyCompletedAt, setLatencyCompletedAt] = useState('')
 
   useEffect(() => {
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)) } catch { /* Storage may be unavailable or full. */ }
@@ -221,6 +226,46 @@ function App() {
       setReportMessage('Report copied')
     } catch {
       setReportMessage('Clipboard unavailable in this browser')
+    }
+  }
+
+  async function runLatencyCheck() {
+    if (latencyRunning) return
+    setLatencyRunning(true)
+    setLatencySamples([])
+    setLatencyFailures(0)
+    setLatencyError('')
+    setLatencyCompletedAt('')
+    const samples: number[] = []
+    let failures = 0
+    try {
+      for (let i = 0; i < 12; i++) {
+        if (!navigator.onLine) {
+          failures += 1
+        } else {
+          const started = performance.now()
+          try {
+            const response = await fetch(`/api/speed/ping?sample=${i + 1}&t=${Date.now()}`, {
+              method: 'GET',
+              cache: 'no-store',
+              signal: AbortSignal.timeout(5000),
+            })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            samples.push(performance.now() - started)
+          } catch {
+            failures += 1
+          }
+        }
+        setLatencySamples([...samples])
+        setLatencyFailures(failures)
+        if (i < 11) await new Promise(resolve => window.setTimeout(resolve, 180))
+      }
+      if (samples.length === 0) throw new Error('No latency samples were received. Check your connection and try again.')
+      setLatencyCompletedAt(new Date().toLocaleTimeString())
+    } catch (error) {
+      setLatencyError(error instanceof Error ? error.message : 'Latency test could not complete.')
+    } finally {
+      setLatencyRunning(false)
     }
   }
 
@@ -329,16 +374,29 @@ function App() {
           </section>
           </>}
           {activeTab === 'Network' && <section className="network-intel-panel">
-            <div className="doctor-heading"><div><div className="section-kicker">TEZZ NETWORK INTELLIGENCE</div><h2>Know what your browser can see.</h2><p>Live device connectivity signals and network estimates, refreshed when the connection changes.</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
+            <div className="doctor-heading"><div><div className="section-kicker">TEZZ NETWORK INTELLIGENCE</div><h2>Understand your connection.</h2><p>Run independent response-time checks and review the network information your browser makes available.</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
             <div className="network-intel-grid">
               <div className="network-primary"><span className={network.online ? 'finding-dot good' : 'finding-dot alert'} /><div><span className="section-kicker">INTERNET REACHABILITY</span><strong>{network.online ? 'Browser reports online' : 'Browser reports offline'}</strong><p>{network.online ? 'Your device reports an active network connection. This does not guarantee that every website is reachable.' : 'Your device reports no active network connection. Check Wi-Fi or mobile data, then reconnect.'}</p></div></div>
               <div className="network-detail"><span>Effective connection type</span><strong>{network.type}</strong></div>
               <div className="network-detail"><span>Estimated downlink</span><strong>{network.downlink}</strong></div>
-              <div className="network-detail"><span>Browser HTTP round-trip</span><strong>{network.rtt}</strong></div>
+              <div className="network-detail"><span>Browser-reported RTT</span><strong>{network.rtt}</strong></div>
               <div className="network-detail"><span>Data saver preference</span><strong>{network.supported ? (network.saveData ? 'Enabled' : 'Not requested') : 'Not available'}</strong></div>
             </div>
+            <div className="latency-tool-card">
+              <div className="latency-tool-heading"><div><span className="section-kicker">INDEPENDENT NETWORK TEST</span><h3>Latency &amp; Jitter Test</h3><p>12 small HTTP requests to the TEZZ network edge. No large download or upload.</p></div><span className={latencyRunning ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
+              <div className="latency-primary-result"><span>AVERAGE HTTP RESPONSE TIME</span><strong>{latencySamples.length ? (latencySamples.reduce((a,b)=>a+b,0)/latencySamples.length).toFixed(1) : '—'}<small> ms</small></strong><p>{latencyRunning ? `Measuring sample ${latencySamples.length + latencyFailures} of 12…` : latencyCompletedAt ? `Completed at ${latencyCompletedAt}` : 'Run the test to measure your response time.'}</p></div>
+              <div className="latency-metrics-grid">
+                <div><span>Minimum</span><strong>{latencySamples.length ? Math.min(...latencySamples).toFixed(1)+' ms' : '—'}</strong></div>
+                <div><span>Maximum</span><strong>{latencySamples.length ? Math.max(...latencySamples).toFixed(1)+' ms' : '—'}</strong></div>
+                <div><span>Jitter estimate</span><strong>{latencySamples.length > 1 ? (latencySamples.slice(1).reduce((sum,value,index)=>sum+Math.abs(value-latencySamples[index]),0)/(latencySamples.length-1)).toFixed(1)+' ms' : '—'}</strong></div>
+                <div><span>Failed requests</span><strong>{latencyCompletedAt || latencyRunning ? `${latencyFailures} / 12` : '—'}</strong></div>
+              </div>
+              <div className="latency-sample-track" aria-label={`${latencySamples.length} successful latency samples`}>{Array.from({length:12},(_,i)=><span key={i} className={i < latencySamples.length ? 'sample-done' : i < latencySamples.length + latencyFailures ? 'sample-failed' : ''} />)}</div>
+              {latencyError && <p className="latency-error" role="alert">{latencyError}</p>}
+              <button className="doctor-run-test latency-run-button" onClick={runLatencyCheck} disabled={latencyRunning || !network.online}>{latencyRunning ? 'Testing connection…' : latencyCompletedAt ? 'Run again' : 'Start latency test'} <span aria-hidden="true">→</span></button>
+            </div>
             <div className="network-capabilities"><div><strong>Wi-Fi signal strength</strong><span>Not exposed by standard browser APIs</span></div><div><strong>Router / gateway details</strong><span>Not exposed to this webpage</span></div><div><strong>Live connection updates</strong><span>{network.supported ? 'Browser API available' : 'Limited browser support'}</span></div></div>
-            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Estimates are browser-provided and may be unavailable or rounded. For accurate Wi-Fi signal strength and router diagnostics, a native device-level test is required.</div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter are measured as HTTP request/response times to the TEZZ edge, not ICMP ping. Failed requests are not labelled packet loss. Results can vary with device load, Wi-Fi, server distance and ISP routing.</div>
           </section>}
           {activeTab === 'Internet Doctor' && <section className="doctor-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ INTERNET DOCTOR</div><h2>Find out what is slowing you down.</h2><p>Use your latest speed test and browser network signals to identify likely connection issues.</p></div><span className="doctor-symbol"><Activity size={23}/></span></div>
