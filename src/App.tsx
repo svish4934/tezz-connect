@@ -12,8 +12,8 @@ type StabilityRecord = { average: number; highest: number; jitter: number; spike
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
 const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
-const DOWNLOAD_BYTES = 50_000_000
-const UPLOAD_BYTES = 50_000_000
+const DOWNLOAD_BYTES = 25_000_000
+const UPLOAD_BYTES = 25_000_000
 const downloadUrl = `/api/speed/download?bytes=${DOWNLOAD_BYTES}`
 const uploadUrl = '/api/speed/upload'
 
@@ -471,7 +471,7 @@ function App() {
               <span className="tezz-pill">INTERNET SPEED TEST</span>
               <h1>Free Internet <em>Speed Test</em></h1>
               <p>Check download, upload, ping and network stability in seconds.</p>
-              <ul><li><CheckCircle2 size={17}/> 50 MB download & upload tests</li><li><CheckCircle2 size={17}/> Ping, jitter & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
+              <ul><li><CheckCircle2 size={17}/> 25 MB download & upload tests</li><li><CheckCircle2 size={17}/> Ping, jitter & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
@@ -481,7 +481,7 @@ function App() {
                 <div className="tezz-digital-accent"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
-              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 50 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 50 MB</strong>:null}</div>}
+              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 25 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 25 MB</strong>:null}</div>}
               {state==='error'&&<div className="tezz-live-progress error-note" role="alert">{testError || 'The test could not complete. Please try again.'}</div>}
             </div>
             <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, ping and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
@@ -556,7 +556,7 @@ function App() {
             <div className="doctor-grid">
               <div className="doctor-status"><span className="section-kicker">DIAGNOSTIC STATUS</span><strong>{result ? quality : 'Awaiting test'}</strong><p>{result ? `Measured download ${result.download} Mbps · HTTP round-trip ${result.ping} ms · jitter estimate ${result.jitter} ms.` : 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.'}</p></div>
               <div className="doctor-findings">
-                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run a full 50 MB download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { setActiveTab('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
+                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run a full 25 MB download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { setActiveTab('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
                   <>
                     <div className="doctor-finding"><span className={result.download < 10 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.download < 10 ? 'Low download throughput' : 'Download throughput'}</strong><p>{result.download < 10 ? 'Try moving closer to your router, pause large downloads, and retest over a wired connection if possible.' : 'Your measured download rate is not showing a severe throughput bottleneck.'}</p></div></div>
                     <div className="doctor-finding"><span className={result.ping > 100 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.ping > 100 ? 'High HTTP response time detected' : 'HTTP latency check'}</strong><p>{result.ping > 100 ? 'Restart the router, reduce competing traffic, and test again. For gaming or calls, use Ethernet where possible.' : 'HTTP response time is not showing a severe delay in this test. This is not an ICMP ping measurement.'}</p></div></div>
@@ -643,8 +643,8 @@ function App() {
 
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
-            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 100 MB</strong></div></div>
-            <p className="report-note">This report combines a 50 MB download, 50 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 50 MB</strong></div></div>
+            <p className="report-note">This report combines a 25 MB download, 25 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
