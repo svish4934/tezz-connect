@@ -7,6 +7,7 @@ import {
 
 type TestState = 'idle' | 'running' | 'complete' | 'error'
 type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }
+type LatencyRecord = { average: number; min: number; max: number; jitter: number; failures: number; date: string }
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
 const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
@@ -88,6 +89,21 @@ async function measureUpload(onProgress: (sentBytes: number, mbps: number) => vo
 }
 
 const HISTORY_KEY = 'tezz-connect-test-history-v1'
+const LATENCY_HISTORY_KEY = 'tezz-connect-latency-history-v1'
+
+function loadLatencyHistory(): LatencyRecord[] {
+  try {
+    const saved = localStorage.getItem(LATENCY_HISTORY_KEY)
+    if (!saved) return []
+    const parsed: unknown = JSON.parse(saved)
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((item): item is LatencyRecord =>
+      item && typeof item.average === 'number' && typeof item.min === 'number' &&
+      typeof item.max === 'number' && typeof item.jitter === 'number' &&
+      typeof item.failures === 'number' && typeof item.date === 'string'
+    ).slice(0, 30)
+  } catch { return [] }
+}
 
 function loadHistory(): TestResult[] {
   try {
@@ -127,10 +143,15 @@ function App() {
   const [latencyFailures, setLatencyFailures] = useState(0)
   const [latencyError, setLatencyError] = useState('')
   const [latencyCompletedAt, setLatencyCompletedAt] = useState('')
+  const [latencyHistory, setLatencyHistory] = useState<LatencyRecord[]>(loadLatencyHistory)
 
   useEffect(() => {
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)) } catch { /* Storage may be unavailable or full. */ }
   }, [history])
+
+  useEffect(() => {
+    try { localStorage.setItem(LATENCY_HISTORY_KEY, JSON.stringify(latencyHistory)) } catch { /* Browser storage may be unavailable. */ }
+  }, [latencyHistory])
 
   useEffect(() => {
     type NetworkConnection = EventTarget & { effectiveType?: string; downlink?: number; rtt?: number; saveData?: boolean }
@@ -261,6 +282,10 @@ function App() {
         if (i < 11) await new Promise(resolve => window.setTimeout(resolve, 180))
       }
       if (samples.length === 0) throw new Error('No latency samples were received. Check your connection and try again.')
+      const completedDate = new Date().toISOString()
+      const average = samples.reduce((sum, value) => sum + value, 0) / samples.length
+      const jitter = samples.length > 1 ? samples.slice(1).reduce((sum, value, index) => sum + Math.abs(value - samples[index]), 0) / (samples.length - 1) : 0
+      setLatencyHistory(previous => [{ average, min: Math.min(...samples), max: Math.max(...samples), jitter, failures, date: completedDate }, ...previous].slice(0, 30))
       setLatencyCompletedAt(new Date().toLocaleTimeString())
     } catch (error) {
       setLatencyError(error instanceof Error ? error.message : 'Latency test could not complete.')
@@ -432,7 +457,14 @@ function App() {
               <div className="history-table-head"><span>Date & time</span><span>Download</span><span>Upload</span><span>HTTP latency</span><span>Jitter</span></div>
               {history.map(item => <div className="history-table-row" key={item.date}><span>{new Date(item.date).toLocaleString()}</span><strong>{item.download.toFixed(1)} Mbps</strong><strong>{item.upload.toFixed(1)} Mbps</strong><span>{item.ping} ms</span><span>{item.jitter.toFixed(1)} ms</span></div>)}
             </div>}
-            <div className="doctor-disclaimer"><ShieldCheck size={15}/> History is stored locally in this browser and is not synced across devices. Clearing browser site data may remove these records.</div>
+            <div className="latency-history-section">
+              <div className="latency-history-heading"><div><span className="section-kicker">NETWORK RESPONSE RECORDS</span><h3>Latency test history</h3><p>Compare independent response-time tests saved on this device.</p></div><span className="latency-history-count">{latencyHistory.length} / 30</span></div>
+              {latencyHistory.length === 0 ? <div className="empty-history"><Activity size={18}/><span>No latency tests saved yet. Run a test from Tools to start tracking response consistency.</span></div> : <>
+                {latencyHistory.length > 1 && <div className="latency-history-comparison"><div><span>Latest average</span><strong>{latencyHistory[0].average.toFixed(1)} ms</strong></div><div><span>Previous average</span><strong>{latencyHistory[1].average.toFixed(1)} ms</strong></div><div><span>Change</span><strong>{Math.abs(latencyHistory[0].average-latencyHistory[1].average).toFixed(1)} ms {latencyHistory[0].average < latencyHistory[1].average ? 'faster' : latencyHistory[0].average > latencyHistory[1].average ? 'slower' : 'unchanged'}</strong></div></div>}
+                <div className="latency-history-list">{latencyHistory.map((item,index)=><div className="latency-history-row" key={item.date}><span className="latency-history-index">#{index+1}</span><span className="latency-history-date">{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><span>Jitter {item.jitter.toFixed(1)} ms</span><span>{item.failures}/12 failed</span></div>)}</div>
+              </>}
+            </div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Speed and latency histories are stored locally in this browser and are not synced across devices. Clearing browser site data may remove these records.</div>
           </section>}
           {activeTab === 'Overview' && <>
           <section className="services-panel tezz-social-panel">
