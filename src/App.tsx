@@ -151,7 +151,23 @@ function App() {
   const [testError, setTestError] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
-  const [activeTab, setActiveTab] = useState('Overview')
+  const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
+
+  function navigateTo(tab: string) {
+    const nextPath = tab === 'About' ? '/about' : '/'
+    if (window.location.pathname !== nextPath) window.history.pushState({}, '', nextPath)
+    navigateTo(tab)
+  }
+
+  useEffect(() => {
+    const handlePopState = () => navigateTo(window.location.pathname === '/about' ? 'About' : 'Overview')
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  useEffect(() => {
+    document.title = activeTab === 'About' ? 'About TEZZ CONNECT | Internet Performance Tools' : 'TEZZ CONNECT | Free Internet Speed Test'
+  }, [activeTab])
   const [edgeInfo, setEdgeInfo] = useState<{ colo: string; country: string; region: string; asn: number | null; organization: string; fetchedAt: string } | null>(null)
   const [edgeLoading, setEdgeLoading] = useState(false)
   const [edgeError, setEdgeError] = useState('')
@@ -479,17 +495,18 @@ function App() {
     <div className="app-shell">
       <main className="main tezz-main" id="tezz-top">
         <header className="tezz-header">
-          <a className="tezz-logo" href="#tezz-top" onClick={() => setActiveTab('Overview')} aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
+          <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
           <nav className="tezz-nav">
-            <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => setActiveTab('Overview')}><Home size={15}/> Home</button>
-            <button onClick={() => { setActiveTab('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
-            <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => setActiveTab('Internet Doctor')}>Internet Doctor</button>
-            <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => setActiveTab('Network')}>Tools⌄</button>
-            <button className={activeTab === 'Global Network' ? 'selected' : ''} onClick={() => { setActiveTab('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</button>
-            <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => setActiveTab('History')}>History</button>
-            <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => setActiveTab('Report')}>Report</button>
+            <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => navigateTo('Overview')}><Home size={15}/> Home</button>
+            <button onClick={() => { navigateTo('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
+            <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => navigateTo('Internet Doctor')}>Internet Doctor</button>
+            <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => navigateTo('Network')}>Tools⌄</button>
+            <button className={activeTab === 'Global Network' ? 'selected' : ''} onClick={() => { navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</button>
+            <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => navigateTo('History')}>History</button>
+            <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => navigateTo('Report')}>Report</button>
+            <button className={activeTab === 'About' ? 'selected' : ''} onClick={() => navigateTo('About')}>About</button>
           </nav>
-          <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => setActiveTab('Network')}><Search size={18}/></button><button className="tezz-menu" onClick={() => setActiveTab(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
+          <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => navigateTo('Network')}><Search size={18}/></button><button className="tezz-menu" onClick={() => navigateTo(activeTab === 'History' ? 'Overview' : 'History')}>☰ Menu</button></div>
         </header>
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
@@ -521,12 +538,32 @@ function App() {
             <div className="tezz-stat red"><Activity/><span>Jitter</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
           </section>
           <section className="tezz-feature-grid">
-            <button onClick={()=>setActiveTab('Internet Doctor')}><Stethoscope/><strong>Internet Doctor</strong><span>Find and fix internet problems</span><b>›</b></button>
-            <button onClick={()=>setActiveTab('Network')}><ArrowLeftRight/><strong>Latency Test</strong><span>Check browser response time</span><b>›</b></button>
-            <button onClick={()=>setActiveTab('Network')}><Wifi/><strong>Wi-Fi Test</strong><span>Test your Wi-Fi performance</span><b>›</b></button>
-            <button onClick={()=>setActiveTab('History')}><Grid2X2/><strong>More Tools</strong><span>Explore all network tools</span><b>›</b></button>
+            <button onClick={()=>navigateTo('Internet Doctor')}><Stethoscope/><strong>Internet Doctor</strong><span>Find and fix internet problems</span><b>›</b></button>
+            <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>Latency Test</strong><span>Check browser response time</span><b>›</b></button>
+            <button onClick={()=>navigateTo('Network')}><Wifi/><strong>Wi-Fi Test</strong><span>Test your Wi-Fi performance</span><b>›</b></button>
+            <button onClick={()=>navigateTo('History')}><Grid2X2/><strong>More Tools</strong><span>Explore all network tools</span><b>›</b></button>
           </section>
           </>}
+          {activeTab === 'About' && <section className="about-page">
+            <div className="about-hero">
+              <span className="tezz-pill">ABOUT TEZZ CONNECT</span>
+              <h1>Understand your <em>connection.</em></h1>
+              <p>TEZZ CONNECT is a free, browser-based toolkit that helps you measure internet performance, understand network behaviour and make more informed connectivity decisions.</p>
+              <div className="about-hero-meta"><span><CheckCircle2 size={15}/> Free to use</span><span><Activity size={15}/> Independent measurements</span><span><ShieldCheck size={15}/> Privacy-conscious design</span></div>
+            </div>
+            <div className="about-section-heading"><span className="section-kicker">WHAT WE DO</span><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p></div>
+            <div className="about-feature-grid">
+              <article><span className="about-feature-icon"><Zap size={20}/></span><h3>Measure performance</h3><p>Run download and upload throughput tests, plus HTTP response-time and jitter estimates, from your browser.</p></article>
+              <article><span className="about-feature-icon"><Stethoscope size={20}/></span><h3>Understand issues</h3><p>Use Internet Doctor recommendations to investigate common causes such as congestion, weak Wi-Fi conditions and competing traffic.</p></article>
+              <article><span className="about-feature-icon"><Globe2 size={20}/></span><h3>Explore your network</h3><p>Review available network-edge information, connection signals and public website endpoint checks.</p></article>
+            </div>
+            <div className="about-two-column">
+              <article className="about-info-card"><span className="section-kicker">OUR APPROACH</span><h3>Clarity over exaggerated claims.</h3><p>We explain what each test measures and where browser-based checks have limits. Results can vary with your device, Wi-Fi, ISP routing, server distance and network conditions.</p><p>TEZZ CONNECT is an independent measurement tool. It is not an internet service provider and does not control your connection.</p></article>
+              <article className="about-info-card"><span className="section-kicker">PRIVACY & CONTROL</span><h3>Your test history stays on this device.</h3><p>Saved speed, latency and stability history is stored in your browser. It is not synced between devices. Running a test sends measurement requests to TEZZ CONNECT so the service can return results.</p><p>We do not need GPS or your street address to run the tools on this page.</p></article>
+            </div>
+            <div className="about-method-note"><ShieldCheck size={18}/><p><strong>Measurement note:</strong> latency and jitter are based on HTTP request/response timing to the TEZZ network edge, not ICMP ping. Public app checks test website endpoint reachability only; they do not verify sign-in, feeds, messages or in-app functionality.</p></div>
+            <div className="about-cta"><div><span className="section-kicker">READY TO CHECK YOUR CONNECTION?</span><h2>Start with a fresh speed test.</h2></div><button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 0) }}>Go to speed test <span aria-hidden="true">→</span></button></div>
+          </section>}
           {activeTab === 'Global Network' && <section className="global-network-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ GLOBAL NETWORK INTELLIGENCE</div><h2>See the network edge serving your test.</h2><p>View the network edge location and connection metadata observed for this request, alongside your measured response time.</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
             <div className="global-edge-card">
@@ -604,7 +641,7 @@ function App() {
             <div className="doctor-grid">
               <div className="doctor-status"><span className="section-kicker">DIAGNOSTIC STATUS</span><strong>{result ? quality : 'Awaiting test'}</strong><p>{result ? `Measured download ${result.download} Mbps · HTTP round-trip ${result.ping} ms · jitter estimate ${result.jitter} ms.` : 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.'}</p></div>
               <div className="doctor-findings">
-                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run a full 25 MB download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { setActiveTab('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
+                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run a full 25 MB download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { navigateTo('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
                   <>
                     <div className="doctor-finding"><span className={result.download < 10 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.download < 10 ? 'Low download throughput' : 'Download throughput'}</strong><p>{result.download < 10 ? 'Try moving closer to your router, pause large downloads, and retest over a wired connection if possible.' : 'Your measured download rate is not showing a severe throughput bottleneck.'}</p></div></div>
                     <div className="doctor-finding"><span className={result.ping > 100 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.ping > 100 ? 'High HTTP response time detected' : 'HTTP latency check'}</strong><p>{result.ping > 100 ? 'Restart the router, reduce competing traffic, and test again. For gaming or calls, use Ethernet where possible.' : 'HTTP response time is not showing a severe delay in this test. This is not an ICMP ping measurement.'}</p></div></div>
@@ -616,7 +653,7 @@ function App() {
               </div>
             </div>
             <div className="doctor-next-steps">
-              <div className="doctor-next-heading"><div><span className="section-kicker">PERSONALISED TROUBLESHOOTING</span><h3>Recommended next steps</h3></div><button className="doctor-run-test" onClick={() => { setActiveTab('Overview'); window.setTimeout(() => { void runTest() }, 0) }} disabled={state === 'running'}>{state === 'running' ? 'Test running…' : 'Run new test'} <span aria-hidden="true">→</span></button></div>
+              <div className="doctor-next-heading"><div><span className="section-kicker">PERSONALISED TROUBLESHOOTING</span><h3>Recommended next steps</h3></div><button className="doctor-run-test" onClick={() => { navigateTo('Overview'); window.setTimeout(() => { void runTest() }, 0) }} disabled={state === 'running'}>{state === 'running' ? 'Test running…' : 'Run new test'} <span aria-hidden="true">→</span></button></div>
               <div className="doctor-next-grid">{doctorRecommendations.map(item => <div className="doctor-next-item" key={item.title}><span className={`doctor-priority ${item.priority}`}>{item.priority === 'high' ? 'Priority' : item.priority === 'medium' ? 'Suggested' : 'Next step'}</span><strong>{item.title}</strong><p>{item.detail}</p></div>)}</div>
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
@@ -720,7 +757,7 @@ function App() {
           </div>
 
           <section className="history-strip">
-            <div className="history-heading"><div><div className="section-kicker">RECENT ACTIVITY</div><h3>Test history</h3></div><button onClick={() => setActiveTab('History')}>View history <span>→</span></button></div>
+            <div className="history-heading"><div><div className="section-kicker">RECENT ACTIVITY</div><h3>Test history</h3></div><button onClick={() => navigateTo('History')}>View history <span>→</span></button></div>
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
           </>}
