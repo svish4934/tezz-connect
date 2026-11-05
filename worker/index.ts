@@ -87,7 +87,7 @@ export default {
       const declaredLength = Number(request.headers.get("Content-Length") ?? "0")
       if (declaredLength > 50_000_000) return json("Upload payload exceeds 50 MB", 413)
       const body = await request.arrayBuffer()
-      if (body.byteLength > 50_000_000) return json("Upload payload exceeds 1 MB", 413)
+      if (body.byteLength > 50_000_000) return json("Upload payload exceeds 50 MB", 413)
       return json("Upload received")
     }
 
