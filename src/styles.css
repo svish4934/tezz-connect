@@ -1433,3 +1433,35 @@ img, svg { max-width:100%; }
 .stability-history-section{margin-top:18px}
 .stability-history-list .latency-history-row{grid-template-columns:34px minmax(130px,1.5fr) minmax(85px,.7fr) minmax(140px,1fr) minmax(75px,.6fr)}
 @media(max-width:760px){.stability-history-list .latency-history-row{grid-template-columns:26px minmax(0,1fr) auto;gap:7px}.stability-history-list .latency-history-row .latency-history-date{grid-column:2;grid-row:1}.stability-history-list .latency-history-row strong{grid-column:3;grid-row:1}.stability-history-list .latency-history-row>span:nth-last-child(-n+2){grid-column:2/-1}}
+
+
+/* Global Network Intelligence — TEZZ light dashboard design. */
+.global-network-panel{padding:24px;border:1px solid #e9e5de;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5f9ff 100%);box-shadow:0 12px 34px rgba(16,28,58,.07)}
+.global-network-panel .doctor-heading h2{color:#101c3a}
+.global-network-panel .doctor-heading p{color:#68758a}
+.global-network-panel .doctor-symbol{background:#e7f2ff;color:#1268d8;border:1px solid #d6e8fc}
+.global-edge-card,.global-route-card{margin:18px 0;padding:20px;border:1px solid #e5ebf3;border-radius:16px;background:#fff}
+.global-edge-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.global-edge-top h3{margin:6px 0 0;color:#12366a;font-size:28px;letter-spacing:-.7px}
+.global-edge-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:17px 0}
+.global-edge-grid>div{display:flex;flex-direction:column;gap:6px;min-width:0;padding:13px;border:1px solid #e9eef5;border-radius:11px;background:#f9fbfe}
+.global-edge-grid span{color:#7b8798;font-size:10px}
+.global-edge-grid strong{color:#172b4d;font-size:14px;overflow-wrap:anywhere}
+.global-edge-grid .global-edge-operator{grid-column:1/-1}
+.global-edge-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.global-edge-footer>span{color:#8491a3;font-size:10px}
+.global-edge-footer .doctor-run-test{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:linear-gradient(110deg,#1678ed,#0848b8);color:#fff;font-family:Manrope,system-ui,sans-serif;font-size:12px;font-weight:800;box-shadow:0 7px 17px rgba(18,104,216,.18);cursor:pointer}
+.global-edge-footer .doctor-run-test:disabled{opacity:.58;cursor:wait}
+.global-route-card h3{margin:6px 0 15px;color:#101c3a;font-size:17px}
+.global-route-flow{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1fr) 36px minmax(0,1fr);align-items:center;gap:7px;margin:16px 0}
+.global-route-node{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;padding:15px 8px;border:1px solid #e5ebf3;border-radius:12px;background:#f9fbfe;text-align:center}
+.global-route-node svg{color:#1678ed}
+.global-route-node.edge{background:#eff7ff;border-color:#cfe4fb}
+.global-route-node strong{color:#172b4d;font-size:11px}
+.global-route-node span{color:#7b8798;font-size:9px;line-height:1.4}
+.global-route-connector{height:2px;background:#cfe0f3;position:relative}
+.global-route-connector i{position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:2px solid #7da8d8;border-right:2px solid #7da8d8;transform:rotate(45deg)}
+.global-route-card>p{margin:13px 0 0;color:#718096;font-size:11px;line-height:1.6}
+.global-network-note{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;border:1px solid #dcece5;border-radius:12px;background:#f5fbf8;color:#617c73;font-size:10px;line-height:1.6}
+.global-network-note svg{flex:0 0 auto;color:#20a879}
+@media(max-width:760px){.global-network-panel{padding:18px 14px}.global-edge-card,.global-route-card{padding:15px}.global-edge-grid{grid-template-columns:1fr}.global-edge-grid .global-edge-operator{grid-column:auto}.global-route-flow{grid-template-columns:1fr;gap:7px}.global-route-connector{width:2px;height:20px;margin:auto}.global-route-connector i{right:-3px;top:auto;bottom:0;transform:rotate(135deg)}.global-route-node{flex-direction:row;justify-content:flex-start;text-align:left;padding:11px}.global-route-node span{margin-left:auto;text-align:right}.global-edge-footer .doctor-run-test{width:100%}}
