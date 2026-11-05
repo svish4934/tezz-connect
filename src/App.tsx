@@ -7,8 +7,8 @@ import {
 
 type TestState = 'idle' | 'running' | 'complete' | 'error'
 type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }
-type ServiceResult = { name: string; status: 'Checking' | 'Reachable' | 'Unavailable'; ms?: number }
-const services = [{ name: 'Facebook', host: 'https://www.facebook.com/favicon.ico', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', host: 'https://www.instagram.com/favicon.ico', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', host: 'https://www.youtube.com/favicon.ico', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', host: 'https://www.whatsapp.com/favicon.ico', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', host: 'https://www.netflix.com/favicon.ico', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', host: 'https://www.google.com/favicon.ico', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', host: 'https://x.com/favicon.ico', icon: 'https://cdn.simpleicons.org/x/FFFFFF' }, { name: 'TikTok', host: 'https://www.tiktok.com/favicon.ico', icon: 'https://cdn.simpleicons.org/tiktok/FFFFFF' }]
+type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
+const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/FFFFFF' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/FFFFFF' }]
 
 const DOWNLOAD_BYTES = 50_000_000
 const UPLOAD_BYTES = 50_000_000
@@ -155,13 +155,23 @@ function App() {
 
   async function checkService(service: typeof services[number]): Promise<ServiceResult> {
     const started = performance.now()
-    return new Promise(resolve => {
-      const image = new Image()
-      const timer = window.setTimeout(() => { image.src = ''; resolve({ name: service.name, status: 'Unavailable' }) }, 7000)
-      image.onload = () => { window.clearTimeout(timer); resolve({ name: service.name, status: 'Reachable', ms: Math.round(performance.now() - started) }) }
-      image.onerror = () => { window.clearTimeout(timer); resolve({ name: service.name, status: 'Unavailable' }) }
-      image.src = `${service.host}?tezz=${Date.now()}`
-    })
+    const controller = new AbortController()
+    const timer = window.setTimeout(() => controller.abort(), 8000)
+    try {
+      // no-cors allows a browser to test the public site's network response without
+      // reading cross-origin page content. An opaque response is expected here.
+      await fetch(service.url, {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-store',
+        signal: controller.signal,
+      })
+      return { name: service.name, status: 'Responding', ms: Math.round(performance.now() - started) }
+    } catch {
+      return { name: service.name, status: 'Could not verify' }
+    } finally {
+      window.clearTimeout(timer)
+    }
   }
 
   async function runServiceChecks() {
@@ -174,7 +184,7 @@ function App() {
 
   async function copyReport() {
     if (!result) return
-    const reachable = serviceResults.filter(item => item.status === 'Reachable').length
+    const reachable = serviceResults.filter(item => item.status === 'Responding').length
     const report = [
       'TEZZ CONNECT — Internet Health Report',
       `Test date: ${new Date(result.date).toLocaleString()}`,
@@ -182,7 +192,7 @@ function App() {
       `Upload: ${result.upload} Mbps`,
       `HTTP latency: ${result.ping} ms`,
       `HTTP jitter estimate: ${result.jitter} ms`,
-      `Public service endpoints reachable: ${reachable}/${services.length}`,
+      `Public service endpoints responding: ${reachable}/${services.length}`,
       'Note: HTTP timing is measured to the TEZZ CONNECT edge. Service checks confirm public endpoint reachability only; they do not test login or in-app functionality.'
     ].join('\n')
     try {
@@ -325,13 +335,13 @@ function App() {
           </section>}
           <section className="services-panel tezz-social-panel">
             <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
-            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Reachable' ? 'reachable' : item?.status === 'Unavailable' ? 'unavailable' : ''}`}>{item ? item.status === 'Reachable' ? `Reachable · ${item.ms} ms` : item.status === 'Checking' ? 'Checking…' : 'Not verified' : 'Not checked'}</div></div> })}</div>
-            <div className="service-note">Checks confirm that a public website endpoint responds from this browser. They do not test account login, feeds, messages or in-app playback. Privacy tools, network filters and CDN rules can affect results.</div>
+            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Responding' ? 'reachable' : item?.status === 'Could not verify' ? 'inconclusive' : ''}`}>{item ? item.status === 'Responding' ? `Responding · ${item.ms} ms` : item.status === 'Checking' ? 'Checking…' : 'Could not verify' : 'Not checked'}</div></div> })}</div>
+            <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
           </section>
 
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
-            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Reachable').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 100 MB</strong></div></div>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 100 MB</strong></div></div>
             <p className="report-note">This report combines a 50 MB download, 50 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
