@@ -807,3 +807,33 @@ body{background:#faf8f3!important}
  .tezz-feature-grid button{min-height:142px!important;border-radius:20px!important}
  .tezz-social-panel .services-grid{grid-template-columns:repeat(8,minmax(0,1fr))!important;gap:12px!important}
 }
+
+
+/* Compact single-row app connectivity strip and useful connection guidance. */
+@media (min-width:761px) {
+ .tezz-social-panel .services-grid { display:grid!important; grid-template-columns:repeat(8,minmax(0,1fr))!important; gap:8px!important; }
+ .tezz-social-panel .service-tile { min-width:0!important; min-height:76px!important; height:76px!important; padding:8px 4px!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; gap:3px!important; border-radius:12px!important; }
+ .tezz-social-panel .service-logo { width:25px!important; height:25px!important; margin:0!important; }
+ .tezz-social-panel .service-logo img { width:22px!important; height:22px!important; }
+ .tezz-social-panel .service-name { font-size:10px!important; line-height:1.15!important; white-space:nowrap!important; }
+ .tezz-social-panel .service-status { font-size:8px!important; line-height:1.1!important; white-space:nowrap!important; }
+ .tezz-social-panel .service-note { margin-top:10px!important; font-size:10px!important; line-height:1.4!important; }
+}
+.usage-insights-panel { margin:22px 0!important; padding:26px!important; border:1px solid var(--tezz-border,#e9e5de)!important; border-radius:22px!important; background:#fff!important; box-shadow:0 8px 24px rgba(16,28,58,.045)!important; }
+.usage-insights-panel h2 { margin:5px 0 7px!important; color:#101c3a!important; font-size:clamp(20px,2.2vw,27px)!important; letter-spacing:-.5px!important; }
+.usage-insights-intro { margin:0 0 18px!important; color:#687386!important; font-size:13px!important; line-height:1.55!important; max-width:760px!important; }
+.usage-insights-grid { display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:14px!important; }
+.usage-insight-card { display:flex!important; align-items:flex-start!important; gap:13px!important; min-width:0!important; padding:17px!important; border:1px solid #e9edf3!important; border-radius:16px!important; background:#fbfcfe!important; }
+.usage-insight-icon { flex:0 0 38px!important; width:38px!important; height:38px!important; display:grid!important; place-items:center!important; border-radius:12px!important; }
+.usage-insight-icon.streaming { color:#1768c8!important; background:#eaf3ff!important; }
+.usage-insight-icon.calls { color:#159a78!important; background:#e8f8f2!important; }
+.usage-insight-icon.gaming { color:#7955e8!important; background:#f1edff!important; }
+.usage-insight-card h3 { margin:1px 0 6px!important; color:#101c3a!important; font-size:14px!important; }
+.usage-insight-card p { margin:0!important; color:#657084!important; font-size:12px!important; line-height:1.55!important; }
+@media (max-width:760px) {
+ .tezz-social-panel .services-grid { grid-template-columns:repeat(4,minmax(0,1fr))!important; gap:8px!important; }
+ .tezz-social-panel .service-tile { min-height:94px!important; height:auto!important; }
+ .usage-insights-panel { padding:19px!important; border-radius:18px!important; }
+ .usage-insights-grid { grid-template-columns:1fr!important; gap:10px!important; }
+ .usage-insight-card { padding:14px!important; }
+}
