@@ -27,4 +27,4 @@ npm run build
 The responsive dashboard, browser network snapshot, and first-party Worker endpoints are included. Speed-test values are estimates and vary with device, browser, routing, and network load.
 
 ## Privacy
-No account is required. Test history is held in page memory only and is cleared when the page is closed. Upload test payloads are capped at 1 MB and download test payloads at 5 MB.
+No account is required. Test history is stored locally in the browser (up to 50 results) and is not sent to an account or server. A full speed test transfers up to 50 MB for download and 50 MB for upload (approximately 100 MB total). The upload and download endpoints enforce a 50 MB maximum payload per request.
