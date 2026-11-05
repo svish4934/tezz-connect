@@ -58,9 +58,9 @@ export default {
 
     if (url.pathname === "/api/speed/download") {
       if (request.method !== "GET") return json("Method not allowed", 405)
-      const requested = Number(url.searchParams.get("bytes") ?? "50000000")
-      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 50_000_000) {
-        return json("Download size must be between 1 byte and 50 MB", 400)
+      const requested = Number(url.searchParams.get("bytes") ?? "25000000")
+      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 25_000_000) {
+        return json("Download size must be between 1 byte and 25 MB", 400)
       }
       const totalBytes = requested
       let sentBytes = 0
@@ -85,7 +85,7 @@ export default {
     if (url.pathname === "/api/speed/upload") {
       if (request.method !== "POST") return json("Method not allowed", 405)
       const declaredLength = Number(request.headers.get("Content-Length") ?? "0")
-      if (declaredLength > 50_000_000) return json("Upload payload exceeds 50 MB", 413)
+      if (declaredLength > 25_000_000) return json("Upload payload exceeds 25 MB", 413)
       if (!request.body) return json("Upload payload is missing", 400)
       const reader = request.body.getReader()
       let receivedBytes = 0
@@ -94,15 +94,15 @@ export default {
           const { done, value } = await reader.read()
           if (done) break
           receivedBytes += value.byteLength
-          if (receivedBytes > 50_000_000) {
+          if (receivedBytes > 25_000_000) {
             await reader.cancel()
-            return json("Upload payload exceeds 50 MB", 413)
+            return json("Upload payload exceeds 25 MB", 413)
           }
         }
       } catch {
         return json("Upload payload could not be read completely", 400)
       }
-      if (receivedBytes !== 50_000_000) return json("Upload payload must be exactly 50 MB", 400)
+      if (receivedBytes !== 25_000_000) return json("Upload payload must be exactly 25 MB", 400)
       return json("Upload received")
     }
 
