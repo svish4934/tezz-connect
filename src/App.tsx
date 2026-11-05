@@ -10,7 +10,8 @@ type TestResult = { download: number; upload: number; ping: number; jitter: numb
 type ServiceResult = { name: string; status: 'Checking' | 'Reachable' | 'Unavailable'; ms?: number }
 const services = [{ name: 'Facebook', host: 'https://www.facebook.com/favicon.ico', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', host: 'https://www.instagram.com/favicon.ico', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', host: 'https://www.youtube.com/favicon.ico', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', host: 'https://www.whatsapp.com/favicon.ico', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', host: 'https://www.netflix.com/favicon.ico', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', host: 'https://www.google.com/favicon.ico', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', host: 'https://x.com/favicon.ico', icon: 'https://cdn.simpleicons.org/x/FFFFFF' }, { name: 'TikTok', host: 'https://www.tiktok.com/favicon.ico', icon: 'https://cdn.simpleicons.org/tiktok/FFFFFF' }]
 
-const DOWNLOAD_BYTES = 100_000_000
+const DOWNLOAD_BYTES = 50_000_000
+const UPLOAD_BYTES = 50_000_000
 const downloadUrl = `/api/speed/download?bytes=${DOWNLOAD_BYTES}`
 const uploadUrl = '/api/speed/upload'
 
@@ -53,21 +54,34 @@ async function measureDownload(onSample: (mbps: number, receivedBytes: number) =
   return (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
 }
 
-async function measureUpload(): Promise<number> {
-  const payload = new Uint8Array(1_000_000)
+async function measureUpload(onProgress: (sentBytes: number, mbps: number) => void): Promise<number> {
+  const payload = new Uint8Array(UPLOAD_BYTES)
   for (let offset = 0; offset < payload.length; offset += 65_536) {
     crypto.getRandomValues(payload.subarray(offset, Math.min(offset + 65_536, payload.length)))
   }
-  const start = performance.now()
-  const response = await fetch(uploadUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/octet-stream' },
-    body: payload,
-    cache: 'no-store',
+  const started = performance.now()
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest()
+    request.open('POST', uploadUrl)
+    request.setRequestHeader('Content-Type', 'application/octet-stream')
+    request.upload.onprogress = event => {
+      const sentBytes = Math.min(event.loaded, UPLOAD_BYTES)
+      const seconds = Math.max((performance.now() - started) / 1000, 0.001)
+      const mbps = (sentBytes * 8) / seconds / 1_000_000
+      onProgress(sentBytes, mbps)
+    }
+    request.onload = () => {
+      if (request.status < 200 || request.status >= 300) {
+        reject(new Error('Upload test endpoint unavailable'))
+        return
+      }
+      const seconds = Math.max((performance.now() - started) / 1000, 0.001)
+      resolve((UPLOAD_BYTES * 8) / seconds / 1_000_000)
+    }
+    request.onerror = () => reject(new Error('Upload test network error'))
+    request.onabort = () => reject(new Error('Upload test was cancelled'))
+    request.send(payload)
   })
-  if (!response.ok) throw new Error('Upload test endpoint unavailable')
-  const seconds = (performance.now() - start) / 1000
-  return (payload.byteLength * 8) / seconds / 1_000_000
 }
 
 const HISTORY_KEY = 'tezz-connect-test-history-v1'
@@ -92,6 +106,8 @@ function App() {
   const [progress, setProgress] = useState(0)
   const [liveSpeed, setLiveSpeed] = useState(0)
   const [downloadBytes, setDownloadBytes] = useState(0)
+  const [uploadBytes, setUploadBytes] = useState(0)
+  const [uploadLiveSpeed, setUploadLiveSpeed] = useState(0)
   const [testPhase, setTestPhase] = useState('Ready to test')
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
@@ -183,6 +199,8 @@ function App() {
     setProgress(8)
     setLiveSpeed(0)
     setDownloadBytes(0)
+    setUploadBytes(0)
+    setUploadLiveSpeed(0)
     setTestPhase('Measuring HTTP latency')
     setServicePhase('idle')
     setServiceResults([])
@@ -198,7 +216,11 @@ function App() {
       })
       setProgress(68)
       setTestPhase('Measuring upload throughput')
-      const upload = await measureUpload()
+      const upload = await measureUpload((sentBytes, mbps) => {
+        setUploadBytes(sentBytes)
+        setUploadLiveSpeed(Number(mbps.toFixed(1)))
+        setProgress(68 + Math.min(4, (sentBytes / UPLOAD_BYTES) * 4))
+      })
       setProgress(72)
       setTestPhase('Checking public app endpoints')
       setServicePhase('running')
@@ -254,7 +276,7 @@ function App() {
                 <div className="tezz-digital-accent"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
-              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span><strong>{(downloadBytes/1_000_000).toFixed(1)} / 100 MB</strong></div>}
+              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 50 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 50 MB</strong>:null}</div>}
               {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
             </div>
             <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Your Internet Health</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your connection has been measured. Review your results for browsing, streaming and gaming.':'Run a test to see how your connection performs for browsing, streaming and gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
@@ -309,8 +331,8 @@ function App() {
 
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
-            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Reachable').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 101 MB</strong></div></div>
-            <p className="report-note">This report combines a 100 MB download, 1 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Reachable').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 100 MB</strong></div></div>
+            <p className="report-note">This report combines a 50 MB download, 50 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
