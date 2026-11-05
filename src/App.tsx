@@ -264,9 +264,9 @@ function App() {
           <section className="tezz-hero">
             <div className="tezz-hero-copy">
               <span className="tezz-pill">INTERNET SPEED TEST</span>
-              <h1>How fast is your <em>internet?</em></h1>
-              <p>Test your connection, diagnose problems, and improve your online experience.</p>
-              <ul><li><CheckCircle2 size={17}/> Download & Upload Speed</li><li><CheckCircle2 size={17}/> Ping & Network Quality</li><li><CheckCircle2 size={17}/> Instant Results</li><li><CheckCircle2 size={17}/> Free & Easy to Use</li></ul>
+              <h1>Free Internet Speed Test: Check Your <em>Connection Speed</em></h1>
+              <p>Measure your download and upload speed, check ping and network stability, and find out how your internet performs for browsing, streaming, gaming and video calls.</p>
+              <ul><li><CheckCircle2 size={17}/> Free 50 MB Download & Upload Speed Test</li><li><CheckCircle2 size={17}/> Check Ping, Jitter & Network Stability</li><li><CheckCircle2 size={17}/> Internet Performance for Gaming & Streaming</li><li><CheckCircle2 size={17}/> Free Online Internet Connection Test</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
@@ -279,7 +279,7 @@ function App() {
               {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 50 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 50 MB</strong>:null}</div>}
               {state==='error'&&<div className="tezz-live-progress error-note">Test unavailable — check Worker deployment.</div>}
             </div>
-            <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Your Internet Health</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your connection has been measured. Review your results for browsing, streaming and gaming.':'Run a test to see how your connection performs for browsing, streaming and gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
+            <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, ping and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
             <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 90" preserveAspectRatio="none"><defs><linearGradient id="wave-spectrum"><stop stopColor="#a12bff"/><stop offset=".5" stopColor="#00d8ff"/><stop offset="1" stopColor="#8a48ff"/></linearGradient></defs><path d="M0 48 C110 4 155 88 265 48 S420 8 530 48 S700 88 800 43 S920 8 1000 45" fill="none" stroke="url(#wave-spectrum)" strokeWidth="2" strokeDasharray="2 7"/></svg></div>
           </section>
           <section className="tezz-stat-grid">
