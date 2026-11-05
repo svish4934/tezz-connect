@@ -152,6 +152,9 @@ function App() {
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [activeTab, setActiveTab] = useState('Overview')
+  const [edgeInfo, setEdgeInfo] = useState<{ colo: string; country: string; region: string; asn: number | null; organization: string; fetchedAt: string } | null>(null)
+  const [edgeLoading, setEdgeLoading] = useState(false)
+  const [edgeError, setEdgeError] = useState('')
   const [network, setNetwork] = useState<{ type: string; downlink: string; rtt: string; online: boolean; saveData: boolean; supported: boolean }>({
     type: 'Checking', downlink: '—', rtt: '—', online: navigator.onLine, saveData: false, supported: false
   })
@@ -311,6 +314,29 @@ function App() {
     }
   }
 
+  async function refreshEdgeInfo() {
+    setEdgeLoading(true)
+    setEdgeError('')
+    try {
+      const response = await fetch('/api/network/edge', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
+      if (!response.ok) throw new Error('Edge information is temporarily unavailable.')
+      const data = await response.json() as { colo?: string; country?: string; region?: string; asn?: number; organization?: string }
+      if (!data.colo && !data.country && !data.asn) throw new Error('The network edge did not return location metadata.')
+      setEdgeInfo({
+        colo: data.colo || 'Not provided',
+        country: data.country || 'Not provided',
+        region: data.region || 'Not provided',
+        asn: typeof data.asn === 'number' ? data.asn : null,
+        organization: data.organization || 'Not provided',
+        fetchedAt: new Date().toLocaleTimeString(),
+      })
+    } catch (error) {
+      setEdgeError(error instanceof Error ? error.message : 'Could not retrieve network edge information.')
+    } finally {
+      setEdgeLoading(false)
+    }
+  }
+
   async function runLatencyCheck() {
     if (latencyRunning) return
     setLatencyRunning(true)
@@ -459,6 +485,7 @@ function App() {
             <button onClick={() => { setActiveTab('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
             <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => setActiveTab('Internet Doctor')}>Internet Doctor</button>
             <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => setActiveTab('Network')}>Tools⌄</button>
+            <button className={activeTab === 'Global Network' ? 'selected' : ''} onClick={() => { setActiveTab('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</button>
             <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => setActiveTab('History')}>History</button>
             <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => setActiveTab('Report')}>Report</button>
           </nav>
@@ -500,6 +527,27 @@ function App() {
             <button onClick={()=>setActiveTab('History')}><Grid2X2/><strong>More Tools</strong><span>Explore all network tools</span><b>›</b></button>
           </section>
           </>}
+          {activeTab === 'Global Network' && <section className="global-network-panel">
+            <div className="doctor-heading"><div><div className="section-kicker">TEZZ GLOBAL NETWORK INTELLIGENCE</div><h2>See the network edge serving your test.</h2><p>View the Cloudflare edge location and network metadata observed for this request, alongside your measured response time.</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
+            <div className="global-edge-card">
+              <div className="global-edge-top"><div><span className="section-kicker">CURRENT TEZZ EDGE</span><h3>{edgeInfo?.colo || (edgeLoading ? 'Identifying edge…' : 'Edge information not loaded')}</h3></div><span className={edgeLoading ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
+              <div className="global-edge-grid">
+                <div><span>Cloudflare data-centre code</span><strong>{edgeInfo?.colo || '—'}</strong></div>
+                <div><span>Country</span><strong>{edgeInfo?.country || '—'}</strong></div>
+                <div><span>Region</span><strong>{edgeInfo?.region || '—'}</strong></div>
+                <div><span>Network ASN</span><strong>{edgeInfo?.asn ? `AS${edgeInfo.asn}` : '—'}</strong></div>
+                <div className="global-edge-operator"><span>Network operator (ASN name)</span><strong>{edgeInfo?.organization || '—'}</strong></div>
+              </div>
+              <div className="global-edge-footer"><span>{edgeInfo ? `Updated at ${edgeInfo.fetchedAt}` : 'Metadata is supplied by the Cloudflare edge handling this request.'}</span><button className="doctor-run-test" onClick={refreshEdgeInfo} disabled={edgeLoading}>{edgeLoading ? 'Refreshing…' : 'Refresh edge details'} <span aria-hidden="true">↻</span></button></div>
+              {edgeError && <p className="latency-error" role="alert">{edgeError}</p>}
+            </div>
+            <div className="global-route-card">
+              <div className="section-kicker">WHAT THIS TELLS YOU</div><h3>Your request reaches TEZZ through this edge.</h3>
+              <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Cloudflare edge</strong><span>{edgeInfo?.colo || 'Edge location'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
+              <p>This is an edge-ingress view, not a traceroute. It does not reveal every router, your full ISP path, physical cable route or the destination path used by other websites. The edge location may change as network routing changes.</p>
+            </div>
+            <div className="global-network-note"><ShieldCheck size={16}/><span>Privacy and accuracy: TEZZ displays only coarse edge metadata returned by Cloudflare. It does not request GPS, expose your street address or run an IP geolocation lookup. ASN information identifies the network associated with the request, when provided.</span></div>
+          </section>}
           {activeTab === 'Network' && <section className="network-intel-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ NETWORK INTELLIGENCE</div><h2>Understand your connection.</h2><p>Run independent response-time checks and review the network information your browser makes available.</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
             <div className="network-intel-grid">
