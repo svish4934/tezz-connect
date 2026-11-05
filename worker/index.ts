@@ -15,6 +15,42 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
 
+    if (url.pathname === "/api/services/check") {
+      if (request.method !== "GET") return json("Method not allowed", 405)
+      const targets: Record<string, string> = {
+        facebook: "https://www.facebook.com/",
+        instagram: "https://www.instagram.com/",
+        youtube: "https://www.youtube.com/",
+        whatsapp: "https://www.whatsapp.com/",
+        netflix: "https://www.netflix.com/",
+        google: "https://www.google.com/",
+        x: "https://x.com/",
+        tiktok: "https://www.tiktok.com/",
+      }
+      const site = (url.searchParams.get("site") ?? "").toLowerCase()
+      const target = targets[site]
+      if (!target) return json("Unknown service", 400)
+      try {
+        const upstream = await fetch(target, {
+          method: "GET",
+          headers: { "User-Agent": "Mozilla/5.0 (compatible; TEZZCONNECT/1.0)", "Range": "bytes=0-0" },
+          redirect: "follow",
+          signal: AbortSignal.timeout(8000),
+        })
+        // Some platforms intentionally block automated probes (403/429). Treat those
+        // responses as inconclusive, not as an outage or a successful user connection.
+        if (upstream.status >= 200 && upstream.status < 400) {
+          return new Response(JSON.stringify({ status: "responding" }), { headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" } })
+        }
+        if (upstream.status >= 400 && upstream.status < 500 && upstream.status !== 403 && upstream.status !== 429) {
+          return new Response(JSON.stringify({ status: "unavailable" }), { headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" } })
+        }
+        return new Response(JSON.stringify({ status: "inconclusive" }), { headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" } })
+      } catch {
+        return new Response(JSON.stringify({ status: "inconclusive" }), { headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" } })
+      }
+    }
+
     if (url.pathname === "/api/speed/ping") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       return new Response(null, { status: 204, headers: noStore })
