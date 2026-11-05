@@ -1176,3 +1176,19 @@ img, svg { max-width:100%; }
 .tezz-hero.is-testing>.tezz-wave .signal-wave-back { animation-duration:11s!important; }
 .tezz-hero.is-testing>.tezz-wave .signal-wave-front { animation-duration:9s!important; }
 @media(prefers-reduced-motion:reduce){.tezz-hero>.tezz-wave .signal-wave{animation:none!important}}
+
+
+/* Internet Doctor: practical, prioritised troubleshooting actions. */
+.doctor-next-steps{margin-top:20px;padding:18px;border:1px solid #294056;border-radius:12px;background:linear-gradient(145deg,#0d1c2d,#0b1726)}
+.doctor-next-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+.doctor-next-heading h3{margin:6px 0 0;color:#e7f0fb;font-size:16px;letter-spacing:-.3px}
+.doctor-next-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.doctor-next-item{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0;padding:14px;border:1px solid #23384e;border-radius:10px;background:#101f30}
+.doctor-next-item strong{color:#e5eef9;font-size:12px;line-height:1.35}
+.doctor-next-item p{margin:0;color:#91a0b4;font-size:10px;line-height:1.6}
+.doctor-priority{display:inline-flex;padding:4px 7px;border-radius:20px;font:8px 'DM Mono',monospace;letter-spacing:.5px;text-transform:uppercase}
+.doctor-priority.high{color:#ffb1b6;background:#47232d;border:1px solid #713542}
+.doctor-priority.medium{color:#f3d49a;background:#40331f;border:1px solid #66502d}
+.doctor-priority.info{color:#9de4f2;background:#173342;border:1px solid #28556a}
+.doctor-next-heading .doctor-run-test{margin:0;white-space:nowrap}
+@media(max-width:720px){.doctor-next-steps{padding:14px}.doctor-next-heading{align-items:flex-start;flex-direction:column}.doctor-next-grid{grid-template-columns:1fr}.doctor-next-heading .doctor-run-test{width:100%;justify-content:center}}
