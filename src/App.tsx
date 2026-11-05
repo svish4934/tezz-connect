@@ -270,9 +270,9 @@ function App() {
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
-                <span className="tezz-digital-label">DOWNLOAD SPEED</span>
-                <div className="tezz-digital-reading"><strong>{state==='running'?(liveSpeed>0?liveSpeed.toFixed(1):'0.0'):result?result.download.toFixed(1):'0.0'}</strong><span>Mbps</span></div>
-                <div className="tezz-digital-caption">{state==='running'?'Measuring your connection in real time':result?'Your latest measured download speed':'Ready to measure your internet speed'}</div>
+                <span className="tezz-digital-label">{state === 'running' && testPhase.includes('upload') ? 'UPLOAD SPEED' : state === 'running' && testPhase.includes('download') ? 'DOWNLOAD SPEED' : 'INTERNET SPEED'}</span>
+                <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.includes('download') ? liveSpeed.toFixed(1) : '0.0' : result ? result.download.toFixed(1) : '0.0'}</strong><span>Mbps</span></div>
+                <div className="tezz-digital-caption">{state === 'running' ? testPhase.includes('upload') ? 'Measuring your upload speed in real time' : testPhase.includes('download') ? 'Measuring your download speed in real time' : testPhase : result ? 'Your latest measured download speed' : 'Ready to measure your internet speed'}</div>
                 <div className="tezz-digital-accent"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
