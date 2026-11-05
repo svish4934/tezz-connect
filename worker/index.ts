@@ -23,7 +23,7 @@ export default {
         youtube: "https://www.youtube.com/",
         whatsapp: "https://www.whatsapp.com/",
         netflix: "https://www.netflix.com/",
-        google: "https://www.google.com/",
+        google: "https://www.gstatic.com/generate_204",
         x: "https://x.com/",
         tiktok: "https://www.tiktok.com/",
       }
