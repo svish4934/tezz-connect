@@ -1391,3 +1391,39 @@ img, svg { max-width:100%; }
 .performance-report-panel .doctor-run-test{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 22px;border:0;border-radius:999px;background:linear-gradient(110deg,#1678ed,#0848b8);color:#fff;font-family:Manrope,system-ui,sans-serif;font-size:13px;font-weight:800;box-shadow:0 7px 17px rgba(18,104,216,.20);cursor:pointer}
 .performance-report-panel .doctor-disclaimer{color:#77859a;border-color:#e5eaf1}
 @media(max-width:760px){.performance-report-panel{padding:17px 14px}.performance-report-grid{grid-template-columns:1fr}.performance-report-card{padding:14px}.performance-report-section{padding:14px}.performance-report-trend>div{grid-template-columns:minmax(0,1fr) auto}.performance-report-trend small{grid-column:1/-1}.performance-report-actions .doctor-run-test{width:100%}}
+
+
+/* Report coverage visual and print-to-PDF layout. */
+.performance-report-visual{margin:16px 0;padding:16px 18px;border:1px solid #e4edf7;border-radius:13px;background:linear-gradient(110deg,#f5f9ff,#fff)}
+.performance-report-visual-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.performance-report-visual-head>strong{color:#172b4d;font-size:12px}
+.performance-report-coverage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:13px 0 8px}
+.performance-report-coverage>div{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #e5ebf3;border-radius:9px;background:#fff}
+.performance-report-coverage span{color:#6b7890;font-size:11px;font-weight:700}
+.performance-report-coverage i{width:8px;height:8px;border-radius:50%;background:#cbd5e1}
+.performance-report-coverage .covered i{background:#20b982;box-shadow:0 0 0 3px rgba(32,185,130,.12)}
+.performance-report-visual>p{margin:6px 0 0;color:#7b8798;font-size:10px;line-height:1.5}
+.performance-report-actions .report-pdf-button{background:linear-gradient(110deg,#20a879,#13835f)}
+@media(max-width:760px){.performance-report-coverage{grid-template-columns:1fr}}
+@media print{
+  @page{size:A4;margin:14mm}
+  html,body{background:#fff!important;min-height:0!important}
+  body *{visibility:hidden!important}
+  .performance-report-panel,.performance-report-panel *{visibility:visible!important}
+  .performance-report-panel{position:absolute!important;left:0!important;top:0!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#fff!important;color:#101c3a!important}
+  .performance-report-panel .performance-report-actions,
+  .performance-report-panel .doctor-disclaimer{display:none!important}
+  .performance-report-panel .performance-report-card,
+  .performance-report-panel .performance-report-section,
+  .performance-report-panel .performance-report-visual,
+  .performance-report-panel .performance-report-trend>div{break-inside:avoid;page-break-inside:avoid}
+  .performance-report-panel .performance-report-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .performance-report-panel .performance-report-card,
+  .performance-report-panel .performance-report-section,
+  .performance-report-panel .performance-report-visual{border:1px solid #dce4ee!important;box-shadow:none!important}
+  .performance-report-panel .performance-report-card strong,
+  .performance-report-panel .performance-report-heading h2{color:#101c3a!important}
+  .performance-report-panel .section-kicker{color:#56718f!important}
+  .performance-report-panel .performance-report-trend>div{background:#fff!important}
+  .performance-report-panel .performance-report-meta{color:#667085!important}
+}
