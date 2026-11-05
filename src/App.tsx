@@ -21,7 +21,7 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
   const samples: number[] = []
   for (let i = 0; i < 4; i++) {
     const start = performance.now()
-    const response = await fetch('/api/speed/ping', { cache: 'no-store' })
+    const response = await fetch('/api/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
     if (!response.ok) throw new Error('Latency test endpoint unavailable')
     samples.push(performance.now() - start)
   }
@@ -32,7 +32,7 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
 
 async function measureDownload(onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
   const start = performance.now()
-  const response = await fetch(downloadUrl, { cache: 'no-store' })
+  const response = await fetch(downloadUrl, { cache: 'no-store', signal: AbortSignal.timeout(60000) })
   if (!response.ok) throw new Error('Download test endpoint unavailable')
   if (!response.body) {
     const data = await response.arrayBuffer()
