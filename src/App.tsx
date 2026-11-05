@@ -8,7 +8,7 @@ import {
 type TestState = 'idle' | 'running' | 'complete' | 'error'
 type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
-const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/FFFFFF' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/FFFFFF' }]
+const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
 const DOWNLOAD_BYTES = 50_000_000
 const UPLOAD_BYTES = 50_000_000
@@ -156,17 +156,16 @@ function App() {
   async function checkService(service: typeof services[number]): Promise<ServiceResult> {
     const started = performance.now()
     const controller = new AbortController()
-    const timer = window.setTimeout(() => controller.abort(), 8000)
+    const timer = window.setTimeout(() => controller.abort(), 10000)
     try {
-      // no-cors allows a browser to test the public site's network response without
-      // reading cross-origin page content. An opaque response is expected here.
-      await fetch(service.url, {
-        method: 'GET',
-        mode: 'no-cors',
+      const response = await fetch(`/api/services/check?site=${encodeURIComponent(service.name.toLowerCase())}`, {
         cache: 'no-store',
         signal: controller.signal,
       })
-      return { name: service.name, status: 'Responding', ms: Math.round(performance.now() - started) }
+      if (!response.ok) throw new Error('Service check endpoint unavailable')
+      const data = await response.json() as { status: 'responding' | 'unavailable' | 'inconclusive' }
+      if (data.status === 'responding') return { name: service.name, status: 'Responding', ms: Math.round(performance.now() - started) }
+      return { name: service.name, status: 'Could not verify' }
     } catch {
       return { name: service.name, status: 'Could not verify' }
     } finally {
