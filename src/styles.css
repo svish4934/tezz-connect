@@ -1427,3 +1427,9 @@ img, svg { max-width:100%; }
   .performance-report-panel .performance-report-trend>div{background:#fff!important}
   .performance-report-panel .performance-report-meta{color:#667085!important}
 }
+
+
+/* Stability session history rows reuse the latency history visual language. */
+.stability-history-section{margin-top:18px}
+.stability-history-list .latency-history-row{grid-template-columns:34px minmax(130px,1.5fr) minmax(85px,.7fr) minmax(140px,1fr) minmax(75px,.6fr)}
+@media(max-width:760px){.stability-history-list .latency-history-row{grid-template-columns:26px minmax(0,1fr) auto;gap:7px}.stability-history-list .latency-history-row .latency-history-date{grid-column:2;grid-row:1}.stability-history-list .latency-history-row strong{grid-column:3;grid-row:1}.stability-history-list .latency-history-row>span:nth-last-child(-n+2){grid-column:2/-1}}
