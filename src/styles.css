@@ -982,16 +982,16 @@ body{background:#faf8f3!important}
   }
   .tezz-feature-grid button b { display: none !important; }
   .tezz-social-panel .services-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
-    gap: 9px !important;
+    grid-template-columns: repeat(4,minmax(0,1fr)) !important;
+    gap: 7px !important;
   }
   .tezz-social-panel .service-tile {
-    min-height: 88px !important;
-    padding: 10px 8px !important;
-    gap: 5px !important;
+    min-height: 82px !important;
+    padding: 8px 3px !important;
+    gap: 4px !important;
   }
-  .tezz-social-panel .service-logo { width: 32px !important; height: 32px !important; }
-  .tezz-social-panel .service-logo img { width: 24px !important; height: 24px !important; }
-  .tezz-social-panel .service-name { font-size: 11px !important; }
-  .tezz-social-panel .service-status { font-size: 9px !important; }
+  .tezz-social-panel .service-logo { width: 28px !important; height: 28px !important; }
+  .tezz-social-panel .service-logo img { width: 22px !important; height: 22px !important; }
+  .tezz-social-panel .service-name { font-size: 9px !important; }
+  .tezz-social-panel .service-status { font-size: 8px !important; }
 }
