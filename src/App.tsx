@@ -14,14 +14,14 @@ const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'h
 
 const DOWNLOAD_BYTES = 1_000_000
 const UPLOAD_BYTES = 1_000_000
-const downloadUrl = `/api/speed/download?bytes=${DOWNLOAD_BYTES}`
-const uploadUrl = '/api/speed/upload'
+const downloadUrl = `/api/v1/speed/download?bytes=${DOWNLOAD_BYTES}`
+const uploadUrl = '/api/v1/speed/upload'
 
 async function measurePing(): Promise<{ ping: number; jitter: number }> {
   const samples: number[] = []
   for (let i = 0; i < 4; i++) {
     const start = performance.now()
-    const response = await fetch('/api/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
+    const response = await fetch('/api/v1/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
     if (!response.ok) throw new Error('Latency test endpoint unavailable')
     samples.push(performance.now() - start)
   }
@@ -263,7 +263,7 @@ function App() {
     const controller = new AbortController()
     const timer = window.setTimeout(() => controller.abort(), 10000)
     try {
-      const response = await fetch(`/api/services/check?site=${encodeURIComponent(service.name.toLowerCase())}`, {
+      const response = await fetch(`/api/v1/services/check?site=${encodeURIComponent(service.name.toLowerCase())}`, {
         cache: 'no-store',
         signal: controller.signal,
       })
@@ -345,7 +345,7 @@ function App() {
     setEdgeLoading(true)
     setEdgeError('')
     try {
-      const response = await fetch('/api/network/edge', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
+      const response = await fetch('/api/v1/network/info', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
       if (!response.ok) throw new Error('Edge information is temporarily unavailable.')
       const data = await response.json() as { colo?: string; country?: string; region?: string; asn?: number; organization?: string }
       if (!data.colo && !data.country && !data.asn) throw new Error('The network edge did not return location metadata.')
@@ -380,7 +380,7 @@ function App() {
         } else {
           const started = performance.now()
           try {
-            const response = await fetch(`/api/speed/ping?sample=${i + 1}&t=${Date.now()}`, {
+            const response = await fetch(`/api/v1/speed/ping?sample=${i + 1}&t=${Date.now()}`, {
               method: 'GET',
               cache: 'no-store',
               signal: AbortSignal.timeout(5000),
@@ -424,7 +424,7 @@ function App() {
         } else {
           const started = performance.now()
           try {
-            const response = await fetch(`/api/speed/ping?monitor=${i + 1}&t=${Date.now()}`, {
+            const response = await fetch(`/api/v1/speed/ping?monitor=${i + 1}&t=${Date.now()}`, {
               method: 'GET', cache: 'no-store', signal: AbortSignal.timeout(5000),
             })
             if (!response.ok) throw new Error(`HTTP ${response.status}`)
