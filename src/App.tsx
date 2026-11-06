@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2, Network, Server,
   History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
@@ -166,6 +166,12 @@ function App() {
   const [uploadBytes, setUploadBytes] = useState(0)
   const [uploadLiveSpeed, setUploadLiveSpeed] = useState(0)
   const [speedTrace, setSpeedTrace] = useState<number[]>(() => loadHistory()[0]?.trace ?? [])
+  const speedTraceRef = useRef<number[]>(speedTrace)
+  function appendSpeedSample(value: number) {
+    const next = [...speedTraceRef.current, value].slice(-36)
+    speedTraceRef.current = next
+    setSpeedTrace(next)
+  }
   const [testPhase, setTestPhase] = useState('Ready to test')
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
@@ -469,6 +475,7 @@ function App() {
     setDownloadBytes(0)
     setUploadBytes(0)
     setUploadLiveSpeed(0)
+    speedTraceRef.current = []
     setSpeedTrace([])
     setTestPhase('Measuring HTTP latency')
     setServicePhase('idle')
@@ -485,7 +492,7 @@ function App() {
       try {
         const calibration = await measureDownload(BASELINE_BYTES, (mbps, received) => {
           setLiveSpeed(Number(mbps.toFixed(1)))
-          setSpeedTrace(current => [...current, mbps].slice(-36))
+          appendSpeedSample(mbps)
           setDownloadBytes(received)
         })
         const payloadBytes = choosePayloadBytes(calibration)
@@ -494,7 +501,7 @@ function App() {
         for (let run = 0; run < 2; run++) {
           runs.push(await measureDownload(payloadBytes, (mbps, received) => {
             setLiveSpeed(Number(mbps.toFixed(1)))
-            setSpeedTrace(current => [...current, mbps].slice(-36))
+            appendSpeedSample(mbps)
             setDownloadBytes(received)
           }))
         }
@@ -509,7 +516,7 @@ function App() {
         const calibration = await measureUpload(BASELINE_BYTES, (sentBytes, mbps) => {
           setUploadBytes(sentBytes)
           setUploadLiveSpeed(Number(mbps.toFixed(1)))
-          setSpeedTrace(current => [...current, mbps].slice(-36))
+          appendSpeedSample(mbps)
         })
         const payloadBytes = choosePayloadBytes(calibration)
         setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB)`)
@@ -518,7 +525,7 @@ function App() {
           runs.push(await measureUpload(payloadBytes, (sentBytes, mbps) => {
             setUploadBytes(sentBytes)
             setUploadLiveSpeed(Number(mbps.toFixed(1)))
-            setSpeedTrace(current => [...current, mbps].slice(-36))
+            appendSpeedSample(mbps)
           }))
         }
         upload = median(runs)
@@ -541,7 +548,7 @@ function App() {
       setServiceResults(checks)
       setServicePhase('complete')
       setProgress(92)
-      const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString(), trace: speedTrace.slice(-36) }
+      const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString(), trace: speedTraceRef.current.slice(-36) }
       setResult(next)
       setHistory(current => [next, ...current].slice(0, 50))
       setProgress(100)
