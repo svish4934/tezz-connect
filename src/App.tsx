@@ -6,7 +6,7 @@ import {
 } from 'lucide-react'
 
 type TestState = 'idle' | 'running' | 'complete' | 'error'
-type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string }
+type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string; trace?: number[] }
 type LatencyRecord = { average: number; min: number; max: number; jitter: number; failures: number; date: string }
 type StabilityRecord = { average: number; highest: number; jitter: number; spikes: number; failures: number; samples: number; date: string }
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
@@ -152,7 +152,7 @@ function loadHistory(): TestResult[] {
     return parsed.filter((item): item is TestResult =>
       item && typeof item.download === 'number' && typeof item.upload === 'number' &&
       typeof item.ping === 'number' && typeof item.jitter === 'number' && typeof item.date === 'string'
-    ).slice(0, 50)
+    ).map(item => ({ ...item, trace: Array.isArray(item.trace) ? item.trace.filter((value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)).slice(-36) : [] })).slice(0, 50)
   } catch {
     return []
   }
@@ -165,7 +165,7 @@ function App() {
   const [downloadBytes, setDownloadBytes] = useState(0)
   const [uploadBytes, setUploadBytes] = useState(0)
   const [uploadLiveSpeed, setUploadLiveSpeed] = useState(0)
-  const [speedTrace, setSpeedTrace] = useState<number[]>([])
+  const [speedTrace, setSpeedTrace] = useState<number[]>(() => loadHistory()[0]?.trace ?? [])
   const [testPhase, setTestPhase] = useState('Ready to test')
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
@@ -541,7 +541,7 @@ function App() {
       setServiceResults(checks)
       setServicePhase('complete')
       setProgress(92)
-      const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString() }
+      const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString(), trace: speedTrace.slice(-36) }
       setResult(next)
       setHistory(current => [next, ...current].slice(0, 50))
       setProgress(100)
