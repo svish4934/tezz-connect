@@ -135,8 +135,8 @@ export default {
     if (pathname === "/api/v1/speed/download") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       const requested = Number(url.searchParams.get("bytes") ?? "1000000")
-      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 1_000_000) {
-        return json("Download size must be between 1 byte and 1 MB", 400)
+      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 5_000_000) {
+        return json("Download size must be between 1 byte and 5 MB", 400)
       }
       // Return a fixed-length body for predictable browser transfer accounting.
       const payload = new Uint8Array(requested)
@@ -158,9 +158,13 @@ export default {
       if (request.method !== "POST") return json("Method not allowed", 405)
       if (!request.body) return json("Upload payload is missing", 400)
       try {
+        const expectedBytes = Number(url.searchParams.get("bytes") ?? "1000000")
+        if (!Number.isSafeInteger(expectedBytes) || expectedBytes < 1 || expectedBytes > 5_000_000) {
+          return json("Upload size must be between 1 byte and 5 MB", 400)
+        }
         const payload = await request.arrayBuffer()
-        if (payload.byteLength !== 1_000_000) {
-          return json(`Upload payload size mismatch: received ${payload.byteLength} bytes; expected 1000000`, 400)
+        if (payload.byteLength !== expectedBytes) {
+          return json(`Upload payload size mismatch: received ${payload.byteLength} bytes; expected ${expectedBytes}`, 400)
         }
         return json("Upload received")
       } catch {
