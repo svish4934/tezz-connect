@@ -165,6 +165,7 @@ function App() {
   const [downloadBytes, setDownloadBytes] = useState(0)
   const [uploadBytes, setUploadBytes] = useState(0)
   const [uploadLiveSpeed, setUploadLiveSpeed] = useState(0)
+  const [speedTrace, setSpeedTrace] = useState<number[]>([])
   const [testPhase, setTestPhase] = useState('Ready to test')
   const [serviceResults, setServiceResults] = useState<ServiceResult[]>([])
   const [servicePhase, setServicePhase] = useState<'idle' | 'running' | 'complete'>('idle')
@@ -468,6 +469,7 @@ function App() {
     setDownloadBytes(0)
     setUploadBytes(0)
     setUploadLiveSpeed(0)
+    setSpeedTrace([])
     setTestPhase('Measuring HTTP latency')
     setServicePhase('idle')
     setServiceResults([])
@@ -483,6 +485,7 @@ function App() {
       try {
         const calibration = await measureDownload(BASELINE_BYTES, (mbps, received) => {
           setLiveSpeed(Number(mbps.toFixed(1)))
+          setSpeedTrace(current => [...current, mbps].slice(-36))
           setDownloadBytes(received)
         })
         const payloadBytes = choosePayloadBytes(calibration)
@@ -491,6 +494,7 @@ function App() {
         for (let run = 0; run < 2; run++) {
           runs.push(await measureDownload(payloadBytes, (mbps, received) => {
             setLiveSpeed(Number(mbps.toFixed(1)))
+            setSpeedTrace(current => [...current, mbps].slice(-36))
             setDownloadBytes(received)
           }))
         }
@@ -505,6 +509,7 @@ function App() {
         const calibration = await measureUpload(BASELINE_BYTES, (sentBytes, mbps) => {
           setUploadBytes(sentBytes)
           setUploadLiveSpeed(Number(mbps.toFixed(1)))
+          setSpeedTrace(current => [...current, mbps].slice(-36))
         })
         const payloadBytes = choosePayloadBytes(calibration)
         setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB)`)
@@ -513,6 +518,7 @@ function App() {
           runs.push(await measureUpload(payloadBytes, (sentBytes, mbps) => {
             setUploadBytes(sentBytes)
             setUploadLiveSpeed(Number(mbps.toFixed(1)))
+            setSpeedTrace(current => [...current, mbps].slice(-36))
           }))
         }
         upload = median(runs)
@@ -594,7 +600,18 @@ function App() {
                 <div className="tezz-meter-topline"><span className="tezz-digital-label">{state === 'running' && testPhase.toLowerCase().includes('upload') ? 'UPLOAD' : state === 'running' && testPhase.toLowerCase().includes('download') ? 'DOWNLOAD' : 'DOWNLOAD SPEED'}</span><span className={`tezz-meter-status ${state === 'running' ? 'active' : result ? 'complete' : ''}`}><i/>{state === 'running' ? 'TESTING' : result ? 'MEASURED' : 'READY'}</span></div>
                 <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
                 <div className="tezz-digital-caption">{state === 'running' ? testPhase : result ? 'Latest download measurement' : 'Your connection speed, measured live'}</div>
-                <div className="tezz-meter-baseline"><span/><span/><span/></div>
+                <div className="tezz-throughput-chart" aria-label="Live throughput trace">
+                  <svg viewBox="0 0 320 52" preserveAspectRatio="none" role="img" aria-hidden="true">
+                    <path className="tezz-chart-grid" d="M0 12H320 M0 26H320 M0 40H320"/>
+                    {speedTrace.length > 1 && <polyline className="tezz-chart-line" points={speedTrace.map((value, index) => {
+                      const max = Math.max(1, ...speedTrace)
+                      const x = (index / (speedTrace.length - 1)) * 320
+                      const y = 46 - (value / max) * 38
+                      return `${x.toFixed(1)},${y.toFixed(1)}`
+                    }).join(' ')}/>}
+                    {speedTrace.length === 1 && <circle className="tezz-chart-point" cx="160" cy="26" r="3"/>}
+                  </svg>
+                </div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
               {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 1 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 1 MB</strong>:null}</div>}
