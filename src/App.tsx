@@ -33,7 +33,16 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
 async function measureDownload(onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
   const start = performance.now()
   const response = await fetch(downloadUrl, { cache: 'no-store', signal: AbortSignal.timeout(90000) })
-  if (!response.ok) throw new Error('Download test endpoint unavailable')
+  const contentType = response.headers.get('content-type') ?? 'missing'
+  const contentLength = response.headers.get('content-length')
+  if (!response.ok) throw new Error(`Download endpoint returned HTTP ${response.status} (${contentType})`)
+  if (!contentType.toLowerCase().includes('application/octet-stream')) {
+    const preview = (await response.clone().text()).slice(0, 120).replace(/\\s+/g, ' ')
+    throw new Error(`Download endpoint returned unexpected content type: ${contentType}. Response: ${preview || 'empty'}`)
+  }
+  if (contentLength !== null && Number(contentLength) !== DOWNLOAD_BYTES) {
+    throw new Error(`Download endpoint declared ${contentLength} bytes; expected ${DOWNLOAD_BYTES}`)
+  }
   if (!response.body) {
     const data = await response.arrayBuffer()
     if (data.byteLength !== DOWNLOAD_BYTES) throw new Error(`Download test incomplete: received ${data.byteLength} of ${DOWNLOAD_BYTES} bytes`)
@@ -453,20 +462,41 @@ function App() {
     setTestError('')
     try {
       const latency = await measurePing()
+      const transferErrors: string[] = []
+      let download: number | null = null
+      let upload: number | null = null
+
       setProgress(32)
       setTestPhase('Measuring live download throughput')
-      const download = await measureDownload((mbps, bytes) => {
-        setLiveSpeed(Number(mbps.toFixed(1)))
-        setDownloadBytes(bytes)
-        setProgress(32 + Math.min(36, (bytes / DOWNLOAD_BYTES) * 36))
-      })
-      setProgress(68)
+      try {
+        download = await measureDownload((mbps, bytes) => {
+          setLiveSpeed(Number(mbps.toFixed(1)))
+          setDownloadBytes(bytes)
+          setProgress(32 + Math.min(18, (bytes / DOWNLOAD_BYTES) * 18))
+        })
+      } catch (error) {
+        transferErrors.push(`Download: ${error instanceof Error ? error.message : 'transfer failed'}`)
+      }
+
+      setProgress(52)
       setTestPhase('Measuring upload throughput')
-      const upload = await measureUpload((sentBytes, mbps) => {
-        setUploadBytes(sentBytes)
-        setUploadLiveSpeed(Number(mbps.toFixed(1)))
-        setProgress(68 + Math.min(4, (sentBytes / UPLOAD_BYTES) * 4))
-      })
+      try {
+        upload = await measureUpload((sentBytes, mbps) => {
+          setUploadBytes(sentBytes)
+          setUploadLiveSpeed(Number(mbps.toFixed(1)))
+          setProgress(52 + Math.min(18, (sentBytes / UPLOAD_BYTES) * 18))
+        })
+      } catch (error) {
+        transferErrors.push(`Upload: ${error instanceof Error ? error.message : 'transfer failed'}`)
+      }
+
+      if (transferErrors.length > 0) {
+        throw new Error(transferErrors.join(' | '))
+      }
+      if (download === null || upload === null) {
+        throw new Error('Download and upload measurements were not both completed.')
+      }
+
       setProgress(72)
       setTestPhase('Checking public app endpoints')
       setServicePhase('running')
