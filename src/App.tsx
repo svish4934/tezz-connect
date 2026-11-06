@@ -8,13 +8,20 @@ import {
 type TestState = 'idle' | 'running' | 'complete' | 'error'
 type TestResult = { download: number; upload: number; ping: number; jitter: number; date: string; trace?: number[] }
 type LatencyRecord = { average: number; min: number; max: number; jitter: number; failures: number; date: string }
-type StabilityRecord = { average: number; highest: number; jitter: number; spikes: number; failures: number; samples: number; date: string }
+type StabilityRecord = { average: number; highest: number; p95?: number; jitter: number; spikes: number; failures: number; samples: number; date: string }
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
 const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
 const BASELINE_BYTES = 1_000_000
 const downloadUrl = (bytes: number) => `/api/v1/speed/download?bytes=${bytes}`
 const uploadUrl = (bytes: number) => `/api/v1/speed/upload?bytes=${bytes}`
+
+function percentile(values: number[], fraction: number): number {
+  if (values.length === 0) return 0
+  const sorted = [...values].sort((a, b) => a - b)
+  const index = Math.min(sorted.length - 1, Math.max(0, Math.ceil(fraction * sorted.length) - 1))
+  return sorted[index]
+}
 
 function median(values: number[]): number {
   const sorted = [...values].sort((a, b) => a - b)
@@ -321,7 +328,7 @@ function App() {
       latestLatency ? `Date: ${new Date(latestLatency.date).toLocaleString()}\nAverage HTTP response: ${latestLatency.average.toFixed(1)} ms\nMinimum: ${latestLatency.min.toFixed(1)} ms\nMaximum: ${latestLatency.max.toFixed(1)} ms\nJitter estimate: ${latestLatency.jitter.toFixed(1)} ms\nFailed requests: ${latestLatency.failures}/12` : 'No latency test saved in this browser.',
       '',
       'CONNECTION STABILITY',
-      latestStability ? `Date: ${new Date(latestStability.date).toLocaleString()}\nSuccessful samples: ${latestStability.samples}/30\nAverage HTTP response: ${latestStability.average.toFixed(1)} ms\nHighest response: ${latestStability.highest.toFixed(1)} ms\nAverage successive variation: ${latestStability.jitter.toFixed(1)} ms\nResponse spikes: ${latestStability.spikes}\nFailed requests: ${latestStability.failures}` : 'No completed stability monitor saved in this browser.',
+      latestStability ? `Date: ${new Date(latestStability.date).toLocaleString()}\nSuccessful samples: ${latestStability.samples}/30\nAverage HTTP response: ${latestStability.average.toFixed(1)} ms\nHighest response: ${latestStability.highest.toFixed(1)} ms\n95th percentile response: ${latestStability.p95?.toFixed(1) ?? 'Not recorded'} ms\nAverage successive variation: ${latestStability.jitter.toFixed(1)} ms\nResponse spikes: ${latestStability.spikes}\nFailed requests: ${latestStability.failures}` : 'No completed stability monitor saved in this browser.',
       '',
       'NETWORK CONTEXT',
       `Browser online: ${network.online ? 'Yes' : 'No'}\nEffective connection type: ${network.type}\nEstimated downlink: ${network.downlink}\nBrowser-reported RTT: ${network.rtt}\nPublic website endpoints responding: ${reachable}/${services.length}`,
@@ -417,6 +424,7 @@ function App() {
       if (samples.length === 0) throw new Error('No latency samples were received. Check your connection and try again.')
       const completedDate = new Date().toISOString()
       const average = samples.reduce((sum, value) => sum + value, 0) / samples.length
+      const p95 = percentile(samples, 0.95)
       const jitter = samples.length > 1 ? samples.slice(1).reduce((sum, value, index) => sum + Math.abs(value - samples[index]), 0) / (samples.length - 1) : 0
       setLatencyHistory(previous => [{ average, min: Math.min(...samples), max: Math.max(...samples), jitter, failures, date: completedDate }, ...previous].slice(0, 30))
       setLatencyCompletedAt(new Date().toLocaleTimeString())
@@ -458,7 +466,7 @@ function App() {
       const average = samples.reduce((sum, value) => sum + value, 0) / samples.length
       const jitter = samples.length > 1 ? samples.slice(1).reduce((sum, value, index) => sum + Math.abs(value - samples[index]), 0) / (samples.length - 1) : 0
       const spikes = samples.filter(value => value > average * 1.8 && value > average + 30).length
-      setStabilityHistory(previous => [{ average, highest: Math.max(...samples), jitter, spikes, failures, samples: samples.length, date: new Date().toISOString() }, ...previous].slice(0, 30))
+      setStabilityHistory(previous => [{ average, highest: Math.max(...samples), p95, jitter, spikes, failures, samples: samples.length, date: new Date().toISOString() }, ...previous].slice(0, 30))
       setStabilityFinished(new Date().toLocaleTimeString())
     } catch (error) {
       setStabilityError(error instanceof Error ? error.message : 'Stability monitoring could not complete.')
@@ -716,6 +724,7 @@ function App() {
                 <div><span>Failed requests</span><strong>{stabilityFailures}</strong></div>
                 <div><span>Average response</span><strong>{stabilitySamples.length ? (stabilitySamples.reduce((a,b)=>a+b,0)/stabilitySamples.length).toFixed(1)+' ms' : '—'}</strong></div>
                 <div><span>Highest response</span><strong>{stabilitySamples.length ? Math.max(...stabilitySamples).toFixed(1)+' ms' : '—'}</strong></div>
+                <div><span>95th percentile</span><strong>{stabilitySamples.length ? percentile(stabilitySamples, 0.95).toFixed(1)+' ms' : '—'}</strong></div>
               </div>
               <div className="stability-chart-wrap">
                 {stabilitySamples.length > 1 ? <svg className="stability-chart" viewBox="0 0 600 170" role="img" aria-label="HTTP response time across monitoring samples">
