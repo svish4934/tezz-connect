@@ -591,10 +591,10 @@ function App() {
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
-                <span className="tezz-digital-label">{state === 'running' && testPhase.includes('upload') ? 'UPLOAD SPEED' : state === 'running' && testPhase.includes('download') ? 'DOWNLOAD SPEED' : 'INTERNET SPEED'}</span>
-                <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.includes('download') ? liveSpeed.toFixed(1) : '0.0' : result ? result.download.toFixed(1) : '0.0'}</strong><span>Mbps</span></div>
-                <div className="tezz-digital-caption">{state === 'running' ? testPhase.includes('upload') ? 'Measuring your upload speed in real time' : testPhase.includes('download') ? 'Measuring your download speed in real time' : testPhase : result ? 'Your latest measured download speed' : 'Ready to measure your internet speed'}</div>
-                <div className="tezz-digital-accent"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
+                <div className="tezz-meter-topline"><span className="tezz-digital-label">{state === 'running' && testPhase.toLowerCase().includes('upload') ? 'UPLOAD' : state === 'running' && testPhase.toLowerCase().includes('download') ? 'DOWNLOAD' : 'DOWNLOAD SPEED'}</span><span className={`tezz-meter-status ${state === 'running' ? 'active' : result ? 'complete' : ''}`}><i/>{state === 'running' ? 'TESTING' : result ? 'MEASURED' : 'READY'}</span></div>
+                <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
+                <div className="tezz-digital-caption">{state === 'running' ? testPhase : result ? 'Latest download measurement' : 'Your connection speed, measured live'}</div>
+                <div className="tezz-meter-baseline"><span/><span/><span/></div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
               {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 1 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 1 MB</strong>:null}</div>}
