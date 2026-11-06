@@ -1742,3 +1742,23 @@ img, svg { max-width:100%; }
 .about-origin h2{margin:5px 0 4px;color:#142b45;font-size:clamp(17px,2vw,22px);letter-spacing:-.4px}
 .about-origin p{margin:0;color:#53677d;font-size:11px;line-height:1.7}
 @media(max-width:760px){.about-origin{align-items:flex-start;padding:16px;gap:12px}.about-origin-mark{flex-basis:42px;width:42px;height:42px;font-size:22px}}
+
+/* Refined speed readout: measurement-first, restrained and less synthetic. */
+.tezz-digital-meter{background:#fff!important;border:1px solid #e1e7ef!important;border-radius:18px!important;box-shadow:0 5px 16px rgba(24,45,76,.055)!important;min-height:190px!important;padding:22px 25px 20px!important}
+.tezz-meter-topline{width:100%!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
+.tezz-digital-label{font:700 10px Manrope,system-ui,sans-serif!important;letter-spacing:1.5px!important;color:#718096!important}
+.tezz-meter-status{display:inline-flex!important;align-items:center!important;gap:6px!important;font:700 8px Manrope,system-ui,sans-serif!important;letter-spacing:1px!important;color:#718096!important}
+.tezz-meter-status i{width:6px!important;height:6px!important;border-radius:50%!important;background:#aab5c3!important;display:inline-block!important}
+.tezz-meter-status.complete{color:#168568!important}.tezz-meter-status.complete i{background:#21a67a!important}
+.tezz-meter-status.active{color:#176bc1!important}.tezz-meter-status.active i{background:#2388df!important;animation:tezzMeterPulse 1s ease-in-out infinite!important}
+@keyframes tezzMeterPulse{50%{opacity:.35;transform:scale(.8)}}
+.tezz-digital-reading{margin:20px 0 5px!important;gap:9px!important;align-items:baseline!important}
+.tezz-digital-reading strong{font:700 clamp(56px,6vw,78px)/.98 Manrope,system-ui,sans-serif!important;letter-spacing:-3.5px!important;color:#172b45!important;background:none!important;-webkit-text-fill-color:currentColor!important}
+.tezz-digital-reading span{font-size:16px!important;font-weight:600!important;color:#77879a!important}
+.tezz-digital-caption{font-size:10px!important;color:#8390a1!important;line-height:1.45!important}
+.tezz-meter-baseline{width:100%!important;height:3px!important;display:flex!important;gap:4px!important;margin-top:17px!important;border-radius:5px!important;overflow:hidden!important;background:#edf1f5!important}
+.tezz-meter-baseline span{height:100%!important;flex:1!important;background:#dce5ef!important;border-radius:5px!important}
+.tezz-meter-baseline span:first-child{background:#2c83ca!important}
+.tezz-digital-meter:has(.tezz-meter-status.active) .tezz-meter-baseline span{background:#c9dced!important}
+.tezz-digital-meter:has(.tezz-meter-status.active) .tezz-meter-baseline span:first-child{background:#268bd3!important}
+@media(max-width:760px){.tezz-digital-meter{padding:19px 16px!important;min-height:170px!important}.tezz-digital-reading{margin:16px 0 5px!important}}
