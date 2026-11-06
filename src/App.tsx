@@ -424,7 +424,6 @@ function App() {
       if (samples.length === 0) throw new Error('No latency samples were received. Check your connection and try again.')
       const completedDate = new Date().toISOString()
       const average = samples.reduce((sum, value) => sum + value, 0) / samples.length
-      const p95 = percentile(samples, 0.95)
       const jitter = samples.length > 1 ? samples.slice(1).reduce((sum, value, index) => sum + Math.abs(value - samples[index]), 0) / (samples.length - 1) : 0
       setLatencyHistory(previous => [{ average, min: Math.min(...samples), max: Math.max(...samples), jitter, failures, date: completedDate }, ...previous].slice(0, 30))
       setLatencyCompletedAt(new Date().toLocaleTimeString())
@@ -464,6 +463,7 @@ function App() {
       }
       if (samples.length === 0) throw new Error('No successful samples were received. Check your connection and try again.')
       const average = samples.reduce((sum, value) => sum + value, 0) / samples.length
+      const p95 = percentile(samples, 0.95)
       const jitter = samples.length > 1 ? samples.slice(1).reduce((sum, value, index) => sum + Math.abs(value - samples[index]), 0) / (samples.length - 1) : 0
       const spikes = samples.filter(value => value > average * 1.8 && value > average + 30).length
       setStabilityHistory(previous => [{ average, highest: Math.max(...samples), p95, jitter, spikes, failures, samples: samples.length, date: new Date().toISOString() }, ...previous].slice(0, 30))
