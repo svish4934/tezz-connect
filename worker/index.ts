@@ -14,6 +14,16 @@ function json(message: string, status = 200) {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+    // Versioned public API. Legacy paths remain aliases during migration.
+    const legacyApiAliases: Record<string, string> = {
+      "/api/speed/ping": "/api/v1/speed/ping",
+      "/api/speed/download": "/api/v1/speed/download",
+      "/api/speed/upload": "/api/v1/speed/upload",
+      "/api/network/edge": "/api/v1/network/info",
+      "/api/services/check": "/api/v1/services/check",
+    }
+    const pathname = legacyApiAliases[url.pathname] ?? url.pathname
+    const apiPath = pathname.startsWith("/api/v1/")
 
     // Serve robots.txt directly from the Worker so crawlers receive a plain-text
     // response independent of the static asset fallback.
@@ -48,7 +58,20 @@ export default {
       })
     }
 
-    if (url.pathname === "/api/services/check") {
+    if (pathname === "/api/v1/health") {
+      if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
+      return new Response(request.method === "HEAD" ? null : JSON.stringify({
+        ok: true,
+        service: "TEZZ CONNECT API",
+        version: "v1",
+        timestamp: new Date().toISOString(),
+      }), {
+        status: 200,
+        headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" },
+      })
+    }
+
+    if (pathname === "/api/v1/services/check") {
       if (request.method !== "GET") return json("Method not allowed", 405)
       const targets: Record<string, string> = {
         facebook: "https://www.facebook.com/",
@@ -84,7 +107,7 @@ export default {
       }
     }
 
-    if (url.pathname === "/api/network/edge") {
+    if (pathname === "/api/v1/network/info") {
       if (request.method !== "GET") return json("Method not allowed", 405)
       const cf = (request as Request & { cf?: {
         colo?: string
@@ -104,12 +127,12 @@ export default {
       })
     }
 
-    if (url.pathname === "/api/speed/ping") {
+    if (pathname === "/api/v1/speed/ping") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       return new Response(null, { status: 204, headers: noStore })
     }
 
-    if (url.pathname === "/api/speed/download") {
+    if (pathname === "/api/v1/speed/download") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       const requested = Number(url.searchParams.get("bytes") ?? "1000000")
       if (!Number.isSafeInteger(requested) || requested < 1 || requested > 1_000_000) {
@@ -131,7 +154,7 @@ export default {
       })
     }
 
-    if (url.pathname === "/api/speed/upload") {
+    if (pathname === "/api/v1/speed/upload") {
       if (request.method !== "POST") return json("Method not allowed", 405)
       if (!request.body) return json("Upload payload is missing", 400)
       try {
@@ -145,6 +168,12 @@ export default {
       }
     }
 
-    return env.ASSETS.fetch(request)
+    const response = await env.ASSETS.fetch(request)
+    if (apiPath) {
+      const headers = new Headers(response.headers)
+      headers.set("X-API-Version", "v1")
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
+    }
+    return response
   },
 } satisfies ExportedHandler<Env>
