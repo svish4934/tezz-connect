@@ -111,9 +111,9 @@ export default {
 
     if (url.pathname === "/api/speed/download") {
       if (request.method !== "GET") return json("Method not allowed", 405)
-      const requested = Number(url.searchParams.get("bytes") ?? "5000000")
-      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 5_000_000) {
-        return json("Download size must be between 1 byte and 5 MB", 400)
+      const requested = Number(url.searchParams.get("bytes") ?? "1000000")
+      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 1_000_000) {
+        return json("Download size must be between 1 byte and 1 MB", 400)
       }
       const totalBytes = requested
       let sentBytes = 0
@@ -131,7 +131,7 @@ export default {
         },
       })
       return new Response(stream, {
-        headers: { ...noStore, "Content-Type": "application/octet-stream", "Content-Length": String(totalBytes) },
+        headers: { ...noStore, "Content-Type": "application/octet-stream", "Cache-Control": "no-store, no-transform" },
       })
     }
 
@@ -143,8 +143,8 @@ export default {
         if (!Number.isSafeInteger(declaredLength) || declaredLength < 0) {
           return json("Invalid upload Content-Length", 400)
         }
-        if (declaredLength > 5_000_000) return json("Upload payload exceeds 25 MB", 413)
-        if (declaredLength !== 5_000_000) return json("Upload payload must be exactly 5 MB", 400)
+        if (declaredLength > 1_000_000) return json("Upload payload exceeds 1 MB", 413)
+        if (declaredLength !== 1_000_000) return json("Upload payload must be exactly 5 MB", 400)
       }
       if (!request.body) return json("Upload payload is missing", 400)
       const reader = request.body.getReader()
@@ -154,7 +154,7 @@ export default {
           const { done, value } = await reader.read()
           if (done) break
           receivedBytes += value.byteLength
-          if (receivedBytes > 5_000_000) {
+          if (receivedBytes > 1_000_000) {
             await reader.cancel()
             return json("Upload payload exceeds 25 MB", 413)
           }
@@ -162,7 +162,7 @@ export default {
       } catch {
         return json("Upload payload could not be read completely", 400)
       }
-      if (receivedBytes !== 5_000_000) return json("Upload payload must be exactly 25 MB", 400)
+      if (receivedBytes !== 1_000_000) return json("Upload payload must be exactly 1 MB", 400)
       return json("Upload received")
     }
 
