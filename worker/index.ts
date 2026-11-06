@@ -110,60 +110,39 @@ export default {
     }
 
     if (url.pathname === "/api/speed/download") {
-      if (request.method !== "GET") return json("Method not allowed", 405)
+      if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       const requested = Number(url.searchParams.get("bytes") ?? "1000000")
       if (!Number.isSafeInteger(requested) || requested < 1 || requested > 1_000_000) {
         return json("Download size must be between 1 byte and 1 MB", 400)
       }
-      const totalBytes = requested
-      let sentBytes = 0
-      const stream = new ReadableStream<Uint8Array>({
-        pull(controller) {
-          if (sentBytes >= totalBytes) {
-            controller.close()
-            return
-          }
-          const chunkSize = Math.min(65_536, totalBytes - sentBytes)
-          const chunk = new Uint8Array(chunkSize)
-          crypto.getRandomValues(chunk)
-          sentBytes += chunkSize
-          controller.enqueue(chunk)
+      // Return a fixed-length body for predictable browser transfer accounting.
+      const payload = new Uint8Array(requested)
+      for (let offset = 0; offset < payload.length; offset += 65_536) {
+        crypto.getRandomValues(payload.subarray(offset, Math.min(offset + 65_536, payload.length)))
+      }
+      return new Response(request.method === "HEAD" ? null : payload, {
+        status: 200,
+        headers: {
+          ...noStore,
+          "Content-Type": "application/octet-stream",
+          "Content-Length": String(requested),
+          "Cache-Control": "no-store, no-transform",
         },
-      })
-      return new Response(stream, {
-        headers: { ...noStore, "Content-Type": "application/octet-stream", "Cache-Control": "no-store, no-transform" },
       })
     }
 
     if (url.pathname === "/api/speed/upload") {
       if (request.method !== "POST") return json("Method not allowed", 405)
-      const contentLength = request.headers.get("Content-Length")
-      if (contentLength !== null) {
-        const declaredLength = Number(contentLength)
-        if (!Number.isSafeInteger(declaredLength) || declaredLength < 0) {
-          return json("Invalid upload Content-Length", 400)
-        }
-        if (declaredLength > 1_000_000) return json("Upload payload exceeds 1 MB", 413)
-        if (declaredLength !== 1_000_000) return json("Upload payload must be exactly 5 MB", 400)
-      }
       if (!request.body) return json("Upload payload is missing", 400)
-      const reader = request.body.getReader()
-      let receivedBytes = 0
       try {
-        while (true) {
-          const { done, value } = await reader.read()
-          if (done) break
-          receivedBytes += value.byteLength
-          if (receivedBytes > 1_000_000) {
-            await reader.cancel()
-            return json("Upload payload exceeds 25 MB", 413)
-          }
+        const payload = await request.arrayBuffer()
+        if (payload.byteLength !== 1_000_000) {
+          return json(`Upload payload size mismatch: received ${payload.byteLength} bytes; expected 1000000`, 400)
         }
+        return json("Upload received")
       } catch {
         return json("Upload payload could not be read completely", 400)
       }
-      if (receivedBytes !== 1_000_000) return json("Upload payload must be exactly 1 MB", 400)
-      return json("Upload received")
     }
 
     return env.ASSETS.fetch(request)
