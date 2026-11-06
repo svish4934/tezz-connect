@@ -29,7 +29,8 @@ function choosePayloadBytes(calibrationMbps: number): number {
 }
 
 async function measurePing(): Promise<{ ping: number; jitter: number }> {
-  await fetch('/api/v1/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
+  const warmup = await fetch('/api/v1/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
+  if (!warmup.ok) throw new Error('Latency test endpoint unavailable')
   const samples: number[] = []
   for (let i = 0; i < 7; i++) {
     const start = performance.now()
@@ -586,7 +587,7 @@ function App() {
               <span className="tezz-pill">INTERNET SPEED TEST</span>
               <h1>Free Internet <em>Speed Test</em></h1>
               <p>Check download, upload, ping and network stability in seconds.</p>
-              <ul><li><CheckCircle2 size={17}/> 1 MB download & upload tests</li><li><CheckCircle2 size={17}/> Ping, jitter & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
+              <ul><li><CheckCircle2 size={17}/> Adaptive 1–5 MB transfer tests</li><li><CheckCircle2 size={17}/> Ping, jitter & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
@@ -713,7 +714,7 @@ function App() {
             <div className="doctor-grid">
               <div className="doctor-status"><span className="section-kicker">DIAGNOSTIC STATUS</span><strong>{result ? quality : 'Awaiting test'}</strong><p>{result ? `Measured download ${result.download} Mbps · HTTP round-trip ${result.ping} ms · jitter estimate ${result.jitter} ms.` : 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.'}</p></div>
               <div className="doctor-findings">
-                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run a 1 MB download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { navigateTo('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
+                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run an adaptive download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { navigateTo('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
                   <>
                     <div className="doctor-finding"><span className={result.download < 10 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.download < 10 ? 'Low download throughput' : 'Download throughput'}</strong><p>{result.download < 10 ? 'Try moving closer to your router, pause large downloads, and retest over a wired connection if possible.' : 'Your measured download rate is not showing a severe throughput bottleneck.'}</p></div></div>
                     <div className="doctor-finding"><span className={result.ping > 100 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.ping > 100 ? 'High HTTP response time detected' : 'HTTP latency check'}</strong><p>{result.ping > 100 ? 'Restart the router, reduce competing traffic, and test again. For gaming or calls, use Ethernet where possible.' : 'HTTP response time is not showing a severe delay in this test. This is not an ICMP ping measurement.'}</p></div></div>
@@ -807,8 +808,8 @@ function App() {
 
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
-            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Approx. 50 MB</strong></div></div>
-            <p className="report-note">This report combines a 1 MB download, 1 MB upload, browser HTTP latency samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Adaptive · up to 5 MB each</strong></div></div>
+            <p className="report-note">This report combines adaptive download and upload throughput measurements (1–5 MB per transfer), median browser HTTP response-time samples, a median jitter estimate and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
