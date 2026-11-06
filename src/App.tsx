@@ -12,27 +12,38 @@ type StabilityRecord = { average: number; highest: number; jitter: number; spike
 type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could not verify'; ms?: number }
 const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
-const DOWNLOAD_BYTES = 1_000_000
-const UPLOAD_BYTES = 1_000_000
-const downloadUrl = `/api/v1/speed/download?bytes=${DOWNLOAD_BYTES}`
-const uploadUrl = '/api/v1/speed/upload'
+const BASELINE_BYTES = 1_000_000
+const downloadUrl = (bytes: number) => `/api/v1/speed/download?bytes=${bytes}`
+const uploadUrl = (bytes: number) => `/api/v1/speed/upload?bytes=${bytes}`
+
+function median(values: number[]): number {
+  const sorted = [...values].sort((a, b) => a - b)
+  const middle = Math.floor(sorted.length / 2)
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2
+}
+
+function choosePayloadBytes(calibrationMbps: number): number {
+  if (calibrationMbps >= 100) return 5_000_000
+  if (calibrationMbps >= 25) return 3_000_000
+  return 1_000_000
+}
 
 async function measurePing(): Promise<{ ping: number; jitter: number }> {
+  await fetch('/api/v1/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
   const samples: number[] = []
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 7; i++) {
     const start = performance.now()
     const response = await fetch('/api/v1/speed/ping', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
     if (!response.ok) throw new Error('Latency test endpoint unavailable')
     samples.push(performance.now() - start)
   }
-  const ping = samples.reduce((a, b) => a + b, 0) / samples.length
-  const jitter = samples.slice(1).reduce((total, value, index) => total + Math.abs(value - samples[index]), 0) / Math.max(1, samples.length - 1)
-  return { ping, jitter }
+  const differences = samples.slice(1).map((value, index) => Math.abs(value - samples[index]))
+  return { ping: median(samples), jitter: median(differences) }
 }
 
-async function measureDownload(onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
+async function measureDownload(bytes: number, onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
   const start = performance.now()
-  const response = await fetch(downloadUrl, { cache: 'no-store', signal: AbortSignal.timeout(90000) })
+  const response = await fetch(downloadUrl(bytes), { cache: 'no-store', signal: AbortSignal.timeout(90000) })
   const contentType = response.headers.get('content-type') ?? 'missing'
   const contentLength = response.headers.get('content-length')
   if (!response.ok) throw new Error(`Download endpoint returned HTTP ${response.status} (${contentType})`)
@@ -40,12 +51,12 @@ async function measureDownload(onSample: (mbps: number, receivedBytes: number) =
     const preview = (await response.clone().text()).slice(0, 120).replace(/\\s+/g, ' ')
     throw new Error(`Download endpoint returned unexpected content type: ${contentType}. Response: ${preview || 'empty'}`)
   }
-  if (contentLength !== null && Number(contentLength) !== DOWNLOAD_BYTES) {
-    throw new Error(`Download endpoint declared ${contentLength} bytes; expected ${DOWNLOAD_BYTES}`)
+  if (contentLength !== null && Number(contentLength) !== bytes) {
+    throw new Error(`Download endpoint declared ${contentLength} bytes; expected ${bytes}`)
   }
   if (!response.body) {
     const data = await response.arrayBuffer()
-    if (data.byteLength !== DOWNLOAD_BYTES) throw new Error(`Download test incomplete: received ${data.byteLength} of ${DOWNLOAD_BYTES} bytes`)
+    if (data.byteLength !== bytes) throw new Error(`Download test incomplete: received ${data.byteLength} of ${bytes} bytes`)
     const seconds = (performance.now() - start) / 1000
     const mbps = (data.byteLength * 8) / Math.max(seconds, 0.001) / 1_000_000
     onSample(mbps, data.byteLength)
@@ -61,24 +72,24 @@ async function measureDownload(onSample: (mbps: number, receivedBytes: number) =
     const mbps = (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
     onSample(mbps, receivedBytes)
   }
-  if (receivedBytes !== DOWNLOAD_BYTES) throw new Error(`Download test incomplete: received ${receivedBytes} of ${DOWNLOAD_BYTES} bytes`)
+  if (receivedBytes !== bytes) throw new Error(`Download test incomplete: received ${receivedBytes} of ${bytes} bytes`)
   const seconds = (performance.now() - start) / 1000
   return (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
 }
 
-async function measureUpload(onProgress: (sentBytes: number, mbps: number) => void): Promise<number> {
-  const payload = new Uint8Array(UPLOAD_BYTES)
+async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps: number) => void): Promise<number> {
+  const payload = new Uint8Array(bytes)
   for (let offset = 0; offset < payload.length; offset += 65_536) {
     crypto.getRandomValues(payload.subarray(offset, Math.min(offset + 65_536, payload.length)))
   }
   const started = performance.now()
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
-    request.open('POST', uploadUrl)
+    request.open('POST', uploadUrl(bytes))
     request.timeout = 90000
     request.setRequestHeader('Content-Type', 'application/octet-stream')
     request.upload.onprogress = event => {
-      const sentBytes = Math.min(event.loaded, UPLOAD_BYTES)
+      const sentBytes = Math.min(event.loaded, bytes)
       const seconds = Math.max((performance.now() - started) / 1000, 0.001)
       const mbps = (sentBytes * 8) / seconds / 1_000_000
       onProgress(sentBytes, mbps)
@@ -89,10 +100,10 @@ async function measureUpload(onProgress: (sentBytes: number, mbps: number) => vo
         return
       }
       const seconds = Math.max((performance.now() - started) / 1000, 0.001)
-      resolve((UPLOAD_BYTES * 8) / seconds / 1_000_000)
+      resolve((bytes * 8) / seconds / 1_000_000)
     }
     request.onerror = () => reject(new Error('Upload test network error'))
-    request.ontimeout = () => reject(new Error('Upload test timed out after 60 seconds'))
+    request.ontimeout = () => reject(new Error('Upload test timed out after 90 seconds'))
     request.onabort = () => reject(new Error('Upload test was cancelled'))
     request.send(payload)
   })
@@ -466,26 +477,44 @@ function App() {
       let download: number | null = null
       let upload: number | null = null
 
-      setProgress(32)
-      setTestPhase('Measuring live download throughput')
+      setProgress(24)
+      setTestPhase('Calibrating download and selecting test size')
       try {
-        download = await measureDownload((mbps, bytes) => {
+        const calibration = await measureDownload(BASELINE_BYTES, (mbps, received) => {
           setLiveSpeed(Number(mbps.toFixed(1)))
-          setDownloadBytes(bytes)
-          setProgress(32 + Math.min(18, (bytes / DOWNLOAD_BYTES) * 18))
+          setDownloadBytes(received)
         })
+        const payloadBytes = choosePayloadBytes(calibration)
+        setTestPhase(`Measuring download throughput (${payloadBytes / 1_000_000} MB)`)
+        const runs: number[] = []
+        for (let run = 0; run < 2; run++) {
+          runs.push(await measureDownload(payloadBytes, (mbps, received) => {
+            setLiveSpeed(Number(mbps.toFixed(1)))
+            setDownloadBytes(received)
+          }))
+        }
+        download = median(runs)
       } catch (error) {
         transferErrors.push(`Download: ${error instanceof Error ? error.message : 'transfer failed'}`)
       }
 
       setProgress(52)
-      setTestPhase('Measuring upload throughput')
+      setTestPhase('Calibrating upload and selecting test size')
       try {
-        upload = await measureUpload((sentBytes, mbps) => {
+        const calibration = await measureUpload(BASELINE_BYTES, (sentBytes, mbps) => {
           setUploadBytes(sentBytes)
           setUploadLiveSpeed(Number(mbps.toFixed(1)))
-          setProgress(52 + Math.min(18, (sentBytes / UPLOAD_BYTES) * 18))
         })
+        const payloadBytes = choosePayloadBytes(calibration)
+        setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB)`)
+        const runs: number[] = []
+        for (let run = 0; run < 2; run++) {
+          runs.push(await measureUpload(payloadBytes, (sentBytes, mbps) => {
+            setUploadBytes(sentBytes)
+            setUploadLiveSpeed(Number(mbps.toFixed(1)))
+          }))
+        }
+        upload = median(runs)
       } catch (error) {
         transferErrors.push(`Upload: ${error instanceof Error ? error.message : 'transfer failed'}`)
       }
