@@ -204,6 +204,33 @@ function App() {
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
   const [benchmarkConsent, setBenchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
   const [benchmarkStatus, setBenchmarkStatus] = useState('')
+  type BenchmarkRegion = { country_code: string; region_code: string; sample_count: number; download_avg_mbps: number | null; upload_avg_mbps: number | null; latency_avg_ms: number | null; jitter_avg_ms: number | null }
+  const [benchmarkRegions, setBenchmarkRegions] = useState<BenchmarkRegion[]>([])
+  const [benchmarkLoading, setBenchmarkLoading] = useState(false)
+  const [benchmarkError, setBenchmarkError] = useState('')
+  const [benchmarkLoaded, setBenchmarkLoaded] = useState(false)
+
+  async function refreshBenchmarkRegions() {
+    setBenchmarkLoading(true)
+    setBenchmarkError('')
+    try {
+      const response = await fetch('/api/v1/benchmarks/summary', { cache: 'no-store', signal: AbortSignal.timeout(10000) })
+      if (!response.ok) throw new Error('Regional benchmark data is temporarily unavailable.')
+      const data = await response.json() as { ok?: boolean; regions?: BenchmarkRegion[]; minimumSamples?: number }
+      if (!data.ok || !Array.isArray(data.regions)) throw new Error('The benchmark service returned an invalid response.')
+      setBenchmarkRegions(data.regions.filter(region => Number.isFinite(region.sample_count) && region.sample_count >= 30))
+      setBenchmarkLoaded(true)
+    } catch (error) {
+      setBenchmarkError(error instanceof Error ? error.message : 'Could not load regional benchmark data.')
+    } finally {
+      setBenchmarkLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (activeTab === 'Global Network' && !benchmarkLoaded && !benchmarkLoading) void refreshBenchmarkRegions()
+  }, [activeTab, benchmarkLoaded, benchmarkLoading])
+
   const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -825,6 +852,28 @@ function App() {
               <div className="section-kicker">WHAT THIS TELLS YOU</div><h3>Your request reaches TEZZ through this edge.</h3>
               <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Network edge</strong><span>{edgeInfo?.colo || 'Edge location'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
               <p>This is an edge-ingress view, not a traceroute. It does not reveal every router, your full ISP path, physical cable route or the destination path used by other websites. The edge location may change as network routing changes.</p>
+            </div>
+
+            <div className="global-benchmarks-card">
+              <div className="global-benchmarks-heading">
+                <div><div className="section-kicker">COMMUNITY NETWORK BENCHMARKS</div><h3>Regional performance overview</h3><p>Aggregated results from people who explicitly opted in to contribute completed TEZZ CONNECT tests.</p></div>
+                <button className="doctor-run-test" onClick={refreshBenchmarkRegions} disabled={benchmarkLoading}>{benchmarkLoading ? 'Refreshing…' : 'Refresh data'} <span aria-hidden="true">↻</span></button>
+              </div>
+              <div className="global-benchmark-meta"><span>Reporting window: last 7 days</span><span>Publication threshold: 30 contributions per region</span></div>
+              {benchmarkError && <p className="latency-error" role="alert">{benchmarkError}</p>}
+              {benchmarkLoading && !benchmarkLoaded ? <div className="global-benchmark-empty"><Activity size={19}/><span>Loading verified regional aggregates…</span></div> :
+                benchmarkRegions.length ? <div className="global-benchmark-table-wrap"><div className="global-benchmark-list">
+                  {benchmarkRegions.map(region => <article className="global-benchmark-region" key={region.country_code + '-' + region.region_code}>
+                    <div className="global-benchmark-region-title"><div><strong>{region.region_code === 'unknown' ? region.country_code : region.region_code + ', ' + region.country_code}</strong><span>{region.sample_count.toLocaleString()} participating tests</span></div><span className="global-benchmark-verified">Threshold met</span></div>
+                    <div className="global-benchmark-metrics">
+                      <div><span>Download</span><strong>{typeof region.download_avg_mbps === 'number' ? region.download_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
+                      <div><span>Upload</span><strong>{typeof region.upload_avg_mbps === 'number' ? region.upload_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
+                      <div><span>HTTP latency</span><strong>{typeof region.latency_avg_ms === 'number' ? region.latency_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
+                      <div><span>Jitter</span><strong>{typeof region.jitter_avg_ms === 'number' ? region.jitter_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
+                    </div>
+                  </article>)}
+                </div></div> : <div className="global-benchmark-empty"><Globe2 size={21}/><div><strong>{benchmarkLoaded ? 'No regions meet the publication threshold yet.' : 'Regional data has not loaded.'}</strong><span>TEZZ only publishes a regional cohort after at least 30 opted-in contributions are available in the seven-day window. No placeholder or estimated figures are shown.</span></div></div>}
+              <p className="global-benchmark-disclaimer">These are averages from participating TEZZ CONNECT tests, not a census of all users or an ISP-wide service rating. HTTP latency is measured to the TEZZ edge. Regions with fewer than 30 contributions are withheld.</p>
             </div>
             <div className="global-baseline-card">
               <div className="section-kicker">PERSONAL PERFORMANCE BASELINE</div>
