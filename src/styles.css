@@ -1986,3 +1986,94 @@ img, svg { max-width:100%; }
   .doctor-panel{padding:19px 15px!important;border-radius:15px!important}
   .doctor-status,.doctor-finding{border-radius:11px!important}
 }
+
+
+/* Internet Doctor visual redesign — diagnosis cards, clear hierarchy, responsive flow. */
+.doctor-panel{
+  padding:clamp(20px,3vw,30px)!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,#ffffff 0%,#f8fbff 100%)!important;
+}
+.doctor-panel>.doctor-heading{align-items:center!important;margin-bottom:20px!important}
+.doctor-panel .doctor-heading h2{font-size:clamp(21px,2.5vw,28px)!important;letter-spacing:-.8px!important}
+.doctor-panel .doctor-heading p{font-size:13px!important;max-width:650px!important}
+.doctor-panel .doctor-symbol{width:48px!important;height:48px!important;border-radius:15px!important}
+.doctor-panel .doctor-grid{
+  grid-template-columns:minmax(220px,.72fr) minmax(0,1.55fr)!important;
+  gap:16px!important;
+  margin-top:0!important;
+  align-items:stretch!important;
+}
+.doctor-panel .doctor-status{
+  justify-content:center!important;
+  padding:23px!important;
+  border-radius:17px!important;
+  background:radial-gradient(circle at 85% 10%,#e3f4ff 0,transparent 42%),linear-gradient(145deg,#f1f7ff,#ffffff)!important;
+  border:1px solid #dce9f7!important;
+}
+.doctor-panel .doctor-status .section-kicker{font-size:10px!important;letter-spacing:1.5px!important}
+.doctor-panel .doctor-status strong{font-size:clamp(30px,3vw,40px)!important;letter-spacing:-1.2px!important;margin:14px 0 9px!important;color:#07865d!important}
+.doctor-panel .doctor-status p{font-size:12px!important;line-height:1.7!important}
+.doctor-panel .doctor-findings{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:11px!important;
+  align-content:start!important;
+}
+.doctor-panel .doctor-finding{
+  min-width:0!important;
+  min-height:116px!important;
+  padding:15px!important;
+  gap:10px!important;
+  border-radius:15px!important;
+  background:#ffffff!important;
+  border:1px solid #e5ebf3!important;
+  box-shadow:0 4px 13px rgba(16,29,58,.035)!important;
+  transition:transform .18s ease,box-shadow .18s ease!important;
+}
+.doctor-panel .doctor-finding strong{font-size:12px!important;line-height:1.4!important;margin-bottom:6px!important}
+.doctor-panel .doctor-finding p{font-size:11px!important;line-height:1.6!important}
+.doctor-panel .doctor-evidence{
+  display:inline-block!important;
+  margin-top:8px!important;
+  padding:5px 8px!important;
+  border-radius:7px!important;
+  background:#f3f7fc!important;
+  color:#53647a!important;
+  font-size:10px!important;
+  line-height:1.4!important;
+}
+.doctor-panel .finding-dot{width:9px!important;height:9px!important;margin-top:4px!important}
+.doctor-panel .doctor-next-steps{
+  margin-top:20px!important;
+  padding:21px!important;
+  border:1px solid #e2eaf4!important;
+  border-radius:18px!important;
+  background:linear-gradient(145deg,#f8fbff,#f1f7ff)!important;
+}
+.doctor-panel .doctor-next-heading h3{font-size:18px!important}
+.doctor-panel .doctor-next-item{min-height:120px!important;padding:17px!important;border-radius:14px!important}
+.doctor-panel .doctor-next-item strong{font-size:13px!important}
+.doctor-panel .doctor-next-item p{font-size:11px!important;line-height:1.65!important}
+.doctor-panel .doctor-priority{font-size:9px!important;padding:5px 9px!important}
+.doctor-panel .doctor-disclaimer{font-size:10px!important;line-height:1.7!important;margin-top:20px!important;padding-top:16px!important}
+@media(max-width:1050px){
+  .doctor-panel .doctor-grid{grid-template-columns:1fr!important}
+  .doctor-panel .doctor-status{min-height:150px!important}
+  .doctor-panel .doctor-findings{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:640px){
+  .doctor-panel{padding:18px 14px!important;border-radius:17px!important}
+  .doctor-panel>.doctor-heading{gap:10px!important;margin-bottom:16px!important}
+  .doctor-panel .doctor-heading h2{font-size:21px!important}
+  .doctor-panel .doctor-heading p{font-size:12px!important}
+  .doctor-panel .doctor-symbol{width:42px!important;height:42px!important;flex:0 0 auto!important}
+  .doctor-panel .doctor-status{min-height:0!important;padding:19px!important}
+  .doctor-panel .doctor-status strong{font-size:34px!important}
+  .doctor-panel .doctor-findings{grid-template-columns:1fr!important;gap:9px!important}
+  .doctor-panel .doctor-finding{min-height:0!important;padding:14px!important;border-radius:13px!important}
+  .doctor-panel .doctor-finding strong{font-size:13px!important}
+  .doctor-panel .doctor-finding p{font-size:11px!important}
+  .doctor-panel .doctor-next-steps{padding:16px!important}
+  .doctor-panel .doctor-next-item{min-height:0!important;padding:15px!important}
+  .doctor-panel .doctor-next-heading{gap:12px!important}
+}
