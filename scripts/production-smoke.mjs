@@ -55,7 +55,7 @@ await check('Upload rejects size mismatch', '/api/v1/speed/upload?bytes=65536', 
 await check('Sitemap XML', '/sitemap.xml', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('application/xml') && body.includes('<urlset') && body.includes('https://tezzconnect.online/'))
 await check('Robots policy', '/robots.txt', (r, body) =>
-  r.status === 200 && r.headers.get('content-type')?.includes('text/plain') && body.includes('Sitemap: https://tezzconnect.online/sitemap.xml'))
+  r.status === 200 && r.headers.get('content-type')?.includes('text/plain') && body.includes('Sitemap: https://tezzconnect.online/sitemap.xml') && body.includes('Agentmap: https://tezzconnect.online/.well-known/ard.json'))
 
 await check('llms.txt discovery guide', '/llms.txt', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('text/markdown') &&
