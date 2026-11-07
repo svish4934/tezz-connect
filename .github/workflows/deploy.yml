@@ -24,6 +24,8 @@ jobs:
         run: npm run test:benchmarks
       - name: Run benchmark D1 SQL integration tests
         run: npm run test:benchmarks:d1
+      - name: Run Wrangler local D1 integration tests
+        run: npm run test:benchmarks:wrangler
       - name: Build application
         run: npm run build
       - name: Verify Cloudflare credentials
