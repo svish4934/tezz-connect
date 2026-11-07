@@ -788,7 +788,7 @@ function App() {
                 <div className="tezz-meter-topline"><span className="tezz-digital-label">{state === 'running' && testPhase.toLowerCase().includes('upload') ? 'UPLOAD' : state === 'running' && testPhase.toLowerCase().includes('download') ? 'DOWNLOAD' : 'DOWNLOAD SPEED'}</span><span className={`tezz-meter-status ${state === 'running' ? 'active' : result ? 'complete' : ''}`}><i/>{state === 'running' ? 'TESTING' : result ? 'MEASURED' : 'READY'}</span></div>
                 <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
                 <div className="tezz-digital-caption">{state === 'running' ? testPhase : result ? 'Latest download measurement' : 'Your connection speed, measured live'}</div>
-                <div className="tezz-throughput-chart" aria-label="Live throughput trace">
+                <div className="tezz-throughput-chart" role="img" aria-label="Live throughput trace">
                   <svg viewBox="0 0 320 52" preserveAspectRatio="none" role="img" aria-hidden="true">
                     <path className="tezz-chart-grid" d="M0 12H320 M0 26H320 M0 40H320"/>
                     {speedTrace.length > 1 && <polyline className="tezz-chart-line" points={speedTrace.map((value, index) => {
