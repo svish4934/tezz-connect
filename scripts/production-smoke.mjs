@@ -39,6 +39,15 @@ await check('Sitemap XML', '/sitemap.xml', (r, body) =>
 await check('Robots policy', '/robots.txt', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('text/plain') && body.includes('Sitemap: https://tezzconnect.online/sitemap.xml'))
 
+await check('Benchmark summary endpoint', '/api/v1/benchmarks/summary', (r, body) => {
+  const data = JSON.parse(body)
+  return r.status === 200 && data.ok === true && data.minimumSamples === 30 && Array.isArray(data.regions)
+})
+await check('Benchmark submission requires explicit consent', '/api/v1/benchmarks/submit', (r, body) => {
+  const data = JSON.parse(body)
+  return r.status === 400 && data.ok === false
+}, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ consent: false, protocolVersion: 'v1', downloadMbps: 50, uploadMbps: 20, latencyMs: 30, jitterMs: 2 }) })
+
 if (failures > 0) {
   process.stderr.write(`\nProduction smoke checks failed: ${failures}\n`)
   process.exitCode = 1
