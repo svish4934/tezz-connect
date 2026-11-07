@@ -31,6 +31,12 @@ The Worker has no D1 binding yet. This migration is a schema-only preparation st
 - Display sample count, time window, protocol version, and clarify that results describe participating TEZZ CONNECT tests—not every subscriber or an ISP's entire network.
 - Means and standard deviations can be derived from stored moments. Never label a mean as a median or percentile.
 
+## Submission abuse controls
+
+- Benchmark writes have a dedicated Cloudflare rate limit of 6 requests per minute per source IP, separate from speed-test traffic.
+- The source IP is read only for the Cloudflare rate-limit binding. It is not included in the JSON payload, database key, logs, or aggregate rows by this application.
+- This is a basic abuse barrier, not proof of one human or one device per contribution. Repeated legitimate tests may still contribute; future publication analysis should monitor unusual contribution patterns.
+
 ## D1 provisioning checklist
 
 1. Create a Cloudflare D1 database for production.
