@@ -61,6 +61,19 @@ const app: ExportedHandler<Env> = {
       }
     }
 
+    // Agent discovery files are served explicitly so SPA fallback never returns HTML.
+    if (url.pathname === "/llms.txt") {
+      if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method not allowed", { status: 405, headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" } })
+      const body = "# TEZZ CONNECT\n\nTEZZ CONNECT is a free browser-based internet performance toolkit.\n\n## Tools\n- [Internet speed test](https://tezzconnect.online/): measure download speed, upload speed, HTTP latency and jitter.\n- [Internet Doctor](https://tezzconnect.online/internet-doctor): troubleshoot common connection problems.\n- [Network tools](https://tezzconnect.online/tools): inspect network and connection information.\n- [Global Network](https://tezzconnect.online/global-network): view available aggregate network benchmarks.\n- [About TEZZ CONNECT](https://tezzconnect.online/about): learn about the project.\n\n## Documentation\n- [Sitemap](https://tezzconnect.online/sitemap.xml)\n- [Robots policy](https://tezzconnect.online/robots.txt)\n\n## Usage notes\n- Speed measurements run in the visitor's browser against TEZZ CONNECT endpoints and are estimates of that browser-to-edge connection.\n- Regional benchmark contributions are optional and require explicit consent.\n- TEZZ CONNECT does not expose a public MCP or autonomous-agent execution API.\n"
+      return new Response(request.method === "HEAD" ? null : body, { status: 200, headers: { ...noStore, "Content-Type": "text/markdown; charset=utf-8" } })
+    }
+
+    if (url.pathname === "/.well-known/ard.json" || url.pathname === "/.well-known/ai-catalog.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method not allowed", { status: 405, headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" } })
+      const body = JSON.stringify({ specVersion: "0.91", entries: [] })
+      return new Response(request.method === "HEAD" ? null : body, { status: 200, headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" } })
+    }
+
     // Serve robots.txt directly from the Worker so crawlers receive a plain-text
     // response independent of the static asset fallback.
     // Serve the sitemap directly from the Worker so search crawlers receive
