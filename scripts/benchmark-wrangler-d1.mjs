@@ -25,6 +25,7 @@ INSERT INTO benchmark_hourly (
 SELECT strftime('%Y-%m-%dT%H:00:00.000Z','now'), 'US', 'California', -1,
   1, 1, n, n*n, 1, n*2, n*n*4, 1, n*3, n*n*9, 1, n/2.0, n*n/4.0
 FROM samples
+WHERE 1
 ON CONFLICT(bucket_start, country_code, region_code, asn) DO UPDATE SET
   sample_count = sample_count + excluded.sample_count,
   download_count = download_count + excluded.download_count,
