@@ -468,20 +468,20 @@ function App() {
       `Generated: ${new Date().toLocaleString()}`,
       '',
       'SPEED TEST',
-      latestSpeed ? `Date: ${new Date(latestSpeed.date).toLocaleString()}\nDownload: ${latestSpeed.download.toFixed(1)} Mbps\nUpload: ${latestSpeed.upload.toFixed(1)} Mbps\nHTTP latency: ${latestSpeed.ping} ms\nHTTP jitter estimate: ${latestSpeed.jitter.toFixed(1)} ms` : 'No speed test saved in this browser.',
+      latestSpeed ? `Date: ${new Date(latestSpeed.date).toLocaleString()}\nDownload: ${latestSpeed.download.toFixed(1)} Mbps\nUpload: ${latestSpeed.upload.toFixed(1)} Mbps\nHTTP latency: ${latestSpeed.ping} ms\nHTTP response variation: ${latestSpeed.jitter.toFixed(1)} ms` : 'No speed test saved in this browser.',
       '',
       'LATENCY TEST',
-      latestLatency ? `Date: ${new Date(latestLatency.date).toLocaleString()}\nAverage HTTP response: ${latestLatency.average.toFixed(1)} ms\nMinimum: ${latestLatency.min.toFixed(1)} ms\nMaximum: ${latestLatency.max.toFixed(1)} ms\nJitter estimate: ${latestLatency.jitter.toFixed(1)} ms\nFailed requests: ${latestLatency.failures}/12` : 'No latency test saved in this browser.',
+      latestLatency ? `Date: ${new Date(latestLatency.date).toLocaleString()}\nAverage HTTP response: ${latestLatency.average.toFixed(1)} ms\nMinimum: ${latestLatency.min.toFixed(1)} ms\nMaximum: ${latestLatency.max.toFixed(1)} ms\nHTTP response variation: ${latestLatency.jitter.toFixed(1)} ms\nFailed requests: ${latestLatency.failures}/12` : 'No latency test saved in this browser.',
       '',
       'CONNECTION STABILITY',
-      latestStability ? `Date: ${new Date(latestStability.date).toLocaleString()}\nSuccessful samples: ${latestStability.samples}/30\nAverage HTTP response: ${latestStability.average.toFixed(1)} ms\nHighest response: ${latestStability.highest.toFixed(1)} ms\n95th percentile response: ${latestStability.p95?.toFixed(1) ?? 'Not recorded'} ms\nAverage successive variation: ${latestStability.jitter.toFixed(1)} ms\nResponse spikes: ${latestStability.spikes}\nFailed requests: ${latestStability.failures}` : 'No completed stability monitor saved in this browser.',
+      latestStability ? `Date: ${new Date(latestStability.date).toLocaleString()}\nSuccessful samples: ${latestStability.samples}/30\nAverage HTTP response: ${latestStability.average.toFixed(1)} ms\nHighest response: ${latestStability.highest.toFixed(1)} ms\n95th percentile response: ${latestStability.p95?.toFixed(1) ?? 'Not recorded'} ms\nMean successive HTTP response variation: ${latestStability.jitter.toFixed(1)} ms\nResponse spikes: ${latestStability.spikes}\nFailed requests: ${latestStability.failures}` : 'No completed stability monitor saved in this browser.',
       connectionHealthScore ? `Connection Health Score: ${connectionHealthScore.total}/100 (${connectionHealthScore.label})\nLatency: ${connectionHealthScore.latency}/30\nConsistency: ${connectionHealthScore.consistency}/25\nProbe reliability: ${connectionHealthScore.reliability}/25\nSpike control: ${connectionHealthScore.spikes}/20` : 'Connection Health Score: Not available (requires a completed monitor with at least 20 total probes and 15 successful samples).',
       '',
       'NETWORK CONTEXT',
       `Browser online: ${network.online ? 'Yes' : 'No'}\nEffective connection type: ${network.type}\nEstimated downlink: ${network.downlink}\nBrowser-reported RTT: ${network.rtt}\nPublic website endpoints responding: ${reachable}/${services.length}`,
       '',
       'MEASUREMENT NOTES',
-      'Latency and jitter are HTTP request/response measurements to the TEZZ CONNECT edge, not ICMP ping. Failed HTTP requests are not packet loss. Public website checks measure endpoint reachability only, not login or in-app functionality. Browser-reported network details may be estimates or unavailable. Results vary with device, Wi-Fi, server distance and ISP routing.',
+      'Latency and response variation are HTTP request/response measurements to the TEZZ CONNECT edge, not ICMP ping. Failed HTTP requests are not packet loss. Public website checks measure endpoint reachability only, not login or in-app functionality. Browser-reported network details may be estimates or unavailable. Results vary with device, Wi-Fi, server distance and ISP routing.',
       '',
       'History is stored locally in this browser and is not synced across devices.'
     ]
@@ -502,7 +502,7 @@ function App() {
       `Download: ${result.download} Mbps`,
       `Upload: ${result.upload} Mbps`,
       `HTTP latency: ${result.ping} ms`,
-      `HTTP jitter estimate: ${result.jitter} ms`,
+      `HTTP response variation: ${result.jitter} ms`,
       `Public service endpoints responding: ${reachable}/${services.length}`,
       'Note: HTTP timing is measured to the TEZZ CONNECT edge. Service checks confirm public endpoint reachability only; they do not test login or in-app functionality.'
     ].join('\n')
@@ -781,7 +781,7 @@ function App() {
               <span className="tezz-pill">INTERNET SPEED TEST</span>
               <h1>Free Internet <em>Speed Test</em></h1>
               <p>Check download, upload, ping and network stability in seconds.</p>
-              <ul><li><CheckCircle2 size={17}/> Adaptive 1–5 MB transfer tests</li><li><CheckCircle2 size={17}/> Ping, jitter & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
+              <ul><li><CheckCircle2 size={17}/> Adaptive 1–5 MB transfer tests</li><li><CheckCircle2 size={17}/> HTTP latency, response variation & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
@@ -812,7 +812,7 @@ function App() {
             <div>
               <div className="section-kicker">HELP BUILD A BETTER INTERNET PICTURE</div>
               <h2>Contribute to global benchmarks</h2>
-              <p>Optional. When enabled, a completed speed test shares only download, upload, browser HTTP latency, jitter, and coarse country/region with TEZZ CONNECT. We store hourly regional aggregates—not individual test records, IP addresses, device IDs, or precise location. Public comparisons appear only after at least 30 contributions in a region. HTTP latency is measured to the TEZZ CONNECT edge, not your ISP's full network.</p>
+              <p>Optional. When enabled, a completed speed test shares only download, upload, browser HTTP latency, response variation, and coarse country/region with TEZZ CONNECT. We store hourly regional aggregates—not individual test records, IP addresses, device IDs, or precise location. Public comparisons appear only after at least 30 contributions in a region. HTTP latency is measured to the TEZZ CONNECT edge, not your ISP's full network.</p>
               <label className="benchmark-consent-toggle">
                 <input type="checkbox" checked={benchmarkConsent} onChange={event => {
                   const enabled = event.target.checked
@@ -848,7 +848,7 @@ function App() {
             <div className="about-section-heading"><span className="section-kicker">WHAT WE DO</span><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p></div>
             <div className="about-origin"><span className="about-origin-mark" aria-hidden="true">🇮🇳</span><div><span className="section-kicker">OUR ROOTS, GLOBAL VISION</span><h2>Proudly built in India. Connecting the world.</h2><p>TEZZ CONNECT is an independent digital platform built with an international audience in mind.</p></div></div>
             <div className="about-feature-grid">
-              <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Zap size={20}/></span><h3 style={{color:'#142B45'}}>Measure performance</h3><p style={{color:'#53677D'}}>Run download and upload throughput tests, plus HTTP response-time and jitter estimates, from your browser.</p></article>
+              <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Zap size={20}/></span><h3 style={{color:'#142B45'}}>Measure performance</h3><p style={{color:'#53677D'}}>Run download and upload throughput tests, plus HTTP response-time and variation estimates, from your browser.</p></article>
               <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Stethoscope size={20}/></span><h3 style={{color:'#142B45'}}>Understand issues</h3><p style={{color:'#53677D'}}>Use Internet Doctor recommendations to investigate common causes such as congestion, weak Wi-Fi conditions and competing traffic.</p></article>
               <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Globe2 size={20}/></span><h3 style={{color:'#142B45'}}>Explore your network</h3><p style={{color:'#53677D'}}>Review available network-edge information, connection signals and public website endpoint checks.</p></article>
             </div>
@@ -856,7 +856,7 @@ function App() {
               <article className="about-info-card" style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="section-kicker" style={{color:'#087F91'}}>OUR APPROACH</span><h3 style={{color:'#142B45'}}>Clarity over exaggerated claims.</h3><p style={{color:'#53677D'}}>We explain what each test measures and where browser-based checks have limits. Results can vary with your device, Wi-Fi, ISP routing, server distance and network conditions.</p><p style={{color:'#53677D'}}>TEZZ CONNECT is an independent measurement tool. It is not an internet service provider and does not control your connection.</p></article>
               <article className="about-info-card" style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="section-kicker" style={{color:'#087F91'}}>PRIVACY & CONTROL</span><h3 style={{color:'#142B45'}}>Your test history stays on this device.</h3><p style={{color:'#53677D'}}>Saved speed, latency and stability history is stored in your browser. It is not synced between devices. Running a test sends measurement requests to TEZZ CONNECT so the service can return results.</p><p style={{color:'#53677D'}}>We do not need GPS or your street address to run the tools on this page.</p></article>
             </div>
-            <div className="about-method-note" style={{background:'#E8F7F2',border:'1px solid #C5E8DB',color:'#365D53'}}><ShieldCheck size={18} style={{color:'#087F91'}}/><p style={{color:'#365D53'}}><strong style={{color:'#153E34'}}>Measurement note:</strong> latency and jitter are based on HTTP request/response timing to the TEZZ network edge, not ICMP ping. Public app checks test website endpoint reachability only; they do not verify sign-in, feeds, messages or in-app functionality.</p></div>
+            <div className="about-method-note" style={{background:'#E8F7F2',border:'1px solid #C5E8DB',color:'#365D53'}}><ShieldCheck size={18} style={{color:'#087F91'}}/><p style={{color:'#365D53'}}><strong style={{color:'#153E34'}}>Measurement note:</strong> latency and response variation are based on HTTP request/response timing to the TEZZ network edge, not ICMP ping. Public app checks test website endpoint reachability only; they do not verify sign-in, feeds, messages or in-app functionality.</p></div>
             <div className="about-cta"><div><span className="section-kicker">READY TO CHECK YOUR CONNECTION?</span><h2 style={{color:'#F7FBFF'}}>Start with a fresh speed test.</h2></div><button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 0) }}>Go to speed test <span aria-hidden="true">→</span></button></div>
           </section>}
           {activeTab === 'Global Network' && <section className="global-network-panel">
@@ -894,7 +894,7 @@ function App() {
                       <div><span>Download</span><strong>{typeof region.download_avg_mbps === 'number' ? region.download_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
                       <div><span>Upload</span><strong>{typeof region.upload_avg_mbps === 'number' ? region.upload_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
                       <div><span>HTTP latency</span><strong>{typeof region.latency_avg_ms === 'number' ? region.latency_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
-                      <div><span>Jitter</span><strong>{typeof region.jitter_avg_ms === 'number' ? region.jitter_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
+                      <div><span>HTTP response variation</span><strong>{typeof region.jitter_avg_ms === 'number' ? region.jitter_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
                     </div>
                   </article>)}
                 </div></div> : <div className="global-benchmark-empty"><Globe2 size={21}/><div><strong>{benchmarkLoaded ? 'No regions meet the publication threshold yet.' : 'Regional data has not loaded.'}</strong><span>TEZZ only publishes a regional cohort after at least 30 opted-in contributions are available in the seven-day window. No placeholder or estimated figures are shown.</span></div></div>}
@@ -926,18 +926,18 @@ function App() {
               <div className="network-detail"><span>Data saver preference</span><strong>{network.supported ? (network.saveData ? 'Enabled' : 'Not requested') : 'Not available'}</strong></div>
             </div>
             <div className="latency-tool-card">
-              <div className="latency-tool-heading"><div><span className="section-kicker">INDEPENDENT NETWORK TEST</span><h3>Latency &amp; Jitter Test</h3><p>12 small HTTP requests to the TEZZ network edge. No large download or upload.</p></div><span className={latencyRunning ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
+              <div className="latency-tool-heading"><div><span className="section-kicker">INDEPENDENT NETWORK TEST</span><h3>HTTP Latency &amp; Response Variation Test</h3><p>12 small HTTP requests to the TEZZ network edge. No large download or upload.</p></div><span className={latencyRunning ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
               <div className="latency-primary-result"><span>AVERAGE HTTP RESPONSE TIME</span><strong>{latencySamples.length ? (latencySamples.reduce((a,b)=>a+b,0)/latencySamples.length).toFixed(1) : '—'}<small> ms</small></strong><p>{latencyRunning ? `Measuring sample ${latencySamples.length + latencyFailures} of 12…` : latencyCompletedAt ? `Completed at ${latencyCompletedAt}` : 'Run the test to measure your response time.'}</p></div>
               <div className="latency-metrics-grid">
                 <div><span>Minimum</span><strong>{latencySamples.length ? Math.min(...latencySamples).toFixed(1)+' ms' : '—'}</strong></div>
                 <div><span>Maximum</span><strong>{latencySamples.length ? Math.max(...latencySamples).toFixed(1)+' ms' : '—'}</strong></div>
-                <div><span>Jitter estimate</span><strong>{latencySamples.length > 1 ? (latencySamples.slice(1).reduce((sum,value,index)=>sum+Math.abs(value-latencySamples[index]),0)/(latencySamples.length-1)).toFixed(1)+' ms' : '—'}</strong></div>
+                <div><span>HTTP response variation</span><strong>{latencySamples.length > 1 ? (latencySamples.slice(1).reduce((sum,value,index)=>sum+Math.abs(value-latencySamples[index]),0)/(latencySamples.length-1)).toFixed(1)+' ms' : '—'}</strong></div>
                 <div><span>Failed requests</span><strong>{latencyCompletedAt || latencyRunning ? `${latencyFailures} / 12` : '—'}</strong></div>
               </div>
               {latencySamples.length > 1 && (() => {
                 const jitterValue = latencySamples.slice(1).reduce((sum,value,index)=>sum+Math.abs(value-latencySamples[index]),0)/(latencySamples.length-1)
                 const level = jitterValue > 50 ? 'high' : jitterValue > 20 ? 'moderate' : 'low'
-                return <div className={`latency-stability-note ${level}`}><div><span className="section-kicker">RESPONSE CONSISTENCY</span><strong>{level === 'high' ? 'Highly variable response times' : level === 'moderate' ? 'Some response-time variation' : 'Consistent response times'}</strong></div><p>{level === 'high' ? 'Large changes between consecutive requests were measured. Try moving closer to your Wi-Fi router, pausing background downloads and repeating the test.' : level === 'moderate' ? 'Response times changed between samples. Repeat the test when the network is quieter to see whether this pattern continues.' : 'The measured response times were relatively consistent during this short test.'} These are indicative thresholds for this tool, not a formal line-quality certification.</p></div>
+                return <div className={`latency-stability-note ${level}`}><div><span className="section-kicker">RESPONSE CONSISTENCY</span><strong>{level === 'high' ? 'Highly variable response times' : level === 'moderate' ? 'Some response-time variation' : 'Consistent response times'}</strong></div><p>{level === 'high' ? 'Large changes between consecutive requests were measured. Try moving closer to your Wi-Fi router, pausing background downloads and repeating the test.' : level === 'moderate' ? 'Response times changed between samples. Repeat the test when the network is quieter to see whether this pattern continues.' : 'HTTP response times were relatively consistent during this short test.'} These are indicative thresholds for this tool, not a formal line-quality certification.</p></div>
               })()}
               <div className="latency-sample-track" aria-label={`${latencySamples.length} successful latency samples`}>{Array.from({length:12},(_,i)=><span key={i} className={i < latencySamples.length ? 'sample-done' : i < latencySamples.length + latencyFailures ? 'sample-failed' : ''} />)}</div>
               {latencyError && <p className="latency-error" role="alert">{latencyError}</p>}
@@ -976,7 +976,7 @@ function App() {
               <button className="doctor-run-test latency-run-button" onClick={runStabilityMonitor} disabled={stabilityRunning || !network.online}>{stabilityRunning ? 'Monitoring…' : stabilityFinished ? 'Run monitor again' : 'Start 30-second monitor'} <span aria-hidden="true">→</span></button>
             </div>
             <div className="network-capabilities"><div><strong>Wi-Fi signal strength</strong><span>Not exposed by standard browser APIs</span></div><div><strong>Router / gateway details</strong><span>Not exposed to this webpage</span></div><div><strong>Live connection updates</strong><span>{network.supported ? 'Browser API available' : 'Limited browser support'}</span></div></div>
-            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter are measured as HTTP request/response times to the TEZZ edge, not ICMP ping. Failed requests are not labelled packet loss. Results can vary with device load, Wi-Fi, server distance and ISP routing.</div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and response variation are measured as HTTP request/response times to the TEZZ edge, not ICMP ping. Failed requests are not labelled packet loss. Results can vary with device load, Wi-Fi, server distance and ISP routing.</div>
           </section>}
           {activeTab === 'Internet Doctor' && <section className="doctor-panel">
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ INTERNET DOCTOR</div><h2>Find out what is slowing you down.</h2><p>Use your latest speed test and browser network signals to identify likely connection issues.</p></div><span className="doctor-symbol"><Activity size={23}/></span></div>
@@ -991,20 +991,20 @@ function App() {
               <div className="doctor-next-heading"><div><span className="section-kicker">PERSONALISED TROUBLESHOOTING</span><h3>Recommended next steps</h3></div><button className="doctor-run-test" onClick={() => { void runTest() }} disabled={state === 'running'}>{state === 'running' ? 'Test running…' : 'Run new test'} <span aria-hidden="true">→</span></button></div>
               <div className="doctor-next-grid">{doctorRecommendations.map(item => <div className="doctor-next-item" key={item.title}><span className={`doctor-priority ${item.priority}`}>{item.priority === 'high' ? 'Priority' : item.priority === 'medium' ? 'Suggested' : 'Next step'}</span><strong>{item.title}</strong><p>{item.detail}</p></div>)}</div>
             </div>
-            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and jitter here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
+            <div className="doctor-disclaimer"><ShieldCheck size={15}/> Latency and response variation here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.</div>
           </section>}
           {activeTab === 'History' && <section className="history-page-panel">
-            <div className="doctor-heading"><div><div className="section-kicker">YOUR LOCAL TEST RECORDS</div><h2>Internet speed test history.</h2><p>Review your recent download, upload, HTTP latency and jitter measurements saved in this browser.</p></div><span className="doctor-symbol"><History size={23}/></span></div>
+            <div className="doctor-heading"><div><div className="section-kicker">YOUR LOCAL TEST RECORDS</div><h2>Internet speed test history.</h2><p>Review your recent download, upload, HTTP latency and response variation measurements saved in this browser.</p></div><span className="doctor-symbol"><History size={23}/></span></div>
             <div className="history-page-summary"><div><span>Saved tests</span><strong>{history.length}</strong></div><div><span>Storage</span><strong>This browser only</strong></div><div><span>Retention</span><strong>Up to 50 tests</strong></div></div>
             {history.length === 0 ? <div className="empty-history"><History size={18}/><span>No saved tests yet. Run a speed test to build your history.</span></div> : <div className="history-table">
-              <div className="history-table-head"><span>Date & time</span><span>Download</span><span>Upload</span><span>HTTP latency</span><span>Jitter</span></div>
+              <div className="history-table-head"><span>Date & time</span><span>Download</span><span>Upload</span><span>HTTP latency</span><span>HTTP response variation</span></div>
               {history.map(item => <div className="history-table-row" key={item.date}><span>{new Date(item.date).toLocaleString()}</span><strong>{item.download.toFixed(1)} Mbps</strong><strong>{item.upload.toFixed(1)} Mbps</strong><span>{item.ping} ms</span><span>{item.jitter.toFixed(1)} ms</span></div>)}
             </div>}
             <div className="latency-history-section">
               <div className="latency-history-heading"><div><span className="section-kicker">NETWORK RESPONSE RECORDS</span><h3>Latency test history</h3><p>Compare independent response-time tests saved on this device.</p></div><span className="latency-history-count">{latencyHistory.length} / 30</span></div>
               {latencyHistory.length === 0 ? <div className="empty-history"><Activity size={18}/><span>No latency tests saved yet. Run a test from Tools to start tracking response consistency.</span></div> : <>
                 {latencyHistory.length > 1 && <div className="latency-history-comparison"><div><span>Latest average</span><strong>{latencyHistory[0].average.toFixed(1)} ms</strong></div><div><span>Previous average</span><strong>{latencyHistory[1].average.toFixed(1)} ms</strong></div><div><span>Change</span><strong>{Math.abs(latencyHistory[0].average-latencyHistory[1].average).toFixed(1)} ms {latencyHistory[0].average < latencyHistory[1].average ? 'faster' : latencyHistory[0].average > latencyHistory[1].average ? 'slower' : 'unchanged'}</strong></div></div>}
-                <div className="latency-history-list">{latencyHistory.map((item,index)=><div className="latency-history-row" key={item.date}><span className="latency-history-index">#{index+1}</span><span className="latency-history-date">{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><span>Jitter {item.jitter.toFixed(1)} ms</span><span>{item.failures}/12 failed</span></div>)}</div>
+                <div className="latency-history-list">{latencyHistory.map((item,index)=><div className="latency-history-row" key={item.date}><span className="latency-history-index">#{index+1}</span><span className="latency-history-date">{new Date(item.date).toLocaleString()}</span><strong>{item.average.toFixed(1)} ms</strong><span>Variation {item.jitter.toFixed(1)} ms</span><span>{item.failures}/12 failed</span></div>)}</div>
               </>}
             </div>
             <div className="latency-history-section stability-history-section">
@@ -1030,8 +1030,8 @@ function App() {
             </div>
 
             <div className="performance-report-grid">
-              <div className="performance-report-card"><span className="section-kicker">SPEED TEST</span><strong>{result ? result.download.toFixed(1)+' Mbps' : 'Not tested'}</strong><p>{result ? `Download · Upload ${result.upload.toFixed(1)} Mbps` : 'Run a speed test to add measurements.'}</p><small>{result ? `HTTP latency ${result.ping} ms · Jitter ${result.jitter.toFixed(1)} ms` : 'No saved speed result'}</small></div>
-              <div className="performance-report-card"><span className="section-kicker">LATENCY TEST</span><strong>{latencyHistory[0] ? latencyHistory[0].average.toFixed(1)+' ms' : 'Not tested'}</strong><p>Average HTTP response time</p><small>{latencyHistory[0] ? `Jitter ${latencyHistory[0].jitter.toFixed(1)} ms · ${latencyHistory[0].failures}/12 failed` : 'No saved latency result'}</small></div>
+              <div className="performance-report-card"><span className="section-kicker">SPEED TEST</span><strong>{result ? result.download.toFixed(1)+' Mbps' : 'Not tested'}</strong><p>{result ? `Download · Upload ${result.upload.toFixed(1)} Mbps` : 'Run a speed test to add measurements.'}</p><small>{result ? `HTTP latency ${result.ping} ms · Variation ${result.jitter.toFixed(1)} ms` : 'No saved speed result'}</small></div>
+              <div className="performance-report-card"><span className="section-kicker">LATENCY TEST</span><strong>{latencyHistory[0] ? latencyHistory[0].average.toFixed(1)+' ms' : 'Not tested'}</strong><p>Average HTTP response time</p><small>{latencyHistory[0] ? `Variation ${latencyHistory[0].jitter.toFixed(1)} ms · ${latencyHistory[0].failures}/12 failed` : 'No saved latency result'}</small></div>
               <div className="performance-report-card"><span className="section-kicker">STABILITY MONITOR</span><strong>{stabilityHistory[0] ? stabilityHistory[0].average.toFixed(1)+' ms' : 'Not monitored'}</strong><p>Average response across 30 samples</p><small>{stabilityHistory[0] ? `${stabilityHistory[0].spikes} spikes · ${stabilityHistory[0].failures} failed` : 'No completed monitor saved'}</small></div>
             </div>
             <div className="performance-report-section"><h3>Recent performance trend</h3><p>Latest saved measurements on this device. Compare sessions over time; different test types are shown separately.</p>
@@ -1063,7 +1063,7 @@ function App() {
               </article>
               <article className="usage-insight-card">
                 <div className="usage-insight-icon gaming"><Gamepad2 size={22}/></div>
-                <div><h3>Online gaming</h3><p>{result ? result.ping <= 50 && result.jitter <= 20 ? 'Your measured latency and jitter look favourable for many online games. Actual gameplay also depends on the game server route.' : 'Your measured latency or jitter may affect responsiveness. Try a wired connection or stronger Wi-Fi and retest.' : 'Run a speed test to review latency and jitter, which often matter more than download speed for gaming.'}</p></div>
+                <div><h3>Online gaming</h3><p>{result ? result.ping <= 50 && result.jitter <= 20 ? 'Your measured HTTP response time and variation look favourable for many online games. Actual gameplay also depends on the game server route.' : 'Your measured HTTP response time or variation may affect responsiveness. Try a wired connection or stronger Wi-Fi and retest.' : 'Run a speed test to review HTTP response time and variation, which can matter alongside download speed for gaming.'}</p></div>
               </article>
             </div>
           </section>
@@ -1071,7 +1071,7 @@ function App() {
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
             <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Adaptive · up to 5 MB each</strong></div></div>
-            <p className="report-note">This report combines adaptive download and upload throughput measurements (1–5 MB per transfer), median browser HTTP response-time samples, a median jitter estimate and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <p className="report-note">This report combines adaptive download and upload throughput measurements (1–5 MB per transfer), median browser HTTP response-time samples, mean absolute difference between consecutive HTTP response-time samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
