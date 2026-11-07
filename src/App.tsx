@@ -202,6 +202,8 @@ function App() {
   const [testError, setTestError] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
+  const [benchmarkConsent, setBenchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
+  const [benchmarkStatus, setBenchmarkStatus] = useState('')
   const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -568,6 +570,31 @@ function App() {
     }
   }
 
+  async function submitBenchmarkContribution(test: TestResult) {
+    if (!benchmarkConsent) return
+    setBenchmarkStatus('Sharing anonymous aggregate…')
+    try {
+      const response = await fetch('/api/v1/benchmarks/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        cache: 'no-store',
+        body: JSON.stringify({
+          consent: true,
+          protocolVersion: 'v1',
+          downloadMbps: test.download,
+          uploadMbps: test.upload,
+          latencyMs: test.ping,
+          jitterMs: test.jitter,
+        }),
+      })
+      const data = await response.json() as { message?: string }
+      if (!response.ok) throw new Error(data.message || 'Contribution could not be recorded.')
+      setBenchmarkStatus('Thank you. Your anonymous aggregate contribution was recorded.')
+    } catch (error) {
+      setBenchmarkStatus(error instanceof Error ? error.message : 'Contribution could not be recorded.')
+    }
+  }
+
   async function runTest() {
     if (state === 'running') return
     setState('running')
@@ -652,6 +679,7 @@ function App() {
       const next = { ping: Math.round(latency.ping), download: Number(download.toFixed(1)), upload: Number(upload.toFixed(1)), jitter: Number(latency.jitter.toFixed(1)), date: new Date().toISOString(), trace: speedTraceRef.current.slice(-36) }
       setResult(next)
       setHistory(current => [next, ...current].slice(0, 50))
+      if (benchmarkConsent) void submitBenchmarkContribution(next)
       setProgress(100)
       setTestPhase('Test complete')
       setState('complete')
@@ -727,6 +755,23 @@ function App() {
             </div>
             <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, ping and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
             <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 500" preserveAspectRatio="none"><defs><linearGradient id="tezz-signal-blue"><stop stopColor="#58b8ff" stopOpacity=".02"/><stop offset=".5" stopColor="#1686ed" stopOpacity=".8"/><stop offset="1" stopColor="#65d9ee" stopOpacity=".05"/></linearGradient><linearGradient id="tezz-signal-cyan"><stop stopColor="#64d8e8" stopOpacity=".02"/><stop offset=".55" stopColor="#36b8df" stopOpacity=".7"/><stop offset="1" stopColor="#1686ed" stopOpacity=".04"/></linearGradient></defs><path className="signal-wave signal-wave-back" d="M-30 78 C90 18 170 142 300 78 S510 18 640 78 S850 142 1030 72"/><path className="signal-wave signal-wave-mid" d="M-30 145 C100 82 185 210 320 145 S530 82 665 145 S875 210 1030 138"/><path className="signal-wave signal-wave-front" d="M-30 215 C100 150 195 278 330 212 S540 150 680 215 S880 280 1030 208"/><path className="signal-wave signal-wave-back" d="M-30 285 C100 220 195 350 330 284 S540 220 680 285 S880 350 1030 278"/><path className="signal-wave signal-wave-mid" d="M-30 355 C100 292 195 420 330 354 S540 292 680 355 S880 420 1030 348"/><path className="signal-wave signal-wave-front" d="M-30 425 C100 362 195 490 330 424 S540 362 680 425 S880 490 1030 418"/></svg></div>
+          </section>
+          <section className="benchmark-consent-panel" aria-label="Global benchmark sharing">
+            <div>
+              <div className="section-kicker">HELP BUILD A BETTER INTERNET PICTURE</div>
+              <h2>Contribute to global benchmarks</h2>
+              <p>Optional. When enabled, a completed speed test shares only download, upload, browser HTTP latency, jitter, and coarse country/region with TEZZ CONNECT. We store hourly regional aggregates—not individual test records, IP addresses, device IDs, or precise location. Public comparisons appear only after at least 30 contributions in a region. HTTP latency is measured to the TEZZ CONNECT edge, not your ISP's full network.</p>
+              <label className="benchmark-consent-toggle">
+                <input type="checkbox" checked={benchmarkConsent} onChange={event => {
+                  const enabled = event.target.checked
+                  setBenchmarkConsent(enabled)
+                  setBenchmarkStatus(enabled ? 'Opt-in enabled. Your next completed speed test can contribute.' : 'Opt-out enabled. No future benchmark contributions will be sent.')
+                  try { localStorage.setItem('tezz_benchmark_consent_v1', String(enabled)) } catch { /* Consent remains active for this page session. */ }
+                }} />
+                <span>Yes, I agree to share anonymous aggregate measurements from my completed speed tests.</span>
+              </label>
+              <div className="benchmark-consent-status" role="status">{benchmarkStatus || (benchmarkConsent ? 'Opt-in is enabled.' : 'Benchmark sharing is off by default.')}</div>
+            </div>
           </section>
           <section className="tezz-stat-grid">
             <div className="tezz-stat cyan"><ArrowDown/><span>Download</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
