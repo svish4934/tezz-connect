@@ -1924,3 +1924,24 @@ img, svg { max-width:100%; }
   .global-benchmarks-card,.global-baseline-card{padding:18px 15px!important}
   .global-benchmarks-heading button,.global-benchmarks-card button{min-height:38px!important}
 }
+
+
+/* Home page benchmark consent — match the approved light card system. */
+.home-content .benchmark-consent-panel{
+  background:linear-gradient(145deg,#ffffff 0%,#f7faff 100%)!important;
+  border:1px solid #e3eaf3!important;
+  color:#101d3a!important;
+  border-radius:18px!important;
+  box-shadow:0 8px 24px rgba(16,29,58,.055)!important;
+}
+.home-content .benchmark-consent-panel .section-kicker{color:#1268d8!important}
+.home-content .benchmark-consent-panel h2{color:#101d3a!important}
+.home-content .benchmark-consent-panel p{color:#68758b!important}
+.home-content .benchmark-consent-toggle{color:#34445d!important}
+.home-content .benchmark-consent-toggle input{accent-color:#20b982!important}
+.home-content .benchmark-consent-status{color:#07865d!important;font-weight:700}
+@media(max-width:640px){
+  .home-content .benchmark-consent-panel{padding:18px!important;border-radius:15px!important}
+  .home-content .benchmark-consent-panel p{font-size:12px!important}
+  .home-content .benchmark-consent-toggle{font-size:12px!important}
+}
