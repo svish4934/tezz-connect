@@ -1108,9 +1108,9 @@ function App() {
               <a className="knowledge-hub-all" href="/guides/">Explore all guides <span aria-hidden="true">→</span></a>
             </div>
             <div className="knowledge-hub-grid">
-              <a className="knowledge-hub-card" href="/guides/internet-speed-explained/">
+              <a className="knowledge-hub-card" href="/guides/what-is-the-internet/">
                 <span className="knowledge-hub-icon" aria-hidden="true">◎</span>
-                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Understand internet speed, Mbps and how your connection works.</small></span>
+                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Learn what the internet is and how websites reach your device.</small></span>
                 <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
               </a>
               <a className="knowledge-hub-card" href="/guides/improve-wifi-speed/">
