@@ -90,6 +90,7 @@ const app: ExportedHandler<Env> = {
   <url><loc>https://tezzconnect.online/guides/improve-wifi-speed/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tezzconnect.online/guides/upload-speed-explained/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tezzconnect.online/guides/internet-speed-for-gaming/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/what-is-the-internet/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
 </urlset>
 `
       return new Response(request.method === "HEAD" ? null : body, {
