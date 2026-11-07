@@ -1,0 +1,19 @@
+# TEZZ CONNECT
+
+TEZZ CONNECT is a free browser-based internet performance toolkit.
+
+## Tools
+- [Internet speed test](https://tezzconnect.online/): measure download speed, upload speed, HTTP latency and jitter.
+- [Internet Doctor](https://tezzconnect.online/internet-doctor): troubleshoot common connection problems.
+- [Network tools](https://tezzconnect.online/tools): inspect network and connection information.
+- [Global Network](https://tezzconnect.online/global-network): view available aggregate network benchmarks.
+- [About TEZZ CONNECT](https://tezzconnect.online/about): learn about the project.
+
+## Documentation
+- [Sitemap](https://tezzconnect.online/sitemap.xml)
+- [Robots policy](https://tezzconnect.online/robots.txt)
+
+## Usage notes
+- Speed measurements run in the visitor's browser against TEZZ CONNECT endpoints and are estimates of that browser-to-edge connection.
+- Regional benchmark contributions are optional and require explicit consent.
+- TEZZ CONNECT does not expose a public MCP or autonomous-agent execution API.
