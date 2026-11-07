@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS benchmark_hourly (
   bucket_start TEXT NOT NULL,
   country_code TEXT NOT NULL,
   region_code TEXT NOT NULL DEFAULT 'unknown',
-  asn INTEGER,
+  -- -1 represents an unknown / unreported ASN so the WITHOUT ROWID key stays non-null.
+  asn INTEGER NOT NULL DEFAULT -1 CHECK (asn >= -1),
   sample_count INTEGER NOT NULL DEFAULT 0 CHECK (sample_count >= 0),
   download_count INTEGER NOT NULL DEFAULT 0 CHECK (download_count >= 0),
   download_sum_mbps REAL NOT NULL DEFAULT 0,
