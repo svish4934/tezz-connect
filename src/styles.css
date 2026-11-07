@@ -1793,3 +1793,15 @@ img, svg { max-width:100%; }
 /* Internet Doctor evidence labels */
 .doctor-evidence{display:block;margin-top:5px;color:#71839a;font-size:10px;font-weight:650;line-height:1.5;letter-spacing:.1px;overflow-wrap:anywhere}
 .doctor-finding .finding-dot.neutral{background:#9aaabd}
+
+
+/* Personal baseline inside Global Network intelligence */
+.global-baseline-card{margin-top:16px;padding:23px 25px;border:1px solid #24364c;border-radius:13px;background:linear-gradient(145deg,#101d2e,#0b1524)}
+.global-baseline-card h3{font-size:17px;margin:8px 0 6px;color:#edf5ff}
+.global-baseline-intro,.global-baseline-foot{font-size:10px;line-height:1.65;color:#8798ae;margin:0}
+.global-baseline-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 13px}
+.global-baseline-grid>div{display:grid;gap:7px;padding:14px;border:1px solid #22364c;border-radius:9px;background:#111f30}
+.global-baseline-grid span{font-size:10px;color:#91a0b4}
+.global-baseline-grid strong{font-size:20px;color:#e6f2ff}
+.global-baseline-grid small{font-size:10px;font-weight:500;color:#8b9bb0}
+@media(max-width:720px){.global-baseline-card{padding:19px 15px}.global-baseline-grid{grid-template-columns:1fr}.global-baseline-grid>div{padding:12px}}
