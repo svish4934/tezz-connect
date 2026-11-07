@@ -850,7 +850,7 @@ function App() {
             </div>
             <div className="global-route-card">
               <div className="section-kicker">WHAT THIS TELLS YOU</div><h3>Your request reaches TEZZ through this edge.</h3>
-              <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Network edge</strong><span>{edgeInfo?.colo || 'Edge location'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
+              <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Cloudflare data centre</strong><span>{edgeInfo?.colo || 'Colo code'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
               <p>The Cloudflare data-centre code identifies the point handling this request. Country, region and ASN describe the approximate source network based on IP geolocation; they do not identify the data-centre's physical location. This is not a traceroute and does not reveal your full ISP path, routers or cable route.</p>
             </div>
 
