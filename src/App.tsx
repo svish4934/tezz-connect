@@ -227,11 +227,11 @@ function App() {
     }
   }
 
+
+  const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
   useEffect(() => {
     if (activeTab === 'Global Network' && !benchmarkLoaded && !benchmarkLoading) void refreshBenchmarkRegions()
   }, [activeTab, benchmarkLoaded, benchmarkLoading])
-
-  const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   function navigateTo(tab: string) {
