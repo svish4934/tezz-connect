@@ -1945,3 +1945,44 @@ img, svg { max-width:100%; }
   .home-content .benchmark-consent-panel p{font-size:12px!important}
   .home-content .benchmark-consent-toggle{font-size:12px!important}
 }
+
+
+/* Internet Doctor — align diagnostics workspace with the Home light-card system. */
+.doctor-panel{
+  background:linear-gradient(145deg,#ffffff 0%,#f7faff 100%)!important;
+  border:1px solid #e3eaf3!important;
+  color:#101d3a!important;
+  box-shadow:0 8px 24px rgba(16,29,58,.055)!important;
+}
+.doctor-panel .section-kicker{color:#1268d8!important}
+.doctor-heading h2{color:#101d3a!important}
+.doctor-heading p{color:#68758b!important}
+.doctor-symbol{background:#edf5ff!important;border:1px solid #d9eaff!important;color:#1268d8!important}
+.doctor-status{
+  background:#f5f9ff!important;
+  border:1px solid #e2ebf6!important;
+}
+.doctor-status strong{color:#101d3a!important}
+.doctor-status p{color:#68758b!important}
+.doctor-finding{
+  background:#ffffff!important;
+  border:1px solid #e5ebf3!important;
+}
+.doctor-finding strong{color:#172b45!important}
+.doctor-finding p,.doctor-evidence{color:#68758b!important}
+.doctor-disclaimer{
+  border-top:1px solid #e7edf5!important;
+  color:#68758b!important;
+}
+.doctor-disclaimer svg{color:#07865d!important}
+.doctor-panel .doctor-run-test{
+  background:linear-gradient(110deg,#1678ed,#0848b8)!important;
+  border:0!important;
+  border-radius:9px!important;
+  color:#ffffff!important;
+  box-shadow:0 5px 14px rgba(18,104,216,.18)!important;
+}
+@media(max-width:720px){
+  .doctor-panel{padding:19px 15px!important;border-radius:15px!important}
+  .doctor-status,.doctor-finding{border-radius:11px!important}
+}
