@@ -21,9 +21,9 @@ async function check(name, path, validate, init) {
 
 await check('API health and version', '/api/v1/health', (r, body) => {
   const data = JSON.parse(body)
-  return r.status === 200 && data.ok === true && data.version === 'v1' && r.headers.get('x-api-version') === 'v1'
+  return r.status === 200 && data.ok === true && data.version === 'v1' && r.headers.get('x-api-version') === 'v1' && Boolean(r.headers.get('x-request-id')) && Boolean(r.headers.get('server-timing'))
 })
-await check('Ping endpoint', '/api/v1/speed/ping', r => r.status === 204)
+await check('Ping endpoint', '/api/v1/speed/ping', r => r.status === 204 && Boolean(r.headers.get('x-request-id')) && Boolean(r.headers.get('server-timing')))
 await check('Ping rejects unsupported method', '/api/v1/speed/ping', r => r.status === 405, { method: 'POST' })
 await check('Download exact payload and content type', '/api/v1/speed/download?bytes=65536', (r, body) =>
   r.status === 200 && body.byteLength === 65536 && r.headers.get('content-type')?.includes('application/octet-stream') &&
@@ -40,8 +40,8 @@ await check('Robots policy', '/robots.txt', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('text/plain') && body.includes('Sitemap: https://tezzconnect.online/sitemap.xml'))
 
 if (failures > 0) {
-  process.stderr.write(`\\nProduction smoke checks failed: ${failures}\\n`)
+  process.stderr.write(`\nProduction smoke checks failed: ${failures}\n`)
   process.exitCode = 1
 } else {
-  process.stdout.write('\\nAll production smoke checks passed.\\n')
+  process.stdout.write('\nAll production smoke checks passed.\n')
 }
