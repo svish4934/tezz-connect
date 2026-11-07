@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "smoke:production": "node scripts/production-smoke.mjs",
-    "test:benchmarks": "node scripts/benchmark-integration.mjs"
+    "test:benchmarks": "node scripts/benchmark-integration.mjs",
+    "test:benchmarks:d1": "python3 scripts/benchmark-d1-integration.py"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
