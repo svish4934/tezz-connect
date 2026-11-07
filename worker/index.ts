@@ -297,8 +297,8 @@ const app: ExportedHandler<Env> = {
     if (pathname === "/api/v1/speed/download") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       const requested = Number(url.searchParams.get("bytes") ?? "1000000")
-      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 5_000_000) {
-        return json("Download size must be between 1 byte and 5 MB", 400)
+      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 10_000_000) {
+        return json("Download size must be between 1 byte and 10 MB", 400)
       }
       // Return a fixed-length body for predictable browser transfer accounting.
       const payload = new Uint8Array(requested)
