@@ -23,5 +23,7 @@ jobs:
         run: npm install
       - name: Run benchmark handler integration tests
         run: npm run test:benchmarks
+      - name: Run benchmark D1 SQL integration tests
+        run: npm run test:benchmarks:d1
       - name: Build application
         run: npm run build
