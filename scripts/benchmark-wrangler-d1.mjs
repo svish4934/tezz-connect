@@ -92,9 +92,9 @@ function run(args, label) {
 try {
   writeFileSync(fixture, sql);
   console.log("Applying migrations to an isolated Wrangler local D1 database...");
-  run(["d1", "migrations", "apply", database, "--local", "--persist-to", persist, "--yes"], "Local D1 migration");
+  run(["d1", "migrations", "apply", database, "--local", "--persist-to", persist], "Local D1 migration");
   console.log("Executing aggregation, cohort-threshold, and retention assertions...");
-  run(["d1", "execute", database, "--local", "--persist-to", persist, "--file", fixture, "--yes"], "Local D1 assertions");
+  run(["d1", "execute", database, "--local", "--persist-to", persist, "--file", fixture], "Local D1 assertions");
   console.log("PASS: Wrangler local D1 migration and benchmark SQL assertions.");
 } finally {
   rmSync(persist, { recursive: true, force: true });
