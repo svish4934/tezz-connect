@@ -285,6 +285,18 @@ function App() {
   const latestStability = stabilityHistory[0] ?? null
   const connectionHealthScore = latestStability ? calculateHealthScore(latestStability) : null
 
+  const personalPerformanceBaseline = useMemo(() => {
+    const recent = history.slice(0, 5)
+    if (recent.length === 0) return null
+    const medianDownload = median(recent.map(item => item.download))
+    const medianUpload = median(recent.map(item => item.upload))
+    const medianHttp = median(recent.map(item => item.ping))
+    const previous = history.slice(5, 10)
+    const previousDownload = previous.length >= 3 ? median(previous.map(item => item.download)) : null
+    const downloadChange = previousDownload === null ? null : medianDownload - previousDownload
+    return { count: recent.length, medianDownload, medianUpload, medianHttp, previousCount: previous.length, previousDownload, downloadChange }
+  }, [history])
+
   const doctorFindings = useMemo(() => {
     type Finding = { title: string; detail: string; evidence: string; status: 'alert' | 'good' | 'neutral' }
     const findings: Finding[] = []
@@ -768,6 +780,20 @@ function App() {
               <div className="section-kicker">WHAT THIS TELLS YOU</div><h3>Your request reaches TEZZ through this edge.</h3>
               <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Network edge</strong><span>{edgeInfo?.colo || 'Edge location'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
               <p>This is an edge-ingress view, not a traceroute. It does not reveal every router, your full ISP path, physical cable route or the destination path used by other websites. The edge location may change as network routing changes.</p>
+            </div>
+            <div className="global-baseline-card">
+              <div className="section-kicker">PERSONAL PERFORMANCE BASELINE</div>
+              <h3>Your recent connection trend</h3>
+              <p className="global-baseline-intro">A private summary calculated from speed tests saved in this browser. No test history is uploaded or shared.</p>
+              {personalPerformanceBaseline ? <>
+                <div className="global-baseline-grid">
+                  <div><span>Median download · last {personalPerformanceBaseline.count}</span><strong>{personalPerformanceBaseline.medianDownload.toFixed(1)} <small>Mbps</small></strong></div>
+                  <div><span>Median upload · last {personalPerformanceBaseline.count}</span><strong>{personalPerformanceBaseline.medianUpload.toFixed(1)} <small>Mbps</small></strong></div>
+                  <div><span>Median HTTP response</span><strong>{personalPerformanceBaseline.medianHttp.toFixed(0)} <small>ms</small></strong></div>
+                  <div><span>Download trend vs previous tests</span><strong>{personalPerformanceBaseline.downloadChange === null ? 'Building baseline' : `${personalPerformanceBaseline.downloadChange > 0 ? '+' : ''}${personalPerformanceBaseline.downloadChange.toFixed(1)} Mbps`}</strong></div>
+                </div>
+                <p className="global-baseline-foot">{personalPerformanceBaseline.previousDownload === null ? 'Complete at least 8 speed tests to compare the latest five with the preceding five.' : `Compared with the median of ${personalPerformanceBaseline.previousCount} earlier tests. Different devices, networks and test conditions can affect results.`}</p>
+              </> : <div className="empty-history"><Activity size={18}/><span>Run a speed test to establish your first local performance baseline.</span></div>}
             </div>
             <div className="global-network-note"><ShieldCheck size={16}/><span>Privacy and accuracy: TEZZ displays only coarse network-edge metadata returned for this request. It does not request GPS, expose your street address or run an IP geolocation lookup. ASN information identifies the network associated with the request, when provided.</span></div>
           </section>}
