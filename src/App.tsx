@@ -285,23 +285,84 @@ function App() {
   const latestStability = stabilityHistory[0] ?? null
   const connectionHealthScore = latestStability ? calculateHealthScore(latestStability) : null
 
+  const doctorFindings = useMemo(() => {
+    type Finding = { title: string; detail: string; evidence: string; status: 'alert' | 'good' | 'neutral' }
+    const findings: Finding[] = []
+    if (!network.online) {
+      findings.push({ title: 'Device reports offline', detail: 'The browser online flag is false. Reconnect to Wi-Fi or mobile data before interpreting speed results.', evidence: 'Browser connectivity state', status: 'alert' })
+      return findings
+    }
+    if (!result) {
+      findings.push({ title: 'Baseline measurements needed', detail: 'Run a speed test to measure download, upload and HTTP response behaviour.', evidence: 'No saved speed-test result', status: 'neutral' })
+    } else {
+      findings.push({
+        title: result.download < 10 ? 'Low download throughput' : 'Download throughput',
+        detail: result.download < 10 ? 'The measured download rate is low for many everyday activities. Pause competing traffic and compare a wired test if possible.' : 'The latest download measurement does not indicate a severe throughput restriction by this test threshold.',
+        evidence: `Download ${result.download.toFixed(1)} Mbps`,
+        status: result.download < 10 ? 'alert' : 'good',
+      })
+      findings.push({
+        title: result.upload < 2 ? 'Limited upload throughput' : 'Upload throughput',
+        detail: result.upload < 2 ? 'Cloud backups, file syncing or video uploads may compete for capacity. Pause them and repeat the measurement.' : 'The latest upload measurement does not indicate a severe restriction by this test threshold.',
+        evidence: `Upload ${result.upload.toFixed(1)} Mbps`,
+        status: result.upload < 2 ? 'alert' : 'good',
+      })
+      findings.push({
+        title: result.ping > 100 ? 'Elevated HTTP response time' : 'HTTP response time',
+        detail: result.ping > 100 ? 'The browser took longer to receive a response from the TEZZ edge. Compare another time and, if possible, another network.' : 'No severe HTTP response delay was observed in this test.',
+        evidence: `Median HTTP response ${result.ping.toFixed(0)} ms`,
+        status: result.ping > 100 ? 'alert' : 'good',
+      })
+      findings.push({
+        title: result.jitter > 30 ? 'Variable HTTP response timing' : 'HTTP response timing consistency',
+        detail: result.jitter > 30 ? 'Timing varied between requests. Background traffic, Wi-Fi conditions, device load or routing may contribute; repeat the test to confirm.' : 'The short HTTP timing sample was relatively consistent.',
+        evidence: `HTTP variation estimate ${result.jitter.toFixed(1)} ms`,
+        status: result.jitter > 30 ? 'alert' : 'good',
+      })
+    }
+    if (latestStability) {
+      const unstable = latestStability.failures >= 3 || latestStability.jitter > 40 || (typeof latestStability.p95 === 'number' && latestStability.p95 > 250)
+      findings.push({
+        title: unstable ? 'Stability monitor detected variation' : 'Stability monitor',
+        detail: unstable ? 'The 30-probe HTTP monitor recorded elevated response variation, slow tail responses or failed requests. This indicates an intermittent path or measurement issue, not confirmed packet loss.' : 'The latest 30-probe HTTP monitor did not cross the Doctor’s elevated-variation thresholds.',
+        evidence: `${latestStability.samples}/${latestStability.samples + latestStability.failures} successful · avg ${latestStability.average.toFixed(0)} ms · P95 ${typeof latestStability.p95 === 'number' ? latestStability.p95.toFixed(0) : 'not available'} ms`,
+        status: unstable ? 'alert' : 'good',
+      })
+    } else {
+      findings.push({ title: 'Stability evidence not available', detail: 'Run the 30-second stability monitor to check whether response behaviour remains consistent over time.', evidence: 'No completed stability monitor in this browser', status: 'neutral' })
+    }
+    if (latencyHistory[0]) {
+      findings.push({
+        title: 'Recent latency history available',
+        detail: 'A separate latency run is available for comparison. Similar results across independent runs make a recurring pattern more credible.',
+        evidence: `Average ${latencyHistory[0].average.toFixed(0)} ms · ${latencyHistory[0].failures} failed requests`,
+        status: latencyHistory[0].average > 150 || latencyHistory[0].failures > 1 ? 'alert' : 'good',
+      })
+    }
+    if (network.supported && network.downlink !== 'Not reported') {
+      findings.push({ title: 'Browser network estimate', detail: 'This is a browser-provided estimate and may be rounded or stale. It is not a substitute for the measured speed test.', evidence: `${network.type} · estimated downlink ${network.downlink}`, status: 'neutral' })
+    }
+    return findings
+  }, [network, result, latestStability, latencyHistory])
+
   const doctorRecommendations = useMemo(() => {
     if (!network.online) return [
-      { title: 'Restore your connection', detail: 'Your browser reports that the device is offline. Reconnect to Wi-Fi or mobile data, then run a fresh test.', priority: 'high' },
+      { title: 'Restore your connection', detail: 'Reconnect to Wi-Fi or mobile data, then run a fresh test.', priority: 'high' as const },
     ]
     if (!result) return [
-      { title: 'Run a baseline speed test', detail: 'Measure download, upload, HTTP response time and jitter before troubleshooting.', priority: 'info' },
-      { title: 'Check more than once', detail: 'Repeat the test at different times to see whether the slowdown is consistent.', priority: 'info' },
+      { title: 'Run a baseline speed test', detail: 'Measure download, upload and HTTP response time before troubleshooting.', priority: 'info' as const },
+      { title: 'Run the stability monitor', detail: 'Collect 30 response samples to check for intermittent variation.', priority: 'info' as const },
     ]
     const items: { title: string; detail: string; priority: 'high' | 'medium' | 'info' }[] = []
-    if (result.download < 10) items.push({ title: 'Reduce competing traffic', detail: 'Pause large downloads and video streams on other devices. Move closer to the router and retest.', priority: 'high' })
-    if (result.upload < 2) items.push({ title: 'Check upload activity', detail: 'Pause cloud backups, file syncing and outgoing video streams. Retest when the network is quieter.', priority: 'medium' })
-    if (result.ping > 100) items.push({ title: 'Investigate response delays', detail: 'Try a wired connection if available, pause background traffic and compare another test location or time.', priority: 'high' })
-    if (result.jitter > 30) items.push({ title: 'Improve connection consistency', detail: 'Use a stable Wi-Fi band, reduce distance and obstacles from the router, and avoid congested network periods.', priority: 'medium' })
-    if (items.length === 0) items.push({ title: 'Your measurements look stable', detail: 'No severe issue was flagged by these checks. Retest during a video call or gaming session if you still notice problems.', priority: 'info' })
-    items.push({ title: 'Compare another test', detail: 'Run a second test after these changes. A repeated pattern is more useful than a single measurement.', priority: 'info' })
+    if (result.download < 10) items.push({ title: 'Check download congestion', detail: 'Pause large downloads and video streams on other devices. Move closer to the router and compare over Ethernet if available.', priority: 'high' })
+    if (result.upload < 2) items.push({ title: 'Check upload activity', detail: 'Pause cloud backups, file syncing and outgoing video streams, then retest when the network is quieter.', priority: 'medium' })
+    if (result.ping > 100 || (latestStability?.p95 ?? 0) > 250) items.push({ title: 'Compare response delays', detail: 'Repeat at a different time and compare Wi-Fi with a wired connection. High HTTP response time alone cannot identify whether the cause is Wi-Fi, ISP routing or the remote edge.', priority: 'high' })
+    if (result.jitter > 30 || (latestStability?.jitter ?? 0) > 40) items.push({ title: 'Investigate intermittent variation', detail: 'Reduce distance and obstacles from the router, use a less congested Wi-Fi band, pause background traffic and rerun the stability monitor.', priority: 'medium' })
+    if (latestStability && latestStability.failures >= 3) items.push({ title: 'Repeat failed probes on another network', detail: 'Switch between Wi-Fi and mobile data if possible. If failures occur on only one connection, share the timestamped report with the network provider.', priority: 'high' })
+    if (items.length === 0) items.push({ title: 'No major threshold crossed', detail: 'These measurements did not flag a severe issue. If an app still performs poorly, test it during the problem and compare another network.', priority: 'info' })
+    items.push({ title: 'Build a comparable baseline', detail: 'Repeat the same tests at another time and after any change. A consistent pattern is more useful than one result.', priority: 'info' })
     return items
-  }, [network.online, result])
+  }, [network.online, result, latestStability])
 
   async function checkService(service: typeof services[number]): Promise<ServiceResult> {
     const started = performance.now()
@@ -777,15 +838,8 @@ function App() {
             <div className="doctor-grid">
               <div className="doctor-status"><span className="section-kicker">DIAGNOSTIC STATUS</span><strong>{result ? quality : 'Awaiting test'}</strong><p>{result ? `Measured download ${result.download} Mbps · HTTP round-trip ${result.ping} ms · jitter estimate ${result.jitter} ms.` : 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.'}</p></div>
               <div className="doctor-findings">
-                {!result ? <div className="doctor-finding"><span className="finding-dot neutral" /><div><strong>No test data yet</strong><p>Run an adaptive download and upload test to generate a measured connection report.</p><button className="doctor-run-test" onClick={() => { navigateTo('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button></div></div> :
-                  <>
-                    <div className="doctor-finding"><span className={result.download < 10 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.download < 10 ? 'Low download throughput' : 'Download throughput'}</strong><p>{result.download < 10 ? 'Try moving closer to your router, pause large downloads, and retest over a wired connection if possible.' : 'Your measured download rate is not showing a severe throughput bottleneck.'}</p></div></div>
-                    <div className="doctor-finding"><span className={result.ping > 100 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.ping > 100 ? 'High HTTP response time detected' : 'HTTP latency check'}</strong><p>{result.ping > 100 ? 'Restart the router, reduce competing traffic, and test again. For gaming or calls, use Ethernet where possible.' : 'HTTP response time is not showing a severe delay in this test. This is not an ICMP ping measurement.'}</p></div></div>
-                    <div className="doctor-finding"><span className={result.upload < 2 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.upload < 2 ? 'Limited upload capacity' : 'Upload check'}</strong><p>{result.upload < 2 ? 'Pause cloud backups and file uploads, then retest. Contact your ISP if the result remains consistently low.' : 'Upload throughput is not showing an obvious severe restriction.'}</p></div></div>
-                    <div className="doctor-finding"><span className={result.jitter > 30 ? 'finding-dot alert' : 'finding-dot good'} /><div><strong>{result.jitter > 30 ? 'Variable response times' : 'Response-time variation'}</strong><p>{result.jitter > 30 ? 'The HTTP timing samples varied noticeably. Pause background traffic, use a stable Wi-Fi or wired connection, and repeat the test.' : 'The measured HTTP timing samples were relatively consistent during this short test.'}</p></div></div>
-                  </>
-                }
-                {!network.online && <div className="doctor-finding"><span className="finding-dot alert" /><div><strong>Device reports offline</strong><p>Your browser currently reports no network connection. Check Wi-Fi or mobile data before running another test.</p></div></div>}
+                {doctorFindings.map((finding) => <div className="doctor-finding" key={finding.title}><span className={`finding-dot ${finding.status}`} /><div><strong>{finding.title}</strong><p>{finding.detail}</p><small className="doctor-evidence">{finding.evidence}</small></div></div>)}
+                {!result && network.online && <button className="doctor-run-test" onClick={() => { navigateTo('Overview'); window.setTimeout(() => { void runTest() }, 0) }}>Run speed test <span aria-hidden="true">→</span></button>}
               </div>
             </div>
             <div className="doctor-next-steps">
