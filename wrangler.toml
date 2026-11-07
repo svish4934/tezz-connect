@@ -28,3 +28,27 @@ simple = { limit = 300, period = 60 }
 name = "BENCHMARK_RATE_LIMITER"
 namespace_id = "1003"
 simple = { limit = 30, period = 60 }
+
+# Isolated resources for Cloudflare Worker Previews.
+# These must never point at production D1 or rate-limit namespaces.
+[previews]
+[[previews.d1_databases]]
+binding = "BENCHMARKS_DB"
+database_name = "tezz-connect-preview"
+database_id = "e084a157-2fac-4aa7-9f63-a3ac1db80c18"
+migrations_dir = "./migrations"
+
+[[previews.ratelimits]]
+name = "API_RATE_LIMITER"
+namespace_id = "2001"
+simple = { limit = 600, period = 60 }
+
+[[previews.ratelimits]]
+name = "TRANSFER_RATE_LIMITER"
+namespace_id = "2002"
+simple = { limit = 300, period = 60 }
+
+[[previews.ratelimits]]
+name = "BENCHMARK_RATE_LIMITER"
+namespace_id = "2003"
+simple = { limit = 30, period = 60 }
