@@ -228,7 +228,17 @@ function App() {
   }
 
 
-  const [activeTab, setActiveTab] = useState(() => window.location.pathname === '/about' ? 'About' : 'Overview')
+  const routeToTab: Record<string, string> = {
+    '/': 'Overview',
+    '/internet-doctor': 'Internet Doctor',
+    '/tools': 'Network',
+    '/global-network': 'Global Network',
+    '/history': 'History',
+    '/report': 'Report',
+    '/about': 'About',
+  }
+  const tabToRoute: Record<string, string> = Object.fromEntries(Object.entries(routeToTab).map(([path, tab]) => [tab, path]))
+  const [activeTab, setActiveTab] = useState(() => routeToTab[window.location.pathname] ?? 'Overview')
   useEffect(() => {
     if (activeTab === 'Global Network' && !benchmarkLoaded && !benchmarkLoading) void refreshBenchmarkRegions()
   }, [activeTab, benchmarkLoaded, benchmarkLoading])
@@ -236,19 +246,32 @@ function App() {
 
   function navigateTo(tab: string) {
     setMobileMenuOpen(false)
-    const nextPath = tab === 'About' ? '/about' : '/'
+    const nextPath = tabToRoute[tab] ?? '/'
     if (window.location.pathname !== nextPath) window.history.pushState({}, '', nextPath)
     setActiveTab(tab)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   useEffect(() => {
-    const handlePopState = () => setActiveTab(window.location.pathname === '/about' ? 'About' : 'Overview')
+    const handlePopState = () => {
+      setMobileMenuOpen(false)
+      setActiveTab(routeToTab[window.location.pathname] ?? 'Overview')
+    }
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
   useEffect(() => {
-    document.title = activeTab === 'About' ? 'About TEZZ CONNECT | Internet Performance Tools' : 'TEZZ CONNECT | Free Internet Speed Test'
+    const titles: Record<string, string> = {
+      Overview: 'Free Internet Speed Test | TEZZ CONNECT',
+      'Internet Doctor': 'Internet Doctor | TEZZ CONNECT',
+      Network: 'Network Tools | TEZZ CONNECT',
+      'Global Network': 'Global Network Intelligence | TEZZ CONNECT',
+      History: 'Speed Test History | TEZZ CONNECT',
+      Report: 'Performance Report | TEZZ CONNECT',
+      About: 'About TEZZ CONNECT | Internet Performance Tools',
+    }
+    document.title = titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools'
   }, [activeTab])
   const [edgeInfo, setEdgeInfo] = useState<{ colo: string; country: string; region: string; asn: number | null; organization: string; fetchedAt: string } | null>(null)
   const [edgeLoading, setEdgeLoading] = useState(false)
