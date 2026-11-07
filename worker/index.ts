@@ -13,6 +13,7 @@ interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> }
   API_RATE_LIMITER: RateLimitBinding
   TRANSFER_RATE_LIMITER: RateLimitBinding
+  BENCHMARK_RATE_LIMITER: RateLimitBinding
   BENCHMARKS_DB: D1Database
 }
 
@@ -108,6 +109,16 @@ const app: ExportedHandler<Env> = {
 
     if (pathname === "/api/v1/benchmarks/submit") {
       if (request.method !== "POST") return json("Method not allowed", 405)
+      // Limit benchmark writes separately from normal diagnostics. The IP is used
+      // only as an ephemeral rate-limit key and is never written to D1.
+      const benchmarkIp = request.headers.get("CF-Connecting-IP") ?? "unknown"
+      const benchmarkLimit = await env.BENCHMARK_RATE_LIMITER.limit({ key: benchmarkIp })
+      if (!benchmarkLimit.success) {
+        return new Response(JSON.stringify({ ok: false, message: "Benchmark contribution limit reached. Please retry in one minute." }), {
+          status: 429,
+          headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "Retry-After": "60", "X-API-Version": "v1" },
+        })
+      }
       if (request.headers.get("content-type")?.toLowerCase().includes("application/json") !== true) return json("Content-Type must be application/json", 415)
       const country = (request as Request & { cf?: { country?: string; region?: string } }).cf?.country
       const region = (request as Request & { cf?: { country?: string; region?: string } }).cf?.region
