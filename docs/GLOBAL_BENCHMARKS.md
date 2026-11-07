@@ -1,57 +1,72 @@
 # Global benchmark infrastructure
 
-## Current status
+## Production status
 
-The Worker has no D1 binding yet. This migration is a schema-only preparation step. No benchmark submissions are accepted or stored until D1 is provisioned, bound to the Worker, and the API is implemented and deployed.
+The global benchmark pipeline is implemented and deployed.
 
-## Privacy and collection contract
+- Cloudflare Worker binding: `BENCHMARKS_DB`.
+- D1 database: `tezz-connect-benchmarks`.
+- Migration: `migrations/0001_global_benchmarks.sql`.
+- Write endpoint: `POST /api/v1/benchmarks/submit`.
+- Read endpoint: `GET /api/v1/benchmarks/summary`.
+- Protocol identifier: `v1`.
+- Public summary window: the last 7 days.
+- Minimum published cohort: 30 contributions per country/region group.
 
-1. Collection is explicitly opt-in and off by default.
-2. Only completed, successful tests using the same documented measurement protocol may contribute.
-3. Never persist IP addresses, request IDs, cookies, account identifiers, precise coordinates, or raw per-test records.
-4. Use Cloudflare country and region metadata only at coarse granularity. Missing metadata maps to `unknown`.
-5. ASN-level reporting is optional and must not be used as a proxy for an individual's identity.
-6. Do not store browser fingerprints, SSIDs, BSSIDs, or advertising identifiers.
-7. Do not submit test data until the user has actively opted in and been shown what is shared.
+The Worker stores hourly aggregate rows in D1. The public endpoint returns regional aggregates only; it does not expose individual test records.
+
+## Consent and collection contract
+
+1. Benchmark participation is explicitly opt-in and off by default. The browser stores the preference locally under `tezz_benchmark_consent_v1`.
+2. The client submits only after a completed successful speed test and only when the user has opted in.
+3. The write endpoint independently requires `consent: true` and `protocolVersion: "v1"`.
+4. The request contains download Mbps, upload Mbps, browser HTTP response latency in milliseconds, and the mean absolute difference between consecutive HTTP response-time samples in milliseconds.
+5. The Worker obtains country and region from Cloudflare request metadata. Country must be a two-letter uppercase code; missing/invalid country metadata is rejected. Missing region is recorded as `unknown`.
+6. Do not persist IP addresses, request IDs, cookies, account identifiers, precise coordinates, raw per-test records, browser fingerprints, SSIDs, BSSIDs, or advertising identifiers in benchmark rows.
+7. The source IP is used only as an ephemeral Cloudflare rate-limit key. It is not part of the JSON payload, D1 key, or aggregate row.
+
+## Measurement semantics
+
+- **Download/upload:** Mbps calculated from exact bytes transferred and elapsed browser measurement time. The client adapts transfer payloads between 1 MB and 5 MB.
+- **HTTP response latency:** browser-measured request/response time to the TEZZ CONNECT Cloudflare edge endpoint. It is not ICMP ping and does not represent end-to-end ISP latency.
+- **HTTP response variation:** mean absolute difference between consecutive HTTP response-time samples in the same probe sequence. It is not packet-delay variation or a formal network-jitter measurement.
+- The speed test, latency test, and stability monitor use different probe counts and reporting summaries. Their values should be compared only within the same test type and protocol, not treated as identical samples.
+
+The database retains legacy column names `jitter_count`, `jitter_sum_ms`, and `jitter_sum_sq` for schema compatibility. These columns store the HTTP response variation metric described above; the public UI should use the current terminology.
 
 ## Aggregation model
 
-- UTC hourly buckets.
-- Aggregate-only storage: counts, sums, and sums of squares for download, upload, HTTP edge response latency, and jitter.
-- No individual measurement rows.
-- Country and coarse region are primary dimensions. ASN is nullable and may be queried only for sufficiently large cohorts.
-- Measurements must use a consistent test protocol and payload policy. Introduce a protocol version before changing measurement semantics; never mix incompatible protocols in one cohort.
+- Rows are keyed by UTC hourly bucket, Cloudflare country, Cloudflare region, and ASN sentinel.
+- The current Worker writes ASN as `-1` (unknown/unreported); ASN-level reporting is not currently implemented.
+- Storage is aggregate-only: contribution counts, sums, and sums of squares for download, upload, HTTP response latency, and HTTP response variation.
+- No individual measurement rows are created.
+- The summary endpoint groups the last 7 days by country and region, requires at least 30 contributions per group, orders by sample count, and returns at most 100 groups.
+- Returned means are calculated from aggregate sums and counts. The endpoint does not currently publish medians, percentiles, standard deviations, or ASN comparisons.
 
-## Publication safeguards
+## Publication safeguards and limitations
 
-- Do not publish a cohort with fewer than 30 completed contributions.
-- Require at least 50 contributions for ASN-level comparisons.
-- Suppress or roll up small cohorts to country level; never expose exact low-volume region/ASN combinations.
-- Public views use daily or weekly windows, not exact event times.
-- Display sample count, time window, protocol version, and clarify that results describe participating TEZZ CONNECT tests—not every subscriber or an ISP's entire network.
-- Means and standard deviations can be derived from stored moments. Never label a mean as a median or percentile.
+- A country/region group is omitted unless it has at least 30 contributions in the summary window.
+- Public results describe participating TEZZ CONNECT tests only. They are not representative of every subscriber, all users in a region, or an ISP's entire network.
+- A contribution is not proof of one unique human or device. Repeated tests may contribute more than once.
+- Rate limiting is a basic abuse barrier, not identity verification.
+- The current implementation has no automated retention or hourly-row cleanup policy. D1 growth and retention should be reviewed before benchmark traffic scales materially.
+- The `benchmark_consent_totals` table exists in the initial migration but is not currently written to or queried by the Worker.
 
-## Submission abuse controls
+## Abuse controls and validation
 
-- Benchmark writes have a dedicated Cloudflare rate limit of 6 requests per minute per source IP, separate from speed-test traffic.
-- The source IP is read only for the Cloudflare rate-limit binding. It is not included in the JSON payload, database key, logs, or aggregate rows by this application.
-- This is a basic abuse barrier, not proof of one human or one device per contribution. Repeated legitimate tests may still contribute; future publication analysis should monitor unusual contribution patterns.
+- General API limit: 180 requests per minute per source IP.
+- Transfer endpoint limit: 12 requests per minute per source IP.
+- Benchmark submission limit: 6 requests per minute per source IP.
+- Benchmark request body is limited to 2,048 characters and must be JSON.
+- The endpoint requires explicit consent and protocol version `v1`.
+- All four metrics must be finite numbers between 0 and 10,000. Download, upload, and latency must be greater than zero.
+- D1 write errors return HTTP 503; malformed, unsupported, or non-consented submissions are rejected.
 
-## D1 provisioning checklist
+## Operational verification
 
-1. Create a Cloudflare D1 database for production.
-2. Add a `[[d1_databases]]` binding named `BENCHMARKS_DB` to `wrangler.toml`, using the database ID returned by Cloudflare.
-3. Use a separate database for preview/staging if that environment is enabled.
-4. Apply this migration with Wrangler's remote migration command.
-5. Add an endpoint that validates consent, metric bounds, and protocol version; applies abuse controls; and performs atomic aggregate upserts.
-6. Add public read endpoints that enforce cohort thresholds in SQL and return no raw keys for suppressed groups.
-7. Add production smoke tests for opt-out, malformed payloads, rate limiting, suppressed cohorts, and aggregate accuracy.
+The production smoke script currently verifies that:
 
-Do not add a placeholder database ID or deploy a Worker that assumes the binding exists. Keep the production app operational while the database is provisioned.
+- the benchmark summary endpoint returns a valid response with a 7-day window contract and a 30-contribution minimum;
+- a submission without explicit consent is rejected.
 
-## Metric semantics
-
-- Download/upload: Mbps calculated from exact bytes transferred and elapsed measurement time.
-- Latency: browser HTTP request/response time to the TEZZ CONNECT edge, not ICMP ping or end-to-end ISP latency.
-- Jitter: the documented variation metric for the same probe sequence; do not combine different jitter definitions.
-- Reject non-finite, negative, implausible, or incomplete values server-side.
+The smoke script does not currently verify a successful opt-in write, D1 aggregate arithmetic, cohort suppression using seeded test data, or rate-limit exhaustion. Those remain follow-up integration-test items. Do not claim those cases are covered by the production smoke suite until tests are added and run.
