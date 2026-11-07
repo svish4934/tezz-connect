@@ -2,6 +2,12 @@ name = "tezz-connect"
 main = "worker/index.ts"
 compatibility_date = "2026-11-04"
 
+[[d1_databases]]
+binding = "BENCHMARKS_DB"
+database_name = "tezz-connect-benchmarks"
+database_id = "4ba570ab-345a-4645-b987-7da0115201ac"
+migrations_dir = "./migrations"
+
 [assets]
 directory = "./dist"
 binding = "ASSETS"
