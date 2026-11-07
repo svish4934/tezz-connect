@@ -1851,3 +1851,76 @@ img, svg { max-width:100%; }
 .global-benchmark-empty span{font-size:10px;line-height:1.65}
 .global-benchmark-disclaimer{margin:13px 0 0;color:#8295ab;font-size:10px;line-height:1.65}
 @media(max-width:720px){.global-benchmarks-card{padding:18px 15px}.global-benchmarks-heading{flex-direction:column}.global-benchmark-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.global-benchmark-region-title{align-items:flex-start;flex-direction:column}}
+
+
+/* Global Network — align every dashboard surface with the approved warm-light Home palette. */
+.global-benchmarks-card,
+.global-baseline-card{
+  background:linear-gradient(145deg,#ffffff 0%,#f7faff 100%)!important;
+  border:1px solid #e3eaf3!important;
+  color:#101d3a!important;
+  box-shadow:0 8px 24px rgba(16,29,58,.055)!important;
+}
+.global-benchmarks-heading h3,
+.global-baseline-card h3{color:#101d3a!important}
+.global-benchmarks-heading p,
+.global-baseline-intro,
+.global-baseline-foot,
+.global-benchmark-disclaimer{color:#68758b!important}
+.global-benchmarks-card .section-kicker,
+.global-baseline-card .section-kicker{color:#1268d8!important}
+.global-benchmark-meta{
+  background:#f2f7fd!important;
+  border:1px solid #e2ebf6!important;
+  color:#596b83!important;
+}
+.global-benchmark-region{
+  background:#ffffff!important;
+  border:1px solid #e5ebf3!important;
+}
+.global-benchmark-region-title strong{color:#172b45!important}
+.global-benchmark-region-title span{color:#68758b!important}
+.global-benchmark-region-title .global-benchmark-verified{color:#07865d!important}
+.global-benchmark-metrics>div{
+  background:#f5f8fc!important;
+  border:1px solid #e8eef5!important;
+}
+.global-benchmark-metrics span{color:#68758b!important}
+.global-benchmark-metrics strong{color:#172b45!important}
+.global-benchmark-metrics small{color:#7c8ba0!important}
+.global-benchmark-empty{
+  background:#f5f9ff!important;
+  border:1px dashed #cbdcf0!important;
+  color:#687b94!important;
+}
+.global-benchmark-empty strong{color:#172b45!important}
+.global-benchmark-empty span{color:#68758b!important}
+.global-baseline-grid>div{
+  background:#ffffff!important;
+  border:1px solid #e5ebf3!important;
+}
+.global-baseline-grid span{color:#68758b!important}
+.global-baseline-grid strong{color:#172b45!important}
+.global-baseline-grid small{color:#7c8ba0!important}
+.global-benchmarks-heading button,
+.global-benchmarks-card button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  min-height:36px!important;
+  padding:9px 14px!important;
+  border:0!important;
+  border-radius:9px!important;
+  background:linear-gradient(110deg,#1678ed,#0848b8)!important;
+  color:#ffffff!important;
+  font:700 11px Manrope,system-ui,sans-serif!important;
+  box-shadow:0 5px 14px rgba(18,104,216,.18)!important;
+  cursor:pointer!important;
+}
+.global-benchmarks-heading button:disabled,
+.global-benchmarks-card button:disabled{opacity:.65!important;cursor:wait!important}
+@media(max-width:720px){
+  .global-benchmarks-card,.global-baseline-card{padding:18px 15px!important}
+  .global-benchmarks-heading button,.global-benchmarks-card button{min-height:38px!important}
+}
