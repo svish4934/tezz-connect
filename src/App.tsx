@@ -46,9 +46,11 @@ function calculateHealthScore(record: StabilityRecord): HealthScore | null {
 }
 
 function choosePayloadBytes(calibrationMbps: number): number {
-  if (calibrationMbps >= 100) return 5_000_000
-  if (calibrationMbps >= 25) return 3_000_000
-  return 1_000_000
+  // Larger samples reduce timing noise on faster connections while keeping
+  // data use bounded for mobile users.
+  if (calibrationMbps >= 100) return 10_000_000
+  if (calibrationMbps >= 25) return 5_000_000
+  return 2_000_000
 }
 
 async function measurePing(): Promise<{ ping: number; jitter: number }> {
@@ -678,7 +680,7 @@ function App() {
         const payloadBytes = choosePayloadBytes(calibration)
         setTestPhase(`Measuring download throughput (${payloadBytes / 1_000_000} MB)`)
         const runs: number[] = []
-        for (let run = 0; run < 2; run++) {
+        for (let run = 0; run < 3; run++) {
           runs.push(await measureDownload(payloadBytes, (mbps, received) => {
             setLiveSpeed(Number(mbps.toFixed(1)))
             appendSpeedSample(mbps)

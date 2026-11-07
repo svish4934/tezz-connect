@@ -46,7 +46,7 @@ await check('Ping rejects unsupported method', '/api/v1/speed/ping', r => r.stat
 await check('Download exact payload and content type', '/api/v1/speed/download?bytes=65536', (r, body) =>
   r.status === 200 && body.byteLength === 65536 && r.headers.get('content-type')?.includes('application/octet-stream') &&
   r.headers.get('content-length') === '65536')
-await check('Download size limit', '/api/v1/speed/download?bytes=6000000', r => r.status === 400)
+await check('Download size limit', '/api/v1/speed/download?bytes=11000000', r => r.status === 400)
 await check('Upload accepts exact payload', '/api/v1/speed/upload?bytes=65536', (r, body) =>
   r.status === 200 && JSON.parse(body).ok === true,
   { method: 'POST', headers: { 'content-type': 'application/octet-stream' }, body: new Uint8Array(65536) })
