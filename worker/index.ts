@@ -1,5 +1,11 @@
+interface RateLimitBinding {
+  limit(options: { key: string }): Promise<{ success: boolean }>
+}
+
 interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> }
+  API_RATE_LIMITER: RateLimitBinding
+  TRANSFER_RATE_LIMITER: RateLimitBinding
 }
 
 const noStore = { "Cache-Control": "no-store, no-cache, must-revalidate", "X-Content-Type-Options": "nosniff" }
@@ -24,6 +30,27 @@ export default {
     }
     const pathname = legacyApiAliases[url.pathname] ?? url.pathname
     const apiPath = pathname.startsWith("/api/v1/")
+
+    // Apply per-client limits at the edge before expensive API work.
+    if (apiPath && pathname !== "/api/v1/health") {
+      const clientIp = request.headers.get("CF-Connecting-IP") ?? "unknown"
+      const generalLimit = await env.API_RATE_LIMITER.limit({ key: clientIp })
+      if (!generalLimit.success) {
+        return new Response(JSON.stringify({ ok: false, message: "API request limit reached. Please retry shortly." }), {
+          status: 429,
+          headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "Retry-After": "60", "X-API-Version": "v1" },
+        })
+      }
+      if (pathname === "/api/v1/speed/download" || pathname === "/api/v1/speed/upload") {
+        const transferLimit = await env.TRANSFER_RATE_LIMITER.limit({ key: clientIp })
+        if (!transferLimit.success) {
+          return new Response(JSON.stringify({ ok: false, message: "Transfer test limit reached. Please retry in one minute." }), {
+            status: 429,
+            headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "Retry-After": "60", "X-API-Version": "v1" },
+          })
+        }
+      }
+    }
 
     // Serve robots.txt directly from the Worker so crawlers receive a plain-text
     // response independent of the static asset fallback.
@@ -161,6 +188,10 @@ export default {
         const expectedBytes = Number(url.searchParams.get("bytes") ?? "1000000")
         if (!Number.isSafeInteger(expectedBytes) || expectedBytes < 1 || expectedBytes > 5_000_000) {
           return json("Upload size must be between 1 byte and 5 MB", 400)
+        }
+        const declaredLength = request.headers.get("content-length")
+        if (declaredLength !== null && Number(declaredLength) !== expectedBytes) {
+          return json("Upload Content-Length does not match the expected payload size", 400)
         }
         const payload = await request.arrayBuffer()
         if (payload.byteLength !== expectedBytes) {
