@@ -19,6 +19,24 @@ async function check(name, path, validate, init) {
   }
 }
 
+
+const appRoutes = [
+  ['Home route', '/'],
+  ['Internet Doctor direct route', '/internet-doctor'],
+  ['Network tools direct route', '/tools'],
+  ['Global Network direct route', '/global-network'],
+  ['History direct route', '/history'],
+  ['Report direct route', '/report'],
+  ['About direct route', '/about'],
+]
+for (const [name, path] of appRoutes) {
+  await check(name, path, (r, body) =>
+    r.status === 200 &&
+    r.headers.get('content-type')?.includes('text/html') &&
+    body.includes('<div id="root"></div>') &&
+    body.includes('/assets/'))
+}
+
 await check('API health and version', '/api/v1/health', (r, body) => {
   const data = JSON.parse(body)
   return r.status === 200 && data.ok === true && data.version === 'v1' && r.headers.get('x-api-version') === 'v1' && Boolean(r.headers.get('x-request-id')) && Boolean(r.headers.get('server-timing'))
