@@ -29,6 +29,22 @@ function median(values: number[]): number {
   return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2
 }
 
+
+type HealthScore = { total: number; latency: number; consistency: number; reliability: number; spikes: number; label: string }
+
+function calculateHealthScore(record: StabilityRecord): HealthScore | null {
+  const totalProbes = record.samples + record.failures
+  if (totalProbes < 20 || record.samples < 15 || typeof record.p95 !== 'number' || !Number.isFinite(record.p95)) return null
+  const clamp = (value: number) => Math.max(0, Math.min(1, value))
+  const latency = 30 * clamp((500 - record.p95) / 400)
+  const consistency = 25 * clamp((100 - record.jitter) / 90)
+  const reliability = 25 * clamp(record.samples / totalProbes)
+  const spikeRate = record.spikes / record.samples
+  const spikes = 20 * clamp(1 - spikeRate / 0.2)
+  const total = Math.round(latency + consistency + reliability + spikes)
+  return { total, latency: Math.round(latency), consistency: Math.round(consistency), reliability: Math.round(reliability), spikes: Math.round(spikes), label: total >= 90 ? 'Excellent' : total >= 75 ? 'Good' : total >= 55 ? 'Fair' : 'Needs attention' }
+}
+
 function choosePayloadBytes(calibrationMbps: number): number {
   if (calibrationMbps >= 100) return 5_000_000
   if (calibrationMbps >= 25) return 3_000_000
@@ -266,6 +282,9 @@ function App() {
     return 'Needs attention'
   }, [result])
 
+  const latestStability = stabilityHistory[0] ?? null
+  const connectionHealthScore = latestStability ? calculateHealthScore(latestStability) : null
+
   const doctorRecommendations = useMemo(() => {
     if (!network.online) return [
       { title: 'Restore your connection', detail: 'Your browser reports that the device is offline. Reconnect to Wi-Fi or mobile data, then run a fresh test.', priority: 'high' },
@@ -329,6 +348,7 @@ function App() {
       '',
       'CONNECTION STABILITY',
       latestStability ? `Date: ${new Date(latestStability.date).toLocaleString()}\nSuccessful samples: ${latestStability.samples}/30\nAverage HTTP response: ${latestStability.average.toFixed(1)} ms\nHighest response: ${latestStability.highest.toFixed(1)} ms\n95th percentile response: ${latestStability.p95?.toFixed(1) ?? 'Not recorded'} ms\nAverage successive variation: ${latestStability.jitter.toFixed(1)} ms\nResponse spikes: ${latestStability.spikes}\nFailed requests: ${latestStability.failures}` : 'No completed stability monitor saved in this browser.',
+      connectionHealthScore ? `Connection Health Score: ${connectionHealthScore.total}/100 (${connectionHealthScore.label})\nLatency: ${connectionHealthScore.latency}/30\nConsistency: ${connectionHealthScore.consistency}/25\nProbe reliability: ${connectionHealthScore.reliability}/25\nSpike control: ${connectionHealthScore.spikes}/20` : 'Connection Health Score: Not available (requires a completed monitor with at least 20 total probes and 15 successful samples).',
       '',
       'NETWORK CONTEXT',
       `Browser online: ${network.online ? 'Yes' : 'No'}\nEffective connection type: ${network.type}\nEstimated downlink: ${network.downlink}\nBrowser-reported RTT: ${network.rtt}\nPublic website endpoints responding: ${reachable}/${services.length}`,
@@ -736,6 +756,16 @@ function App() {
               <div className="stability-progress"><span style={{width:`${((stabilitySamples.length+stabilityFailures)/30)*100}%`}} /></div>
               <div className="stability-status-line">{stabilityRunning ? `Monitoring in progress · sample ${stabilitySamples.length+stabilityFailures} of 30` : stabilityFinished ? `Monitoring completed at ${stabilityFinished}` : 'Monitoring duration: approximately 30 seconds'}</div>
               {stabilitySamples.length > 1 && (() => {const avg=stabilitySamples.reduce((a,b)=>a+b,0)/stabilitySamples.length;const jitter=stabilitySamples.slice(1).reduce((sum,v,i)=>sum+Math.abs(v-stabilitySamples[i]),0)/(stabilitySamples.length-1);const spikes=stabilitySamples.filter(v=>v>avg*1.8 && v>avg+30).length;const level=stabilityFailures>0||spikes>=3||jitter>50?'variable':jitter>20||spikes>0?'mixed':'steady';return <div className={`stability-insight ${level}`}><strong>{level==='variable'?'Unstable response pattern':level==='mixed'?'Some response variation detected':'Steady response pattern'}</strong><p>{spikes} response spike(s) detected · {jitter.toFixed(1)} ms average successive variation. {level==='variable'?'Check competing traffic and Wi-Fi conditions, then repeat the monitor.':level==='mixed'?'Repeat at another time to see whether the variation persists.':'Responses were relatively consistent during this short monitoring window.'}</p></div>})()}
+              {latestStability && <div className="connection-health-score">
+                <div className="connection-health-score-top"><div><span className="section-kicker">TEZZ CONNECTION HEALTH INDEX</span><strong>{connectionHealthScore ? connectionHealthScore.total : '—'}<small>/100</small></strong><span className="connection-health-label">{connectionHealthScore ? connectionHealthScore.label : 'Insufficient measurement data'}</span></div><div className="connection-health-score-meta">{latestStability.samples} successful · {latestStability.failures} failed<br/>{new Date(latestStability.date).toLocaleString()}</div></div>
+                {connectionHealthScore ? <div className="connection-health-breakdown">
+                  <div><span>Latency · P95</span><strong>{connectionHealthScore.latency}/30</strong></div>
+                  <div><span>Consistency · variation</span><strong>{connectionHealthScore.consistency}/25</strong></div>
+                  <div><span>Probe reliability</span><strong>{connectionHealthScore.reliability}/25</strong></div>
+                  <div><span>Response spike control</span><strong>{connectionHealthScore.spikes}/20</strong></div>
+                </div> : <p className="connection-health-note">Run the monitor again and collect at least 15 successful responses out of 20 or more attempted probes. A valid P95 value is also required.</p>}
+                <p className="connection-health-note">A transparent TEZZ diagnostic index for HTTP responses to our edge—not an ISP-wide rating, standardized certification, ICMP ping or packet-loss measurement.</p>
+              </div>}
               {stabilityError && <p className="latency-error" role="alert">{stabilityError}</p>}
               <button className="doctor-run-test latency-run-button" onClick={runStabilityMonitor} disabled={stabilityRunning || !network.online}>{stabilityRunning ? 'Monitoring…' : stabilityFinished ? 'Run monitor again' : 'Start 30-second monitor'} <span aria-hidden="true">→</span></button>
             </div>
