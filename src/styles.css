@@ -1771,3 +1771,20 @@ img, svg { max-width:100%; }
 .tezz-chart-point{fill:#247fc5!important}
 .tezz-digital-meter:has(.tezz-meter-status.active) .tezz-chart-line{stroke:#1688d3!important}
 .tezz-digital-meter:has(.tezz-meter-status.complete) .tezz-chart-line{stroke:#269b79!important}
+
+
+/* Transparent Connection Health Index */
+.connection-health-score{margin:17px 0 14px;padding:18px 19px;border:1px solid #dce7f0;border-radius:14px;background:linear-gradient(145deg,#f8fbff,#f1f7fc)}
+.connection-health-score-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.connection-health-score-top>div:first-child{display:grid;grid-template-columns:auto auto;align-items:baseline;column-gap:7px}
+.connection-health-score-top .section-kicker{grid-column:1/-1;color:#668098}
+.connection-health-score-top strong{font-size:38px;line-height:1.1;letter-spacing:-1.5px;color:#15395e}
+.connection-health-score-top strong small{font-size:14px;letter-spacing:0;color:#8192a4}
+.connection-health-label{font-size:12px;font-weight:750;color:#147b67}
+.connection-health-score-meta{font-size:10px;line-height:1.7;text-align:right;color:#75869a}
+.connection-health-breakdown{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}
+.connection-health-breakdown>div{display:flex;justify-content:space-between;gap:8px;padding:10px 11px;border:1px solid #e1eaf2;border-radius:9px;background:#fff}
+.connection-health-breakdown span{font-size:10px;color:#64778b}
+.connection-health-breakdown strong{font-size:11px;color:#183c60;white-space:nowrap}
+.connection-health-note{margin:12px 0 0;color:#728398;font-size:10px;line-height:1.65}
+@media(max-width:560px){.connection-health-score{padding:15px}.connection-health-score-top{align-items:flex-start;flex-direction:column}.connection-health-score-meta{text-align:left}.connection-health-breakdown{grid-template-columns:1fr}}
