@@ -56,7 +56,7 @@ INSERT INTO benchmark_hourly (
 )
 VALUES (strftime('%Y-%m-%dT%H:00:00.000Z','now','-8 days'), 'US', 'Old Region', -1, 99);
 
-CREATE TEMP TABLE _tezz_assert (passed INTEGER NOT NULL CHECK (passed = 1));
+CREATE TABLE _tezz_assert (passed INTEGER NOT NULL CHECK (passed = 1));
 INSERT INTO _tezz_assert
 SELECT CASE WHEN
   (SELECT sample_count FROM benchmark_hourly WHERE country_code='US' AND region_code='California') = 30
@@ -73,6 +73,7 @@ SELECT CASE WHEN
       AND bucket_start >= strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days')
   )
 THEN 1 ELSE 0 END;
+DROP TABLE _tezz_assert;
 `;
 
 function run(args, label) {
