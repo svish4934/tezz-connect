@@ -328,10 +328,11 @@ function App() {
 
   const quality = useMemo(() => {
     if (!result) return 'Not tested'
-    if (result.download >= 100 && result.ping < 40) return 'Excellent'
-    if (result.download >= 25 && result.ping < 80) return 'Good'
-    if (result.download >= 5) return 'Fair'
-    return 'Needs attention'
+    // Treat severe delay or response variation as a health concern even when throughput is adequate.
+    if (result.download < 5 || result.upload < 1 || result.ping > 250 || result.jitter > 100) return 'Needs attention'
+    if (result.download >= 100 && result.upload >= 20 && result.ping <= 40 && result.jitter <= 10) return 'Excellent'
+    if (result.download >= 25 && result.upload >= 5 && result.ping <= 80 && result.jitter <= 20) return 'Good'
+    return 'Fair'
   }, [result])
 
   const latestStability = stabilityHistory[0] ?? null
@@ -380,7 +381,7 @@ function App() {
       findings.push({
         title: result.jitter > 30 ? 'Variable HTTP response timing' : 'HTTP response timing consistency',
         detail: result.jitter > 30 ? 'Timing varied between requests. Background traffic, Wi-Fi conditions, device load or routing may contribute; repeat the test to confirm.' : 'The short HTTP timing sample was relatively consistent.',
-        evidence: `HTTP variation estimate ${result.jitter.toFixed(1)} ms`,
+        evidence: `HTTP response variation ${result.jitter.toFixed(1)} ms`,
         status: result.jitter > 30 ? 'alert' : 'good',
       })
     }
@@ -827,7 +828,7 @@ function App() {
             <div className="tezz-stat cyan"><ArrowDown/><span>Download</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
             <div className="tezz-stat violet"><ArrowUp/><span>Upload</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
             <div className="tezz-stat green"><ArrowLeftRight/><span>HTTP latency</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
-            <div className="tezz-stat red"><Activity/><span>Jitter</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
+            <div className="tezz-stat red"><Activity/><span>HTTP variation</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
           </section>
           <section className="tezz-feature-grid">
             <button onClick={()=>navigateTo('Internet Doctor')}><Stethoscope/><strong>Internet Doctor</strong><span>Find and fix internet problems</span><b>›</b></button>
