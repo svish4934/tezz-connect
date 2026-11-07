@@ -62,7 +62,8 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
     samples.push(performance.now() - start)
   }
   const differences = samples.slice(1).map((value, index) => Math.abs(value - samples[index]))
-  return { ping: median(samples), jitter: median(differences) }
+  const meanVariation = differences.length ? differences.reduce((sum, value) => sum + value, 0) / differences.length : 0
+  return { ping: median(samples), jitter: meanVariation }
 }
 
 async function measureDownload(bytes: number, onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
