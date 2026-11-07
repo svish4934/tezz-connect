@@ -9,7 +9,7 @@ async function check(name, path, validate, init) {
       signal: AbortSignal.timeout(timeoutMs),
       redirect: 'manual',
     })
-    const body = init?.method === 'HEAD' ? '' : await response.text()
+    const body = init?.method === 'HEAD' ? '' : path.includes('/speed/download') && response.ok ? await response.arrayBuffer() : await response.text()
     const result = validate(response, body)
     if (!result) throw new Error(`unexpected HTTP ${response.status}`)
     process.stdout.write(`PASS  ${name}\n`)
@@ -26,7 +26,7 @@ await check('API health and version', '/api/v1/health', (r, body) => {
 await check('Ping endpoint', '/api/v1/speed/ping', r => r.status === 204)
 await check('Ping rejects unsupported method', '/api/v1/speed/ping', r => r.status === 405, { method: 'POST' })
 await check('Download exact payload and content type', '/api/v1/speed/download?bytes=65536', (r, body) =>
-  r.status === 200 && body.length === 65536 && r.headers.get('content-type')?.includes('application/octet-stream') &&
+  r.status === 200 && body.byteLength === 65536 && r.headers.get('content-type')?.includes('application/octet-stream') &&
   r.headers.get('content-length') === '65536')
 await check('Download size limit', '/api/v1/speed/download?bytes=6000000', r => r.status === 400)
 await check('Upload accepts exact payload', '/api/v1/speed/upload?bytes=65536', (r, body) =>
