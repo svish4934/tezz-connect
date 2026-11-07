@@ -2077,3 +2077,9 @@ img, svg { max-width:100%; }
   .doctor-panel .doctor-next-item{min-height:0!important;padding:15px!important}
   .doctor-panel .doctor-next-heading{gap:12px!important}
 }
+
+
+/* Match Internet Doctor status colour to its actual assessment. */
+.doctor-panel .doctor-status strong.status-alert{color:#c62838!important}
+.doctor-panel .doctor-status strong.status-caution{color:#a56508!important}
+.doctor-panel .doctor-status strong.status-positive{color:#07865d!important}
