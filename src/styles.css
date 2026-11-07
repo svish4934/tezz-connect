@@ -1788,3 +1788,8 @@ img, svg { max-width:100%; }
 .connection-health-breakdown strong{font-size:11px;color:#183c60;white-space:nowrap}
 .connection-health-note{margin:12px 0 0;color:#728398;font-size:10px;line-height:1.65}
 @media(max-width:560px){.connection-health-score{padding:15px}.connection-health-score-top{align-items:flex-start;flex-direction:column}.connection-health-score-meta{text-align:left}.connection-health-breakdown{grid-template-columns:1fr}}
+
+
+/* Internet Doctor evidence labels */
+.doctor-evidence{display:block;margin-top:5px;color:#71839a;font-size:10px;font-weight:650;line-height:1.5;letter-spacing:.1px;overflow-wrap:anywhere}
+.doctor-finding .finding-dot.neutral{background:#9aaabd}
