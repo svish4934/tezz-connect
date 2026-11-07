@@ -1098,6 +1098,38 @@ function App() {
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
           </>}
+          <section className="home-knowledge-hub" aria-labelledby="knowledge-hub-title">
+            <div className="knowledge-hub-heading">
+              <div>
+                <div className="section-kicker">LEARN • EXPLORE • CONNECT</div>
+                <h2 id="knowledge-hub-title">Internet Knowledge Hub</h2>
+                <p>New to the internet? Explore simple, practical guides to understand your connection and make better choices.</p>
+              </div>
+              <a className="knowledge-hub-all" href="/guides/">Explore all guides <span aria-hidden="true">→</span></a>
+            </div>
+            <div className="knowledge-hub-grid">
+              <a className="knowledge-hub-card" href="/guides/internet-speed-explained/">
+                <span className="knowledge-hub-icon" aria-hidden="true">◎</span>
+                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Understand internet speed, Mbps and how your connection works.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/improve-wifi-speed/">
+                <span className="knowledge-hub-icon wifi" aria-hidden="true">⌁</span>
+                <span className="knowledge-hub-card-copy"><strong>Wi-Fi &amp; Routers</strong><small>Learn about router placement, Wi-Fi coverage and interference.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/latency-and-jitter/">
+                <span className="knowledge-hub-icon signal" aria-hidden="true">⌁</span>
+                <span className="knowledge-hub-card-copy"><strong>Signals &amp; Performance</strong><small>Discover latency, jitter and what affects network response.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/internet-speed-for-gaming/">
+                <span className="knowledge-hub-icon gaming" aria-hidden="true">◈</span>
+                <span className="knowledge-hub-card-copy"><strong>Everyday Internet Tips</strong><small>Get practical advice for gaming and a smoother connection.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </section>
           <footer><span>© 2026 TEZZ CONNECT <span className="footer-dot">•</span> Proudly built in India 🇮🇳</span><span><a href="/guides/">GUIDES</a> <span className="footer-dot">•</span> BUILT FOR A BETTER CONNECTION <span className="footer-dot">•</span> PRIVACY FIRST</span></footer>
         </div>
       </main>
