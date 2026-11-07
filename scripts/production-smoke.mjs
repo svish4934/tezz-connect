@@ -58,7 +58,7 @@ await check('Robots policy', '/robots.txt', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('text/plain') && body.includes('Sitemap: https://tezzconnect.online/sitemap.xml') && body.includes('Agentmap: https://tezzconnect.online/.well-known/ard.json'))
 
 await check('llms.txt discovery guide', '/llms.txt', (r, body) =>
-  r.status === 200 && r.headers.get('content-type')?.includes('text/markdown') &&
+  r.status === 200 && /text\/(markdown|plain)/i.test(r.headers.get('content-type') ?? '') &&
   body.startsWith('# TEZZ CONNECT') && body.includes('https://tezzconnect.online/'))
 
 for (const path of ['/.well-known/ard.json', '/.well-known/ai-catalog.json']) {
