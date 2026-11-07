@@ -1805,3 +1805,23 @@ img, svg { max-width:100%; }
 .global-baseline-grid strong{font-size:20px;color:#e6f2ff}
 .global-baseline-grid small{font-size:10px;font-weight:500;color:#8b9bb0}
 @media(max-width:720px){.global-baseline-card{padding:19px 15px}.global-baseline-grid{grid-template-columns:1fr}.global-baseline-grid>div{padding:12px}}
+
+
+/* Optional, privacy-first global benchmark contribution */
+.benchmark-consent-panel {
+  margin: 22px 0;
+  padding: 22px 24px;
+  border: 1px solid rgba(105, 150, 190, .24);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(13, 30, 49, .96), rgba(18, 26, 45, .96));
+  color: #edf5ff;
+}
+.benchmark-consent-panel h2 { margin: 7px 0 9px; font-size: clamp(19px, 2vw, 24px); }
+.benchmark-consent-panel p { max-width: 900px; margin: 0; color: #b8c6d8; font-size: 13px; line-height: 1.65; }
+.benchmark-consent-toggle { display: flex; align-items: flex-start; gap: 11px; margin-top: 17px; color: #f4f8ff; font-size: 14px; line-height: 1.5; cursor: pointer; }
+.benchmark-consent-toggle input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: #39c6b0; flex: 0 0 auto; }
+.benchmark-consent-status { margin-top: 12px; color: #8fd9cb; font-size: 12px; }
+@media (max-width: 640px) {
+  .benchmark-consent-panel { padding: 18px; border-radius: 14px; }
+  .benchmark-consent-panel p { font-size: 12px; }
+}
