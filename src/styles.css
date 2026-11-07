@@ -1825,3 +1825,29 @@ img, svg { max-width:100%; }
   .benchmark-consent-panel { padding: 18px; border-radius: 14px; }
   .benchmark-consent-panel p { font-size: 12px; }
 }
+
+
+/* Published community aggregates: transparent sample thresholds and metric provenance. */
+.global-benchmarks-card{margin-top:16px;padding:23px 25px;border:1px solid #24364c;border-radius:13px;background:linear-gradient(145deg,#101d2e,#0b1524);color:#edf5ff}
+.global-benchmarks-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.global-benchmarks-heading h3{margin:8px 0 6px;color:#edf5ff;font-size:18px}
+.global-benchmarks-heading p{max-width:680px;margin:0;color:#91a2b8;font-size:11px;line-height:1.65}
+.global-benchmark-meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:17px 0 13px;padding:11px 13px;border:1px solid #24364c;border-radius:8px;background:#0d1929;color:#a9bbce;font-size:10px}
+.global-benchmark-list{display:grid;gap:10px}
+.global-benchmark-region{padding:15px;border:1px solid #2a4059;border-radius:10px;background:#122237}
+.global-benchmark-region-title{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.global-benchmark-region-title>div{display:grid;gap:4px}
+.global-benchmark-region-title strong{font-size:14px;color:#f0f6ff}
+.global-benchmark-region-title span{font-size:10px;color:#91a5bc}
+.global-benchmark-region-title .global-benchmark-verified{color:#8fd9cb;font-weight:700}
+.global-benchmark-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:13px}
+.global-benchmark-metrics>div{display:grid;gap:5px;padding:10px;border-radius:7px;background:#0d1a2a}
+.global-benchmark-metrics span{font-size:9px;color:#94a7bd}
+.global-benchmark-metrics strong{font-size:16px;color:#f0f6ff;white-space:nowrap}
+.global-benchmark-metrics small{font-size:9px;font-weight:500;color:#9aacc0}
+.global-benchmark-empty{display:flex;align-items:center;gap:12px;padding:20px 15px;border:1px dashed #344b64;border-radius:9px;color:#9eb2c8}
+.global-benchmark-empty>div{display:grid;gap:6px}
+.global-benchmark-empty strong{font-size:12px;color:#e4eef9}
+.global-benchmark-empty span{font-size:10px;line-height:1.65}
+.global-benchmark-disclaimer{margin:13px 0 0;color:#8295ab;font-size:10px;line-height:1.65}
+@media(max-width:720px){.global-benchmarks-card{padding:18px 15px}.global-benchmarks-heading{flex-direction:column}.global-benchmark-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.global-benchmark-region-title{align-items:flex-start;flex-direction:column}}
