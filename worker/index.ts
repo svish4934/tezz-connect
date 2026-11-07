@@ -17,7 +17,7 @@ function json(message: string, status = 200) {
   })
 }
 
-export default {
+const app: ExportedHandler<Env> = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
     // Versioned public API. Legacy paths remain aliases during migration.
@@ -210,5 +210,60 @@ export default {
       return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
     }
     return response
+  },
+}
+
+export default {
+  async fetch(request: Request, env: Env, context: ExecutionContext): Promise<Response> {
+    const startedAt = Date.now()
+    const requestId = crypto.randomUUID()
+    const url = new URL(request.url)
+    const apiPath = url.pathname.startsWith("/api/")
+    try {
+      const response = await app.fetch(request, env, context)
+      const durationMs = Date.now() - startedAt
+      const headers = new Headers(response.headers)
+      headers.set("X-Request-ID", requestId)
+      headers.set("Server-Timing", `app;dur=${durationMs}`)
+      if (apiPath) {
+        console.log(JSON.stringify({
+          event: "api_request",
+          request_id: requestId,
+          method: request.method,
+          route: url.pathname,
+          status: response.status,
+          duration_ms: durationMs,
+          colo: (request as Request & { cf?: { colo?: string } }).cf?.colo ?? null,
+        }))
+      }
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      })
+    } catch (error) {
+      const durationMs = Date.now() - startedAt
+      console.error(JSON.stringify({
+        event: "api_unhandled_error",
+        request_id: requestId,
+        method: request.method,
+        route: url.pathname,
+        duration_ms: durationMs,
+        error: error instanceof Error ? error.name : "UnknownError",
+      }))
+      return new Response(JSON.stringify({
+        ok: false,
+        message: "An unexpected server error occurred.",
+        requestId,
+      }), {
+        status: 500,
+        headers: {
+          ...noStore,
+          "Content-Type": "application/json; charset=utf-8",
+          "X-Request-ID": requestId,
+          "Server-Timing": `app;dur=${durationMs}`,
+        },
+      })
+    }
   },
 } satisfies ExportedHandler<Env>
