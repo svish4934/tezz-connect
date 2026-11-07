@@ -2,10 +2,18 @@ interface RateLimitBinding {
   limit(options: { key: string }): Promise<{ success: boolean }>
 }
 
+interface D1Result<T> { results: T[]; success: boolean }
+interface D1Statement {
+  bind(...values: unknown[]): D1Statement
+  run(): Promise<unknown>
+  all<T>(): Promise<D1Result<T>>
+}
+interface D1Database { prepare(query: string): D1Statement }
 interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> }
   API_RATE_LIMITER: RateLimitBinding
   TRANSFER_RATE_LIMITER: RateLimitBinding
+  BENCHMARKS_DB: D1Database
 }
 
 const noStore = { "Cache-Control": "no-store, no-cache, must-revalidate", "X-Content-Type-Options": "nosniff" }
@@ -96,6 +104,109 @@ const app: ExportedHandler<Env> = {
         status: 200,
         headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" },
       })
+    }
+
+    if (pathname === "/api/v1/benchmarks/submit") {
+      if (request.method !== "POST") return json("Method not allowed", 405)
+      if (request.headers.get("content-type")?.toLowerCase().includes("application/json") !== true) return json("Content-Type must be application/json", 415)
+      const country = (request as Request & { cf?: { country?: string; region?: string } }).cf?.country
+      const region = (request as Request & { cf?: { country?: string; region?: string } }).cf?.region
+      if (!country || !/^[A-Z]{2}$/.test(country)) return json("Regional metadata is unavailable; no benchmark was stored.", 422)
+      let body: unknown
+      try {
+        const raw = await request.text()
+        if (raw.length > 2048) return json("Request body is too large", 413)
+        body = JSON.parse(raw)
+      } catch {
+        return json("Invalid JSON payload", 400)
+      }
+      if (!body || typeof body !== "object") return json("Invalid benchmark payload", 400)
+      const input = body as Record<string, unknown>
+      if (input.consent !== true) return json("Explicit consent is required", 400)
+      if (input.protocolVersion !== "v1") return json("Unsupported measurement protocol", 400)
+      const metrics = ["downloadMbps", "uploadMbps", "latencyMs", "jitterMs"] as const
+      const values = metrics.map(key => input[key])
+      if (values.some(value => typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 10000)) {
+        return json("Metrics must be finite numbers between 0 and 10,000", 400)
+      }
+      const [download, upload, latency, jitter] = values as number[]
+      if (download <= 0 || upload <= 0 || latency <= 0) return json("A completed speed test is required", 400)
+      const now = new Date()
+      const bucket = new Date(Math.floor(now.getTime() / 3_600_000) * 3_600_000).toISOString()
+      const safeRegion = (region ?? "unknown").trim().slice(0, 64) || "unknown"
+      try {
+        await env.BENCHMARKS_DB.prepare(`
+          INSERT INTO benchmark_hourly (
+            bucket_start, country_code, region_code, asn, sample_count,
+            download_count, download_sum_mbps, download_sum_sq,
+            upload_count, upload_sum_mbps, upload_sum_sq,
+            latency_count, latency_sum_ms, latency_sum_sq,
+            jitter_count, jitter_sum_ms, jitter_sum_sq, updated_at
+          ) VALUES (?, ?, ?, -1, 1, 1, ?, ?, 1, ?, ?, 1, ?, ?, 1, ?, ?, CURRENT_TIMESTAMP)
+          ON CONFLICT(bucket_start, country_code, region_code, asn) DO UPDATE SET
+            sample_count = sample_count + 1,
+            download_count = download_count + 1,
+            download_sum_mbps = download_sum_mbps + excluded.download_sum_mbps,
+            download_sum_sq = download_sum_sq + excluded.download_sum_sq,
+            upload_count = upload_count + 1,
+            upload_sum_mbps = upload_sum_mbps + excluded.upload_sum_mbps,
+            upload_sum_sq = upload_sum_sq + excluded.upload_sum_sq,
+            latency_count = latency_count + 1,
+            latency_sum_ms = latency_sum_ms + excluded.latency_sum_ms,
+            latency_sum_sq = latency_sum_sq + excluded.latency_sum_sq,
+            jitter_count = jitter_count + 1,
+            jitter_sum_ms = jitter_sum_ms + excluded.jitter_sum_ms,
+            jitter_sum_sq = jitter_sum_sq + excluded.jitter_sum_sq,
+            updated_at = CURRENT_TIMESTAMP
+        `).bind(
+          bucket, country, safeRegion,
+          download, download * download,
+          upload, upload * upload,
+          latency, latency * latency,
+          jitter, jitter * jitter,
+        ).run()
+        return new Response(JSON.stringify({ ok: true, message: "Anonymous aggregate contribution recorded." }), {
+          status: 202,
+          headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" },
+        })
+      } catch {
+        return json("Benchmark storage is temporarily unavailable.", 503)
+      }
+    }
+
+    if (pathname === "/api/v1/benchmarks/summary") {
+      if (request.method !== "GET") return json("Method not allowed", 405)
+      try {
+        const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+        const result = await env.BENCHMARKS_DB.prepare(`
+          SELECT country_code, region_code,
+            SUM(sample_count) AS sample_count,
+            SUM(download_sum_mbps) / NULLIF(SUM(download_count), 0) AS download_avg_mbps,
+            SUM(upload_sum_mbps) / NULLIF(SUM(upload_count), 0) AS upload_avg_mbps,
+            SUM(latency_sum_ms) / NULLIF(SUM(latency_count), 0) AS latency_avg_ms,
+            SUM(jitter_sum_ms) / NULLIF(SUM(jitter_count), 0) AS jitter_avg_ms
+          FROM benchmark_hourly
+          WHERE bucket_start >= ?
+          GROUP BY country_code, region_code
+          HAVING SUM(sample_count) >= 30
+          ORDER BY sample_count DESC
+          LIMIT 100
+        `).bind(since).all<{
+          country_code: string; region_code: string; sample_count: number;
+          download_avg_mbps: number; upload_avg_mbps: number;
+          latency_avg_ms: number; jitter_avg_ms: number;
+        }>()
+        return new Response(JSON.stringify({
+          ok: true,
+          window: "last_7_days",
+          protocolVersion: "v1",
+          minimumSamples: 30,
+          scope: "participating TEZZ CONNECT tests",
+          regions: result.results,
+        }), { headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" } })
+      } catch {
+        return json("Benchmark summary is temporarily unavailable.", 503)
+      }
     }
 
     if (pathname === "/api/v1/services/check") {
