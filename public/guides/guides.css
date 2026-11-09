@@ -43,3 +43,7 @@
 /* Consistent navigation on Hub article pages */
 .article-nav{display:flex;align-items:center;gap:20px}.article-nav a{color:#d4e4f3;text-decoration:none;font-size:13px;font-weight:700}.article-nav a:hover,.article-nav a:focus-visible{color:#7ce2e6}.article-nav a:focus-visible{outline:2px solid #7ce2e6;outline-offset:4px;border-radius:3px}
 @media(max-width:520px){.article-nav{gap:14px}.article-nav a{font-size:12px}}
+
+
+/* Visual previews on Internet Knowledge Hub topic cards */
+.topic-art{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;margin:0 0 15px;border:1px solid rgba(145,177,198,.3);border-radius:11px;background:#10263c}.topic-card{min-height:0}.topic-card h3{margin-top:0}.topic-card p{max-width:42ch}
