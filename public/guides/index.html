@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="hub-nav" aria-label="Hub navigation"><a href="#topics">Explore topics</a><a href="#learning-paths">Learning paths</a><a href="#latest">All guides</a><a href="/#tezz-speed-test">Speed test</a></nav></div></header>
+<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="hub-nav" aria-label="Hub navigation"><a href="#topics">Explore topics</a><a href="#learning-paths">Learning paths</a><a href="#latest">All guides</a><a href="#hub-faq">FAQs</a><a href="/#tezz-speed-test">Speed test</a></nav></div></header>
 <main class="wrap">
 <div class="crumb"><a href="/">Home</a> / Internet Knowledge Hub</div>
 <section class="hub-hero">
@@ -89,6 +89,31 @@
 </div>
 <p class="hub-empty" id="hub-guide-empty" hidden>No guides match that search. Try a different keyword or choose “All topics”.</p>
 </section>
+<section class="hub-section hub-faq" id="hub-faq" aria-labelledby="hub-faq-title">
+<div class="section-heading"><div><div class="eyebrow">QUICK ANSWERS</div><h2 id="hub-faq-title">Internet questions, answered simply</h2></div><p>New to networking? These short answers will help you choose the right guide and understand what to do next.</p></div>
+<div class="hub-faq-list">
+<details><summary>What is the TEZZ CONNECT Internet Knowledge Hub?</summary><p>It is a collection of practical, easy-to-follow guides about internet speed, Wi-Fi, routers, latency, troubleshooting and home networking. You can read at your own pace and use the interactive learning tools where available.</p></details>
+<details><summary>Are the Internet Knowledge Hub guides free?</summary><p>Yes. The guides and browser-based learning tools are available to read and use without a paid subscription or sign-in.</p></details>
+<details><summary>Which guide should I read first?</summary><p>If you are new to networking, start with <a href="/guides/what-is-the-internet/">What is the internet?</a> If you want to understand a speed-test result, read <a href="/guides/internet-speed-explained/">Internet speed explained</a>. You can also follow one of the learning paths above.</p></details>
+<details><summary>What is the difference between internet speed and latency?</summary><p>Speed usually describes how much data can move each second, while latency describes how long a response takes to travel between two points. A connection can have high download speed and still feel slow in a game or video call if response time is delayed or inconsistent. Learn more in <a href="/guides/latency-and-jitter/">Latency, ping and jitter explained</a>.</p></details>
+<details><summary>What should I check when my Wi-Fi is slow?</summary><p>First compare more than one device and test near the router. Then check router placement, obstacles and whether a wired connection performs better. Follow the <a href="/guides/connection-troubleshooter/">internet connection troubleshooter</a> before buying new equipment.</p></details>
+<details><summary>Do the interactive tools test my live internet connection?</summary><p>Not all of them. The calculators, planners and simulations in the guides are learning tools that use the values you enter. To measure your current connection, run the <a href="/#tezz-speed-test">TEZZ CONNECT speed test</a>.</p></details>
+</div>
+</section>
+<style>
+.hub-faq{margin:48px 0}
+.hub-faq-list{display:grid;gap:9px}
+.hub-faq-list details{padding:0 17px;border:1px solid #dce6f0;border-radius:12px;background:#fff}
+.hub-faq-list details[open]{border-color:#a9cbdc;background:#f8fbfd}
+.hub-faq-list summary{position:relative;padding:15px 32px 15px 0;color:#203c56;font-size:14px;font-weight:800;line-height:1.5;cursor:pointer;list-style:none}
+.hub-faq-list summary::-webkit-details-marker{display:none}
+.hub-faq-list summary:after{content:"+";position:absolute;right:2px;top:50%;transform:translateY(-50%);color:#147b91;font-size:21px;font-weight:500}
+.hub-faq-list details[open] summary:after{content:"−"}
+.hub-faq-list summary:focus-visible{outline:2px solid #1685a2;outline-offset:4px;border-radius:4px}
+.hub-faq-list details p{max-width:780px;margin:0;padding:0 0 16px;color:#586f84;font-size:13px;line-height:1.7}
+.hub-faq-list details a{color:#176b9a;font-weight:750;text-underline-offset:3px}
+@media(max-width:520px){.hub-faq{margin:36px 0}.hub-faq-list details{padding:0 13px}.hub-faq-list summary{font-size:13px}.hub-faq-list details p{font-size:12px}}
+</style>
 <section class="hub-callout"><div><div class="eyebrow">PUT KNOWLEDGE INTO ACTION</div><h2>Curious about your own connection?</h2><p>Run a test, understand the results, then use the guides to learn what you can improve.</p></div><a class="cta" href="/#tezz-speed-test">Run a free speed test</a></section>
 </main>
 <footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/">Home</a> · <a href="/about">About</a></span></div></footer>
