@@ -56,6 +56,46 @@
 <h2 id="compare">5. Compare Wi-Fi with a cable</h2>
 <p>This is one of the most useful checks. Run a speed test over Wi-Fi near your router. Then, if possible, connect the same device to the router with an Ethernet cable and test again.</p>
 <p>If the wired result is much better, the issue may be your Wi-Fi signal, interference or router placement. If both results are similar and lower than expected, the cause may be somewhere else—such as your plan, provider network, device or test route.</p>
+
+<section class="connection-compare" id="connection-compare" aria-labelledby="connection-compare-title">
+ <div class="eyebrow">INTERACTIVE COMPARISON</div>
+ <h3 id="connection-compare-title">Wi-Fi or internet connection? Compare your results.</h3>
+ <p>Enter results from the same device, using the same speed-test service, first on Wi-Fi and then over Ethernet. Ideally test close to the router and repeat each test a few times under similar conditions.</p>
+ <div class="connection-compare-grid">
+  <fieldset><legend>Wi-Fi result (Mbps)</legend>
+   <label for="compare-wifi-down">Download</label><input id="compare-wifi-down" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 45">
+   <label for="compare-wifi-up">Upload</label><input id="compare-wifi-up" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 18">
+  </fieldset>
+  <fieldset><legend>Ethernet result (Mbps)</legend>
+   <label for="compare-ethernet-down">Download</label><input id="compare-ethernet-down" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 90">
+   <label for="compare-ethernet-up">Upload</label><input id="compare-ethernet-up" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 35">
+  </fieldset>
+ </div>
+ <button type="button" class="connection-compare-button" id="compare-results-button">Compare my results</button>
+ <p class="connection-compare-error" id="compare-results-error" role="alert"></p>
+ <div class="connection-compare-output" id="compare-results-output" aria-live="polite" hidden>
+  <strong id="compare-results-title"></strong>
+  <p id="compare-results-summary"></p>
+  <ul id="compare-results-details"></ul>
+  <small>This is a troubleshooting clue, not a diagnosis. Wi-Fi and Ethernet tests can vary with server, time, device, cable, router port and background traffic. A 20% gap is used only as a simple learning heuristic—not an industry pass/fail threshold.</small>
+ </div>
+</section>
+<style>
+.connection-compare{margin:2rem 0;padding:clamp(1rem,3vw,1.5rem);border:1px solid var(--border,#d8e2ec);border-radius:16px;background:var(--surface,#f8fafc)}
+.connection-compare h3{margin:.35rem 0 .6rem;font-size:1.35rem}
+.connection-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}
+.connection-compare fieldset{min-width:0;border:1px solid #cbd5e1;border-radius:12px;padding:1rem;display:grid;grid-template-columns:1fr;gap:.45rem}
+.connection-compare legend{font-weight:700;padding:0 .3rem}
+.connection-compare label{font-size:.92rem;font-weight:600}
+.connection-compare input{width:100%;min-height:44px;border:1px solid #aebdca;border-radius:8px;padding:.65rem;font:inherit;background:#fff;color:#172b3a}
+.connection-compare-button{border:0;border-radius:9px;padding:.75rem 1rem;background:#126f68;color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.connection-compare-button:focus-visible,.connection-compare input:focus-visible{outline:3px solid #5b9de8;outline-offset:2px}
+.connection-compare-error{color:#a33131;font-weight:600}
+.connection-compare-output{margin-top:1rem;padding:1rem;border-radius:12px;background:#fff;border:1px solid #cbd5e1}
+.connection-compare-output strong{font-size:1.08rem}
+.connection-compare-output small{display:block;margin-top:.8rem;color:#526273;line-height:1.5}
+@media(max-width:560px){.connection-compare-grid{grid-template-columns:1fr}}
+</style>
 <h2>6. Test more than once</h2>
 <p>Run a few tests at different times and write down where you were standing and whether you used Wi-Fi or a cable. Change one thing at a time, such as moving the router, so you can tell what actually helped.</p>
 <aside class="note"><h2>Before upgrading your plan</h2><p>A more expensive internet plan will not fix a weak Wi-Fi signal in a far-away room. First check whether the problem is Wi-Fi or the internet connection itself.</p></aside>
@@ -89,4 +129,4 @@ function update(){
 [routerRoom,deviceRoom,setup,obstacles,interference].forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',update));
 root.querySelectorAll('[data-wifi-preset]').forEach(button=>button.addEventListener('click',()=>{const p=presets[button.dataset.wifiPreset];if(!p)return;routerRoom.value=p.r;deviceRoom.value=p.d;setup.value=p.s;obstacles.value=String(p.o);interference.value=String(p.i);update();}));
 update();
-})();</script></body></html>
+})();</script><script>(()=>{const root=document.querySelector('.connection-compare');if(!root)return;const ids=['compare-wifi-down','compare-wifi-up','compare-ethernet-down','compare-ethernet-up'];const fields=ids.map(id=>root.querySelector('#'+id));const error=root.querySelector('#compare-results-error'),output=root.querySelector('#compare-results-output'),title=root.querySelector('#compare-results-title'),summary=root.querySelector('#compare-results-summary'),details=root.querySelector('#compare-results-details');root.querySelector('#compare-results-button').addEventListener('click',()=>{error.textContent='';output.hidden=true;const values=fields.map(el=>el.value.trim()===''?NaN:Number(el.value));if(values.some(v=>!Number.isFinite(v)||v<0||v>100000)){error.textContent='Enter all four results as numbers from 0 to 100,000 Mbps.';return;}const [wd,wu,ed,eu]=values;const gap=(wired,wireless)=>wired>0?((wired-wireless)/wired)*100:0;const dg=gap(ed,wd),ug=gap(eu,wu);const dMuch=dg>=20,uMuch=ug>=20;let heading,body;if(dMuch||uMuch){heading='Your Wi-Fi results are notably lower in this comparison.';body='The wired connection performed better in at least one direction. Check Wi-Fi signal strength, router placement, band selection and interference. Also confirm the Ethernet cable and router port are capable of the speeds you expect.';}else{heading='The two connection types are relatively close.';body='This comparison does not show a large Wi-Fi-only gap. If both results are lower than expected, check your plan, modem/router, device limits, test server and provider connection. The result is not proof that Wi-Fi is problem-free.';}title.textContent=heading;summary.textContent=body;details.replaceChildren();[['Download',wd,ed,dg],['Upload',wu,eu,ug]].forEach(([label,w,e,g])=>{const li=document.createElement('li');li.textContent=label+': Wi-Fi '+w+' Mbps; Ethernet '+e+' Mbps; '+(e===0?'percentage comparison not meaningful':g>=0?'Ethernet '+g.toFixed(1)+'% higher':'Wi-Fi '+Math.abs(g).toFixed(1)+'% higher')+' (relative to Ethernet).';details.append(li);});output.hidden=false;});})();</script></body></html>
