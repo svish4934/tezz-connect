@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Internet Connection Troubleshooter: Find the Next Step | TEZZ CONNECT</title>
+<meta name="description" content="Use this practical, interactive internet troubleshooting guide to investigate slow Wi-Fi, weak coverage, gaming lag, upload problems and connection drops.">
+<link rel="canonical" href="https://tezzconnect.online/guides/connection-troubleshooter/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Internet Connection Troubleshooter | TEZZ CONNECT">
+<meta property="og:description" content="Choose what is going wrong and get a clear, step-by-step plan to investigate your internet connection.">
+<link rel="stylesheet" href="/guides/guides.css">
+<style>
+.trouble-intro{margin:24px 0;padding:22px;border:1px solid #d9e7f0;border-radius:17px;background:linear-gradient(135deg,#eff8fc,#fff)}.trouble-intro p{margin:0;color:#536b80}.trouble-panel{margin:24px 0;padding:clamp(18px,3vw,28px);border:1px solid #dce6f0;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(20,48,75,.05)}.trouble-panel h2{margin:5px 0 8px;font-size:clamp(22px,4vw,29px)}.trouble-panel>p{color:#5b7084}.trouble-label{display:block;margin:18px 0 8px;color:#29445e;font-size:14px;font-weight:800}.trouble-select{width:100%;min-height:50px;padding:10px 13px;border:1px solid #cbdbe7;border-radius:11px;background:#fff;color:#20384f;font:inherit}.trouble-select:focus-visible,.trouble-button:focus-visible{outline:3px solid rgba(23,107,209,.25);outline-offset:2px}.trouble-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;margin:14px 8px 0 0;padding:10px 17px;border:0;border-radius:10px;background:#176bd1;color:#fff;font:inherit;font-weight:800;cursor:pointer}.trouble-button.secondary{border:1px solid #cbdbe7;background:#fff;color:#176b9a}.trouble-results{margin-top:22px}.trouble-results[hidden]{display:none}.trouble-result-head{padding:16px 18px;border-radius:13px;background:#10263c;color:#fff}.trouble-result-head small{display:block;color:#9edfe5;font-size:10px;font-weight:850;letter-spacing:.13em}.trouble-result-head h3{margin:5px 0;font-size:20px}.trouble-result-head p{margin:0;color:#d3e1eb;font-size:13px}.trouble-step{display:grid;grid-template-columns:34px 1fr;gap:12px;margin:12px 0;padding:15px;border:1px solid #e0e9f0;border-radius:12px;background:#fbfdff}.trouble-step-number{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#e8f4f8;color:#117b91;font-size:12px;font-weight:900}.trouble-step h4{margin:0 0 4px;color:#203b55;font-size:15px}.trouble-step p{margin:0;color:#5b7084;font-size:13px;line-height:1.6}.trouble-caution{margin:16px 0 0;padding:13px 15px;border-left:3px solid #d49a38;border-radius:0 10px 10px 0;background:#fff8eb;color:#66502b;font-size:12px}.trouble-note{margin-top:18px;padding:15px;border:1px solid #dce6f0;border-radius:12px;color:#566d82;font-size:13px}.trouble-results:focus{outline:none}.trouble-steps{margin-top:16px}.trouble-related{margin:28px 0}.trouble-related h2{font-size:22px}.trouble-related a{font-weight:750}@media(max-width:520px){.trouble-panel{padding:17px 14px}.trouble-button{width:100%;margin-right:0}.trouble-step{grid-template-columns:30px 1fr;gap:9px;padding:12px}}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="hub-nav" aria-label="Knowledge Hub navigation"><a href="/guides/">All guides</a><a href="/#tezz-speed-test">Speed test</a></nav></div></header>
+<main class="wrap">
+<div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / Connection troubleshooter</div>
+<header class="hero"><div class="eyebrow">PRACTICAL INTERNET TROUBLESHOOTING</div><h1>Find the next step when your internet acts up.</h1><p class="lede">Choose the problem you notice. This guided checklist helps you narrow down whether to investigate Wi-Fi, one device, your router or the internet connection itself—without jumping straight to buying new equipment.</p><p class="meta">TEZZ CONNECT · Interactive learning tool · No sign-in or data collection</p></header>
+<section class="trouble-intro"><p><strong>How to use this guide:</strong> Start with the symptom, follow the checks in order and change one thing at a time. The suggestions are diagnostic steps, not a live network test. Your results stay in this browser; nothing is sent to a server.</p></section>
+<section class="trouble-panel" aria-labelledby="trouble-title">
+<div class="eyebrow">BUILD YOUR CHECKLIST</div><h2 id="trouble-title">What is going wrong?</h2><p>Choose the closest match. If more than one issue applies, start with the one that affects you most.</p>
+<label class="trouble-label" for="trouble-symptom">Select your internet problem</label>
+<select class="trouble-select" id="trouble-symptom">
+<option value="">Choose a problem…</option>
+<option value="slow-all">Internet feels slow on every device</option>
+<option value="one-device">Only one phone, laptop or device is slow</option>
+<option value="weak-room">Wi-Fi is weak in one room or far from the router</option>
+<option value="lag">Gaming or video calls lag, freeze or stutter</option>
+<option value="drops">Connection keeps disconnecting</option>
+<option value="upload">Uploading files or joining video calls is slow</option>
+<option value="new-device">A new device cannot connect to Wi-Fi</option>
+</select>
+<div><button class="trouble-button" id="trouble-build" type="button">Build my troubleshooting plan</button><button class="trouble-button secondary" id="trouble-reset" type="button">Reset</button></div>
+<div class="trouble-results" id="trouble-results" tabindex="-1" aria-live="polite" hidden>
+<div class="trouble-result-head"><small>YOUR FIRST INVESTIGATION PLAN</small><h3 id="trouble-result-title"></h3><p id="trouble-result-summary"></p></div>
+<div class="trouble-steps" id="trouble-steps"></div>
+<div class="trouble-caution" id="trouble-caution"></div>
+<div class="trouble-note"><strong>Make the test fair:</strong> Record what changed and compare under similar conditions. Pause large downloads, keep the same device and location where possible, and avoid changing several settings at once.</div>
+</div>
+</section>
+<section class="article">
+<h2>Three useful rules before you troubleshoot</h2>
+<h3>1. Compare more than one device</h3><p>If every device has the same problem, investigate the router, Wi-Fi environment or internet service. If only one device is affected, start with that device.</p>
+<h3>2. Separate Wi-Fi from the internet connection</h3><p>Wi-Fi is the wireless link between your device and router. Your internet service is the connection from the router or modem to your provider. A problem in either place can make websites feel unavailable.</p>
+<h3>3. Change one variable at a time</h3><p>Move closer to the router, test again, then try a wired connection if available. Changing many things together makes it difficult to identify what actually helped.</p>
+<div class="tool-card"><h2>Measure before and after</h2><p>When the connection is available, use TEZZ CONNECT's speed test as one comparison point. A browser test does not identify every cause or measure the route to every app or game server.</p><a href="/#tezz-speed-test">Open TEZZ CONNECT speed test →</a></div>
+</section>
+<section class="trouble-related"><div class="eyebrow">KEEP LEARNING</div><h2>Related Internet Knowledge Hub guides</h2><div class="related-guide-grid">
+<a class="related-guide-card" href="/guides/improve-wifi-speed/"><strong>Improve Wi-Fi speed</strong><span>Router placement, interference and practical checks.</span><em>Read guide →</em></a>
+<a class="related-guide-card" href="/guides/latency-and-jitter/"><strong>Latency, ping and jitter</strong><span>Understand delays and inconsistent response times.</span><em>Read guide →</em></a>
+<a class="related-guide-card" href="/guides/interactive-network-lab/"><strong>Interactive network lab</strong><span>Experiment with Wi-Fi bands and home network layouts.</span><em>Try the lab →</em></a>
+</div><p><a href="/guides/">← Browse all Internet Knowledge Hub guides</a></p></section>
+</main>
+<footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/">Home</a> · <a href="/guides/">All guides</a></span></div></footer>
+<script>
+(() => {
+const plans = {
+'slow-all':{title:'Check whether the issue is Wi-Fi or the incoming connection',summary:'Because several devices are affected, start with shared equipment and the service connection.',steps:[
+['Compare Wi-Fi with Ethernet','If you can, connect one computer to the router using an Ethernet cable and repeat the same activity. If wired works well but Wi-Fi does not, focus on wireless coverage or interference.'],
+['Restart the router once','Save any important work, then restart the router using its normal power procedure. Allow it to reconnect fully before testing again.'],
+['Check the router and provider status','Look for warning lights, service notices or an outage message from your internet provider. Check the router status page only if you are comfortable doing so.'],
+['Compare a simple speed test','Run a test near the router with other heavy downloads paused. Repeat once at a similar time and note the results.']
+],caution:'If a wired connection is also slow across multiple devices, contact your internet provider with the time of the issue and your test results. Do not factory-reset the router as an early troubleshooting step.'},
+'one-device':{title:'Isolate the device before changing the network',summary:'When other devices work normally, the affected phone, laptop or its settings are the best place to start.',steps:[
+['Move the affected device near the router','Test in the same room. If it improves, the device may be struggling with signal strength or its wireless adapter.'],
+['Reconnect to the Wi-Fi network','Check that airplane mode is off, then disconnect and reconnect to the correct network. Confirm you are using the intended Wi-Fi band if your router separates them.'],
+['Compare another app or website','If only one app is affected, check that app's service status and settings. If all apps are affected, continue with device network settings.'],
+['Update and restart the device','Install normal operating-system and Wi-Fi driver updates, then restart. Avoid deleting saved network settings unless you know the password and configuration.']
+],caution:'If this device is managed by an employer or school, check with its IT administrator before changing security, VPN or network settings.'},
+'weak-room':{title:'Investigate signal coverage and obstacles',summary:'A problem limited to one room often points to the wireless path between the router and that location.',steps:[
+['Test beside the router','Run the same activity close to the router, then repeat in the problem room. A large difference suggests a coverage issue.'],
+['Try a more open router position','Keep the router elevated and in an open, central location where practical. Avoid cabinets, thick walls and placing it directly beside large metal objects.'],
+['Check the band and device support','2.4 GHz often reaches farther but can be slower or more congested. 5 GHz and 6 GHz can offer more capacity at shorter ranges when supported.'],
+['Consider an access point or mesh only after testing','If the layout has persistent dead zones, compare a wired access point or mesh system with an extender. Placement and backhaul quality matter.']
+],caution:'Do not buy an extender based only on its advertised maximum speed. First confirm where the signal becomes weak and whether a wired access point is practical.'},
+'lag':{title:'Investigate response time and stability',summary:'Gaming and video calls are sensitive to delay, variation and packet loss—not only download speed.',steps:[
+['Compare wired and Wi-Fi if possible','Use Ethernet temporarily. If the problem disappears, investigate wireless signal, interference or airtime congestion.'],
+['Pause competing uploads and downloads','Cloud backups, large uploads and other busy devices can add delay when the connection is saturated. Test again with them paused.'],
+['Check the app or game network indicators','Look for ping, jitter, packet loss or server-region information inside the app. A general browser test may not follow the same route as the game server.'],
+['Try a closer or different server region','If the app allows it, compare a nearby server. Keep the device, network and time as consistent as possible.']
+],caution:'A high download-speed result does not guarantee low latency to a particular game or meeting server. If packet loss persists on a wired connection, share the evidence with your provider or app support.'},
+'drops':{title:'Look for the point where the connection breaks',summary:'Frequent drops can come from Wi-Fi coverage, router stability, device settings or an interruption from the provider.',steps:[
+['Notice what disconnects','If only one device drops, start with that device. If every device disconnects together, inspect the router and incoming service.'],
+['Check the router lights when it happens','Note whether the Wi-Fi light or the internet/WAN indicator changes. This helps distinguish a wireless drop from a service interruption.'],
+['Improve router ventilation and placement','Keep vents clear and the router away from heat sources. Avoid repeatedly power-cycling it unless needed to recover service.'],
+['Check cables and provider notices','Make sure power and WAN/fibre cables are firmly seated without bending or damaging fibre. Check for a local outage or line-maintenance notice.']
+],caution:'Do not open the router, ONT or fibre termination box. If equipment becomes unusually hot, smells burnt or shows damaged cables, stop using it and contact the provider or equipment support.'},
+'upload':{title:'Focus on the upstream path',summary:'Sending files and video relies on upload capacity and a stable upstream connection.',steps:[
+['Run a controlled upload test','Pause cloud backups and other large uploads, then compare upload results at a consistent time.'],
+['Check whether the problem is app-specific','Try a different trusted upload destination or video-call service. If only one service is affected, investigate that service first.'],
+['Use Ethernet or move closer to the router','A weak Wi-Fi link can affect uploads as well as downloads. Compare a wired test if available.'],
+['Check other users and background sync','Phones, cameras and computers may upload photos, recordings or backups without an obvious notification.']
+],caution:'If upload performance remains poor on a wired connection with other uploads paused, contact your provider and share repeat results. Do not assume a higher download plan automatically improves upload capacity.'},
+'new-device':{title:'Check compatibility and basic Wi-Fi settings',summary:'A new device may not support every band, security mode or network configuration used by your router.',steps:[
+['Confirm the network name and password','Check the exact Wi-Fi name (SSID), password and whether the network is hidden. Watch for similar names or guest networks.'],
+['Check supported Wi-Fi bands','Some devices support 2.4 GHz only. If your router uses a combined network name, check its compatibility guidance or try the 2.4 GHz network if available.'],
+['Check security compatibility','Older devices may not support newer Wi-Fi security modes. Check the device and router manuals before changing security settings; do not leave the network open.'],
+['Restart and update the device','Restart the device and install manufacturer updates. If it still cannot connect, check the router's device limit or access-control settings.']
+],caution:'Do not disable Wi-Fi security or share your password publicly to make a device connect. For business or managed networks, ask the network administrator.'}
+};
+const select=document.getElementById('trouble-symptom');
+const build=document.getElementById('trouble-build');
+const reset=document.getElementById('trouble-reset');
+const results=document.getElementById('trouble-results');
+const title=document.getElementById('trouble-result-title');
+const summary=document.getElementById('trouble-result-summary');
+const steps=document.getElementById('trouble-steps');
+const caution=document.getElementById('trouble-caution');
+build.addEventListener('click',()=>{
+const plan=plans[select.value];
+if(!plan){select.focus();return;}
+title.textContent=plan.title;summary.textContent=plan.summary;steps.replaceChildren();
+plan.steps.forEach((step,index)=>{
+const item=document.createElement('article');item.className='trouble-step';
+const number=document.createElement('span');number.className='trouble-step-number';number.textContent=String(index+1);
+const copy=document.createElement('div');const heading=document.createElement('h4');heading.textContent=step[0];const body=document.createElement('p');body.textContent=step[1];
+copy.append(heading,body);item.append(number,copy);steps.append(item);
+});
+caution.textContent=plan.caution;results.hidden=false;results.focus();
+});
+reset.addEventListener('click',()=>{select.value='';results.hidden=true;select.focus();});
+})();
+</script>
+</body>
+</html>
