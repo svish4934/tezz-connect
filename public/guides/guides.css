@@ -29,3 +29,12 @@
 .guide-visual img{display:block;width:100%;height:auto;border-radius:12px}
 .guide-visual figcaption{padding:10px 8px 4px;color:#64778b;font-size:12px;line-height:1.5}
 @media(max-width:520px){.guide-visual{margin:20px 0;padding:7px;border-radius:14px}.guide-visual figcaption{font-size:11px}}
+
+
+/* Related learning paths */
+.related-guides{margin:34px 0 12px;padding:22px;border:1px solid #d9e7f0;border-radius:18px;background:linear-gradient(145deg,#f2f8fc,#fff)}
+.related-guides .eyebrow{margin-bottom:7px}.related-guides h2{margin:0 0 7px;font-size:22px;line-height:1.25;letter-spacing:-.4px}.related-guides>p{margin:0 0 16px;color:#60748a;font-size:13px}
+.related-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.related-guide-card{display:flex;flex-direction:column;min-height:126px;padding:14px;border:1px solid #e0eaf1;border-radius:12px;background:#fff;color:#18324b;text-decoration:none;transition:border-color .16s ease,transform .16s ease}
+.related-guide-card:hover,.related-guide-card:focus-visible{border-color:#9dc5d8;transform:translateY(-2px);outline:none}.related-guide-card strong{font-size:13px;line-height:1.35}.related-guide-card span{margin-top:7px;color:#65798d;font-size:11px;line-height:1.5}.related-guide-card em{margin-top:auto;padding-top:10px;color:#147c9c;font-size:11px;font-style:normal;font-weight:800}
+@media(max-width:620px){.related-guides{padding:17px 14px}.related-guide-grid{grid-template-columns:1fr}.related-guide-card{min-height:0}.related-guide-card em{padding-top:7px}}
+@media(prefers-reduced-motion:reduce){.related-guide-card{transition:none}.related-guide-card:hover{transform:none}}
