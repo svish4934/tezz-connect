@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How to Improve Wi-Fi Speed: Practical Checklist | TEZZ CONNECT</title><meta name="description" content="Improve slow Wi-Fi with a practical checklist covering router placement, interference, device load, frequency bands and speed testing."><link rel="canonical" href="https://tezzconnect.online/guides/improve-wifi-speed/">
-<meta property="og:url" content="https://tezzconnect.online/guides/improve-wifi-speed/"><meta property="og:type" content="article"><meta property="og:title" content="How to Improve Wi-Fi Speed: Practical Checklist"><meta property="og:description" content="Practical steps to troubleshoot slow or unreliable Wi-Fi at home or work."><link rel="stylesheet" href="/guides/guides.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Improve Wi-Fi Speed","description":"A practical checklist for diagnosing and improving Wi-Fi performance.","author":{"@type":"Organization","name":"TEZZ CONNECT"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"mainEntityOfPage":"https://tezzconnect.online/guides/improve-wifi-speed/","datePublished":"2026-11-06","dateModified":"2026-11-06"}</script>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How to Improve Wi-Fi Speed: Practical Checklist | TEZZ CONNECT</title><meta name="description" content="Improve Wi-Fi with a practical checklist, interactive home-layout simulator, Wi-Fi vs Ethernet comparison and troubleshooting exercise."><link rel="canonical" href="https://tezzconnect.online/guides/improve-wifi-speed/">
+<meta property="og:url" content="https://tezzconnect.online/guides/improve-wifi-speed/"><meta property="og:type" content="article"><meta property="og:title" content="How to Improve Wi-Fi Speed: Practical Checklist"><meta property="og:description" content="Use an interactive Wi-Fi layout simulator, compare Wi-Fi and Ethernet results, and practise diagnosing common home network issues."><link rel="stylesheet" href="/guides/guides.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Improve Wi-Fi Speed","description":"A practical guide to improving Wi-Fi placement, comparing wired and wireless results, and diagnosing common home network issues.","author":{"@type":"Organization","name":"TEZZ CONNECT"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"mainEntityOfPage":"https://tezzconnect.online/guides/improve-wifi-speed/","datePublished":"2026-11-06","dateModified":"2026-11-09"}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tezzconnect.online/"},{"@type":"ListItem","position":2,"name":"Internet Knowledge Hub","item":"https://tezzconnect.online/guides/"},{"@type":"ListItem","position":3,"name":"Improve Wi-Fi speed","item":"https://tezzconnect.online/guides/improve-wifi-speed/"}]}
 </script></head><body>
@@ -98,6 +98,45 @@
 .connection-compare-output small{display:block;margin-top:.8rem;color:#526273;line-height:1.5}
 @media(max-width:560px){.connection-compare-grid{grid-template-columns:1fr}}
 </style>
+<section class="wifi-case-study" id="wifi-case-study" aria-labelledby="wifi-case-title">
+ <div class="eyebrow">PRACTICAL DIAGNOSTIC EXERCISE</div>
+ <h3 id="wifi-case-title">Case study: what would you check first?</h3>
+ <p>Imagine your household has a 100 Mbps plan. You test the same laptop, close to the router, under similar conditions:</p>
+ <div class="wifi-case-results" role="group" aria-label="Example speed test results">
+  <div><span>Wi-Fi download</span><strong>42 Mbps</strong><small>Wi-Fi connection</small></div>
+  <div><span>Ethernet download</span><strong>92 Mbps</strong><small>Wired connection</small></div>
+ </div>
+ <p>The wired result is much higher. What is the most useful first investigation?</p>
+ <fieldset class="wifi-case-options">
+  <legend>Choose one answer</legend>
+  <label><input type="radio" name="wifi-case-answer" value="plan"><span>Immediately buy a faster internet plan.</span></label>
+  <label><input type="radio" name="wifi-case-answer" value="coverage"><span>Investigate Wi-Fi signal, router placement, band and interference.</span></label>
+  <label><input type="radio" name="wifi-case-answer" value="dns"><span>Change the DNS server because it controls Wi-Fi signal strength.</span></label>
+ </fieldset>
+ <button type="button" class="wifi-case-check" id="wifi-case-check">Check my reasoning</button>
+ <p class="wifi-case-feedback" id="wifi-case-feedback" role="status" aria-live="polite"></p>
+ <p class="wifi-case-caveat">This is an illustrative scenario, not a diagnosis. Repeat tests, check the Ethernet cable and port capability, and compare like with like before deciding what to change.</p>
+</section>
+<style>
+.wifi-case-study{margin:2rem 0;padding:clamp(1rem,3vw,1.5rem);border:1px solid #cfe0e9;border-radius:16px;background:linear-gradient(145deg,#f1f8fb,#fff 72%)}
+.wifi-case-study h3{margin:.35rem 0 .6rem;font-size:1.35rem;color:#1d3b53}
+.wifi-case-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:1rem 0}
+.wifi-case-results>div{padding:14px;border:1px solid #d8e5ed;border-radius:12px;background:#fff}
+.wifi-case-results span,.wifi-case-results small{display:block;color:#60758a;font-size:12px}
+.wifi-case-results strong{display:block;margin:5px 0;font-size:25px;color:#176f8d}
+.wifi-case-options{display:grid;gap:9px;margin:1rem 0;padding:0;border:0}
+.wifi-case-options legend{margin-bottom:8px;font-weight:750;color:#29445e}
+.wifi-case-options label{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #dce6ed;border-radius:10px;background:#fff;cursor:pointer}
+.wifi-case-options input{margin-top:3px;accent-color:#147b91}
+.wifi-case-options input:focus-visible,.wifi-case-check:focus-visible{outline:3px solid #5b9de8;outline-offset:3px}
+.wifi-case-check{min-height:42px;padding:10px 16px;border:0;border-radius:9px;background:#126f8d;color:#fff;font:inherit;font-weight:750;cursor:pointer}
+.wifi-case-feedback{min-height:1.5em;margin:12px 0 0;color:#29445e;font-weight:650;line-height:1.6}
+.wifi-case-caveat{margin:12px 0 0;color:#66798b;font-size:11px;line-height:1.6}
+@media(max-width:420px){.wifi-case-results{grid-template-columns:1fr}}
+</style>
+<script>
+(()=>{const button=document.getElementById('wifi-case-check'),feedback=document.getElementById('wifi-case-feedback');if(!button||!feedback)return;button.addEventListener('click',()=>{const selected=document.querySelector('input[name="wifi-case-answer"]:checked');if(!selected){feedback.textContent='Select an answer first, then check your reasoning.';return;}feedback.textContent=selected.value==='coverage'?'Correct. The wired result suggests the internet service can deliver a higher speed to this laptop in that test. Investigate the Wi-Fi link first: signal strength, router placement, band, interference and device capability. Repeat the comparison before drawing a firm conclusion.':'Not the best first step. The wired result is already much higher, so investigate the Wi-Fi connection first. A faster plan or DNS change is unlikely to fix a weak wireless link.';});})();
+</script>
 <h2>6. Test more than once</h2>
 <p>Run a few tests at different times and write down where you were standing and whether you used Wi-Fi or a cable. Change one thing at a time, such as moving the router, so you can tell what actually helped.</p>
 <aside class="note"><h2>Before upgrading your plan</h2><p>A more expensive internet plan will not fix a weak Wi-Fi signal in a far-away room. First check whether the problem is Wi-Fi or the internet connection itself.</p></aside>
