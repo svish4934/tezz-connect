@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How the Internet Works: Interactive Visual Guide | TEZZ CONNECT</title>
+<meta name="description" content="Follow an interactive website request from your device through Wi-Fi, router, internet provider, DNS and a web server—and see how the page returns.">
+<link rel="canonical" href="https://tezzconnect.online/guides/how-the-internet-works/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How the Internet Works: An Interactive Visual Guide">
+<meta property="og:description" content="See each step of a website request, from your device to a server and back, in a simple interactive network diagram.">
+<link rel="stylesheet" href="/guides/guides.css">
+<style>
+.visual-lesson{margin:26px 0;padding:clamp(16px,3vw,28px);border:1px solid #d9e6ef;border-radius:20px;background:linear-gradient(145deg,#f2f8fc,#fff 70%);color:#20384e}
+.visual-lesson h2{margin:0 0 8px;font-size:clamp(21px,3vw,29px)}
+.visual-lesson .intro{max-width:720px;color:#5c7185;line-height:1.65}
+.flow-canvas{margin:22px 0 16px;padding:16px;border:1px solid #dce8f0;border-radius:16px;background:#fff;overflow:hidden}
+.flow-track{display:grid;grid-template-columns:repeat(6,minmax(92px,1fr));gap:8px;align-items:stretch}
+.flow-node{position:relative;display:flex;min-height:112px;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px 7px;border:1px solid #d9e4ed;border-radius:12px;background:#f8fafc;text-align:center;transition:border-color .2s,background .2s,transform .2s}
+.flow-node:not(:last-child):after{content:"›";position:absolute;right:-10px;top:40%;z-index:2;color:#7d95a8;font-size:22px;font-weight:800}
+.flow-node .node-icon{font-size:27px;line-height:1}
+.flow-node strong{font-size:12px;line-height:1.25}
+.flow-node small{color:#6b7f91;font-size:10px;line-height:1.35}
+.flow-node.is-active{border:2px solid #1683a0;background:#e8f6fa;transform:translateY(-3px);box-shadow:0 6px 18px #167b951c}
+.flow-node.is-passed{border-color:#9bc9b5;background:#f0faf5}
+.flow-node.is-return{border-color:#d7b4e7;background:#faf4ff}
+.flow-direction{display:flex;justify-content:space-between;gap:12px;margin-top:12px;color:#60758a;font-size:11px}
+.flow-direction span:last-child{text-align:right}
+.lesson-controls{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:16px 0}
+.lesson-controls button,.lesson-step-button{min-height:42px;padding:10px 16px;border:1px solid #176f8d;border-radius:10px;background:#126f8d;color:#fff;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.lesson-controls button.secondary{background:#fff;color:#176f8d}
+.lesson-controls button:disabled{opacity:.42;cursor:not-allowed}
+.lesson-controls button:focus-visible,.lesson-step-button:focus-visible{outline:3px solid #f0b84b;outline-offset:3px}
+.step-progress{height:7px;overflow:hidden;border-radius:9px;background:#e5edf3}
+.step-progress span{display:block;width:0;height:100%;border-radius:9px;background:#1683a0;transition:width .25s}
+.step-copy{min-height:164px;margin-top:16px;padding:20px;border:1px solid #dce7ef;border-radius:14px;background:#fff}
+.step-copy .step-count{color:#16809b;font-size:10px;font-weight:900;letter-spacing:.12em}
+.step-copy h3{margin:7px 0;color:#1b3850;font-size:21px}
+.step-copy p{margin:0;color:#536a7e;font-size:14px;line-height:1.75}
+.step-copy .analogy{margin-top:12px;padding:11px 13px;border-left:3px solid #1683a0;border-radius:0 8px 8px 0;background:#f0f7fa;color:#405a70;font-size:12px;line-height:1.6}
+.packet-demo{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:15px}
+.packet{width:43px;height:28px;border:1px solid #81b7c8;border-radius:6px;background:#e8f6fa;color:#17647b;font-size:10px;font-weight:800;display:grid;place-items:center}
+.packet-label{color:#667c8f;font-size:11px}
+.lesson-note{margin:16px 0;padding:14px;border:1px solid #ead9ae;border-radius:12px;background:#fffaf0;color:#6e5728;font-size:12px;line-height:1.6}
+@media(max-width:720px){.flow-track{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.flow-node:not(:last-child):after{display:none}.flow-node{min-height:100px}.flow-direction{font-size:10px}}
+@media(max-width:390px){.flow-track{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow-node,.step-progress span{transition:none}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How the Internet Works: An Interactive Visual Guide","description":"A step-by-step visual explanation of how a website request travels from a device to a web server and back.","author":{"@type":"Organization","name":"TEZZ CONNECT"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"mainEntityOfPage":"https://tezzconnect.online/guides/how-the-internet-works/"}</script>
+</head>
+<body>
+<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="article-nav" aria-label="Guide navigation"><a href="/guides/">Knowledge Hub</a><a href="/guides/internet-learning-roadmap/">Learning roadmap</a></nav></div></header>
+<main class="wrap">
+<div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / How the internet works</div>
+<header class="hero">
+<div class="eyebrow">VISUAL LEARNING · BEGINNER</div>
+<h1>How does the internet actually work?</h1>
+<p class="lede">You tap a link. A moment later, a website appears. Let's follow that request through the network, one step at a time—without the technical fog.</p>
+<p class="meta">TEZZ CONNECT · Interactive visual guide</p>
+</header>
+<section class="visual-lesson" aria-labelledby="journey-title">
+<div class="eyebrow">INTERACTIVE NETWORK JOURNEY</div>
+<h2 id="journey-title">Follow one website request</h2>
+<p class="intro">Imagine opening a website on your phone at home. Select <strong>Next step</strong> to follow the request from your device to the website, then watch the response travel back.</p>
+<div class="flow-canvas">
+<div class="flow-track" id="network-flow" aria-label="Six stages: your device, Wi-Fi or cable, home router, internet provider, DNS and website server">
+<div class="flow-node is-active" data-node="0"><span class="node-icon" aria-hidden="true">📱</span><strong>Your device</strong><small>Asks for a page</small></div>
+<div class="flow-node" data-node="1"><span class="node-icon" aria-hidden="true">📶</span><strong>Wi-Fi or cable</strong><small>Local connection</small></div>
+<div class="flow-node" data-node="2"><span class="node-icon" aria-hidden="true">📡</span><strong>Home router</strong><small>Forwards traffic</small></div>
+<div class="flow-node" data-node="3"><span class="node-icon" aria-hidden="true">🌐</span><strong>Internet provider</strong><small>Connects networks</small></div>
+<div class="flow-node" data-node="4"><span class="node-icon" aria-hidden="true">📖</span><strong>DNS lookup</strong><small>Finds the address</small></div>
+<div class="flow-node" data-node="5"><span class="node-icon" aria-hidden="true">🖥️</span><strong>Website server</strong><small>Sends page data</small></div>
+</div>
+<div class="flow-direction"><span>REQUEST travels towards the website →</span><span>← RESPONSE returns to your device</span></div>
+</div>
+<div class="step-progress" role="progressbar" aria-label="Journey progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" id="journey-progress"><span id="journey-progress-fill"></span></div>
+<div class="step-copy" aria-live="polite" aria-atomic="true">
+<div class="step-count" id="step-count">STEP 1 OF 8</div>
+<h3 id="step-title">Your device makes a request</h3>
+<p id="step-description">You type a website name or tap a link. Your browser needs to find the computer that can provide that page.</p>
+<div class="analogy" id="step-analogy">Think of it like writing the name of a place on a parcel before sending it.</div>
+<div class="packet-demo" id="packet-demo" hidden aria-label="Illustration of information divided into packets"><span class="packet">DATA 1</span><span class="packet">DATA 2</span><span class="packet">DATA 3</span><span class="packet-label">A page is exchanged as many small pieces of data.</span></div>
+</div>
+<div class="lesson-controls">
+<button type="button" id="journey-prev" class="secondary" disabled>← Previous</button>
+<button type="button" id="journey-next">Next step →</button>
+<button type="button" id="journey-reset" class="secondary">Start again</button>
+</div>
+<p class="packet-label" id="journey-status" role="status">You are at the beginning of the journey.</p>
+</section>
+<article class="article">
+<h2>What is happening behind the scenes?</h2>
+<p>The internet is a network of networks. Your home network connects to your provider, and your provider connects with other networks. Information can cross many different networks before reaching its destination.</p>
+<h2>Why does DNS matter?</h2>
+<p>People remember names such as <code>tezzconnect.online</code>. Computers use IP addresses to identify destinations on a network. The Domain Name System (DNS) helps translate a domain name into the address needed to find the service. Your device or network may already have a saved answer, so a fresh lookup is not always needed for every visit.</p>
+<h2>Why are there packets?</h2>
+<p>Network data is divided into smaller units called packets. Each packet carries information that helps networks deliver it. The receiving system processes the data and your browser assembles the resources into the page you see. Different kinds of traffic use different transport methods, so not every packet behaves in exactly the same way.</p>
+<h2>Does every request follow this exact route?</h2>
+<p>No. This is a simplified teaching model. DNS may be resolved earlier or by a different service, the router and modem may be one combined device, and content delivery networks or caches may serve a page from a nearby location. Real routes can change depending on the provider, destination and network conditions.</p>
+<aside class="note"><h2>Try a real-world comparison</h2><p>Open a page while connected to Wi-Fi, then try again using mobile data. The route and network equipment are different, but the basic idea—your device requests information and a service sends it back—remains the same.</p></aside>
+<section class="knowledge-check" aria-labelledby="internet-journey-check">
+<div class="eyebrow">QUICK KNOWLEDGE CHECK</div><h2 id="internet-journey-check">What does DNS help with?</h2>
+<fieldset><legend>Choose the best answer</legend>
+<label class="quiz-option"><input type="radio" name="dns-check" value="0"><span>It makes your Wi-Fi signal stronger.</span></label>
+<label class="quiz-option"><input type="radio" name="dns-check" value="1"><span>It helps find the network address associated with a domain name.</span></label>
+<label class="quiz-option"><input type="radio" name="dns-check" value="2"><span>It increases the internet plan speed.</span></label>
+</fieldset><button class="quiz-check" id="dns-check-button" type="button">Check my answer</button><p class="quiz-feedback" id="dns-feedback" role="status" aria-live="polite"></p>
+</section>
+<section class="related-guides"><div class="eyebrow">KEEP LEARNING</div><h2>Explore the next topic</h2><div class="related-guide-grid">
+<a class="related-guide-card" href="/guides/what-is-the-internet/"><strong>Internet basics</strong><span>Understand the main parts of the internet.</span><em>Read guide →</em></a>
+<a class="related-guide-card" href="/guides/internet-speed-explained/"><strong>Internet speed explained</strong><span>Learn what Mbps and bandwidth mean.</span><em>Read guide →</em></a>
+<a class="related-guide-card" href="/guides/latency-and-jitter/"><strong>Latency and jitter</strong><span>See why response time and consistency matter.</span><em>Read guide →</em></a>
+</div><p><a href="/guides/internet-learning-roadmap/">Continue with the full Internet Learning Roadmap →</a></p></section>
+</article>
+</main>
+<footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/guides/">All guides</a> · <a href="/about">About</a></span></div></footer>
+<script>
+(()=> {
+ const steps=[
+ {node:0,title:"Your device makes a request",description:"You type a website name or tap a link. Your browser needs to find the computer or service that can provide that page.",analogy:"Think of writing the name of a place on a parcel before sending it.",status:"Your browser has a destination in mind."},
+ {node:1,title:"Your device joins the local network",description:"Your phone sends data over Wi-Fi, or your laptop sends it through an Ethernet cable. This gets the request from your device to your home network.",analogy:"Wi-Fi is the local road from your device to the router. It is not the whole internet.",status:"The request is moving across your home connection."},
+ {node:2,title:"Your router forwards the traffic",description:"The router connects your home devices and forwards traffic towards your internet connection. It also helps send returning information to the correct device.",analogy:"A router is like a building's mailroom: it helps direct incoming and outgoing items to the right place.",status:"Your router is passing the request onwards."},
+ {node:3,title:"Your internet provider connects networks",description:"Your internet service provider carries traffic from your connection into its network and towards other networks. The route may pass through several network operators.",analogy:"Think of changing from a local street to a larger road network. There can be several routes to the destination.",status:"The request is travelling across connected networks."},
+ {node:4,title:"DNS helps find the website address",description:"The Domain Name System helps look up the IP address associated with the website name. Your device or network may already have a cached answer, so a new lookup is not always necessary.",analogy:"DNS works a little like looking up a person's name in a contacts list to find the number to call.",status:"The destination name can now be matched to a network address."},
+ {node:5,title:"The website server receives the request",description:"The request reaches the service hosting the website. The server prepares the information your browser needs. A nearby cache or content delivery network may handle some files instead.",analogy:"The destination has received your request and is preparing the reply.",status:"The website is preparing the response."},
+ {node:5,title:"The page data travels back",description:"The server sends the required data back through networks towards your device. Data is commonly split into packets, and the receiving systems process the pieces.",analogy:"Instead of one enormous parcel, imagine the page arriving as several labelled packages.",packets:true,status:"The response is travelling back towards your home."},
+ {node:0,title:"Your browser builds the page",description:"Your device receives the resources and your browser puts the text, images, styles and other page parts together. The website appears on your screen.",analogy:"Your browser is like the person unpacking the delivered pieces and assembling the finished item.",status:"Journey complete. You can restart or revisit any step."}
+ ];
+ let current=0;
+ const nodes=[...document.querySelectorAll('[data-node]')],prev=document.getElementById('journey-prev'),next=document.getElementById('journey-next'),reset=document.getElementById('journey-reset'),fill=document.getElementById('journey-progress-fill'),bar=document.getElementById('journey-progress'),packet=document.getElementById('packet-demo');
+ function render(){
+  const step=steps[current];
+  document.getElementById('step-count').textContent='STEP '+(current+1)+' OF '+steps.length;
+  document.getElementById('step-title').textContent=step.title;
+  document.getElementById('step-description').textContent=step.description;
+  document.getElementById('step-analogy').textContent=step.analogy;
+  document.getElementById('journey-status').textContent=step.status;
+  packet.hidden=!step.packets;
+  nodes.forEach((node,index)=>{
+   node.classList.toggle('is-active',index===step.node);
+   node.classList.toggle('is-passed',current>0&&index<step.node);
+   node.classList.toggle('is-return',current>=6&&index>=step.node&&index<=5);
+   if(current===7&&index===0)node.classList.add('is-active');
+  });
+  fill.style.width=((current+1)/steps.length*100)+'%';
+  bar.setAttribute('aria-valuenow',String(current+1));
+  prev.disabled=current===0;
+  next.disabled=current===steps.length-1;
+  next.textContent=current===steps.length-1?'Journey complete':'Next step →';
+ }
+ prev.addEventListener('click',()=>{if(current>0){current--;render();}});
+ next.addEventListener('click',()=>{if(current<steps.length-1){current++;render();}});
+ reset.addEventListener('click',()=>{current=0;render();});
+ render();
+ const check=document.getElementById('dns-check-button'),feedback=document.getElementById('dns-feedback');
+ check.addEventListener('click',()=>{
+  const answer=document.querySelector('input[name="dns-check"]:checked');
+  if(!answer){feedback.textContent='Choose an answer first.';feedback.className='quiz-feedback';return;}
+  const correct=answer.value==='1';
+  feedback.textContent=(correct?'Correct! ':'Not quite. ')+'DNS helps find the network address associated with a domain name. It does not boost Wi-Fi signal or increase your plan speed.';
+  feedback.className='quiz-feedback '+(correct?'is-correct':'is-incorrect');
+ });
+})();
+</script>
+</body>
+</html>
