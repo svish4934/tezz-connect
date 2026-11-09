@@ -40,7 +40,7 @@
  <circle cx="750" cy="303" r="42" fill="none" stroke="#a9d5ff" stroke-width="3"/>
  <ellipse cx="750" cy="303" rx="19" ry="42" fill="none" stroke="#a9d5ff" stroke-width="2"/>
  <path d="M710 303h80M719 282h62M719 324h62" stroke="#a9d5ff" stroke-width="2"/>
- <text x="750" y="391" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="19" font-weight="700">ISP & networks</text>
+ <text x="750" y="391" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="19" font-weight="700">ISP &amp; networks</text>
  <text x="750" y="416" text-anchor="middle" fill="#a9c6d9" font-family="Arial,sans-serif" font-size="13">Routes the request</text>
 </g>
 <g>
@@ -49,7 +49,7 @@
  <path d="M1000 284h60M1000 299h60M1000 314h44" stroke="#c2c5ff" stroke-width="4" stroke-linecap="round"/>
  <circle cx="1001" cy="329" r="3" fill="#73efd8"/>
  <text x="1030" y="391" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="19" font-weight="700">Web server</text>
- <text x="1030" y="416" text-anchor="middle" fill="#a9c6d9" font-family="Arial,sans-serif" font-size="13">Website files & data</text>
+ <text x="1030" y="416" text-anchor="middle" fill="#a9c6d9" font-family="Arial,sans-serif" font-size="13">Website files &amp; data</text>
 </g>
 <g fill="#a9d8ee" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">
  <text x="316" y="230" text-anchor="middle">1 · CONNECT</text><text x="600" y="230" text-anchor="middle">2 · ROUTE</text><text x="894" y="230" text-anchor="middle">3 · REQUEST</text>
