@@ -95,10 +95,11 @@ get('sim-latency-value').textContent=l+' ms';
 get('sim-jitter-value').textContent=j+' ms';
 get('sim-loss-value').textContent=p+'%';
 const variation=[-.9,-.55,-.2,.15,.45,.8,-.35,.6];
+const lostCount=Math.round(p/100*bars.length);
 bars.forEach((bar,i)=>{
 const sample=Math.max(0,l+variation[i]*j);
 bar.style.height=Math.max(7,Math.min(100,(sample/300)*100))+'%';
-const lost=((i+1)*12.5)<=p;
+const lost=i<lostCount;
 bar.classList.toggle('is-lost',lost);
 bar.setAttribute('aria-hidden','true');
 });
@@ -109,7 +110,7 @@ let status=j>=20||p>=2?'Unsteady pattern':l>=80?'Longer waits':j<5&&p===0?'Mostl
 get('sim-status').textContent=status;
 get('sim-summary').textContent='This example has an average response time of '+l+' ms, '+consistency+' and '+lossText+'. '+level+'.';
 get('sim-activity-tip').textContent=activityTips[activity.value];
-get('sim-bars').setAttribute('aria-label','Eight simulated response samples around '+l+' milliseconds with '+j+' milliseconds of variation and '+p+' percent packet loss. Striped bars indicate illustrative lost samples.');
+get('sim-bars').setAttribute('aria-label','Eight simulated response samples around '+l+' milliseconds with '+j+' milliseconds of variation and '+p+' percent packet loss. '+lostCount+' of 8 sample bars are striped to illustrate lost packets. At low loss percentages, this small sample may show no striped bars.');
 }
 [activity,latency,jitter,loss].forEach(el=>el.addEventListener('input',update));
 activity.addEventListener('change',update);
