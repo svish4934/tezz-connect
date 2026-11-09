@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://tezzconnect.online/sitemap.xml
-Agentmap: https://tezzconnect.online/.well-known/ard.json
