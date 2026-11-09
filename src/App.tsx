@@ -275,6 +275,21 @@ function App() {
       About: 'About TEZZ CONNECT | Internet Performance Tools',
     }
     document.title = titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools'
+
+    // Keep the canonical URL aligned with the SPA route instead of
+    // inheriting the homepage canonical from the static HTML shell.
+    const canonicalPath = tabToRoute[activeTab] ?? '/'
+    const canonicalUrl = new URL(canonicalPath, window.location.origin).toString()
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    canonical.href = canonicalUrl
+
+    const ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]')
+    if (ogUrl) ogUrl.content = canonicalUrl
   }, [activeTab])
   const [edgeInfo, setEdgeInfo] = useState<{ colo: string; country: string; region: string; asn: number | null; organization: string; fetchedAt: string } | null>(null)
   const [edgeLoading, setEdgeLoading] = useState(false)
