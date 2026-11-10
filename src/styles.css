@@ -408,8 +408,8 @@
 .tezz-logo-word span{color:#00e4ef}
 .tezz-logo i{position:absolute;width:83px;height:22px;border-top:4px solid #f52348;border-radius:70% 70% 0 0;right:29px;top:-1px;transform:rotate(-9deg)}
 .tezz-nav{display:flex;align-items:center;gap:8px}
-.tezz-nav button,.tezz-header-actions button{border:1px solid transparent;background:transparent;color:#f3f6ff;padding:11px 15px;border-radius:10px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:7px}
-.tezz-nav button.selected{background:linear-gradient(100deg,#f51e3d,#c9082e);box-shadow:0 5px 18px #ed1e453d}
+.tezz-nav button,.tezz-nav a,.tezz-header-actions button,.tezz-header-actions a{border:1px solid transparent;background:transparent;color:#f3f6ff;padding:11px 15px;border-radius:10px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:7px;text-decoration:none}
+.tezz-nav button.selected,.tezz-nav a.selected{background:linear-gradient(100deg,#f51e3d,#c9082e);box-shadow:0 5px 18px #ed1e453d}
 .tezz-header-actions{display:flex;align-items:center;gap:8px}
 .tezz-header-actions button{border-color:#34425c}
 .tezz-header-actions .tezz-menu{border-color:#f42a4b;color:#fff;font-size:12px;padding:9px 12px}
@@ -464,7 +464,7 @@
 .tezz-main .content:not(.home-content){padding-top:36px}
 .tezz-main footer{color:#75839c}
 @media(max-width:900px){
- .tezz-header{padding:0 22px}.tezz-nav{gap:0}.tezz-nav button{padding:10px 9px;font-size:12px}
+ .tezz-header{padding:0 22px}.tezz-nav{gap:0}.tezz-nav button,.tezz-nav a{padding:10px 9px;font-size:12px}
  .tezz-main .content{padding:0 22px 30px}
  .tezz-hero{grid-template-columns:1fr 1.15fr;gap:10px;padding:30px 8px 60px}
  .tezz-health-card{grid-column:1/-1;min-height:0;padding:14px 17px}
@@ -472,7 +472,7 @@
 }
 @media(max-width:680px){
  .tezz-header{height:66px;padding:0 17px}.tezz-logo-word{font-size:22px}.tezz-logo i{width:68px;right:24px}
- .tezz-nav{display:none}.tezz-header-actions button:first-child{display:none}
+ .tezz-nav{display:none}.tezz-header-actions button:first-child,.tezz-header-actions a:first-child{display:none}
  .tezz-main .content{padding:0 15px 28px}
  .tezz-hero{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:24px 8px 50px;min-height:0}
  .tezz-hero-copy{text-align:center}
@@ -502,7 +502,7 @@
 /* Mobile-first breakpoint: prevent the desktop hero and four-column cards from shrinking on phones. */
 @media(max-width:760px){
  .tezz-header{height:66px;padding:0 17px}.tezz-logo-word{font-size:22px}.tezz-logo i{width:68px;right:24px}
- .tezz-nav{display:none}.tezz-header-actions button:first-child{display:none}
+ .tezz-nav{display:none}.tezz-header-actions button:first-child,.tezz-header-actions a:first-child{display:none}
  .tezz-main .content{padding:0 15px 28px}
  .tezz-hero{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:24px 8px 50px;min-height:0}
  .tezz-hero-copy{text-align:center}.tezz-pill{font-size:12px;padding:7px 14px}
@@ -547,7 +547,7 @@ html,body{overflow-x:hidden!important}
  .tezz-logo-word{font-size:clamp(18px,5vw,22px)!important;letter-spacing:-1px!important}
  .tezz-nav{display:none!important}
  .tezz-header-actions{margin-left:auto!important;flex:0 0 auto!important}
- .tezz-header-actions button:first-child{display:none!important}
+ .tezz-header-actions button:first-child,.tezz-header-actions a:first-child{display:none!important}
  .tezz-main .content{width:100%!important;max-width:100%!important;min-width:0!important;padding:0 14px 28px!important;overflow:hidden}
  .tezz-hero{width:100%!important;max-width:100%!important;min-width:0!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;padding:24px 4px 38px!important;min-height:0!important}
  .tezz-hero-copy{width:100%!important;max-width:100%!important;text-align:center!important}
@@ -644,8 +644,8 @@ body{background:#faf8f3!important}
 .tezz-logo-word{color:#101d3a!important}
 .tezz-logo-word span{color:#1268d8!important}
 .tezz-logo i{border-top-color:#e84961!important}
-.tezz-nav button,.tezz-header-actions button{color:#182744!important}
-.tezz-nav button.selected{background:linear-gradient(110deg,#1678ed,#0848b8)!important;color:#fff!important;box-shadow:0 5px 14px rgba(18,104,216,.2)!important}
+.tezz-nav button,.tezz-nav a,.tezz-header-actions button,.tezz-header-actions a{color:#182744!important}
+.tezz-nav button.selected,.tezz-nav a.selected{background:linear-gradient(110deg,#1678ed,#0848b8)!important;color:#fff!important;box-shadow:0 5px 14px rgba(18,104,216,.2)!important}
 .tezz-header-actions button{border-color:#e5eaf2!important;background:#fff!important}
 .tezz-header-actions .tezz-menu{color:#1268d8!important;border-color:#d7e5f8!important}
 .tezz-hero{background:radial-gradient(ellipse at 75% 12%,rgba(68,166,255,.13),transparent 38%),linear-gradient(115deg,#fffdf9 0%,#f7f9fd 100%)!important;border:1px solid #eeeae2!important;border-radius:26px!important;margin:22px 0 20px!important;padding:34px 28px 54px!important;box-shadow:0 12px 35px rgba(25,48,85,.055)!important}
@@ -755,9 +755,9 @@ body{background:#faf8f3!important}
   .tezz-header{height:78px!important;padding:0 3.2%!important;gap:14px!important}
   .tezz-logo-word{font-size:clamp(20px,2vw,26px)!important}
   .tezz-nav{display:flex!important;gap:2px!important;flex:1 1 auto!important;justify-content:center!important;min-width:0!important}
-  .tezz-nav button{padding:10px clamp(6px,.9vw,14px)!important;font-size:clamp(10px,1.05vw,14px)!important;white-space:nowrap!important}
+  .tezz-nav button,.tezz-nav a{padding:10px clamp(6px,.9vw,14px)!important;font-size:clamp(10px,1.05vw,14px)!important;white-space:nowrap!important}
   .tezz-header-actions{display:flex!important;flex:none!important}
-  .tezz-header-actions button:first-child{display:flex!important}
+  .tezz-header-actions button:first-child,.tezz-header-actions a:first-child{display:flex!important}
   .tezz-main .content{max-width:1480px!important;padding:0 clamp(18px,3vw,42px) 36px!important}
   .tezz-hero{display:grid!important;grid-template-columns:minmax(190px,1fr) minmax(280px,1.18fr) minmax(180px,.82fr)!important;align-items:center!important;gap:clamp(12px,1.6vw,24px)!important;padding:30px clamp(16px,2vw,28px) 54px!important;min-height:370px!important}
   .tezz-hero-copy{text-align:left!important;width:auto!important}
@@ -878,7 +878,7 @@ body{background:#faf8f3!important}
   .tezz-logo-word { font-size: 19px !important; white-space: nowrap !important; }
   .tezz-nav { display: none !important; }
   .tezz-header-actions { display: flex !important; margin-left: auto !important; }
-  .tezz-header-actions button:first-child { display: none !important; }
+  .tezz-header-actions button:first-child,.tezz-header-actions a:first-child { display: none !important; }
   .tezz-header-actions .tezz-menu { display: inline-flex !important; min-height: 38px !important; }
   .tezz-main .content {
     width: 100% !important;
@@ -1027,7 +1027,7 @@ img, svg { max-width:100%; }
   .tezz-logo-word { font-size:22px!important; letter-spacing:-.7px!important; }
   .tezz-nav { display:none!important; }
   .tezz-header-actions { display:flex!important; flex:0 0 auto!important; margin-left:auto!important; }
-  .tezz-header-actions button:first-child { display:none!important; }
+  .tezz-header-actions button:first-child,.tezz-header-actions a:first-child { display:none!important; }
   .tezz-header-actions .tezz-menu { display:inline-flex!important; min-height:40px!important; padding:0 12px!important; }
   .tezz-main .content {
     width:100%!important; max-width:100%!important; min-width:0!important;
@@ -1109,9 +1109,9 @@ img, svg { max-width:100%; }
   .tezz-logo { flex:0 0 auto!important; }
   .tezz-logo-word { font-size:clamp(19px,2vw,25px)!important; white-space:nowrap!important; }
   .tezz-nav { display:flex!important; flex:1 1 auto!important; min-width:0!important; justify-content:center!important; gap:0!important; }
-  .tezz-nav button { display:inline-flex!important; align-items:center!important; padding:9px clamp(5px,.8vw,11px)!important; font-size:clamp(10px,1vw,13px)!important; white-space:nowrap!important; }
+  .tezz-nav button,.tezz-nav a { display:inline-flex!important; align-items:center!important; padding:9px clamp(5px,.8vw,11px)!important; font-size:clamp(10px,1vw,13px)!important; white-space:nowrap!important; }
   .tezz-header-actions { display:flex!important; flex:0 0 auto!important; margin-left:0!important; }
-  .tezz-header-actions button:first-child { display:flex!important; }
+  .tezz-header-actions button:first-child,.tezz-header-actions a:first-child { display:flex!important; }
   .tezz-header-actions .tezz-menu { display:none!important; }
   .tezz-main .content { width:100%!important; max-width:1480px!important; margin:0 auto!important; padding:0 clamp(18px,2.5vw,36px) 34px!important; }
   .tezz-hero {
@@ -1711,7 +1711,7 @@ img, svg { max-width:100%; }
     border-bottom:1px solid #23344d;
     background:linear-gradient(180deg,#081326,#050c19);
   }
-  .tezz-mobile-nav button{
+  .tezz-mobile-nav button,.tezz-mobile-nav a{
     min-width:0;
     min-height:43px;
     padding:10px 12px;
@@ -1721,9 +1721,10 @@ img, svg { max-width:100%; }
     color:#eaf2ff;
     font:600 12px Manrope,system-ui,sans-serif;
     text-align:left;
+    text-decoration:none;
     cursor:pointer;
   }
-  .tezz-mobile-nav button.selected{
+  .tezz-mobile-nav button.selected,.tezz-mobile-nav a.selected{
     border-color:#e52b4c;
     background:linear-gradient(100deg,#e92749,#a90d31);
     color:#fff;
@@ -1731,7 +1732,7 @@ img, svg { max-width:100%; }
 }
 @media(max-width:380px){
   .tezz-mobile-nav{gap:6px;padding:10px}
-  .tezz-mobile-nav button{padding:9px;font-size:11px}
+  .tezz-mobile-nav button,.tezz-mobile-nav a{padding:9px;font-size:11px}
 }
 
 
