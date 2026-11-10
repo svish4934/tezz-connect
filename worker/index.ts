@@ -542,6 +542,12 @@ const app: ExportedHandler<Env> = {
 }
 
 export default {
+  async scheduled(_controller: ScheduledController, env: Env, _context: ExecutionContext): Promise<void> {
+    // Keep only 30 days of hourly aggregates. No raw per-test records exist.
+    await env.BENCHMARKS_DB.prepare(
+      "DELETE FROM benchmark_hourly WHERE bucket_start < ?"
+    ).bind(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()).run()
+  },
   async fetch(request: Request, env: Env, context: ExecutionContext): Promise<Response> {
     const startedAt = Date.now()
     const requestId = crypto.randomUUID()
