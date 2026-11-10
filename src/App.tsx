@@ -68,40 +68,30 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
   return { ping: median(samples), jitter: meanVariation }
 }
 
-async function measureDownload(bytes: number, onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
-  const start = performance.now()
-  const response = await fetch(downloadUrl(bytes), { cache: 'no-store', signal: AbortSignal.timeout(90000) })
+async function measureDownload(durationMs: number, maxBytes: number, onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
+  const url = `/api/v1/speed/download?durationMs=${durationMs}&maxBytes=${maxBytes}`
+  const started = performance.now()
+  const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(durationMs + 15000) })
   const contentType = response.headers.get('content-type') ?? 'missing'
-  const contentLength = response.headers.get('content-length')
   if (!response.ok) throw new Error(`Download endpoint returned HTTP ${response.status} (${contentType})`)
   if (!contentType.toLowerCase().includes('application/octet-stream')) {
     const preview = (await response.clone().text()).slice(0, 120).replace(/\\s+/g, ' ')
     throw new Error(`Download endpoint returned unexpected content type: ${contentType}. Response: ${preview || 'empty'}`)
   }
-  if (contentLength !== null && Number(contentLength) !== bytes) {
-    throw new Error(`Download endpoint declared ${contentLength} bytes; expected ${bytes}`)
-  }
-  if (!response.body) {
-    const data = await response.arrayBuffer()
-    if (data.byteLength !== bytes) throw new Error(`Download test incomplete: received ${data.byteLength} of ${bytes} bytes`)
-    const seconds = (performance.now() - start) / 1000
-    const mbps = (data.byteLength * 8) / Math.max(seconds, 0.001) / 1_000_000
-    onSample(mbps, data.byteLength)
-    return mbps
-  }
+  if (!response.body) throw new Error('Streaming download is not supported by this browser')
   const reader = response.body.getReader()
   let receivedBytes = 0
   while (true) {
     const { done, value } = await reader.read()
     if (done) break
     receivedBytes += value.byteLength
-    const seconds = (performance.now() - start) / 1000
-    const mbps = (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
+    const seconds = Math.max((performance.now() - started) / 1000, 0.001)
+    const mbps = (receivedBytes * 8) / seconds / 1_000_000
     onSample(mbps, receivedBytes)
   }
-  if (receivedBytes !== bytes) throw new Error(`Download test incomplete: received ${receivedBytes} of ${bytes} bytes`)
-  const seconds = (performance.now() - start) / 1000
-  return (receivedBytes * 8) / Math.max(seconds, 0.001) / 1_000_000
+  if (receivedBytes < 1) throw new Error('Download test returned no data')
+  const elapsedMs = performance.now() - started
+  return (receivedBytes * 8) / Math.max(elapsedMs / 1000, 0.001) / 1_000_000
 }
 
 async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps: number) => void): Promise<number> {
@@ -114,6 +104,7 @@ async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps
     const request = new XMLHttpRequest()
     request.open('POST', uploadUrl(bytes))
     request.timeout = 90000
+    request.responseType = 'json'
     request.setRequestHeader('Content-Type', 'application/octet-stream')
     request.upload.onprogress = event => {
       const sentBytes = Math.min(event.loaded, bytes)
@@ -126,8 +117,13 @@ async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps
         reject(new Error('Upload test endpoint unavailable'))
         return
       }
-      const seconds = Math.max((performance.now() - started) / 1000, 0.001)
-      resolve((bytes * 8) / seconds / 1_000_000)
+      const result = request.response as { ok?: boolean; receivedBytes?: number; elapsedMs?: number; mbps?: number } | null
+      if (!result || result.ok !== true || result.receivedBytes !== bytes ||
+          typeof result.mbps !== 'number' || !Number.isFinite(result.mbps) || result.mbps <= 0) {
+        reject(new Error('Upload endpoint did not return a valid server-side measurement'))
+        return
+      }
+      resolve(result.mbps)
     }
     request.onerror = () => reject(new Error('Upload test network error'))
     request.ontimeout = () => reject(new Error('Upload test timed out after 90 seconds'))
@@ -699,22 +695,12 @@ function App() {
       setProgress(24)
       setTestPhase('Calibrating download and selecting test size')
       try {
-        const calibration = await measureDownload(BASELINE_BYTES, (mbps, received) => {
+        setTestPhase('Measuring sustained download throughput (up to 6 seconds / 25 MB)')
+        download = await measureDownload(6000, 25_000_000, (mbps, received) => {
           setLiveSpeed(Number(mbps.toFixed(1)))
           appendSpeedSample(mbps)
           setDownloadBytes(received)
         })
-        const payloadBytes = choosePayloadBytes(calibration)
-        setTestPhase(`Measuring download throughput (${payloadBytes / 1_000_000} MB)`)
-        const runs: number[] = []
-        for (let run = 0; run < 3; run++) {
-          runs.push(await measureDownload(payloadBytes, (mbps, received) => {
-            setLiveSpeed(Number(mbps.toFixed(1)))
-            appendSpeedSample(mbps)
-            setDownloadBytes(received)
-          }))
-        }
-        download = median(runs)
       } catch (error) {
         transferErrors.push(`Download: ${error instanceof Error ? error.message : 'transfer failed'}`)
       }
@@ -728,7 +714,7 @@ function App() {
           appendSpeedSample(mbps)
         })
         const payloadBytes = choosePayloadBytes(calibration)
-        setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB)`)
+        setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB, server-confirmed)`)
         const runs: number[] = []
         for (let run = 0; run < 2; run++) {
           runs.push(await measureUpload(payloadBytes, (sentBytes, mbps) => {
