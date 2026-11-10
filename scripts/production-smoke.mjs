@@ -73,10 +73,11 @@ await check('API health and version', '/api/v1/health', (r, body) => {
 })
 await check('Ping endpoint', '/api/v1/speed/ping', r => r.status === 204 && Boolean(r.headers.get('x-request-id')) && Boolean(r.headers.get('server-timing')))
 await check('Ping rejects unsupported method', '/api/v1/speed/ping', r => r.status === 405, { method: 'POST' })
-await check('Download exact payload and content type', '/api/v1/speed/download?bytes=65536', (r, body) =>
-  r.status === 200 && body.byteLength === 65536 && r.headers.get('content-type')?.includes('application/octet-stream') &&
-  r.headers.get('content-length') === '65536')
-await check('Download size limit', '/api/v1/speed/download?bytes=11000000', r => r.status === 400)
+await check('Bounded streamed download and content type', '/api/v1/speed/download?durationMs=1000&maxBytes=1000000', (r, body) =>
+  r.status === 200 && body.byteLength > 0 && body.byteLength <= 1_000_000 &&
+  r.headers.get('content-type')?.includes('application/octet-stream') &&
+  r.headers.get('content-length') === null)
+await check('Download maximum-byte guardrail', '/api/v1/speed/download?durationMs=1000&maxBytes=26000000', r => r.status === 400)
 await check('Upload accepts exact payload', '/api/v1/speed/upload?bytes=65536', (r, body) =>
   r.status === 200 && JSON.parse(body).ok === true,
   { method: 'POST', headers: { 'content-type': 'application/octet-stream' }, body: new Uint8Array(65536) })
