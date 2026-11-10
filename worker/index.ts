@@ -101,7 +101,7 @@ const app: ExportedHandler<Env> = {
   <url><loc>https://tezzconnect.online/guides/wifi-security-checkup/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tezzconnect.online/guides/wifi-signal-simulator/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
-
+`
       return new Response(request.method === "HEAD" ? null : body, {
         status: 200,
         headers: { ...noStore, "Content-Type": "application/xml; charset=utf-8" },
