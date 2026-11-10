@@ -191,7 +191,7 @@ function App() {
   const [downloadBytes, setDownloadBytes] = useState(0)
   const [uploadBytes, setUploadBytes] = useState(0)
   const [uploadLiveSpeed, setUploadLiveSpeed] = useState(0)
-  const [speedTrace, setSpeedTrace] = useState<number[]>(() => loadHistory()[0]?.trace ?? [])
+  const [speedTrace, setSpeedTrace] = useState<number[]>([])
   const speedTraceRef = useRef<number[]>(speedTrace)
   function appendSpeedSample(value: number) {
     const next = [...speedTraceRef.current, value].slice(-36)
@@ -204,7 +204,7 @@ function App() {
   const [reportMessage, setReportMessage] = useState('')
   const [testError, setTestError] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
-  const [result, setResult] = useState<TestResult | null>(() => loadHistory()[0] ?? null)
+  const [result, setResult] = useState<TestResult | null>(null)
   const [benchmarkConsent, setBenchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
   const [benchmarkStatus, setBenchmarkStatus] = useState('')
   type BenchmarkRegion = { country_code: string; region_code: string; sample_count: number; download_avg_mbps: number | null; upload_avg_mbps: number | null; latency_avg_ms: number | null; jitter_avg_ms: number | null }
