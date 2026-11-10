@@ -209,7 +209,7 @@ response = await call('/api/v1/speed/download?durationMs=500&maxBytes=1000000')
 assert.equal((await expectJson(response, 400)).ok, false)
 response = await call('/api/v1/speed/download?durationMs=6000&maxBytes=26000000')
 assert.equal((await expectJson(response, 400)).ok, false)
-process.stdout.write('PASS  download duration and maximum-byte guardrails\\n')
+process.stdout.write('PASS  download duration and maximum-byte guardrails\n')
 
 // Upload throughput is measured by the Worker while it consumes the request stream.
 const uploadPayload = new Uint8Array(1_000_000)
