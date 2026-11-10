@@ -437,8 +437,29 @@ function App() {
         status: latencyHistory[0].average > 150 || latencyHistory[0].failures > 1 ? 'alert' : 'good',
       })
     }
-    if (network.supported && network.downlink !== 'Not reported') {
-      findings.push({ title: 'Browser network estimate', detail: 'This is a browser-provided estimate and may be rounded or stale. It is not a substitute for the measured speed test.', evidence: `${network.type} · estimated downlink ${network.downlink}`, status: 'neutral' })
+    if (network.supported) {
+      const slowProfile = network.type === 'SLOW-2G' || network.type === '2G' || network.type === '3G'
+      const estimateParts = [
+        network.type,
+        network.downlink !== 'Not reported' ? `estimated downlink ${network.downlink}` : null,
+        network.rtt !== 'Not reported' ? `browser-estimated RTT ${network.rtt}` : null,
+      ].filter(Boolean)
+      findings.push({
+        title: slowProfile ? 'Browser reports a slower network profile' : 'Browser network profile',
+        detail: slowProfile
+          ? 'The browser classifies the current connection as a slower effective network type. This estimate can be coarse or stale; compare a fresh TEZZ speed test before drawing conclusions.'
+          : 'These values are browser-provided estimates. They may be rounded, stale or unavailable and do not identify whether you are on Wi-Fi or mobile data.',
+        evidence: estimateParts.join(' · '),
+        status: slowProfile ? 'alert' : 'neutral',
+      })
+      if (network.saveData) {
+        findings.push({
+          title: 'Data Saver is enabled',
+          detail: 'The browser or device reports a reduced-data preference. Some pages and media may load at lower quality or defer background activity; this is not evidence of a network fault.',
+          evidence: 'Save-Data preference reported by browser',
+          status: 'neutral',
+        })
+      }
     }
     return findings
   }, [network, result, latestStability, latencyHistory])
