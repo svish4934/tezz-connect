@@ -30,11 +30,21 @@ const appRoutes = [
   ['About direct route', '/about'],
 ]
 for (const [name, path] of appRoutes) {
-  await check(name, path, (r, body) =>
-    r.status === 200 &&
-    r.headers.get('content-type')?.includes('text/html') &&
-    body.includes('<div id="root"></div>') &&
-    body.includes('/assets/'))
+  await check(name, path, (r, body) => {
+    const isCrawlableRoute = path === '/' || path === '/about'
+    const hasRoot = body.includes('<div id="root"')
+    const hasExpectedFallback = path === '/'
+      ? body.includes('Test your internet speed with TEZZ CONNECT.') && body.includes('Download speed:')
+      : path === '/about'
+        ? body.includes('Understand your connection.') && body.includes('tezzconnect.contact@gmail.com')
+        : true
+    return r.status === 200 &&
+      r.headers.get('content-type')?.includes('text/html') &&
+      hasRoot &&
+      body.includes('/assets/') &&
+      hasExpectedFallback &&
+      (!isCrawlableRoute || body.includes('id="seo-fallback"'))
+  })
 }
 
 await check('API health and version', '/api/v1/health', (r, body) => {
