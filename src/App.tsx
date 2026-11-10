@@ -925,19 +925,19 @@ function App() {
               </div>
               <div className="global-benchmark-meta"><span>Reporting window: last 7 days</span><span>Publication threshold: 30 contributions per region</span></div>
               {benchmarkError && <p className="latency-error" role="alert">{benchmarkError}</p>}
-              {benchmarkLoading && !benchmarkLoaded ? <div className="global-benchmark-empty"><Activity size={19}/><span>Loading verified regional aggregates…</span></div> :
+              {benchmarkLoading && !benchmarkLoaded ? <div className="global-benchmark-empty"><Activity size={19}/><span>Loading regional aggregates…</span></div> :
                 benchmarkRegions.length ? <div className="global-benchmark-table-wrap"><div className="global-benchmark-list">
                   {benchmarkRegions.map(region => <article className="global-benchmark-region" key={region.country_code + '-' + region.region_code}>
                     <div className="global-benchmark-region-title"><div><strong>{region.region_code === 'unknown' ? region.country_code : region.region_code + ', ' + region.country_code}</strong><span>{region.sample_count.toLocaleString()} participating tests</span></div><span className="global-benchmark-verified">Threshold met</span></div>
                     <div className="global-benchmark-metrics">
-                      <div><span>Download</span><strong>{typeof region.download_avg_mbps === 'number' ? region.download_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
-                      <div><span>Upload</span><strong>{typeof region.upload_avg_mbps === 'number' ? region.upload_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
-                      <div><span>HTTP latency</span><strong>{typeof region.latency_avg_ms === 'number' ? region.latency_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
-                      <div><span>HTTP response variation</span><strong>{typeof region.jitter_avg_ms === 'number' ? region.jitter_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
+                      <div><span>Average download</span><strong>{typeof region.download_avg_mbps === 'number' ? region.download_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
+                      <div><span>Average upload</span><strong>{typeof region.upload_avg_mbps === 'number' ? region.upload_avg_mbps.toFixed(1) : '—'} <small>Mbps</small></strong></div>
+                      <div><span>Average HTTP latency</span><strong>{typeof region.latency_avg_ms === 'number' ? region.latency_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
+                      <div><span>Average HTTP response variation</span><strong>{typeof region.jitter_avg_ms === 'number' ? region.jitter_avg_ms.toFixed(1) : '—'} <small>ms</small></strong></div>
                     </div>
                   </article>)}
                 </div></div> : <div className="global-benchmark-empty"><Globe2 size={21}/><div><strong>{benchmarkLoaded ? 'No regions meet the publication threshold yet.' : 'Regional data has not loaded.'}</strong><span>TEZZ only publishes a regional cohort after at least 30 opted-in contributions are available in the seven-day window. No placeholder or estimated figures are shown.</span></div></div>}
-              <p className="global-benchmark-disclaimer">These are averages from participating TEZZ CONNECT tests, not a census of all users or an ISP-wide service rating. HTTP latency is measured to the TEZZ edge. Regions with fewer than 30 contributions are withheld.</p>
+              <p className="global-benchmark-disclaimer">These are averages from participating TEZZ CONNECT tests, not a census of all users or an ISP-wide service rating. Repeat tests may contribute more than once, so counts are contributions rather than unique people or devices. HTTP latency is measured to the TEZZ edge. Regions with fewer than 30 contributions are withheld.</p>
             </div>
             <div className="global-baseline-card">
               <div className="section-kicker">PERSONAL PERFORMANCE BASELINE</div>
