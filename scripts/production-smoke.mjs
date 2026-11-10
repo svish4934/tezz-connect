@@ -30,21 +30,27 @@ const appRoutes = [
   ['About direct route', '/about'],
 ]
 for (const [name, path] of appRoutes) {
-  await check(name, path, (r, body) => {
-    const isCrawlableRoute = path === '/' || path === '/about'
-    const hasRoot = body.includes('<div id="root"')
-    const hasExpectedFallback = path === '/'
-      ? body.includes('Test your internet speed with TEZZ CONNECT.') && body.includes('Download speed:')
-      : path === '/about'
-        ? body.includes('Understand your connection.') && body.includes('tezzconnect.contact@gmail.com')
-        : true
-    return r.status === 200 &&
-      r.headers.get('content-type')?.includes('text/html') &&
-      hasRoot &&
-      body.includes('/assets/') &&
-      hasExpectedFallback &&
-      (!isCrawlableRoute || body.includes('id="seo-fallback"'))
-  })
+  await check(name, path, (r, body) =>
+    r.status === 200 &&
+    r.headers.get('content-type')?.includes('text/html') &&
+    body.includes('<div id="root"') &&
+    body.includes('/assets/'))
+}
+
+for (const [name, path, expected] of [
+  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.'],
+  ['About crawler SEO fallback', '/about', 'Understand your connection.'],
+]) {
+  await check(name, path, (r, body) =>
+    r.status === 200 &&
+    body.includes('id="seo-fallback"') &&
+    body.includes(expected),
+    { headers: { 'user-agent': 'Googlebot' } })
+}
+
+for (const [name, path] of [['Home browser fallback hidden', '/'], ['About browser fallback hidden', '/about']]) {
+  await check(name, path, (r, body) =>
+    r.status === 200 && !body.includes('id="seo-fallback"'))
 }
 
 await check('API health and version', '/api/v1/health', (r, body) => {
