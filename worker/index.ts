@@ -120,6 +120,18 @@ const app: ExportedHandler<Env> = {
       })
     }
 
+
+    if (pathname === "/api/v1/network/public-ip") {
+      if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
+      const address = request.headers.get("CF-Connecting-IP")
+      if (!address) return json("The edge could not determine the public client address.", 503)
+      // Return the request address to the same browser request only. It is not persisted.
+      return new Response(request.method === "HEAD" ? null : JSON.stringify({ ok: true, ip: address }), {
+        status: 200,
+        headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" },
+      })
+    }
+
     if (pathname === "/api/v1/health") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
       return new Response(request.method === "HEAD" ? null : JSON.stringify({
