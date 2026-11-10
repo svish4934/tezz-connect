@@ -727,7 +727,9 @@ function App() {
           setUploadLiveSpeed(Number(mbps.toFixed(1)))
           appendSpeedSample(mbps)
         })
-        const payloadBytes = choosePayloadBytes(calibration)
+        // The Worker intentionally caps upload requests at 5 MB. Keep the
+        // adaptive download sizing, but never ask the upload endpoint for 10 MB.
+        const payloadBytes = Math.min(choosePayloadBytes(calibration), 5_000_000)
         setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB)`)
         const runs: number[] = []
         for (let run = 0; run < 2; run++) {
