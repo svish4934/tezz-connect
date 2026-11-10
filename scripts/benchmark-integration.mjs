@@ -198,7 +198,7 @@ process.stdout.write('\nSpeed-test transfer endpoint checks\n')
 // and avoid a Content-Length that would imply a fixed-size transfer.
 response = await call('/api/v1/speed/download?durationMs=1000&maxBytes=1000000')
 assert.equal(response.status, 200)
-assert.match(response.headers.get('content-type') ?? '', /application\\/octet-stream/)
+assert.match(response.headers.get('content-type') ?? '', /application\/octet-stream/)
 assert.equal(response.headers.get('content-length'), null)
 const downloadBytes = await response.arrayBuffer()
 assert.equal(downloadBytes.byteLength, 1_000_000)
