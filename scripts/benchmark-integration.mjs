@@ -204,6 +204,13 @@ const downloadBytes = await response.arrayBuffer()
 assert.equal(downloadBytes.byteLength, 1_000_000)
 process.stdout.write('PASS  streamed download response and byte cap\n')
 
+// Reject invalid duration and byte limits before any streaming response is created.
+response = await call('/api/v1/speed/download?durationMs=500&maxBytes=1000000')
+assert.equal((await expectJson(response, 400)).ok, false)
+response = await call('/api/v1/speed/download?durationMs=6000&maxBytes=26000000')
+assert.equal((await expectJson(response, 400)).ok, false)
+process.stdout.write('PASS  download duration and maximum-byte guardrails\\n')
+
 // Upload throughput is measured by the Worker while it consumes the request stream.
 const uploadPayload = new Uint8Array(1_000_000)
 for (let offset = 0; offset < uploadPayload.length; offset += 65_536) {
