@@ -70,7 +70,6 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
 
 async function measureDownload(durationMs: number, maxBytes: number, onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
   const url = `/api/v1/speed/download?durationMs=${durationMs}&maxBytes=${maxBytes}`
-  const started = performance.now()
   const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(durationMs + 15000) })
   const contentType = response.headers.get('content-type') ?? 'missing'
   if (!response.ok) throw new Error(`Download endpoint returned HTTP ${response.status} (${contentType})`)
@@ -79,6 +78,7 @@ async function measureDownload(durationMs: number, maxBytes: number, onSample: (
     throw new Error(`Download endpoint returned unexpected content type: ${contentType}. Response: ${preview || 'empty'}`)
   }
   if (!response.body) throw new Error('Streaming download is not supported by this browser')
+  const started = performance.now()
   const reader = response.body.getReader()
   let receivedBytes = 0
   while (true) {
