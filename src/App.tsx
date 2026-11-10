@@ -730,7 +730,11 @@ function App() {
         const payloadBytes = choosePayloadBytes(calibration)
         setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB, client-timed, server-confirmed)`)
         const runs: number[] = []
-        for (let run = 0; run < 2; run++) {
+        // Use a third independent sample for small mobile transfers, where the
+        // extra payload stays modest. Keep two samples for larger calibrated
+        // payloads to avoid excessive data use on fast connections.
+        const uploadSampleCount = payloadBytes <= 2_000_000 ? 3 : 2
+        for (let run = 0; run < uploadSampleCount; run++) {
           runs.push(await measureUpload(payloadBytes, (sentBytes, mbps) => {
             setUploadBytes(sentBytes)
             setUploadLiveSpeed(Number(mbps.toFixed(1)))
