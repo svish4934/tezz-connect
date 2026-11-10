@@ -277,6 +277,9 @@ function App() {
     document.title = titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools'
 
     const descriptions: Record<string, string> = {
+      'Internet Doctor': 'Investigate slow or unstable internet with practical connection checks. Review speed, response time, Wi-Fi and stability signals, then follow clear troubleshooting steps.',
+      Network: 'Explore free browser-based network tools to check connection status, HTTP response timing, stability and available network details, with plain-language explanations.',
+      'Global Network': 'Explore aggregate regional internet performance benchmarks from participating TEZZ CONNECT tests. See how opt-in samples are grouped and understand their limits.',
       About: 'Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.',
     }
     const description = descriptions[activeTab]
