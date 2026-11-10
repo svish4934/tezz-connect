@@ -27,5 +27,14 @@ jobs:
         run: npm run test:benchmarks:d1
       - name: Run Wrangler local D1 integration tests
         run: npm run test:benchmarks:wrangler
+      - name: Apply isolated preview D1 migrations
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 92 && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN; preview migration not run"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID; preview migration not run"; exit 1; }
+          npx wrangler d1 migrations apply tezz-connect-preview --remote
       - name: Build application
         run: npm run build
