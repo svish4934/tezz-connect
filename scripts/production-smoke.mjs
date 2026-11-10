@@ -86,7 +86,7 @@ await check('Sitemap XML', '/sitemap.xml', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('application/xml') && body.includes('<urlset') && body.includes('https://tezzconnect.online/') && ['/internet-doctor','/tools','/global-network'].every(path => body.includes(`https://tezzconnect.online${path}`)))
 
 await check('Internet Knowledge Hub index', '/guides/', (r, body) =>
-  r.status === 200 && body.includes('<title>Internet Knowledge Hub: Wi-Fi &amp; Speed | TEZZ CONNECT</title>') &&
+  r.status === 200 && body.includes('<title>Internet Knowledge Hub: Wi-Fi & Speed | TEZZ CONNECT</title>') &&
   body.includes('id="learning-paths"') && body.includes('id="hub-guide-list"') &&
   body.includes('/guides/internet-learning-roadmap/'))
 
