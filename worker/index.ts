@@ -318,11 +318,26 @@ const app: ExportedHandler<Env> = {
       if (request.method === "HEAD") return new Response(null, { status: 200, headers: { ...noStore, "Content-Type": "application/octet-stream" } })
       const startedAt = Date.now()
       let emittedBytes = 0
+      let closed = false
+      let durationTimer: ReturnType<typeof setTimeout> | undefined
       const randomChunk = new Uint8Array(65_536)
       crypto.getRandomValues(randomChunk)
       const body = new ReadableStream<Uint8Array>({
+        start(controller) {
+          // Close independently of pull(). Under network backpressure the browser
+          // may not request another chunk promptly; relying on pull() alone can
+          // leave fetch() waiting until its client-side timeout.
+          durationTimer = setTimeout(() => {
+            if (closed) return
+            closed = true
+            controller.close()
+          }, durationMs)
+        },
         pull(controller) {
+          if (closed) return
           if (Date.now() - startedAt >= durationMs || emittedBytes >= maxBytes) {
+            closed = true
+            if (durationTimer !== undefined) clearTimeout(durationTimer)
             controller.close()
             return
           }
@@ -330,6 +345,15 @@ const app: ExportedHandler<Env> = {
           const size = Math.min(randomChunk.byteLength, remaining)
           emittedBytes += size
           controller.enqueue(randomChunk.slice(0, size))
+          if (emittedBytes >= maxBytes) {
+            closed = true
+            if (durationTimer !== undefined) clearTimeout(durationTimer)
+            controller.close()
+          }
+        },
+        cancel() {
+          closed = true
+          if (durationTimer !== undefined) clearTimeout(durationTimer)
         },
       })
       return new Response(body, {
