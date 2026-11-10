@@ -37,18 +37,29 @@ for (const [name, path] of appRoutes) {
     body.includes('/assets/'))
 }
 
-for (const [name, path, expected] of [
-  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.'],
-  ['About crawler SEO fallback', '/about', 'Understand your connection.'],
+for (const [name, path, expected, title, canonical] of [
+  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT', 'https://tezzconnect.online/'],
+  ['About crawler SEO fallback', '/about', 'Understand your connection.', 'About TEZZ CONNECT | Internet Performance Tools', 'https://tezzconnect.online/about'],
+  ['Internet Doctor crawler SEO fallback', '/internet-doctor', 'Find out why your internet feels slow or unstable.', 'Internet Doctor – Diagnose Slow or Unstable Internet | TEZZ CONNECT', 'https://tezzconnect.online/internet-doctor'],
+  ['Network tools crawler SEO fallback', '/tools', 'Practical network tools to understand your connection.', 'Free Network Tools – Check Connection, Latency & Network Details | TEZZ CONNECT', 'https://tezzconnect.online/tools'],
+  ['Global Network crawler SEO fallback', '/global-network', 'Explore regional internet performance signals.', 'Global Network Benchmarks – Regional Internet Performance | TEZZ CONNECT', 'https://tezzconnect.online/global-network'],
 ]) {
   await check(name, path, (r, body) =>
     r.status === 200 &&
     body.includes('id="seo-fallback"') &&
-    body.includes(expected),
+    body.includes(expected) &&
+    body.includes(`<title>${title}</title>`) &&
+    body.includes(`href="${canonical}"`),
     { headers: { 'user-agent': 'Googlebot' } })
 }
 
-for (const [name, path] of [['Home browser fallback hidden', '/'], ['About browser fallback hidden', '/about']]) {
+for (const [name, path] of [
+  ['Home browser fallback hidden', '/'],
+  ['About browser fallback hidden', '/about'],
+  ['Internet Doctor browser fallback hidden', '/internet-doctor'],
+  ['Network tools browser fallback hidden', '/tools'],
+  ['Global Network browser fallback hidden', '/global-network'],
+]) {
   await check(name, path, (r, body) =>
     r.status === 200 && !body.includes('id="seo-fallback"'))
 }
