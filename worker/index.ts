@@ -92,8 +92,16 @@ const app: ExportedHandler<Env> = {
   <url><loc>https://tezzconnect.online/guides/internet-speed-for-gaming/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tezzconnect.online/guides/what-is-the-internet/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tezzconnect.online/guides/networking-buying-guides/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/connection-troubleshooter/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/home-network-planner/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/how-the-internet-works/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/interactive-network-lab/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/internet-learning-roadmap/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/networking-glossary/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/wifi-security-checkup/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tezzconnect.online/guides/wifi-signal-simulator/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
-`
+
       return new Response(request.method === "HEAD" ? null : body, {
         status: 200,
         headers: { ...noStore, "Content-Type": "application/xml; charset=utf-8" },
