@@ -6,20 +6,19 @@ type Ndt7Client = {
 
 function readMbps(event: any): number | null {
   const data = event?.Data ?? event?.data ?? event
+  // NDT7's client-side measurements report MeanClientToServerMbps or
+  // MeanServerToClientMbps depending on the direction of the test.
   const candidates = [
+    data?.MeanClientToServerMbps,
+    data?.MeanServerToClientMbps,
     data?.MeanThroughputMbps,
     data?.meanThroughputMbps,
     data?.ThroughputMbps,
-    data?.throughputMbps,
-    data?.TCPInfo?.BytesReceived
+    data?.throughputMbps
   ]
   for (const value of candidates) {
     const number = Number(value)
-    if (Number.isFinite(number) && number > 0) {
-      // BytesReceived is a counter, not a throughput measurement.
-      if (value === data?.TCPInfo?.BytesReceived) continue
-      return number
-    }
+    if (Number.isFinite(number) && number > 0) return number
   }
   return null
 }
@@ -75,6 +74,7 @@ export default function MlabIndependentTest() {
         error: (message: string) => setError(message || 'M-Lab could not complete the test.')
       })
       if (code !== 0) throw new Error(`M-Lab test ended with status ${code}.`)
+      if (download === null || upload === null) throw new Error('M-Lab completed without returning both throughput measurements. Please retry.')
       setPhase('Independent M-Lab test completed')
       setFinished(true)
     } catch (cause) {
