@@ -202,11 +202,13 @@ const unavailableDatabase = {
   },
 }
 const unavailableEnv = { ...env, BENCHMARKS_DB: unavailableDatabase }
-const writeFailure = await worker.fetch(new Request('https://tezz.test/api/v1/benchmarks/submit', {
+const writeFailureRequest = new Request('https://tezz.test/api/v1/benchmarks/submit', {
   method: 'POST',
   headers: { 'content-type': 'application/json' },
   body: payload(),
-}), unavailableEnv, {})
+})
+Object.defineProperty(writeFailureRequest, 'cf', { value: { country: 'US', region: 'California' } })
+const writeFailure = await worker.fetch(writeFailureRequest, unavailableEnv, {})
 assert.equal(writeFailure.status, 503)
 const readFailure = await worker.fetch(new Request('https://tezz.test/api/v1/benchmarks/summary'), unavailableEnv, {})
 assert.equal(readFailure.status, 503)
