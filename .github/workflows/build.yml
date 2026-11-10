@@ -35,6 +35,6 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN; preview migration not run"; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID; preview migration not run"; exit 1; }
-          npx wrangler d1 migrations apply tezz-connect-preview --remote
+          npx wrangler d1 migrations apply tezz-connect-preview --remote --config wrangler.preview-migrations.toml
       - name: Build application
         run: npm run build
