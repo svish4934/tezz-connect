@@ -419,7 +419,7 @@ const app: ExportedHandler<Env> = {
         #seo-fallback section p:last-child{margin-bottom:0}
         @media(max-width:720px){#seo-fallback{width:calc(100% - 32px);padding:28px 0 40px}#seo-fallback header{padding:24px 20px}#seo-fallback h1{font-size:34px}#seo-fallback header p:last-child{font-size:13px}#seo-fallback section{padding:18px 16px;margin:16px 0}#seo-fallback h2{font-size:17px}}
       `
-      return new HTMLRewriter()
+      const transformed = new HTMLRewriter()
         .on("head", { element(element) { if (isCrawler) element.append(`<style id="tezz-initial-fallback">${fallbackStyles}</style>`, { html: true }) } })
         .on("title", { element(element) { element.setInnerContent(title) } })
         .on('meta[name="description"]', { element(element) { element.setAttribute("content", description) } })
@@ -431,6 +431,15 @@ const app: ExportedHandler<Env> = {
         .on('meta[name="twitter:description"]', { element(element) { element.setAttribute("content", description) } })
         .on("#root", { element(element) { if (isCrawler) element.append(fallback, { html: true }) } })
         .transform(response)
+      // Crawler and browser responses differ by User-Agent. Prevent shared
+      // edge/browser caches from serving one variant to the other.
+      const headers = new Headers(transformed.headers)
+      headers.set("Cache-Control", "no-store")
+      return new Response(transformed.body, {
+        status: transformed.status,
+        statusText: transformed.statusText,
+        headers,
+      })
     }
 
     // The About route is a client-rendered SPA view. Set its SEO metadata at
