@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 type Ndt7Client = {
   test: (config: Record<string, unknown>, callbacks: Record<string, (event: any) => void>) => Promise<number> | number
@@ -32,6 +32,8 @@ export default function MlabIndependentTest() {
   const [upload, setUpload] = useState<number | null>(null)
   const [error, setError] = useState('')
   const [finished, setFinished] = useState(false)
+  const downloadRef = useRef<number | null>(null)
+  const uploadRef = useRef<number | null>(null)
 
   async function startTest() {
     if (!accepted || running) return
@@ -40,6 +42,8 @@ export default function MlabIndependentTest() {
     setError('')
     setDownload(null)
     setUpload(null)
+    downloadRef.current = null
+    uploadRef.current = null
     setServer('')
     setPhase('Loading the official NDT7 client…')
     try {
@@ -62,19 +66,19 @@ export default function MlabIndependentTest() {
         downloadStart: () => setPhase('Measuring download…'),
         downloadMeasurement: (event: any) => {
           const value = readMbps(event)
-          if (value !== null) setDownload(value)
+          if (value !== null) { downloadRef.current = value; setDownload(value) }
         },
         downloadComplete: () => setPhase('Download complete. Measuring upload…'),
         uploadStart: () => setPhase('Measuring upload…'),
         uploadMeasurement: (event: any) => {
           const value = readMbps(event)
-          if (value !== null) setUpload(value)
+          if (value !== null) { uploadRef.current = value; setUpload(value) }
         },
         uploadComplete: () => setPhase('Upload complete. Finalising results…'),
         error: (message: string) => setError(message || 'M-Lab could not complete the test.')
       })
       if (code !== 0) throw new Error(`M-Lab test ended with status ${code}.`)
-      if (download === null || upload === null) throw new Error('M-Lab completed without returning both throughput measurements. Please retry.')
+      if (downloadRef.current === null || uploadRef.current === null) throw new Error('M-Lab completed without returning both throughput measurements. Please retry.')
       setPhase('Independent M-Lab test completed')
       setFinished(true)
     } catch (cause) {
