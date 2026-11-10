@@ -51,6 +51,7 @@ for (const [name, path, expected, title, canonical] of [
     if (!body.includes(expected)) missing.push('expected page text missing')
     if (!body.includes(`<title>${title}</title>`)) missing.push('expected title missing')
     if (!body.includes(`href="${canonical}"`)) missing.push('expected canonical missing')
+    if (!(r.headers.get('cache-control') ?? '').includes('no-store')) missing.push('crawler response is cacheable')
     return missing.length ? `HTTP ${r.status}; ${missing.join(', ')}; content-type=${r.headers.get('content-type')}; body-start=${body.slice(0, 220).replace(/\\s+/g, ' ')}` : true
   }, { headers: { 'user-agent': 'Googlebot' } })
 }
