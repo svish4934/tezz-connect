@@ -276,6 +276,15 @@ function App() {
     }
     document.title = titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools'
 
+    const descriptions: Record<string, string> = {
+      About: 'Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.',
+    }
+    const description = descriptions[activeTab]
+    const descriptionMeta = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+    if (description && descriptionMeta) descriptionMeta.content = description
+    const ogDescription = document.querySelector<HTMLMetaElement>('meta[property="og:description"]')
+    if (description && ogDescription) ogDescription.content = description
+
     // Keep the canonical URL aligned with the SPA route instead of
     // inheriting the homepage canonical from the static HTML shell.
     const canonicalPath = tabToRoute[activeTab] ?? '/'

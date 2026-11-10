@@ -349,6 +349,47 @@ const app: ExportedHandler<Env> = {
     }
 
     const response = await env.ASSETS.fetch(request)
+
+    // The About route is a client-rendered SPA view. Set its SEO metadata at
+    // the edge as well, so crawlers receive the route-specific canonical and
+    // description in the initial HTML before React hydrates.
+    if ((url.pathname === "/about" || url.pathname === "/about/") &&
+        response.status === 200 &&
+        (response.headers.get("Content-Type") ?? "").includes("text/html")) {
+      return new HTMLRewriter()
+        .on("title", {
+          element(element) {
+            element.setInnerContent("About TEZZ CONNECT | Internet Performance Tools")
+          },
+        })
+        .on('link[rel="canonical"]', {
+          element(element) {
+            element.setAttribute("href", "https://tezzconnect.online/about")
+          },
+        })
+        .on('meta[name="description"]', {
+          element(element) {
+            element.setAttribute("content", "Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.")
+          },
+        })
+        .on('meta[property="og:title"]', {
+          element(element) {
+            element.setAttribute("content", "About TEZZ CONNECT | Internet Performance Tools")
+          },
+        })
+        .on('meta[property="og:description"]', {
+          element(element) {
+            element.setAttribute("content", "Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.")
+          },
+        })
+        .on('meta[property="og:url"]', {
+          element(element) {
+            element.setAttribute("content", "https://tezzconnect.online/about")
+          },
+        })
+        .transform(response)
+    }
+
     if (apiPath) {
       const headers = new Headers(response.headers)
       headers.set("X-API-Version", "v1")
