@@ -187,6 +187,110 @@ function loadHistory(): TestResult[] {
   }
 }
 
+
+type DnsAnswer = { name: string; type: number; TTL: number; data: string }
+function NetworkStarterTools() {
+  const [ip, setIp] = useState('')
+  const [ipStatus, setIpStatus] = useState('Not checked yet')
+  const [ipLoading, setIpLoading] = useState(false)
+  const [hostname, setHostname] = useState('')
+  const [recordType, setRecordType] = useState('A')
+  const [dnsAnswers, setDnsAnswers] = useState<DnsAnswer[]>([])
+  const [dnsStatus, setDnsStatus] = useState('')
+  const [dnsLoading, setDnsLoading] = useState(false)
+  const [symptom, setSymptom] = useState('slow')
+  const [room, setRoom] = useState('far')
+  const [wifiAdvice, setWifiAdvice] = useState(false)
+
+  async function checkPublicIp() {
+    setIpLoading(true); setIpStatus('Checking this connection…')
+    try {
+      const response = await fetch('/api/v1/network/public-ip', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
+      if (!response.ok) throw new Error('The IP check is temporarily unavailable.')
+      const data = await response.json() as { ok?: boolean; ip?: string }
+      if (!data.ok || !data.ip) throw new Error('The network edge did not return an IP address.')
+      setIp(data.ip); setIpStatus('Detected by the TEZZ network edge')
+    } catch (error) {
+      setIpStatus(error instanceof Error ? error.message : 'Could not check this connection.')
+    } finally { setIpLoading(false) }
+  }
+
+  async function lookupDns(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const cleanHost = hostname.trim().replace(/^https?:\/\//i, '').replace(/\/$/, '')
+    if (!/^(?=.{1,253}$)([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$/.test(cleanHost)) {
+      setDnsAnswers([]); setDnsStatus('Enter a valid domain name, such as example.com. Do not include a page path.'); return
+    }
+    setDnsLoading(true); setDnsAnswers([]); setDnsStatus('Querying Cloudflare DNS over HTTPS…')
+    try {
+      const query = new URL('https://cloudflare-dns.com/dns-query')
+      query.searchParams.set('name', cleanHost); query.searchParams.set('type', recordType)
+      const response = await fetch(query.toString(), { headers: { accept: 'application/dns-json' }, signal: AbortSignal.timeout(10000), cache: 'no-store' })
+      if (!response.ok) throw new Error('DNS resolver request failed. Try again shortly.')
+      const data = await response.json() as { Status?: number; Answer?: DnsAnswer[] }
+      if (data.Status === 3) { setDnsStatus('NXDOMAIN: the DNS resolver reports that this domain name does not exist.'); return }
+      const recordCodes: Record<string, number> = { A: 1, AAAA: 28, MX: 15, TXT: 16, CNAME: 5 }
+      const answers = (data.Answer ?? []).filter(item => item.type === recordCodes[recordType])
+      setDnsAnswers(answers)
+      setDnsStatus(answers.length ? answers.length + ' ' + recordType + ' record(s) returned by the resolver.' : 'No records of this type were returned. The domain may use another record type or have no published answer.')
+    } catch (error) { setDnsStatus(error instanceof Error ? error.message : 'DNS lookup could not be completed.') }
+    finally { setDnsLoading(false) }
+  }
+
+  const advice: Record<string, Record<string, string>> = {
+    slow: {
+      near: 'If the device is close to the router and still slow, compare a wired connection with Wi-Fi. Pause large downloads, restart the router once, then run TEZZ speed and latency tests again. If both wired and wireless are slow, ask your ISP to check the line.',
+      far: 'Distance and walls may be weakening the Wi-Fi link. Move the router into an open, central position, raise it off the floor and test from the same room. Consider an access point or mesh node only if the weak area remains.'
+    },
+    drops: {
+      near: 'Intermittent drops close to the router can point to router instability, interference or an ISP issue. Check whether every device disconnects at the same time, update router firmware using the manufacturer instructions, and record the times of disconnections.',
+      far: 'If drops happen mainly in distant rooms, treat coverage as the first suspect. Test in the router room, then in the affected room. If only the distant room fails, improve placement or add a properly connected access point.'
+    },
+    video: {
+      near: 'Video calls need stable upload as well as download. Pause cloud backups and uploads, check upload speed, and use Ethernet if possible. If calls fail across several devices, ask the ISP to investigate upstream quality.',
+      far: 'A weak Wi-Fi link can cause call freezes even when the broadband plan is fast. Move closer to the router, reduce obstacles and pause other household traffic. Compare call quality beside the router and in the usual room.'
+    },
+    gaming: {
+      near: 'For gaming, prioritise stable latency over headline download speed. Use Ethernet where possible, stop background downloads and check whether latency rises when someone else uploads. A router with effective SQM/QoS may help bufferbloat, but verify the cause first.',
+      far: 'Wireless interference and weak signal can create inconsistent game response. Test near the router, use the 5 GHz or 6 GHz band when signal is strong, and prefer Ethernet for competitive play.'
+    }
+  }
+  return <div className="starter-tools-stack">
+    <div className="starter-tools-heading"><span className="section-kicker">NEW · FREE NETWORK UTILITIES</span><h3>Three practical tools to get more from your connection.</h3><p>These checks run on demand. No account is required, and DNS queries are sent to Cloudflare's public DNS resolver.</p></div>
+    <div className="starter-tool-grid">
+      <article className="starter-tool-card">
+        <div className="starter-tool-icon"><Globe2 size={20}/></div><span className="section-kicker">TOOL 01</span><h3>My public IP address</h3>
+        <p>See the public IP address that your request presents to the TEZZ network edge. This is not your device's private Wi-Fi address.</p>
+        <div className="starter-result-value" aria-live="polite">{ip || 'Not checked'}</div><div className="starter-result-caption">{ipStatus}</div>
+        <button className="doctor-run-test" onClick={checkPublicIp} disabled={ipLoading}>{ipLoading ? 'Checking…' : ip ? 'Check again' : 'Detect my IP'} <span aria-hidden="true">→</span></button>
+        <small className="starter-privacy-note">Privacy: the edge already receives your IP to deliver this page. This endpoint returns it to your browser only; TEZZ does not save it in a database.</small>
+      </article>
+      <article className="starter-tool-card">
+        <div className="starter-tool-icon"><Search size={20}/></div><span className="section-kicker">TOOL 02</span><h3>DNS lookup</h3>
+        <p>Look up common DNS records to understand how a domain points to services on the internet.</p>
+        <form className="starter-dns-form" onSubmit={lookupDns}>
+          <label htmlFor="tezz-dns-domain">Domain name</label><input id="tezz-dns-domain" value={hostname} onChange={event=>setHostname(event.target.value)} placeholder="example.com" autoComplete="url"/>
+          <label htmlFor="tezz-dns-type">Record type</label><select id="tezz-dns-type" value={recordType} onChange={event=>setRecordType(event.target.value)}><option value="A">A · IPv4 address</option><option value="AAAA">AAAA · IPv6 address</option><option value="MX">MX · Mail server</option><option value="TXT">TXT · Text record</option><option value="CNAME">CNAME · Alias</option></select>
+          <button className="doctor-run-test" type="submit" disabled={dnsLoading}>{dnsLoading ? 'Looking up…' : 'Look up DNS'} <span aria-hidden="true">→</span></button>
+        </form>
+        <div className="starter-dns-output" aria-live="polite"><p>{dnsStatus || 'Enter a domain and choose a record type.'}</p>{dnsAnswers.map((answer,index)=><div className="starter-dns-answer" key={answer.name+answer.data+index}><strong>{answer.data}</strong><span>TTL {answer.TTL}s</span></div>)}</div>
+        <small className="starter-privacy-note">DNS query is sent to Cloudflare DNS over HTTPS. TXT records can contain verification data; avoid looking up domains you do not administer.</small>
+      </article>
+      <article className="starter-tool-card">
+        <div className="starter-tool-icon"><Wifi size={20}/></div><span className="section-kicker">TOOL 03</span><h3>Wi-Fi problem solver</h3>
+        <p>Choose what is going wrong and where it happens. Get a practical first troubleshooting sequence.</p>
+        <label htmlFor="tezz-wifi-symptom">What is the problem?</label>
+        <select id="tezz-wifi-symptom" value={symptom} onChange={event=>{setSymptom(event.target.value);setWifiAdvice(false)}}><option value="slow">Wi-Fi feels slow</option><option value="drops">Connection keeps dropping</option><option value="video">Video calls freeze</option><option value="gaming">Online games lag</option></select>
+        <label htmlFor="tezz-wifi-room">Where does it happen?</label>
+        <select id="tezz-wifi-room" value={room} onChange={event=>{setRoom(event.target.value);setWifiAdvice(false)}}><option value="far">Mostly far from the router</option><option value="near">Even beside the router</option></select>
+        <button className="doctor-run-test" onClick={()=>setWifiAdvice(true)}>Show my next steps <span aria-hidden="true">→</span></button>
+        {wifiAdvice && <div className="starter-wifi-advice" aria-live="polite"><strong>Your first troubleshooting steps</strong><p>{advice[symptom][room]}</p><a href="/guides/improve-wifi-speed/">Read the Wi-Fi improvement guide →</a></div>}
+        <small className="starter-privacy-note">This is a guided checklist, not a direct measurement of radio signal strength. Browsers do not expose reliable Wi-Fi signal or router diagnostics to ordinary websites.</small>
+      </article>
+    </div>
+  </div>
+}
+
 function App() {
   const [state, setState] = useState<TestState>('idle')
   const [progress, setProgress] = useState(0)
@@ -281,7 +385,7 @@ function App() {
 
     const descriptions: Record<string, string> = {
       'Internet Doctor': 'Investigate slow or unstable internet with practical connection checks. Review speed, response time, Wi-Fi and stability signals, then follow clear troubleshooting steps.',
-      Network: 'Explore free browser-based network tools to check connection status, HTTP response timing, stability and available network details, with plain-language explanations.',
+      Network: 'Free IP address lookup, DNS record checker, Wi-Fi troubleshooting and browser-based network diagnostics from TEZZ CONNECT.',
       'Global Network': 'Explore aggregate regional internet performance benchmarks from participating TEZZ CONNECT tests. See how opt-in samples are grouped and understand their limits.',
       About: 'Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.',
     }
@@ -985,6 +1089,7 @@ function App() {
               <div className="network-detail"><span>Browser-reported RTT</span><strong>{network.rtt}</strong></div>
               <div className="network-detail"><span>Data saver preference</span><strong>{network.supported ? (network.saveData ? 'Enabled' : 'Not requested') : 'Not available'}</strong></div>
             </div>
+            <NetworkStarterTools />
             <div className="latency-tool-card">
               <div className="latency-tool-heading"><div><span className="section-kicker">INDEPENDENT NETWORK TEST</span><h3>HTTP Latency &amp; Response Variation Test</h3><p>12 small HTTP requests to the TEZZ network edge. No large download or upload.</p></div><span className={latencyRunning ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
               <div className="latency-primary-result"><span>AVERAGE HTTP RESPONSE TIME</span><strong>{latencySamples.length ? (latencySamples.reduce((a,b)=>a+b,0)/latencySamples.length).toFixed(1) : '—'}<small> ms</small></strong><p>{latencyRunning ? `Measuring sample ${latencySamples.length + latencyFailures} of 12…` : latencyCompletedAt ? `Completed at ${latencyCompletedAt}` : 'Run the test to measure your response time.'}</p></div>
