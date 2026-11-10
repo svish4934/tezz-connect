@@ -49,14 +49,14 @@ The database retains legacy column names `jitter_count`, `jitter_sum_ms`, and `j
 - Public results describe participating TEZZ CONNECT tests only. They are not representative of every subscriber, all users in a region, or an ISP's entire network.
 - A contribution is not proof of one unique human or device. Repeated tests may contribute more than once.
 - Rate limiting is a basic abuse barrier, not identity verification.
-- The current implementation has no automated retention or hourly-row cleanup policy. D1 growth and retention should be reviewed before benchmark traffic scales materially.
+- Hourly aggregate rows are automatically deleted after 30 days by a daily Cloudflare Cron Trigger. The cleanup deletes only expired aggregate buckets; it does not affect the seven-day public reporting window.
 - The `benchmark_consent_totals` table exists in the initial migration but is not currently written to or queried by the Worker.
 
 ## Abuse controls and validation
 
-- General API limit: 180 requests per minute per source IP.
-- Transfer endpoint limit: 12 requests per minute per source IP.
-- Benchmark submission limit: 6 requests per minute per source IP.
+- General API limit: 600 requests per minute per source IP (Cloudflare rate-limit binding).
+- Transfer endpoint limit: 300 requests per minute per source IP (Cloudflare rate-limit binding).
+- Benchmark submission limit: 30 requests per minute per source IP (Cloudflare rate-limit binding).
 - Benchmark request body is limited to 2,048 characters and must be JSON.
 - The endpoint requires explicit consent and protocol version `v1`.
 - All four metrics must be finite numbers between 0 and 10,000. Download, upload, and latency must be greater than zero.
