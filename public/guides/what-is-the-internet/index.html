@@ -23,6 +23,33 @@
     gtag('js', new Date());
     gtag('config', 'G-SL6RDF7GHX');
   </script>
+
+<style>
+.network-explorer{margin:28px 0;padding:clamp(17px,3vw,25px);border:1px solid #d4e5ed;border-radius:18px;background:linear-gradient(145deg,#f0f8fb,#fff 72%)}
+.network-explorer h2{margin:5px 0 7px;font-size:clamp(22px,3vw,28px);line-height:1.25;color:#18324b}
+.network-explorer-intro{margin:0 0 17px;color:#60748a;font-size:14px;line-height:1.65}
+.network-explorer-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:13px;align-items:stretch}
+.network-part-list{display:grid;gap:7px}
+.network-part{display:flex;align-items:center;gap:11px;width:100%;min-height:60px;padding:9px 12px;border:1px solid #dce7ef;border-radius:11px;background:#fff;color:#244057;text-align:left;font:inherit;cursor:pointer}
+.network-part>span:first-child{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:#edf5f9;font-size:19px}
+.network-part strong,.network-part small{display:block}
+.network-part strong{font-size:13px;line-height:1.3}
+.network-part small{margin-top:2px;color:#718397;font-size:10px}
+.network-part:hover{border-color:#9fc6d8}
+.network-part.is-selected{border:2px solid #16809b;background:#eaf6f9;box-shadow:0 4px 13px rgba(22,128,155,.09)}
+.network-part:focus-visible{outline:3px solid #f0b84b;outline-offset:2px}
+.network-part-detail{min-width:0;padding:20px;border:1px solid #dce8f0;border-radius:13px;background:#fff}
+.network-detail-kicker{color:#16809b;font-size:10px;font-weight:900;letter-spacing:.12em}
+.network-part-detail h3{margin:8px 0;color:#1b3850;font-size:21px;line-height:1.25}
+.network-part-detail>p{margin:0;color:#536a7e;font-size:14px;line-height:1.7}
+.network-detail-row{display:grid;gap:5px;margin-top:17px;padding:12px;border-left:3px solid #1683a0;border-radius:0 9px 9px 0;background:#f1f7fa}
+.network-detail-row strong{color:#29445e;font-size:11px}
+.network-detail-row span{color:#5a7084;font-size:12px;line-height:1.6}
+.network-explorer-footnote{margin:12px 0 0;color:#748499;font-size:11px;line-height:1.55}
+@media(max-width:620px){.network-explorer-layout{grid-template-columns:1fr}.network-part-list{grid-template-columns:repeat(2,minmax(0,1fr))}.network-part{min-height:65px;padding:8px}.network-part>span:first-child{flex-basis:29px;width:29px;height:29px;font-size:17px}.network-part strong{font-size:11px}.network-part small{font-size:9px}.network-part-detail{padding:16px}}
+@media(max-width:360px){.network-part-list{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.network-part{transition:none}}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -51,6 +78,28 @@
 <p>The internet is not one giant computer in one building. It is made up of many networks run by different organisations. They work together so you can send a message, watch a video, make a payment or visit a website.</p>
 <p>One useful difference: the <strong>internet</strong> is the network itself. The <strong>web</strong> is the collection of websites and pages you open in a browser. Email, online games and video calls also use the internet, but they are not websites.</p>
 <figure class="guide-visual"><img src="/guides/what-is-the-internet/internet-request-journey.svg" alt="Diagram showing a phone connecting to a home router, internet provider and networks, then a website server returning page data." loading="lazy" decoding="async"><figcaption>A simplified look at how a website request travels from your device to a server and back. The real route can be different.</figcaption></figure>
+<section class="network-explorer" aria-labelledby="network-explorer-title">
+<div class="eyebrow">INTERACTIVE EXPLORER</div>
+<h2 id="network-explorer-title">Explore the parts of a connection</h2>
+<p class="network-explorer-intro">Choose a part of the journey. The explanation below changes to show what it does and what can go wrong.</p>
+<div class="network-explorer-layout">
+<div class="network-part-list" role="group" aria-label="Choose a network component">
+<button type="button" class="network-part is-selected" data-part="device" aria-pressed="true"><span aria-hidden="true">📱</span><span><strong>Your device</strong><small>Phone, laptop or TV</small></span></button>
+<button type="button" class="network-part" data-part="wifi" aria-pressed="false"><span aria-hidden="true">📶</span><span><strong>Wi-Fi / Ethernet</strong><small>Your local connection</small></span></button>
+<button type="button" class="network-part" data-part="router" aria-pressed="false"><span aria-hidden="true">📡</span><span><strong>Router</strong><small>Directs home traffic</small></span></button>
+<button type="button" class="network-part" data-part="provider" aria-pressed="false"><span aria-hidden="true">🌐</span><span><strong>Internet provider</strong><small>Connects networks</small></span></button>
+<button type="button" class="network-part" data-part="dns" aria-pressed="false"><span aria-hidden="true">📖</span><span><strong>DNS</strong><small>Finds the destination</small></span></button>
+<button type="button" class="network-part" data-part="server" aria-pressed="false"><span aria-hidden="true">🖥️</span><span><strong>Website server</strong><small>Returns page data</small></span></button>
+</div>
+<div class="network-part-detail" aria-live="polite" aria-atomic="true">
+<div class="network-detail-kicker" id="network-detail-kicker">START HERE</div>
+<h3 id="network-detail-title">Your device starts the request</h3>
+<p id="network-detail-description">Your phone or computer asks for a website when you type an address, tap a link or open an app.</p>
+<div class="network-detail-row"><strong>What can affect it?</strong><span id="network-detail-impact">An older device, busy background apps or an outdated browser can make pages feel slow even when the connection is fine.</span></div>
+</div>
+</div>
+<p class="network-explorer-footnote">This is a simplified learning model. DNS lookups can happen at different points, and real traffic may use caches or nearby content servers.</p>
+</section>
 <h2 id="journey">What happens when you open a website?</h2>
 <p>Imagine you type a website name into your browser and press Enter. A few things happen very quickly:</p>
 <ol>
@@ -98,4 +147,29 @@
 </article>
 </main>
 <footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/guides/">All guides</a> · <a href="/about">About</a></span></div></footer>
-<script>(()=>{const root=document.querySelector('.knowledge-check');if(!root)return;const button=root.querySelector('.quiz-check'),feedback=root.querySelector('.quiz-feedback');const correct=1,explanation="That's right. Wi-Fi is the wireless link between your devices and router. Your internet service is the connection from your home network to other networks.";button.addEventListener('click',()=>{const selected=root.querySelector('input[type="radio"]:checked');if(!selected){feedback.textContent='Choose an answer first, then check it.';feedback.className='quiz-feedback';return;}const ok=Number(selected.value)===correct;feedback.textContent=(ok?'Correct! ':'Not quite. ')+explanation;feedback.className='quiz-feedback '+(ok?'is-correct':'is-incorrect');});})();</script></body></html>
+<script>(()=>{const root=document.querySelector('.knowledge-check');if(!root)return;const button=root.querySelector('.quiz-check'),feedback=root.querySelector('.quiz-feedback');const correct=1,explanation="That's right. Wi-Fi is the wireless link between your devices and router. Your internet service is the connection from your home network to other networks.";button.addEventListener('click',()=>{const selected=root.querySelector('input[type="radio"]:checked');if(!selected){feedback.textContent='Choose an answer first, then check it.';feedback.className='quiz-feedback';return;}const ok=Number(selected.value)===correct;feedback.textContent=(ok?'Correct! ':'Not quite. ')+explanation;feedback.className='quiz-feedback '+(ok?'is-correct':'is-incorrect');});})();</script>
+<script>
+(()=> {
+ const root=document.querySelector('.network-explorer');
+ if(!root)return;
+ const parts={
+  device:{kicker:'START HERE',title:'Your device starts the request',description:'Your phone or computer asks for a website when you type an address, tap a link or open an app.',impact:'An older device, busy background apps or an outdated browser can make pages feel slow even when the connection is fine.'},
+  wifi:{kicker:'LOCAL CONNECTION',title:'Wi-Fi or Ethernet carries data to your router',description:'Wi-Fi sends data wirelessly through radio signals. Ethernet uses a cable. Both connect your device to your home network.',impact:'Distance, thick walls and radio interference can weaken Wi-Fi. A damaged cable or adapter can affect a wired connection.'},
+  router:{kicker:'HOME NETWORK',title:'The router directs traffic',description:'Your router connects devices in your home and forwards their data towards the internet. It also helps returning data reach the right device.',impact:'Poor router placement, old equipment, overloaded hardware or incorrect settings can affect the whole home network.'},
+  provider:{kicker:'NETWORK TO NETWORK',title:'Your provider links your home to other networks',description:'Your internet service provider carries traffic from your home connection into its network and towards the destination. The route can cross several operators.',impact:'Network congestion, line faults or an issue in the provider network can slow many websites and apps at once.'},
+  dns:{kicker:'NAME LOOKUP',title:'DNS helps find the website address',description:'The Domain Name System helps match a name such as example.com with the IP address used to reach the service. A saved answer may be reused, so a new lookup is not always needed.',impact:'A DNS problem can stop a name from resolving even when your internet connection itself is working.'},
+  server:{kicker:'DESTINATION',title:'The website service sends the page data',description:'The request reaches the website service. It returns the files and information your browser needs. A nearby cache or content delivery network may serve some files.',impact:'A busy or distant server, large page files or a slow service can make one website slow while other sites work normally.'}
+ };
+ const buttons=[...root.querySelectorAll('[data-part]')];
+ buttons.forEach(button=>button.addEventListener('click',()=>{
+  const item=parts[button.dataset.part];
+  if(!item)return;
+  buttons.forEach(other=>{const selected=other===button;other.classList.toggle('is-selected',selected);other.setAttribute('aria-pressed',String(selected));});
+  root.querySelector('#network-detail-kicker').textContent=item.kicker;
+  root.querySelector('#network-detail-title').textContent=item.title;
+  root.querySelector('#network-detail-description').textContent=item.description;
+  root.querySelector('#network-detail-impact').textContent=item.impact;
+ }));
+})();
+</script>
+</body></html>
