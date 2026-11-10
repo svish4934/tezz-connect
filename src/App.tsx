@@ -883,6 +883,12 @@ function App() {
               <article className="about-info-card" style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="section-kicker" style={{color:'#087F91'}}>PRIVACY & CONTROL</span><h3 style={{color:'#142B45'}}>Your test history stays on this device.</h3><p style={{color:'#53677D'}}>Saved speed, latency and stability history is stored in your browser. It is not synced between devices. Running a test sends measurement requests to TEZZ CONNECT so the service can return results.</p><p style={{color:'#53677D'}}>We do not need GPS or your street address to run the tools on this page.</p></article>
             </div>
             <div className="about-method-note" style={{background:'#E8F7F2',border:'1px solid #C5E8DB',color:'#365D53'}}><ShieldCheck size={18} style={{color:'#087F91'}}/><p style={{color:'#365D53'}}><strong style={{color:'#153E34'}}>Measurement note:</strong> latency and response variation are based on HTTP request/response timing to the TEZZ network edge, not ICMP ping. Public app checks test website endpoint reachability only; they do not verify sign-in, feeds, messages or in-app functionality.</p></div>
+            <div className="about-contact-card" style={{background:'#F0F7FC',border:'1px solid #D4E4EF',borderRadius:'18px',padding:'24px',margin:'24px 0',color:'#142B45'}}>
+              <span className="section-kicker" style={{color:'#087F91'}}>CONTACT US</span>
+              <h2 style={{color:'#142B45',margin:'8px 0'}}>We’d like to hear from you.</h2>
+              <p style={{color:'#53677D',margin:'0 0 14px'}}>Have a question, spotted an issue, or want to share an idea? Send the TEZZ CONNECT team a message.</p>
+              <a href="mailto:tezzconnect.contact@gmail.com" style={{color:'#087F91',fontWeight:700,textDecoration:'underline',overflowWrap:'anywhere'}}>tezzconnect.contact@gmail.com</a>
+            </div>
             <div className="about-cta"><div><span className="section-kicker">READY TO CHECK YOUR CONNECTION?</span><h2 style={{color:'#F7FBFF'}}>Start with a fresh speed test.</h2></div><button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 0) }}>Go to speed test <span aria-hidden="true">→</span></button></div>
           </section>}
           {activeTab === 'Global Network' && <section className="global-network-panel">
