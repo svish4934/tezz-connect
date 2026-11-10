@@ -206,7 +206,9 @@ process.stdout.write('PASS  streamed download response and byte cap\n')
 
 // Upload throughput is measured by the Worker while it consumes the request stream.
 const uploadPayload = new Uint8Array(1_000_000)
-crypto.getRandomValues(uploadPayload)
+for (let offset = 0; offset < uploadPayload.length; offset += 65_536) {
+  crypto.getRandomValues(uploadPayload.subarray(offset, Math.min(offset + 65_536, uploadPayload.length)))
+}
 const uploadRequest = new Request('https://tezz.test/api/v1/speed/upload?bytes=1000000', {
   method: 'POST',
   headers: { 'content-type': 'application/octet-stream' },
