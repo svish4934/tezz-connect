@@ -702,12 +702,19 @@ function App() {
       setProgress(24)
       setTestPhase('Calibrating download and selecting test size')
       try {
-        setTestPhase('Measuring sustained download throughput (up to 6 seconds / 25 MB)')
-        download = await measureDownload(6000, 25_000_000, (mbps, received) => {
-          setLiveSpeed(Number(mbps.toFixed(1)))
-          appendSpeedSample(mbps)
-          setDownloadBytes(received)
-        })
+        // Three short sustained samples; use the median to reduce one-off
+        // scheduling or radio fluctuations while keeping total transfer <=25 MB.
+        setTestPhase('Measuring 3 sustained download samples (up to 7.5 seconds / 25 MB total)')
+        const downloadRuns: number[] = []
+        const sampleMaxBytes = 8_333_333
+        for (let run = 0; run < 3; run++) {
+          downloadRuns.push(await measureDownload(2500, sampleMaxBytes, (mbps, received) => {
+            setLiveSpeed(Number(mbps.toFixed(1)))
+            appendSpeedSample(mbps)
+            setDownloadBytes(received)
+          }))
+        }
+        download = median(downloadRuns)
       } catch (error) {
         transferErrors.push(`Download: ${error instanceof Error ? error.message : 'transfer failed'}`)
       }
