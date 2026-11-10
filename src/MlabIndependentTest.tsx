@@ -9,6 +9,7 @@ function readMbps(event: any): number | null {
   // NDT7's client-side measurements report MeanClientToServerMbps or
   // MeanServerToClientMbps depending on the direction of the test.
   const candidates = [
+    data?.MeanClientMbps,
     data?.MeanClientToServerMbps,
     data?.MeanServerToClientMbps,
     data?.MeanThroughputMbps,
