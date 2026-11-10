@@ -11,7 +11,7 @@ migrations_dir = "./migrations"
 [assets]
 directory = "./dist"
 binding = "ASSETS"
-run_worker_first = ["/robots.txt", "/sitemap.xml", "/api/*"]
+run_worker_first = ["/robots.txt", "/sitemap.xml", "/api/*", "/about", "/about/"]
 not_found_handling = "single-page-application"
 
 [[ratelimits]]
