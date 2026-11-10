@@ -318,6 +318,8 @@ const app: ExportedHandler<Env> = {
       if (request.method === "HEAD") return new Response(null, { status: 200, headers: { ...noStore, "Content-Type": "application/octet-stream" } })
       const startedAt = Date.now()
       let emittedBytes = 0
+      const randomChunk = new Uint8Array(65_536)
+      crypto.getRandomValues(randomChunk)
       const body = new ReadableStream<Uint8Array>({
         pull(controller) {
           if (Date.now() - startedAt >= durationMs || emittedBytes >= maxBytes) {
@@ -325,10 +327,9 @@ const app: ExportedHandler<Env> = {
             return
           }
           const remaining = maxBytes - emittedBytes
-          const chunk = new Uint8Array(Math.min(65_536, remaining))
-          crypto.getRandomValues(chunk)
-          emittedBytes += chunk.byteLength
-          controller.enqueue(chunk)
+          const size = Math.min(randomChunk.byteLength, remaining)
+          emittedBytes += size
+          controller.enqueue(randomChunk.slice(0, size))
         },
       })
       return new Response(body, {
