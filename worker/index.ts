@@ -419,6 +419,23 @@ const app: ExportedHandler<Env> = {
         #seo-fallback section p:last-child{margin-bottom:0}
         @media(max-width:720px){#seo-fallback{width:calc(100% - 32px);padding:28px 0 40px}#seo-fallback header{padding:24px 20px}#seo-fallback h1{font-size:34px}#seo-fallback header p:last-child{font-size:13px}#seo-fallback section{padding:18px 16px;margin:16px 0}#seo-fallback h2{font-size:17px}}
       `
+      if (isCrawler) {
+        // Serve a complete crawlable document instead of mutating the static SPA shell.
+        const html = '<!doctype html>\n<html lang="en">\n<head>\n' +
+          '  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n' +
+          '  <meta name="theme-color" content="#090f1f" />\n  <title>' + title + '</title>\n' +
+          '  <meta name="description" content="' + description + '" />\n  <link rel="canonical" href="' + canonical + '" />\n' +
+          '  <meta property="og:type" content="website" />\n  <meta property="og:title" content="' + title + '" />\n' +
+          '  <meta property="og:description" content="' + description + '" />\n  <meta property="og:url" content="' + canonical + '" />\n' +
+          '  <meta name="twitter:card" content="summary" />\n  <meta name="twitter:title" content="' + title + '" />\n' +
+          '  <meta name="twitter:description" content="' + description + '" />\n  <style>' + fallbackStyles + '</style>\n' +
+          '</head>\n<body>' + fallback + '</body>\n</html>'
+        return new Response(html, { status: 200, headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+        } })
+      }
       const transformed = new HTMLRewriter()
         .on("head", { element(element) { if (isCrawler) element.append(`<style id="tezz-initial-fallback">${fallbackStyles}</style>`, { html: true }) } })
         .on("title", { element(element) { element.setInnerContent(title) } })
