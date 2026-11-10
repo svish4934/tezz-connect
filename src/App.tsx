@@ -13,7 +13,6 @@ type ServiceResult = { name: string; status: 'Checking' | 'Responding' | 'Could 
 const services = [{ name: 'Facebook', url: 'https://www.facebook.com/', icon: 'https://cdn.simpleicons.org/facebook/1877F2' }, { name: 'Instagram', url: 'https://www.instagram.com/', icon: 'https://cdn.simpleicons.org/instagram/E4405F' }, { name: 'YouTube', url: 'https://www.youtube.com/', icon: 'https://cdn.simpleicons.org/youtube/FF0033' }, { name: 'WhatsApp', url: 'https://www.whatsapp.com/', icon: 'https://cdn.simpleicons.org/whatsapp/25D366' }, { name: 'Netflix', url: 'https://www.netflix.com/', icon: 'https://cdn.simpleicons.org/netflix/E50914' }, { name: 'Google', url: 'https://www.google.com/', icon: 'https://cdn.simpleicons.org/google/4285F4' }, { name: 'X', url: 'https://x.com/', icon: 'https://cdn.simpleicons.org/x/000000' }, { name: 'TikTok', url: 'https://www.tiktok.com/', icon: 'https://cdn.simpleicons.org/tiktok/000000' }]
 
 const BASELINE_BYTES = 1_000_000
-const downloadUrl = (bytes: number) => `/api/v1/speed/download?bytes=${bytes}`
 const uploadUrl = (bytes: number) => `/api/v1/speed/upload?bytes=${bytes}`
 
 function percentile(values: number[], fraction: number): number {
@@ -119,6 +118,7 @@ async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps
       }
       const result = request.response as { ok?: boolean; receivedBytes?: number; elapsedMs?: number; mbps?: number } | null
       if (!result || result.ok !== true || result.receivedBytes !== bytes ||
+          typeof result.elapsedMs !== 'number' || !Number.isFinite(result.elapsedMs) || result.elapsedMs <= 0 ||
           typeof result.mbps !== 'number' || !Number.isFinite(result.mbps) || result.mbps <= 0) {
         reject(new Error('Upload endpoint did not return a valid server-side measurement'))
         return
@@ -795,8 +795,8 @@ function App() {
             <div className="tezz-hero-copy">
               <span className="tezz-pill">INTERNET SPEED TEST</span>
               <h1>Free Internet <em>Speed Test</em></h1>
-              <p>Check download, upload, ping and network stability in seconds.</p>
-              <ul><li><CheckCircle2 size={17}/> Adaptive 1–5 MB transfer tests</li><li><CheckCircle2 size={17}/> HTTP latency, response variation & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
+              <p>Check download, upload, HTTP latency and response variation in seconds.</p>
+              <ul><li><CheckCircle2 size={17}/> Sustained streaming download · server-timed upload</li><li><CheckCircle2 size={17}/> HTTP latency, response variation & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
@@ -817,10 +817,10 @@ function App() {
                 </div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?'TEST IN PROGRESS':'START SPEED TEST'}</button>
-              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} / 1 MB · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} / 1 MB</strong>:null}</div>}
+              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} MB sent · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} MB received</strong>:null}</div>}
               {state==='error'&&<div className="tezz-live-progress error-note" role="alert">{testError || 'The test could not complete. Please try again.'}</div>}
             </div>
-            <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, ping and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
+            <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>Internet Connection Health Check</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, HTTP latency and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
             <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 500" preserveAspectRatio="none"><defs><linearGradient id="tezz-signal-blue"><stop stopColor="#58b8ff" stopOpacity=".02"/><stop offset=".5" stopColor="#1686ed" stopOpacity=".8"/><stop offset="1" stopColor="#65d9ee" stopOpacity=".05"/></linearGradient><linearGradient id="tezz-signal-cyan"><stop stopColor="#64d8e8" stopOpacity=".02"/><stop offset=".55" stopColor="#36b8df" stopOpacity=".7"/><stop offset="1" stopColor="#1686ed" stopOpacity=".04"/></linearGradient></defs><path className="signal-wave signal-wave-back" d="M-30 78 C90 18 170 142 300 78 S510 18 640 78 S850 142 1030 72"/><path className="signal-wave signal-wave-mid" d="M-30 145 C100 82 185 210 320 145 S530 82 665 145 S875 210 1030 138"/><path className="signal-wave signal-wave-front" d="M-30 215 C100 150 195 278 330 212 S540 150 680 215 S880 280 1030 208"/><path className="signal-wave signal-wave-back" d="M-30 285 C100 220 195 350 330 284 S540 220 680 285 S880 350 1030 278"/><path className="signal-wave signal-wave-mid" d="M-30 355 C100 292 195 420 330 354 S540 292 680 355 S880 420 1030 348"/><path className="signal-wave signal-wave-front" d="M-30 425 C100 362 195 490 330 424 S540 362 680 425 S880 490 1030 418"/></svg></div>
           </section>
           <section className="benchmark-consent-panel" aria-label="Global benchmark sharing">
@@ -1091,8 +1091,8 @@ function App() {
 
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
-            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Adaptive · up to 5 MB each</strong></div></div>
-            <p className="report-note">This report combines adaptive download and upload throughput measurements (1–5 MB per transfer), median browser HTTP response-time samples, mean absolute difference between consecutive HTTP response-time samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Download up to 25 MB · upload up to 10 MB per run</strong></div></div>
+            <p className="report-note">This report combines streamed download throughput (up to 25 MB or 6 seconds) and server-timed upload throughput (up to 10 MB per transfer), median browser HTTP response-time samples, mean absolute difference between consecutive HTTP response-time samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
