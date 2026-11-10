@@ -54,6 +54,8 @@ export default function MlabIndependentTest() {
       if (!client || typeof client.test !== 'function') throw new Error('The M-Lab NDT7 client could not be loaded.')
       const code = await client.test({
         protocol: 'wss',
+        downloadworkerfile: '/ndt7-download-worker.js',
+        uploadworkerfile: '/ndt7-upload-worker.js',
         userAcceptedDataPolicy: true,
         metadata: { client_name: 'TEZZ CONNECT', client_version: '1.0.0' }
       }, {
