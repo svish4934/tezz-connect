@@ -69,7 +69,7 @@ async function measurePing(): Promise<{ ping: number; jitter: number }> {
 
 async function measureDownload(durationMs: number, maxBytes: number, onSample: (mbps: number, receivedBytes: number) => void): Promise<number> {
   const url = `/api/v1/speed/download?durationMs=${durationMs}&maxBytes=${maxBytes}`
-  const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(durationMs + 15000) })
+  const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(Math.max(durationMs + 45000, 60000)) })
   const contentType = response.headers.get('content-type') ?? 'missing'
   if (!response.ok) throw new Error(`Download endpoint returned HTTP ${response.status} (${contentType})`)
   if (!contentType.toLowerCase().includes('application/octet-stream')) {
