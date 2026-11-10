@@ -83,7 +83,25 @@ await check('Upload accepts exact payload', '/api/v1/speed/upload?bytes=65536', 
 await check('Upload rejects size mismatch', '/api/v1/speed/upload?bytes=65536', r => r.status === 400,
   { method: 'POST', headers: { 'content-type': 'application/octet-stream' }, body: new Uint8Array(1024) })
 await check('Sitemap XML', '/sitemap.xml', (r, body) =>
-  r.status === 200 && r.headers.get('content-type')?.includes('application/xml') && body.includes('<urlset') && body.includes('https://tezzconnect.online/'))
+  r.status === 200 && r.headers.get('content-type')?.includes('application/xml') && body.includes('<urlset') && body.includes('https://tezzconnect.online/') && ['/internet-doctor','/tools','/global-network'].every(path => body.includes(`https://tezzconnect.online${path}`)))
+
+await check('Internet Knowledge Hub index', '/guides/', (r, body) =>
+  r.status === 200 && body.includes('<title>Internet Knowledge Hub: Wi-Fi &amp; Speed | TEZZ CONNECT</title>') &&
+  body.includes('id="learning-paths"') && body.includes('id="hub-guide-list"') &&
+  body.includes('/guides/internet-learning-roadmap/'))
+
+for (const slug of [
+  'connection-troubleshooter', 'home-network-planner', 'how-the-internet-works',
+  'improve-wifi-speed', 'interactive-network-lab', 'internet-learning-roadmap',
+  'internet-speed-explained', 'internet-speed-for-gaming', 'latency-and-jitter',
+  'networking-buying-guides', 'networking-glossary', 'upload-speed-explained',
+  'what-is-the-internet', 'wifi-security-checkup', 'wifi-signal-simulator',
+]) {
+  await check(`Guide metadata and breadcrumb: ${slug}`, `/guides/${slug}/`, (r, body) =>
+    r.status === 200 && body.includes('<title>') && body.includes('rel="canonical"') &&
+    body.includes('"@type":"BreadcrumbList"') && body.includes('https://tezzconnect.online/guides/'))
+}
+
 await check('Robots policy', '/robots.txt', (r, body) =>
   r.status === 200 && r.headers.get('content-type')?.includes('text/plain') && body.includes('Sitemap: https://tezzconnect.online/sitemap.xml'))
 
