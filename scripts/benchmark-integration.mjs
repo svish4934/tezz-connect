@@ -192,6 +192,26 @@ assert.ok(!JSON.stringify(database.rows).includes('203.0.113.10'))
 assert.ok(rateLimitCalls.length >= 60)
 process.stdout.write('PASS  opt-in aggregate writes, arithmetic, and 30-sample cohort suppression\n')
 
+const unavailableDatabase = {
+  prepare() {
+    return {
+      bind() { return this },
+      run: async () => { throw new Error('simulated D1 write failure') },
+      all: async () => { throw new Error('simulated D1 read failure') },
+    }
+  },
+}
+const unavailableEnv = { ...env, BENCHMARKS_DB: unavailableDatabase }
+const writeFailure = await worker.fetch(new Request('https://tezz.test/api/v1/benchmarks/submit', {
+  method: 'POST',
+  headers: { 'content-type': 'application/json' },
+  body: payload(),
+}), unavailableEnv, {})
+assert.equal(writeFailure.status, 503)
+const readFailure = await worker.fetch(new Request('https://tezz.test/api/v1/benchmarks/summary'), unavailableEnv, {})
+assert.equal(readFailure.status, 503)
+process.stdout.write('PASS  graceful 503 responses when benchmark D1 reads or writes fail\\n')
+
 process.stdout.write('\nSpeed-test transfer endpoint checks\n')
 
 // The download endpoint must stream binary data, enforce its configured byte cap,
