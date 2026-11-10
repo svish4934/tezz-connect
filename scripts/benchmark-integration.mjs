@@ -264,3 +264,25 @@ assert.equal((await expectJson(response, 400)).ok, false)
 process.stdout.write('PASS  upload byte-count validation\n')
 
 process.stdout.write('\nAll benchmark and speed-test handler integration checks passed (in-memory D1 contract).\n')
+
+// Scheduled retention must delete only expired hourly aggregate rows.
+let cleanupSql = ''
+let cleanupCutoff = ''
+let cleanupRuns = 0
+const retentionDb = {
+  prepare(sql) {
+    cleanupSql = sql
+    return {
+      bind(cutoff) { cleanupCutoff = cutoff; return this },
+      async run() { cleanupRuns += 1; return { success: true } },
+    }
+  },
+}
+const cleanupStartedAt = Date.now()
+await worker.scheduled({}, { ...env, BENCHMARKS_DB: retentionDb }, {})
+const cleanupAgeMs = cleanupStartedAt - Date.parse(cleanupCutoff)
+assert.match(cleanupSql, /^DELETE FROM benchmark_hourly WHERE bucket_start < \?$/)
+assert.equal(cleanupRuns, 1)
+assert.ok(cleanupAgeMs >= 30 * 24 * 60 * 60 * 1000 - 1000)
+assert.ok(cleanupAgeMs <= 30 * 24 * 60 * 60 * 1000 + 1000)
+process.stdout.write('PASS  scheduled 30-day aggregate retention cleanup\n')
