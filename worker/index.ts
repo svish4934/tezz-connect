@@ -350,6 +350,33 @@ const app: ExportedHandler<Env> = {
 
     const response = await env.ASSETS.fetch(request)
 
+    // Provide meaningful crawlable HTML for the two SPA routes flagged by the
+    // SEO audit. React replaces these fallback children when the app hydrates.
+    if (response.status === 200 &&
+        (response.headers.get("Content-Type") ?? "").includes("text/html") &&
+        (url.pathname === "/" || url.pathname === "/about" || url.pathname === "/about/")) {
+      const isAbout = url.pathname !== "/"
+      const title = isAbout
+        ? "About TEZZ CONNECT | Internet Performance Tools"
+        : "Free Internet Speed Test – Download, Upload, Ping & Jitter | TEZZ CONNECT"
+      const description = isAbout
+        ? "Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions."
+        : "Run a free internet speed test with TEZZ CONNECT. Check download and upload speed, HTTP response time and network stability for streaming, gaming and video calls."
+      const canonical = isAbout ? "https://tezzconnect.online/about" : "https://tezzconnect.online/"
+      const fallback = isAbout
+        ? `<main id="seo-fallback"><header><p>ABOUT TEZZ CONNECT</p><h1>Understand your connection.</h1><p>TEZZ CONNECT is a free, browser-based toolkit that helps you measure internet performance, understand network behaviour and make more informed connectivity decisions.</p></header><section><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p><h3>Measure performance</h3><p>Run download and upload throughput tests, plus browser-based HTTP response-time and variation estimates.</p><h3>Understand connection issues</h3><p>Explore practical recommendations for common causes such as congestion, weak Wi-Fi conditions and competing network traffic.</p><h3>Explore your network</h3><p>Review available network-edge information, connection signals and public website endpoint checks.</p></section><section><h2>Built in India. Connecting the world.</h2><p>TEZZ CONNECT is an independent digital platform built for people who want clearer information about their internet connection.</p></section><section><h2>How measurements work</h2><p>Speed tests run in your browser against TEZZ CONNECT endpoints. Latency and response variation use HTTP request and response timing to our network edge; they are not ICMP ping measurements.</p></section><section><h2>Privacy and control</h2><p>Local test history stays in your browser. Regional benchmark contributions are optional and require your consent. The tools do not need your GPS location or street address.</p></section><section><h2>Contact us</h2><p>Questions, issues or ideas? Email <a href="mailto:tezzconnect.contact@gmail.com">tezzconnect.contact@gmail.com</a>.</p></section><p><a href="/">Start a speed test</a></p></main>`
+        : `<main id="seo-fallback"><header><p>FREE INTERNET PERFORMANCE TOOLS</p><h1>Test your internet speed with TEZZ CONNECT.</h1><p>Measure download speed, upload speed and browser-based response time. Understand connection stability and learn what your results mean.</p></header><section><h2>Check the performance of your connection</h2><p>Run a free browser-based speed test and review practical measurements for everyday internet use.</p><ul><li><strong>Download speed:</strong> see how quickly data reaches your device.</li><li><strong>Upload speed:</strong> check how quickly your device sends data.</li><li><strong>Response time and variation:</strong> understand how quickly the TEZZ CONNECT edge responds to browser requests.</li><li><strong>Connection guidance:</strong> explore common network issues and practical troubleshooting steps.</li></ul></section><section><h2>Tools to understand your internet</h2><p>Use Internet Doctor, network tools, connection history and learning guides to investigate performance beyond a single speed result.</p><p><a href="/internet-doctor">Internet Doctor</a> · <a href="/tools">Network tools</a> · <a href="/global-network">Global Network</a> · <a href="/guides/">Learning guides</a> · <a href="/about">About TEZZ CONNECT</a></p></section><section><h2>Measurements, not promises</h2><p>Results are estimates from your browser to TEZZ CONNECT network endpoints. They can vary with Wi-Fi conditions, device performance, browser activity, network congestion and the route to our edge.</p></section><p><a href="/about">Learn more about TEZZ CONNECT</a></p></main>`
+      return new HTMLRewriter()
+        .on("title", { element(element) { element.setInnerContent(title) } })
+        .on('meta[name="description"]', { element(element) { element.setAttribute("content", description) } })
+        .on('link[rel="canonical"]', { element(element) { element.setAttribute("href", canonical) } })
+        .on('meta[property="og:title"]', { element(element) { element.setAttribute("content", title) } })
+        .on('meta[property="og:description"]', { element(element) { element.setAttribute("content", description) } })
+        .on('meta[property="og:url"]', { element(element) { element.setAttribute("content", canonical) } })
+        .on("#root", { element(element) { element.append(fallback, { html: true }) } })
+        .transform(response)
+    }
+
     // The About route is a client-rendered SPA view. Set its SEO metadata at
     // the edge as well, so crawlers receive the route-specific canonical and
     // description in the initial HTML before React hydrates.
