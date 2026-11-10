@@ -779,26 +779,26 @@ function App() {
         <header className="tezz-header">
           <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
           <nav className="tezz-nav">
-            <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => navigateTo('Overview')}><Home size={15}/> Home</button>
-            <button onClick={() => { navigateTo('Overview'); document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior:'smooth' }) }}>Speed Test</button>
-            <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => navigateTo('Internet Doctor')}>Internet Doctor</button>
-            <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => navigateTo('Network')}>Tools⌄</button>
-            <button className={activeTab === 'Global Network' ? 'selected' : ''} onClick={() => { navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</button>
-            <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => navigateTo('History')}>History</button>
-            <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => navigateTo('Report')}>Report</button>
-            <button className={activeTab === 'About' ? 'selected' : ''} onClick={() => navigateTo('About')}>About</button>
+            <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}><Home size={15}/> Home</a>
+            <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>Free Speed Test</a>
+            <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>Internet Doctor</a>
+            <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>Network Tools</a>
+            <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</a>
+            <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>Test History</a>
+            <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>Performance Report</a>
+            <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>About TEZZ CONNECT</a>
           </nav>
-          <div className="tezz-header-actions"><button aria-label="Open network tools" title="Network tools" onClick={() => navigateTo('Network')}><Search size={18}/></button><button className="tezz-menu" aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕ Close' : '☰ Menu'}</button></div>
+          <div className="tezz-header-actions"><a className="tezz-header-search" aria-label="Explore network tools" title="Explore network tools" href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}><Search size={18}/></a><button className="tezz-menu" aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕ Close' : '☰ Menu'}</button></div>
         </header>
         {mobileMenuOpen && <nav className="tezz-mobile-nav" id="tezz-mobile-nav" aria-label="Mobile navigation">
-          <button className={activeTab === 'Overview' ? 'selected' : ''} onClick={() => navigateTo('Overview')}>Home</button>
-          <button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>Speed Test</button>
-          <button className={activeTab === 'Internet Doctor' ? 'selected' : ''} onClick={() => navigateTo('Internet Doctor')}>Internet Doctor</button>
-          <button className={activeTab === 'Network' ? 'selected' : ''} onClick={() => navigateTo('Network')}>Network Tools</button>
-          <button className={activeTab === 'Global Network' ? 'selected' : ''} onClick={() => { navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</button>
-          <button className={activeTab === 'History' ? 'selected' : ''} onClick={() => navigateTo('History')}>History</button>
-          <button className={activeTab === 'Report' ? 'selected' : ''} onClick={() => navigateTo('Report')}>Performance Report</button>
-          <button className={activeTab === 'About' ? 'selected' : ''} onClick={() => navigateTo('About')}>About TEZZ CONNECT</button>
+          <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}>Home</a>
+          <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>Free Internet Speed Test</a>
+          <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>Internet Doctor</a>
+          <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>Network Tools</a>
+          <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</a>
+          <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>Test History</a>
+          <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>Performance Report</a>
+          <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>About TEZZ CONNECT</a>
         </nav>}
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
