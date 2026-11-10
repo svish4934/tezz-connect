@@ -101,10 +101,14 @@ async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps
   const started = performance.now()
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
+    let uploadCompletedAt: number | null = null
     request.open('POST', uploadUrl(bytes))
     request.timeout = 90000
     request.responseType = 'json'
     request.setRequestHeader('Content-Type', 'application/octet-stream')
+    request.upload.onload = () => {
+      uploadCompletedAt = performance.now()
+    }
     request.upload.onprogress = event => {
       const sentBytes = Math.min(event.loaded, bytes)
       const seconds = Math.max((performance.now() - started) / 1000, 0.001)
@@ -119,11 +123,14 @@ async function measureUpload(bytes: number, onProgress: (sentBytes: number, mbps
       const result = request.response as { ok?: boolean; receivedBytes?: number; elapsedMs?: number; mbps?: number } | null
       if (!result || result.ok !== true || result.receivedBytes !== bytes ||
           typeof result.elapsedMs !== 'number' || !Number.isFinite(result.elapsedMs) || result.elapsedMs <= 0 ||
-          typeof result.mbps !== 'number' || !Number.isFinite(result.mbps) || result.mbps <= 0) {
-        reject(new Error('Upload endpoint did not return a valid server-side measurement'))
+          uploadCompletedAt === null || uploadCompletedAt <= started) {
+        reject(new Error('Upload endpoint did not confirm the complete payload transfer'))
         return
       }
-      resolve(result.mbps)
+      // Use the browser's upload-complete event for throughput. Worker read time
+      // is useful for diagnostics but can exclude bytes buffered before the Worker reads.
+      const elapsedSeconds = Math.max((uploadCompletedAt - started) / 1000, 0.001)
+      resolve((bytes * 8) / elapsedSeconds / 1_000_000)
     }
     request.onerror = () => reject(new Error('Upload test network error'))
     request.ontimeout = () => reject(new Error('Upload test timed out after 90 seconds'))
@@ -714,7 +721,7 @@ function App() {
           appendSpeedSample(mbps)
         })
         const payloadBytes = choosePayloadBytes(calibration)
-        setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB, server-confirmed)`)
+        setTestPhase(`Measuring upload throughput (${payloadBytes / 1_000_000} MB, client-timed, server-confirmed)`)
         const runs: number[] = []
         for (let run = 0; run < 2; run++) {
           runs.push(await measureUpload(payloadBytes, (sentBytes, mbps) => {
@@ -796,7 +803,7 @@ function App() {
               <span className="tezz-pill">INTERNET SPEED TEST</span>
               <h1>Free Internet <em>Speed Test</em></h1>
               <p>Check download, upload, HTTP latency and response variation in seconds.</p>
-              <ul><li><CheckCircle2 size={17}/> Sustained streaming download · server-timed upload</li><li><CheckCircle2 size={17}/> HTTP latency, response variation & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
+              <ul><li><CheckCircle2 size={17}/> Sustained streaming download · client-timed, server-confirmed upload</li><li><CheckCircle2 size={17}/> HTTP latency, response variation & stability</li><li><CheckCircle2 size={17}/> Gaming & streaming readiness</li><li><CheckCircle2 size={17}/> Free, instant results</li></ul>
             </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <div className="tezz-digital-meter" aria-live="polite">
@@ -1092,7 +1099,7 @@ function App() {
           {state === 'complete' && result && <section className="report-panel">
             <div className="report-heading"><div><div className="section-kicker">YOUR CONNECTION REPORT</div><h2>Internet health summary</h2><p>Completed {new Date(result.date).toLocaleString()}</p></div><button className="report-copy" onClick={copyReport}><ClipboardCopy size={15}/> Copy report</button></div>
             <div className="report-summary"><div><span>Overall assessment</span><strong>{quality}</strong></div><div><span>Public endpoints responding</span><strong>{serviceResults.filter(item => item.status === 'Responding').length} / {services.length}</strong></div><div><span>Test data transferred</span><strong>Download up to 25 MB · upload up to 10 MB per run</strong></div></div>
-            <p className="report-note">This report combines streamed download throughput (up to 25 MB or 6 seconds) and server-timed upload throughput (up to 10 MB per transfer), median browser HTTP response-time samples, mean absolute difference between consecutive HTTP response-time samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
+            <p className="report-note">This report combines streamed download throughput (up to 25 MB or 6 seconds) and client-timed, server-confirmed upload throughput (up to 10 MB per transfer), median browser HTTP response-time samples, mean absolute difference between consecutive HTTP response-time samples and public website endpoint checks. Results describe this test session and may vary by device, Wi-Fi, ISP routing and server location. App checks do not verify sign-in or in-app features.</p>
             {reportMessage && <span className="report-feedback" role="status">{reportMessage}</span>}
           </section>}
 
