@@ -1,0 +1,9 @@
+name = "tezz-connect-preview-migrations"
+main = "worker/index.ts"
+compatibility_date = "2026-11-04"
+
+[[d1_databases]]
+binding = "BENCHMARKS_DB"
+database_name = "tezz-connect-preview"
+database_id = "e084a157-2fac-4aa7-9f63-a3ac1db80c18"
+migrations_dir = "./migrations"

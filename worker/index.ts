@@ -309,22 +309,36 @@ const app: ExportedHandler<Env> = {
 
     if (pathname === "/api/v1/speed/download") {
       if (request.method !== "GET" && request.method !== "HEAD") return json("Method not allowed", 405)
-      const requested = Number(url.searchParams.get("bytes") ?? "1000000")
-      if (!Number.isSafeInteger(requested) || requested < 1 || requested > 10_000_000) {
-        return json("Download size must be between 1 byte and 10 MB", 400)
+      const durationMs = Number(url.searchParams.get("durationMs") ?? "6000")
+      const maxBytes = Number(url.searchParams.get("maxBytes") ?? "25000000")
+      if (!Number.isSafeInteger(durationMs) || durationMs < 1000 || durationMs > 10000 ||
+          !Number.isSafeInteger(maxBytes) || maxBytes < 1_000_000 || maxBytes > 25_000_000) {
+        return json("Download test must be between 1 and 10 seconds and no more than 25 MB", 400)
       }
-      // Return a fixed-length body for predictable browser transfer accounting.
-      const payload = new Uint8Array(requested)
-      for (let offset = 0; offset < payload.length; offset += 65_536) {
-        crypto.getRandomValues(payload.subarray(offset, Math.min(offset + 65_536, payload.length)))
-      }
-      return new Response(request.method === "HEAD" ? null : payload, {
+      if (request.method === "HEAD") return new Response(null, { status: 200, headers: { ...noStore, "Content-Type": "application/octet-stream" } })
+      const startedAt = Date.now()
+      let emittedBytes = 0
+      const randomChunk = new Uint8Array(65_536)
+      crypto.getRandomValues(randomChunk)
+      const body = new ReadableStream<Uint8Array>({
+        pull(controller) {
+          if (Date.now() - startedAt >= durationMs || emittedBytes >= maxBytes) {
+            controller.close()
+            return
+          }
+          const remaining = maxBytes - emittedBytes
+          const size = Math.min(randomChunk.byteLength, remaining)
+          emittedBytes += size
+          controller.enqueue(randomChunk.slice(0, size))
+        },
+      })
+      return new Response(body, {
         status: 200,
         headers: {
           ...noStore,
           "Content-Type": "application/octet-stream",
-          "Content-Length": String(requested),
           "Cache-Control": "no-store, no-transform",
+          "Content-Encoding": "identity",
         },
       })
     }
@@ -334,18 +348,34 @@ const app: ExportedHandler<Env> = {
       if (!request.body) return json("Upload payload is missing", 400)
       try {
         const expectedBytes = Number(url.searchParams.get("bytes") ?? "1000000")
-        if (!Number.isSafeInteger(expectedBytes) || expectedBytes < 1 || expectedBytes > 5_000_000) {
-          return json("Upload size must be between 1 byte and 5 MB", 400)
+        if (!Number.isSafeInteger(expectedBytes) || expectedBytes < 1 || expectedBytes > 10_000_000) {
+          return json("Upload size must be between 1 byte and 10 MB", 400)
         }
         const declaredLength = request.headers.get("content-length")
         if (declaredLength !== null && Number(declaredLength) !== expectedBytes) {
           return json("Upload Content-Length does not match the expected payload size", 400)
         }
-        const payload = await request.arrayBuffer()
-        if (payload.byteLength !== expectedBytes) {
-          return json(`Upload payload size mismatch: received ${payload.byteLength} bytes; expected ${expectedBytes}`, 400)
+        const startedAt = performance.now()
+        const reader = request.body.getReader()
+        let receivedBytes = 0
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+          receivedBytes += value.byteLength
+          if (receivedBytes > expectedBytes) {
+            await reader.cancel()
+            return json("Upload payload exceeded the expected size", 400)
+          }
         }
-        return json("Upload received")
+        const elapsedMs = Math.max(performance.now() - startedAt, 0.1)
+        if (receivedBytes !== expectedBytes) {
+          return json(`Upload payload size mismatch: received ${receivedBytes} bytes; expected ${expectedBytes}`, 400)
+        }
+        const mbps = (receivedBytes * 8) / (elapsedMs / 1000) / 1_000_000
+        return new Response(JSON.stringify({ ok: true, receivedBytes, elapsedMs, mbps }), {
+          status: 200,
+          headers: { ...noStore, "Content-Type": "application/json; charset=utf-8" },
+        })
       } catch {
         return json("Upload payload could not be read completely", 400)
       }
@@ -512,6 +542,12 @@ const app: ExportedHandler<Env> = {
 }
 
 export default {
+  async scheduled(_controller: ScheduledController, env: Env, _context: ExecutionContext): Promise<void> {
+    // Keep only 30 days of hourly aggregates. No raw per-test records exist.
+    await env.BENCHMARKS_DB.prepare(
+      "DELETE FROM benchmark_hourly WHERE bucket_start < ?"
+    ).bind(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()).run()
+  },
   async fetch(request: Request, env: Env, context: ExecutionContext): Promise<Response> {
     const startedAt = Date.now()
     const requestId = crypto.randomUUID()

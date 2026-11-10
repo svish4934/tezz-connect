@@ -191,4 +191,98 @@ assert.equal(summary.regions[0].jitter_avg_ms, 7.75)
 assert.ok(!JSON.stringify(database.rows).includes('203.0.113.10'))
 assert.ok(rateLimitCalls.length >= 60)
 process.stdout.write('PASS  opt-in aggregate writes, arithmetic, and 30-sample cohort suppression\n')
-process.stdout.write('\nAll benchmark handler integration checks passed (in-memory D1 contract).\n')
+
+const unavailableDatabase = {
+  prepare() {
+    return {
+      bind() { return this },
+      run: async () => { throw new Error('simulated D1 write failure') },
+      all: async () => { throw new Error('simulated D1 read failure') },
+    }
+  },
+}
+const unavailableEnv = { ...env, BENCHMARKS_DB: unavailableDatabase }
+const writeFailureRequest = new Request('https://tezz.test/api/v1/benchmarks/submit', {
+  method: 'POST',
+  headers: { 'content-type': 'application/json' },
+  body: payload(),
+})
+Object.defineProperty(writeFailureRequest, 'cf', { value: { country: 'US', region: 'California' } })
+const writeFailure = await worker.fetch(writeFailureRequest, unavailableEnv, {})
+assert.equal(writeFailure.status, 503)
+const readFailure = await worker.fetch(new Request('https://tezz.test/api/v1/benchmarks/summary'), unavailableEnv, {})
+assert.equal(readFailure.status, 503)
+process.stdout.write('PASS  graceful 503 responses when benchmark D1 reads or writes fail\\n')
+
+process.stdout.write('\nSpeed-test transfer endpoint checks\n')
+
+// The download endpoint must stream binary data, enforce its configured byte cap,
+// and avoid a Content-Length that would imply a fixed-size transfer.
+response = await call('/api/v1/speed/download?durationMs=1000&maxBytes=1000000')
+assert.equal(response.status, 200)
+assert.match(response.headers.get('content-type') ?? '', /application\/octet-stream/)
+assert.equal(response.headers.get('content-length'), null)
+const downloadBytes = await response.arrayBuffer()
+assert.equal(downloadBytes.byteLength, 1_000_000)
+process.stdout.write('PASS  streamed download response and byte cap\n')
+
+// Reject invalid duration and byte limits before any streaming response is created.
+response = await call('/api/v1/speed/download?durationMs=500&maxBytes=1000000')
+assert.equal((await expectJson(response, 400)).ok, false)
+response = await call('/api/v1/speed/download?durationMs=6000&maxBytes=26000000')
+assert.equal((await expectJson(response, 400)).ok, false)
+process.stdout.write('PASS  download duration and maximum-byte guardrails\n')
+
+// Upload throughput is measured by the Worker while it consumes the request stream.
+const uploadPayload = new Uint8Array(1_000_000)
+for (let offset = 0; offset < uploadPayload.length; offset += 65_536) {
+  crypto.getRandomValues(uploadPayload.subarray(offset, Math.min(offset + 65_536, uploadPayload.length)))
+}
+const uploadRequest = new Request('https://tezz.test/api/v1/speed/upload?bytes=1000000', {
+  method: 'POST',
+  headers: { 'content-type': 'application/octet-stream' },
+  body: uploadPayload,
+})
+Object.defineProperty(uploadRequest, 'cf', { value: { country: 'US', region: 'California' } })
+response = await worker.fetch(uploadRequest, env, {})
+const uploadMeasurement = await expectJson(response, 200)
+assert.equal(uploadMeasurement.ok, true)
+assert.equal(uploadMeasurement.receivedBytes, 1_000_000)
+assert.ok(uploadMeasurement.elapsedMs > 0)
+assert.ok(Number.isFinite(uploadMeasurement.mbps) && uploadMeasurement.mbps > 0)
+process.stdout.write('PASS  streamed upload receipt and server-side throughput calculation\n')
+
+// Reject a transfer whose received byte count does not match the declared test size.
+const shortUploadRequest = new Request('https://tezz.test/api/v1/speed/upload?bytes=1000000', {
+  method: 'POST',
+  headers: { 'content-type': 'application/octet-stream' },
+  body: new Uint8Array(512),
+})
+Object.defineProperty(shortUploadRequest, 'cf', { value: { country: 'US', region: 'California' } })
+response = await worker.fetch(shortUploadRequest, env, {})
+assert.equal((await expectJson(response, 400)).ok, false)
+process.stdout.write('PASS  upload byte-count validation\n')
+
+process.stdout.write('\nAll benchmark and speed-test handler integration checks passed (in-memory D1 contract).\n')
+
+// Scheduled retention must delete only expired hourly aggregate rows.
+let cleanupSql = ''
+let cleanupCutoff = ''
+let cleanupRuns = 0
+const retentionDb = {
+  prepare(sql) {
+    cleanupSql = sql
+    return {
+      bind(cutoff) { cleanupCutoff = cutoff; return this },
+      async run() { cleanupRuns += 1; return { success: true } },
+    }
+  },
+}
+const cleanupStartedAt = Date.now()
+await worker.scheduled({}, { ...env, BENCHMARKS_DB: retentionDb }, {})
+const cleanupAgeMs = cleanupStartedAt - Date.parse(cleanupCutoff)
+assert.match(cleanupSql, /^DELETE FROM benchmark_hourly WHERE bucket_start < \?$/)
+assert.equal(cleanupRuns, 1)
+assert.ok(cleanupAgeMs >= 30 * 24 * 60 * 60 * 1000 - 1000)
+assert.ok(cleanupAgeMs <= 30 * 24 * 60 * 60 * 1000 + 1000)
+process.stdout.write('PASS  scheduled 30-day aggregate retention cleanup\n')
