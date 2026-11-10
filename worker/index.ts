@@ -358,10 +358,10 @@ const app: ExportedHandler<Env> = {
       const isAbout = url.pathname !== "/"
       const title = isAbout
         ? "About TEZZ CONNECT | Internet Performance Tools"
-        : "Free Internet Speed Test – Download, Upload, Ping & Jitter | TEZZ CONNECT"
+        : "Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT"
       const description = isAbout
         ? "Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions."
-        : "Run a free internet speed test with TEZZ CONNECT. Check download and upload speed, HTTP response time and network stability for streaming, gaming and video calls."
+        : "Run a free internet speed test with TEZZ CONNECT. Measure download and upload speed, browser-based response time and connection stability for streaming, gaming and video calls."
       const canonical = isAbout ? "https://tezzconnect.online/about" : "https://tezzconnect.online/"
       const fallback = isAbout
         ? `<main id="seo-fallback"><header><p>ABOUT TEZZ CONNECT</p><h1>Understand your connection.</h1><p>TEZZ CONNECT is a free, browser-based toolkit that helps you measure internet performance, understand network behaviour and make more informed connectivity decisions.</p></header><section><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p><h3>Measure performance</h3><p>Run download and upload throughput tests, plus browser-based HTTP response-time and variation estimates.</p><h3>Understand connection issues</h3><p>Explore practical recommendations for common causes such as congestion, weak Wi-Fi conditions and competing network traffic.</p><h3>Explore your network</h3><p>Review available network-edge information, connection signals and public website endpoint checks.</p></section><section><h2>Built in India. Connecting the world.</h2><p>TEZZ CONNECT is an independent digital platform built for people who want clearer information about their internet connection.</p></section><section><h2>How measurements work</h2><p>Speed tests run in your browser against TEZZ CONNECT endpoints. Latency and response variation use HTTP request and response timing to our network edge; they are not ICMP ping measurements.</p></section><section><h2>Privacy and control</h2><p>Local test history stays in your browser. Regional benchmark contributions are optional and require your consent. The tools do not need your GPS location or street address.</p></section><section><h2>Contact us</h2><p>Questions, issues or ideas? Email <a href="mailto:tezzconnect.contact@gmail.com">tezzconnect.contact@gmail.com</a>.</p></section><p><a href="/">Start a speed test</a></p></main>`
@@ -373,6 +373,8 @@ const app: ExportedHandler<Env> = {
         .on('meta[property="og:title"]', { element(element) { element.setAttribute("content", title) } })
         .on('meta[property="og:description"]', { element(element) { element.setAttribute("content", description) } })
         .on('meta[property="og:url"]', { element(element) { element.setAttribute("content", canonical) } })
+        .on('meta[name="twitter:title"]', { element(element) { element.setAttribute("content", title) } })
+        .on('meta[name="twitter:description"]', { element(element) { element.setAttribute("content", description) } })
         .on("#root", { element(element) { element.append(fallback, { html: true }) } })
         .transform(response)
     }
