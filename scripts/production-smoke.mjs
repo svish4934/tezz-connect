@@ -11,7 +11,7 @@ async function check(name, path, validate, init) {
     })
     const body = init?.method === 'HEAD' ? '' : path.includes('/speed/download') && response.ok ? await response.arrayBuffer() : await response.text()
     const result = validate(response, body)
-    if (!result) throw new Error(`unexpected HTTP ${response.status}`)
+    if (result !== true) throw new Error(typeof result === 'string' ? result : `unexpected HTTP ${response.status}`)
     process.stdout.write(`PASS  ${name}\n`)
   } catch (error) {
     failures++
@@ -44,13 +44,15 @@ for (const [name, path, expected, title, canonical] of [
   ['Network tools crawler SEO fallback', '/tools', 'Practical network tools to understand your connection.', 'Free Network Tools – Check Connection, Latency & Network Details | TEZZ CONNECT', 'https://tezzconnect.online/tools'],
   ['Global Network crawler SEO fallback', '/global-network', 'Explore regional internet performance signals.', 'Global Network Benchmarks – Regional Internet Performance | TEZZ CONNECT', 'https://tezzconnect.online/global-network'],
 ]) {
-  await check(name, path, (r, body) =>
-    r.status === 200 &&
-    body.includes('id="seo-fallback"') &&
-    body.includes(expected) &&
-    body.includes(`<title>${title}</title>`) &&
-    body.includes(`href="${canonical}"`),
-    { headers: { 'user-agent': 'Googlebot' } })
+  await check(name, path, (r, body) => {
+    const missing = []
+    if (r.status !== 200) missing.push(`status=${r.status}`)
+    if (!body.includes('id="seo-fallback"')) missing.push('fallback markup missing')
+    if (!body.includes(expected)) missing.push('expected page text missing')
+    if (!body.includes(`<title>${title}</title>`)) missing.push('expected title missing')
+    if (!body.includes(`href="${canonical}"`)) missing.push('expected canonical missing')
+    return missing.length ? `HTTP ${r.status}; ${missing.join(', ')}; content-type=${r.headers.get('content-type')}; body-start=${body.slice(0, 220).replace(/\\s+/g, ' ')}` : true
+  }, { headers: { 'user-agent': 'Googlebot' } })
 }
 
 for (const [name, path] of [
