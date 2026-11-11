@@ -412,6 +412,23 @@
     'guide.speed.related.card3.title': "What is the internet?",
     'guide.speed.related.card3.desc': "Start with the networks behind your connection.",
     'guide.speed.related.read': "Read guide →",
+    'guide.speed.caption.directions': "Download brings information to your device. Upload sends information from your device. The illustration is simplified.",
+    'guide.speed.read.latency_heading': "Latency: how quickly does a response come back?",
+    'guide.speed.body.latency': "Latency is about waiting time, not how much data can move each second. It can affect how responsive a website, game or video call feels. A connection can deliver a large file quickly but still feel sluggish when small requests take a long time to get a response. Read more in our guide to latency, ping and jitter.",
+    'guide.speed.read.jitter_heading': "Jitter and packet loss: is the connection consistent?",
+    'guide.speed.read.variation_heading': "Why one test may show a different result from another",
+    'guide.speed.read.server': "Different test servers: each server may be in a different location or have a different capacity.",
+    'guide.speed.read.wifi': "Wi-Fi versus Ethernet: wireless interference and signal strength can change the result.",
+    'guide.speed.read.activity': "Other activity: cloud backups, streaming and downloads share your connection.",
+    'guide.speed.read.device': "Device limits: older hardware, browser extensions or background tasks may affect testing.",
+    'guide.speed.read.time': "Time of day: local network demand and wider provider traffic can vary.",
+    'guide.speed.read.bandwidth': "Bandwidth: how much data a connection could carry under suitable conditions.",
+    'guide.speed.read.throughput': "Throughput: how much data is actually transferred per second in a particular test or activity.",
+    'guide.speed.read.latency_term': "Latency: how long a request takes to receive a response.",
+    'guide.speed.read.jitter_term': "Jitter: how much packet or response timing varies.",
+    'guide.speed.read.loss': "Packet loss: the share of packets that fail to reach their destination.",
+    'guide.speed.quiz.noscript': "JavaScript is needed to check your answer interactively. The guide above contains the explanation.",
+    'guide.speed.faq.heading': "Common questions about internet speed",
   };
   const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
   const originalAttributes = new WeakMap();
