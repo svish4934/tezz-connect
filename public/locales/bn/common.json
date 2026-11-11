@@ -56,5 +56,6 @@
   "common.to_transfer": " স্থানান্তর করতে ",
   "common.download_word": "ডাউনলোড",
   "common.upload_word": "আপলোড",
-  "common.transfer_end": " সময় লাগতে পারে।"
+  "common.transfer_end": " সময় লাগতে পারে।",
+  "guide.internet.quiz_explanation": "ঠিক বলেছেন। ওয়াই-ফাই হলো আপনার ডিভাইস ও রাউটারের মধ্যে বেতার সংযোগ। আপনার ইন্টারনেট পরিষেবা বাড়ির নেটওয়ার্ককে অন্য নেটওয়ার্কের সঙ্গে যুক্ত করে।"
 }
