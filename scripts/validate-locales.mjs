@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve, relative, sep } from 'node:path';
 
 const root = process.cwd();
@@ -61,23 +61,43 @@ for (const locale of manifest.locales || []) {
   }
 }
 
-// Check every translation key referenced by the initial interactive Knowledge Hub guides.
-const guideFiles = [
-  'public/guides/what-is-the-internet/index.html',
-  'public/guides/how-the-internet-works/index.html',
-  'public/guides/internet-speed-explained/index.html',
-];
-const referencedKeys = new Set();
-for (const guideFile of guideFiles) {
-  const guidePath = resolve(root, guideFile);
-  if (!existsSync(guidePath)) {
-    fail(`missing guide file for locale validation: ${guideFile}`);
-    continue;
+// Scan every Knowledge Hub guide (HTML and JavaScript), including inline scripts,
+// so dynamically rendered labels cannot silently fall back to English.
+const guideRoot = resolve(root, 'public/guides');
+const sourceFiles = [];
+function collectSources(directory) {
+  if (!existsSync(directory)) return;
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const path = resolve(directory, entry.name);
+    if (entry.isDirectory()) collectSources(path);
+    else if (/\\.(?:html?|js|mjs|ts|tsx)$/.test(entry.name)) sourceFiles.push(path);
   }
-  const source = readFileSync(guidePath, 'utf8');
-  for (const match of source.matchAll(/data-i18n(?:-[\w-]+)?=["']([^"']+)["']/g)) referencedKeys.add(match[1]);
-  for (const match of source.matchAll(/\bt\(["']([^"']+)["']\)/g)) referencedKeys.add(match[1]);
 }
+collectSources(guideRoot);
+
+const referencedKeys = new Set();
+const dynamicKeys = new Set();
+for (const sourcePath of sourceFiles) {
+  const source = readFileSync(sourcePath, 'utf8');
+  for (const match of source.matchAll(/data-i18n(?:-[\\w-]+)?=["']([^"']+)["']/g)) referencedKeys.add(match[1]);
+  // Covers t('key'), window.TEZZLanguage.t('key'), and equivalent literal calls.
+  for (const match of source.matchAll(/(?:\\b|\\.)t\\(\\s*["']([^"']+)["']\\s*\\)/g)) {
+    referencedKeys.add(match[1]);
+    dynamicKeys.add(match[1]);
+  }
+}
+
+// The English fallback dictionary is the source of truth for dynamically requested keys.
+const runtimePath = resolve(root, 'public/language.js');
+if (!existsSync(runtimePath)) {
+  fail('missing public/language.js English fallback runtime');
+} else {
+  const runtime = readFileSync(runtimePath, 'utf8');
+  const fallbackKeys = new Set([...runtime.matchAll(/^\\s*'([^']+)'\\s*:/gm)].map(match => match[1]));
+  const missingFallbacks = [...dynamicKeys].filter(key => !fallbackKeys.has(key));
+  if (missingFallbacks.length) fail(`English runtime fallback missing dynamic keys: ${missingFallbacks.join(', ')}`);
+}
+
 for (const locale of manifest.locales || []) {
   if (locale.status !== 'published' || !locale.bundle || locale.code === 'en') continue;
   const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
