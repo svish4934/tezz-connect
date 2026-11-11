@@ -346,12 +346,14 @@
     const label = document.createElement('label');
     label.dataset.tezzLanguagePicker = 'true';
     label.setAttribute('aria-label', 'Choose website language');
+    label.setAttribute('data-i18n-aria-label', 'common.choose_language');
     label.style.cssText = 'display:inline-flex;align-items:center;gap:6px;margin-inline-start:12px;font:600 12px/1.2 system-ui,sans-serif;color:inherit;white-space:nowrap';
     const icon = document.createElement('span');
     icon.textContent = '文';
     icon.setAttribute('aria-hidden', 'true');
     const select = document.createElement('select');
     select.setAttribute('aria-label', 'Website language');
+    select.setAttribute('data-i18n-aria-label', 'common.language');
     select.style.cssText = 'max-width:132px;padding:8px 26px 8px 9px;border:1px solid #6c8799;border-radius:9px;background:#10283e;color:#fff;font:600 12px system-ui,sans-serif';
     languages.forEach(item => {
       const option = document.createElement('option');
