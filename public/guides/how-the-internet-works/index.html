@@ -62,8 +62,8 @@
 <script defer src="/language.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#main-content">Skip to main content</a>
-<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="article-nav" aria-label="Guide navigation"><a href="/guides/">Knowledge Hub</a><a href="/guides/internet-learning-roadmap/">Learning roadmap</a></nav></div></header>
+<a class="skip-link" href="#main-content" data-i18n="common.skip">Skip to main content</a>
+<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="article-nav" aria-label="Guide navigation"><a href="/guides/" data-i18n="common.hub">Knowledge Hub</a><a href="/guides/internet-learning-roadmap/">Learning roadmap</a></nav></div></header>
 <main class="wrap" id="main-content">
 <div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / How the internet works</div>
 <header class="hero">
@@ -96,9 +96,9 @@
 <div class="packet-demo" id="packet-demo" hidden aria-label="Illustration of information divided into packets"><span class="packet">DATA 1</span><span class="packet">DATA 2</span><span class="packet">DATA 3</span><span class="packet-label">A page is exchanged as many small pieces of data.</span></div>
 </div>
 <div class="lesson-controls">
-<button type="button" id="journey-prev" class="secondary" disabled>← Previous</button>
-<button type="button" id="journey-next">Next step →</button>
-<button type="button" id="journey-reset" class="secondary">Start again</button>
+<button type="button" id="journey-prev" class="secondary" disabled data-i18n="common.previous">← Previous</button>
+<button type="button" id="journey-next" data-i18n="common.next">Next step →</button>
+<button type="button" id="journey-reset" class="secondary" data-i18n="common.restart">Start again</button>
 </div>
 <p class="packet-label" id="journey-status" role="status">You are at the beginning of the journey.</p>
 </section>
@@ -118,7 +118,7 @@
 <label class="quiz-option"><input type="radio" name="dns-check" value="0"><span>It makes your Wi-Fi signal stronger.</span></label>
 <label class="quiz-option"><input type="radio" name="dns-check" value="1"><span>It helps find the network address associated with a domain name.</span></label>
 <label class="quiz-option"><input type="radio" name="dns-check" value="2"><span>It increases the internet plan speed.</span></label>
-</fieldset><button class="quiz-check" id="dns-check-button" type="button">Check my answer</button><p class="quiz-feedback" id="dns-feedback" role="status" aria-live="polite"></p>
+</fieldset><button class="quiz-check" id="dns-check-button" type="button" data-i18n="common.check_my_answer">Check my answer</button><p class="quiz-feedback" id="dns-feedback" role="status" aria-live="polite"></p>
 </section>
 <section class="related-guides"><div class="eyebrow">KEEP LEARNING</div><h2>Explore the next topic</h2><div class="related-guide-grid">
 <a class="related-guide-card" href="/guides/what-is-the-internet/"><strong>Internet basics</strong><span>Understand the main parts of the internet.</span><em>Read guide →</em></a>
@@ -127,7 +127,7 @@
 </div><p><a href="/guides/internet-learning-roadmap/">Continue with the full Internet Learning Roadmap →</a></p></section>
 </article>
 </main>
-<footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/guides/">All guides</a> · <a href="/about">About</a></span></div></footer>
+<footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/guides/" data-i18n="common.all_guides">All guides</a> · <a href="/about" data-i18n="common.about">About</a></span></div></footer>
 <script>
 (()=> {
  const steps=[
