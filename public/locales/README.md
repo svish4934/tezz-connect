@@ -8,7 +8,7 @@ The website language picker is driven by `/locales/manifest.json`. It is intenti
 2. Create its static JSON bundle under `public/locales/<locale>/common.json` (copy `_template/common.json` as a starting point), then add the locale and bundle path to the manifest only when the required translations are ready for users.
 3. Set `nativeName` to the language's own name and set `direction` to `rtl` for right-to-left scripts.
 4. Keep English as the source and fallback locale. Missing translations must never create blank UI.
-5. Translate interface text, article content, interactive states, form labels, accessibility text, metadata and structured data—not only navigation labels.
+5. Translate interface text, article content, interactive states, form labels, accessibility text, metadata and structured data—not only navigation labels. The current legacy runtime translates matching text nodes; attributes, metadata and complex interactive strings need explicit keyed integration before those areas can be considered localized.
 6. Mark a locale as `published` only after terminology, technical accuracy and native-language quality review. Use `coverage: "starter"` while the existing legacy dictionary is still being expanded; do not describe it as a complete translation.
 
 ## Manifest contract
@@ -21,7 +21,7 @@ Each locale entry has:
 - `status`: `published` (only published locales appear in the picker)
 - `coverage`: translation completeness marker
 
-Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session.
+Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session. The current exact-text mechanism is a compatibility layer, not the final localization system for long-form guides; those need stable translation keys and explicit handling for attributes and interactive states.
 
 The manifest and locale bundles are static assets. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved.
 
