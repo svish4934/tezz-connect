@@ -394,6 +394,7 @@
       }));
       supported = new Set(languages.map(item => item.code));
       directions = new Map(languages.map(item => [item.code, item.direction]));
+      if (window.TEZZLanguage) window.TEZZLanguage.languages = languages;
     } catch {
       // Keep the embedded starter registry if the static manifest is unavailable.
     }
