@@ -356,6 +356,7 @@
     'guide.speed.body.bandwidth_context': "This distinction helps explain why a speed-test number alone cannot describe the entire quality of an internet connection. For example, a video call needs enough throughput in both directions, but it also benefits from low delay, low variation and minimal packet loss.",
     'guide.speed.body.tool_intro': "Run the free TEZZ CONNECT test and compare your download and upload results.",
     'guide.speed.body.related_intro': "Build on this topic with these practical TEZZ CONNECT guides.",
+    'guide.speed.body.quiz_feedback': "Correct. Eight bits make one byte, so 100 Mbps is theoretically about 12.5 MB/s before overhead and other limits.",
   };
   const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
   const originalAttributes = new WeakMap();
