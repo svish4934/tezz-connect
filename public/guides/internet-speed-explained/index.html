@@ -27,34 +27,34 @@
 <p data-i18n="guide.speed.body.example">For example, watching a movie mostly uses download speed. Sending a large video to a friend mostly uses upload speed. A video call uses both because you receive the other person's video and send your own.</p>
 <h2 id="requirements" data-i18n="guide.speed.need_heading">How much speed do you need?</h2>
 <p data-i18n="guide.speed.body.needs_intro">There is no magic number that suits every home. It depends on how many people are online, what they are doing and whether several activities happen at the same time. Use this as a simple starting point, not as a guaranteed minimum:</p>
-<table><thead><tr><th>What you're doing</th><th>What to keep in mind</th></tr></thead><tbody>
-<tr><td>Browsing and email</td><td>These usually need less bandwidth. A stable connection often matters more than a very high plan.</td></tr>
-<tr><td>HD video</td><td>Allow enough download capacity for each stream, plus room for other people using the connection.</td></tr>
-<tr><td>4K video</td><td>Needs more steady download capacity than HD. Check the streaming service's current recommendation.</td></tr>
-<tr><td>Video meetings</td><td>Both download and upload matter. A steady connection helps avoid frozen video and broken audio.</td></tr>
-<tr><td>Cloud backup and file sharing</td><td>Upload speed matters, especially when sending large files.</td></tr>
-<tr><td>Online gaming</td><td>Fast downloads help with updates, but response time and connection stability can matter more during a match.</td></tr>
+<table><thead><tr><th data-i18n="guide.speed.table.activity">What you're doing</th><th data-i18n="guide.speed.table.note">What to keep in mind</th></tr></thead><tbody>
+<tr><td data-i18n="guide.speed.table.browse">Browsing and email</td><td data-i18n="guide.speed.table.browse_note">These usually need less bandwidth. A stable connection often matters more than a very high plan.</td></tr>
+<tr><td data-i18n="guide.speed.table.hd">HD video</td><td data-i18n="guide.speed.table.hd_note">Allow enough download capacity for each stream, plus room for other people using the connection.</td></tr>
+<tr><td data-i18n="guide.speed.table.4k">4K video</td><td data-i18n="guide.speed.table.4k_note">Needs more steady download capacity than HD. Check the streaming service's current recommendation.</td></tr>
+<tr><td data-i18n="guide.speed.table.meet">Video meetings</td><td data-i18n="guide.speed.table.meet_note">Both download and upload matter. A steady connection helps avoid frozen video and broken audio.</td></tr>
+<tr><td data-i18n="guide.speed.table.cloud">Cloud backup and file sharing</td><td data-i18n="guide.speed.table.cloud_note">Upload speed matters, especially when sending large files.</td></tr>
+<tr><td data-i18n="guide.speed.table.game">Online gaming</td><td data-i18n="guide.speed.table.game_note">Fast downloads help with updates, but response time and connection stability can matter more during a match.</td></tr>
 </tbody></table>
 <section class="bandwidth-planner" id="household-planner" aria-labelledby="planner-title">
-<div class="eyebrow">INTERACTIVE HOUSEHOLD PLANNER</div>
+<div class="eyebrow" data-i18n="guide.speed.planner.eyebrow">INTERACTIVE HOUSEHOLD PLANNER</div>
 <h2 id="planner-title" data-i18n="guide.speed.planner_heading">How much internet speed might your home need?</h2>
 <p data-i18n="guide.speed.body.planner_intro">Choose the activities happening at the same time. The planner estimates a useful starting point for download and upload capacity, with extra room for normal variation.</p>
 <div class="planner-grid">
 <div class="planner-controls">
-<div class="planner-control"><label for="planner-hd">HD video streams <output id="planner-hd-value" for="planner-hd">1</output></label><input id="planner-hd" type="range" min="0" max="5" value="1"><small>Illustrative allowance: 5 Mbps download each</small></div>
-<div class="planner-control"><label for="planner-4k">4K video streams <output id="planner-4k-value" for="planner-4k">0</output></label><input id="planner-4k" type="range" min="0" max="5" value="0"><small>Illustrative allowance: 25 Mbps download each</small></div>
-<div class="planner-control"><label for="planner-calls">Video calls <output id="planner-calls-value" for="planner-calls">1</output></label><input id="planner-calls" type="range" min="0" max="5" value="1"><small>Planning allowance: 4 Mbps down and 3 Mbps up each</small></div>
-<div class="planner-control"><label for="planner-uploads">Large file uploads in progress <output id="planner-uploads-value" for="planner-uploads">0</output></label><input id="planner-uploads" type="range" min="0" max="3" value="0"><small>Illustrative allowance: 8 Mbps upload each</small></div>
+<div class="planner-control"><label for="planner-hd" data-i18n="guide.speed.planner.hd">HD video streams <output id="planner-hd-value" for="planner-hd">1</output></label><input id="planner-hd" type="range" min="0" max="5" value="1"><small data-i18n="guide.speed.planner.hd_help">Illustrative allowance: 5 Mbps download each</small></div>
+<div class="planner-control"><label for="planner-4k" data-i18n="guide.speed.planner.4k">4K video streams <output id="planner-4k-value" for="planner-4k">0</output></label><input id="planner-4k" type="range" min="0" max="5" value="0"><small data-i18n="guide.speed.planner.4k_help">Illustrative allowance: 25 Mbps download each</small></div>
+<div class="planner-control"><label for="planner-calls" data-i18n="guide.speed.planner.calls">Video calls <output id="planner-calls-value" for="planner-calls">1</output></label><input id="planner-calls" type="range" min="0" max="5" value="1"><small data-i18n="guide.speed.planner.calls_help">Planning allowance: 4 Mbps down and 3 Mbps up each</small></div>
+<div class="planner-control"><label for="planner-uploads" data-i18n="guide.speed.planner.uploads">Large file uploads in progress <output id="planner-uploads-value" for="planner-uploads">0</output></label><input id="planner-uploads" type="range" min="0" max="3" value="0"><small data-i18n="guide.speed.planner.uploads_help">Illustrative allowance: 8 Mbps upload each</small></div>
 </div>
 <div class="planner-result" aria-live="polite">
-<span>ESTIMATED STARTING POINT</span>
-<div class="planner-number"><strong id="planner-download">15</strong><small>Mbps download</small></div>
-<div class="planner-number"><strong id="planner-upload">5</strong><small>Mbps upload</small></div>
+<span data-i18n="guide.speed.planner.start">ESTIMATED STARTING POINT</span>
+<div class="planner-number"><strong id="planner-download">15</strong><small data-i18n="guide.speed.planner.down">Mbps download</small></div>
+<div class="planner-number"><strong id="planner-upload">5</strong><small data-i18n="guide.speed.planner.up">Mbps upload</small></div>
 <p id="planner-explanation">Includes a 30% planning margin and a small allowance for ordinary background activity.</p>
 <div class="planner-breakdown" id="planner-breakdown">Estimated active demand: 11 Mbps down · 3 Mbps up</div>
 </div>
 </div>
-<p class="planner-disclaimer"><strong>Important:</strong> These are simple planning assumptions, not official minimums or a guarantee. Actual requirements vary by app, video quality, device, Wi-Fi conditions and simultaneous activity. Check the service provider's recommendations for your apps. Gaming is often more sensitive to latency and stability than raw bandwidth.</p>
+<p class="planner-disclaimer"><strong data-i18n="common.important">Important:</strong> <span data-i18n="guide.speed.planner.disclaimer">These are simple planning assumptions, not official minimums or a guarantee. Actual requirements vary by app, video quality, device, Wi-Fi conditions and simultaneous activity. Check the service provider's recommendations for your apps. Gaming is often more sensitive to latency and stability than raw bandwidth.</span></p>
 </section>
 
 <section class="transfer-estimator" id="download-upload-time" aria-labelledby="transfer-estimator-title">
