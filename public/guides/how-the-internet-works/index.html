@@ -130,6 +130,7 @@
 <footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳</span><span><a href="/guides/" data-i18n="common.all_guides">All guides</a> · <a href="/about" data-i18n="common.about">About</a></span></div></footer>
 <script>
 (()=> {
+ const t=key=>window.TEZZLanguage?.t(key)||key;
  const steps=[
  {node:0,title:"Your device makes a request",description:"You type a website name or tap a link. Your browser needs to find the computer or service that can provide that page.",analogy:"Think of writing the name of a place on a parcel before sending it.",status:"Your browser has a destination in mind."},
  {node:1,title:"Your device joins the local network",description:"Your phone sends data over Wi-Fi, or your laptop sends it through an Ethernet cable. This gets the request from your device to your home network.",analogy:"Wi-Fi is the local road from your device to the router. It is not the whole internet.",status:"The request is moving across your home connection."},
@@ -144,7 +145,7 @@
  const nodes=[...document.querySelectorAll('[data-node]')],prev=document.getElementById('journey-prev'),next=document.getElementById('journey-next'),reset=document.getElementById('journey-reset'),fill=document.getElementById('journey-progress-fill'),bar=document.getElementById('journey-progress'),packet=document.getElementById('packet-demo');
  function render(){
   const step=steps[current];
-  document.getElementById('step-count').textContent='STEP '+(current+1)+' OF '+steps.length;
+  document.getElementById('step-count').textContent=t('common.step_count').toUpperCase()+' '+(current+1)+' '+t('common.of')+' '+steps.length;
   document.getElementById('step-title').textContent=step.title;
   document.getElementById('step-description').textContent=step.description;
   document.getElementById('step-analogy').textContent=step.analogy;
@@ -160,7 +161,7 @@
   bar.setAttribute('aria-valuenow',String(current+1));
   prev.disabled=current===0;
   next.disabled=current===steps.length-1;
-  next.textContent=current===steps.length-1?'Journey complete':'Next step →';
+  next.textContent=current===steps.length-1?t('common.journey_complete'):t('common.next');
  }
  prev.addEventListener('click',()=>{if(current>0){current--;render();}});
  next.addEventListener('click',()=>{if(current<steps.length-1){current++;render();}});
@@ -169,9 +170,9 @@
  const check=document.getElementById('dns-check-button'),feedback=document.getElementById('dns-feedback');
  check.addEventListener('click',()=>{
   const answer=document.querySelector('input[name="dns-check"]:checked');
-  if(!answer){feedback.textContent='Choose an answer first.';feedback.className='quiz-feedback';return;}
+  if(!answer){feedback.textContent=t('common.choose_answer');feedback.className='quiz-feedback';return;}
   const correct=answer.value==='1';
-  feedback.textContent=(correct?'Correct! ':'Not quite. ')+'DNS helps find the network address associated with a domain name. It does not boost Wi-Fi signal or increase your plan speed.';
+  feedback.textContent=(correct?t('common.correct_prefix'):t('common.incorrect_prefix'))+t('common.dns_feedback');
   feedback.className='quiz-feedback '+(correct?'is-correct':'is-incorrect');
  });
 })();
