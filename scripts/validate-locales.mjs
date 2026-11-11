@@ -75,8 +75,8 @@ for (const guideFile of guideFiles) {
     continue;
   }
   const source = readFileSync(guidePath, 'utf8');
-  for (const match of source.matchAll(/data-i18n(?:-[\\w-]+)?=["']([^"']+)["']/g)) referencedKeys.add(match[1]);
-  for (const match of source.matchAll(/\\bt\\(["']([^"']+)["']\\)/g)) referencedKeys.add(match[1]);
+  for (const match of source.matchAll(/data-i18n(?:-[\w-]+)?=["']([^"']+)["']/g)) referencedKeys.add(match[1]);
+  for (const match of source.matchAll(/\bt\\(["']([^"']+)["']\\)/g)) referencedKeys.add(match[1]);
 }
 for (const locale of manifest.locales || []) {
   if (locale.status !== 'published' || !locale.bundle || locale.code === 'en') continue;
