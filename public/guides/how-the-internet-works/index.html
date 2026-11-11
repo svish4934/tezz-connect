@@ -68,7 +68,7 @@
 <div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / How the internet works</div>
 <header class="hero">
 <div class="eyebrow">VISUAL LEARNING · BEGINNER</div>
-<h1>How does the internet actually work?</h1>
+<h1 data-i18n="guide.journey.title">How does the internet actually work?</h1>
 <p class="lede">You tap a link. A moment later, a website appears. Let's follow that request through the network, one step at a time—without the technical fog.</p>
 <p class="meta">TEZZ CONNECT · Interactive visual guide</p>
 </header>
@@ -91,7 +91,7 @@
 <div class="step-copy" aria-live="polite" aria-atomic="true">
 <div class="step-count" id="step-count">STEP 1 OF 8</div>
 <h3 id="step-title">Your device makes a request</h3>
-<p id="step-description">You type a website name or tap a link. Your browser needs to find the computer that can provide that page.</p>
+<p id="step-description"><span data-i18n="guide.journey.device_text">You type a website name or tap a link. Your browser needs to find the computer that can provide that page.</span></p>
 <div class="analogy" id="step-analogy">Think of it like writing the name of a place on a parcel before sending it.</div>
 <div class="packet-demo" id="packet-demo" hidden aria-label="Illustration of information divided into packets"><span class="packet">DATA 1</span><span class="packet">DATA 2</span><span class="packet">DATA 3</span><span class="packet-label">A page is exchanged as many small pieces of data.</span></div>
 </div>
@@ -103,15 +103,15 @@
 <p class="packet-label" id="journey-status" role="status">You are at the beginning of the journey.</p>
 </section>
 <article class="article">
-<h2>What is happening behind the scenes?</h2>
-<p>The internet is a network of networks. Your home network connects to your provider, and your provider connects with other networks. Information can cross many different networks before reaching its destination.</p>
-<h2>Why does DNS matter?</h2>
+<h2 data-i18n="guide.journey.network_heading">What is happening behind the scenes?</h2>
+<p><span data-i18n="guide.journey.network_text">The internet is a network of networks. Your home network connects to your provider, and your provider connects with other networks. Information can cross many different networks before reaching its destination.</span></p>
+<h2 data-i18n="guide.journey.dns_heading">Why does DNS matter?</h2>
 <p>People remember names such as <code>tezzconnect.online</code>. Computers use IP addresses to identify destinations on a network. The Domain Name System (DNS) helps translate a domain name into the address needed to find the service. Your device or network may already have a saved answer, so a fresh lookup is not always needed for every visit.</p>
-<h2>Why are there packets?</h2>
-<p>Network data is divided into smaller units called packets. Each packet carries information that helps networks deliver it. The receiving system processes the data and your browser assembles the resources into the page you see. Different kinds of traffic use different transport methods, so not every packet behaves in exactly the same way.</p>
-<h2>Does every request follow this exact route?</h2>
-<p>No. This is a simplified teaching model. DNS may be resolved earlier or by a different service, the router and modem may be one combined device, and content delivery networks or caches may serve a page from a nearby location. Real routes can change depending on the provider, destination and network conditions.</p>
-<aside class="note"><h2>Try a real-world comparison</h2><p>Open a page while connected to Wi-Fi, then try again using mobile data. The route and network equipment are different, but the basic idea—your device requests information and a service sends it back—remains the same.</p></aside>
+<h2 data-i18n="guide.journey.packets_heading">Why are there packets?</h2>
+<p data-i18n="guide.journey.packets_text">Network data is divided into smaller units called packets. Each packet carries information that helps networks deliver it. The receiving system processes the data and your browser assembles the resources into the page you see. Different kinds of traffic use different transport methods, so not every packet behaves in exactly the same way.</p>
+<h2 data-i18n="guide.journey.route_heading">Does every request follow this exact route?</h2>
+<p data-i18n="guide.journey.route_text">No. This is a simplified teaching model. DNS may be resolved earlier or by a different service, the router and modem may be one combined device, and content delivery networks or caches may serve a page from a nearby location. Real routes can change depending on the provider, destination and network conditions.</p>
+<aside class="note"><h2 data-i18n="guide.journey.compare_heading">Try a real-world comparison</h2><p data-i18n="guide.journey.compare_text">Open a page while connected to Wi-Fi, then try again using mobile data. The route and network equipment are different, but the basic idea—your device requests information and a service sends it back—remains the same.</p></aside>
 <section class="knowledge-check" aria-labelledby="internet-journey-check">
 <div class="eyebrow">QUICK KNOWLEDGE CHECK</div><h2 id="internet-journey-check">What does DNS help with?</h2>
 <fieldset><legend>Choose the best answer</legend>
@@ -120,7 +120,7 @@
 <label class="quiz-option"><input type="radio" name="dns-check" value="2"><span>It increases the internet plan speed.</span></label>
 </fieldset><button class="quiz-check" id="dns-check-button" type="button" data-i18n="common.check_my_answer">Check my answer</button><p class="quiz-feedback" id="dns-feedback" role="status" aria-live="polite"></p>
 </section>
-<section class="related-guides"><div class="eyebrow">KEEP LEARNING</div><h2>Explore the next topic</h2><div class="related-guide-grid">
+<section class="related-guides"><div class="eyebrow">KEEP LEARNING</div><h2 data-i18n="guide.journey.next_heading">Explore the next topic</h2><div class="related-guide-grid">
 <a class="related-guide-card" href="/guides/what-is-the-internet/"><strong>Internet basics</strong><span>Understand the main parts of the internet.</span><em>Read guide →</em></a>
 <a class="related-guide-card" href="/guides/internet-speed-explained/"><strong>Internet speed explained</strong><span>Learn what Mbps and bandwidth mean.</span><em>Read guide →</em></a>
 <a class="related-guide-card" href="/guides/latency-and-jitter/"><strong>Latency and jitter</strong><span>See why response time and consistency matter.</span><em>Read guide →</em></a><a class="related-guide-card" href="/guides/networking-glossary/"><strong>Networking glossary</strong><span>Look up terms such as DNS, router, IP address and packet.</span><em>Explore the glossary →</em></a>
