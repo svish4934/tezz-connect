@@ -138,5 +138,20 @@
   "guide.journey.next_speed": "ইন্টারনেটের গতি বুঝুন Mbps ও ব্যান্ডউইথের অর্থ জানুন। গাইড পড়ুন →",
   "guide.journey.next_latency": "লেটেন্সি ও জিটার প্রতিক্রিয়ার সময় ও স্থিতিশীলতা কেন গুরুত্বপূর্ণ জানুন।",
   "guide.journey.next_glossary": "নেটওয়ার্কিং শব্দকোষ DNS, রাউটার, IP ঠিকানা ও প্যাকেটের মতো শব্দ খুঁজুন।",
-  "guide.journey.roadmap": "সম্পূর্ণ ইন্টারনেট শেখার রোডম্যাপ ধরে এগিয়ে যান →"
+  "guide.journey.roadmap": "সম্পূর্ণ ইন্টারনেট শেখার রোডম্যাপ ধরে এগিয়ে যান →",
+  "guide.speed.title": "ইন্টারনেটের গতি বুঝুন: Mbps, ডাউনলোড ও আপলোড গতির অর্থ",
+  "guide.speed.meaning_heading": "ইন্টারনেটের গতি বলতে আসলে কী বোঝায়?",
+  "guide.speed.directions_heading": "ডাউনলোড ও আপলোড গতির মধ্যে পার্থক্য কী?",
+  "guide.speed.need_heading": "আপনার কতটা গতি প্রয়োজন?",
+  "guide.speed.planner_heading": "আপনার বাড়ির কতটা ইন্টারনেট গতি প্রয়োজন হতে পারে?",
+  "guide.speed.transfer_heading": "ডাউনলোড বা আপলোড করতে কত সময় লাগবে?",
+  "guide.speed.test_heading": "কীভাবে উপযোগী স্পিড টেস্টের ফল পাবেন",
+  "guide.speed.read_heading": "ইন্টারনেট স্পিড টেস্টের ফল কীভাবে বুঝবেন",
+  "guide.speed.upgrade_heading": "দ্রুততর ইন্টারনেট প্ল্যান কি সবকিছু সবসময় দ্রুত করে?",
+  "guide.speed.bandwidth_heading": "ব্যান্ডউইথ, গতি ও পারফরম্যান্স সম্পর্কিত—তবে এক নয়",
+  "guide.speed.faq_heading": "ইন্টারনেটের গতি নিয়ে সাধারণ প্রশ্ন",
+  "guide.speed.measure_heading": "TEZZ CONNECT কী পরিমাপ করে",
+  "guide.speed.check_heading": "আপনার সংযোগ পরীক্ষা করুন",
+  "guide.speed.quiz_heading": "নিজে চেষ্টা করুন",
+  "guide.speed.learn_heading": "শিখতে থাকুন"
 }
