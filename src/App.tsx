@@ -942,10 +942,10 @@ function App() {
             <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
             <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>{copy[2]}</a>
             <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>{copy[3]}</a>
-            <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>{copy[4]}</a>
-            <details className={`tezz-nav-dropdown ${['History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`}>
-              <summary aria-label="More navigation options">More <span aria-hidden="true">▾</span></summary>
+            <details className={`tezz-nav-dropdown ${['Global Network', 'History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`}>
+              <summary aria-label="Global Network menu">Global Network <span aria-hidden="true">▾</span></summary>
               <div className="tezz-nav-dropdown-menu">
+                <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>{copy[4]}</a>
                 <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>{copy[5]}</a>
                 <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>{copy[6]}</a>
                 <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>{copy[7]}</a>
