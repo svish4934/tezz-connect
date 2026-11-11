@@ -250,7 +250,8 @@
         const key = element.getAttribute('data-i18n');
         if (key && !element.children.length) {
           if (!originals.has(element)) originals.set(element, element.textContent);
-          element.textContent = language === 'en' ? originals.get(element) : translationFor(key);
+          const translated = language === 'en' ? originals.get(element) : translationFor(key);
+          if (element.textContent !== translated) element.textContent = translated;
         }
       }
       attributeNames.forEach(attribute => {
@@ -260,7 +261,8 @@
         if (!saved) { saved = Object.create(null); originalAttributes.set(element, saved); }
         if (!(attribute in saved)) saved[attribute] = element.getAttribute(attribute) || '';
         const key = element.getAttribute(dataName);
-        element.setAttribute(attribute, language === 'en' ? saved[attribute] : translationFor(key));
+        const translated = language === 'en' ? saved[attribute] : translationFor(key);
+        if (element.getAttribute(attribute) !== translated) element.setAttribute(attribute, translated);
       });
     });
   }
