@@ -243,8 +243,7 @@
       });
       return;
     }
-    const dictionary = copy[language];
-    if (!dictionary) return;
+    const dictionary = copy[language] || {};
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         const parent = node.parentElement;
@@ -259,12 +258,8 @@
       if (!originals.has(node)) originals.set(node, node.nodeValue);
       const original = originals.get(node);
       const trimmed = original.trim();
-      if (dictionary[trimmed]) {
-        const leading = original.match(/^\s*/)?.[0] || '';
-        const trailing = original.match(/\s*$/)?.[0] || '';
-        const translated = leading + dictionary[trimmed] + trailing;
-        if (node.nodeValue !== translated) node.nodeValue = translated;
-      }
+      const replacement = dictionary[trimmed] || original;
+      if (node.nodeValue !== replacement) node.nodeValue = replacement;
     });
   }
   function addPicker() {
