@@ -5,7 +5,7 @@
 The website language picker is driven by `/locales/manifest.json`. It is intentionally not limited to a fixed four-language list.
 
 1. Use a valid BCP 47 language tag (for example `es`, `pt-BR`, `zh-Hant`, `ar` or `ur`).
-2. Add the locale to the manifest only when its required translation bundle is ready for users.
+2. Create its static JSON bundle under `public/locales/<locale>/common.json` (copy `_template/common.json` as a starting point), then add the locale and bundle path to the manifest only when the required translations are ready for users.
 3. Set `nativeName` to the language's own name and set `direction` to `rtl` for right-to-left scripts.
 4. Keep English as the source and fallback locale. Missing translations must never create blank UI.
 5. Translate interface text, article content, interactive states, form labels, accessibility text, metadata and structured data—not only navigation labels.
@@ -21,7 +21,7 @@ Each locale entry has:
 - `status`: `published` (only published locales appear in the picker)
 - `coverage`: translation completeness marker
 
-The manifest is a static asset. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved.
+Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session.\n\nThe manifest and locale bundles are static assets. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved.
 
 ## Globalization requirements
 
