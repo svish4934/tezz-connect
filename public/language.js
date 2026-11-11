@@ -5,15 +5,7 @@
     { code: 'en', name: 'English' },
     { code: 'hi', name: 'हिन्दी' },
     { code: 'mr', name: 'मराठी' },
-    { code: 'bn', name: 'বাংলা' },
-    { code: 'ta', name: 'தமிழ்' }, { code: 'te', name: 'తెలుగు' },
-    { code: 'gu', name: 'ગુજરાતી' }, { code: 'kn', name: 'ಕನ್ನಡ' },
-    { code: 'ml', name: 'മലയാളം' }, { code: 'pa', name: 'ਪੰਜਾਬੀ' },
-    { code: 'ur', name: 'اردو' }, { code: 'es', name: 'Español' },
-    { code: 'fr', name: 'Français' }, { code: 'de', name: 'Deutsch' },
-    { code: 'pt', name: 'Português' }, { code: 'ar', name: 'العربية' },
-    { code: 'zh', name: '中文' }, { code: 'ja', name: '日本語' },
-    { code: 'ko', name: '한국어' }
+    { code: 'bn', name: 'বাংলা' }
   ];
   const copy = {
     hi: {
