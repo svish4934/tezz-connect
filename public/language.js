@@ -429,15 +429,17 @@
     window.addEventListener('storage', event => {
       if (event.key === KEY) setLanguage(event.newValue || 'en');
     });
-    window.TEZZLanguage = {
-      setLanguage,
-      getLanguage: () => language,
-      getLanguages: () => languages.slice(),
-      t: translationFor,
-      apply: root => applyKeyedTranslations(root || document.body),
-      languages
-    };
   }
+  // Publish the helper synchronously so inline guide scripts can translate
+  // their first render before DOMContentLoaded and the manifest fetch finish.
+  window.TEZZLanguage = {
+    setLanguage,
+    getLanguage: () => language,
+    getLanguages: () => languages.slice(),
+    t: translationFor,
+    apply: root => applyKeyedTranslations(root || document.body),
+    languages
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();
