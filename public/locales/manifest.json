@@ -17,7 +17,8 @@
       "nativeName": "हिन्दी",
       "direction": "ltr",
       "status": "published",
-      "coverage": "starter"
+      "coverage": "starter",
+      "bundle": "/locales/hi/common.json"
     },
     {
       "code": "mr",
@@ -25,7 +26,8 @@
       "nativeName": "मराठी",
       "direction": "ltr",
       "status": "published",
-      "coverage": "starter"
+      "coverage": "starter",
+      "bundle": "/locales/mr/common.json"
     },
     {
       "code": "bn",
@@ -33,7 +35,8 @@
       "nativeName": "বাংলা",
       "direction": "ltr",
       "status": "published",
-      "coverage": "starter"
+      "coverage": "starter",
+      "bundle": "/locales/bn/common.json"
     }
   ],
   "notes": "Only publish a locale after its user-facing strings have a reviewed translation. Use BCP 47 tags for regional variants (for example pt-BR, zh-Hant, en-GB)."
