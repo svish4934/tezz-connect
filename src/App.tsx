@@ -943,9 +943,14 @@ function App() {
             <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>{copy[2]}</a>
             <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>{copy[3]}</a>
             <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>{copy[4]}</a>
-            <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>{copy[5]}</a>
-            <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>{copy[6]}</a>
-            <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>{copy[7]}</a>
+            <details className={`tezz-nav-dropdown ${['History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`}>
+              <summary aria-label="More navigation options">More <span aria-hidden="true">▾</span></summary>
+              <div className="tezz-nav-dropdown-menu">
+                <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>{copy[5]}</a>
+                <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>{copy[6]}</a>
+                <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>{copy[7]}</a>
+              </div>
+            </details>
           </nav>
           <div className="tezz-header-actions"><label className="tezz-language-picker"><Globe2 size={15}/><span className="sr-only">{copy[8]}</span><select aria-label={copy[8]} value={language} onChange={event => changeLanguage(event.target.value as UiLanguage)}>{UI_LANGUAGES.map(item => <option key={item.code} value={item.code}>{item.native}</option>)}</select></label><a className="tezz-header-search" aria-label="Explore network tools" title="Explore network tools" href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}><Search size={18}/></a><button className="tezz-menu" aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕ Close' : '☰ Menu'}</button></div>
         </header>
