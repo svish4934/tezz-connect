@@ -291,7 +291,22 @@ function NetworkStarterTools() {
   </div>
 }
 
+type UiLanguage = 'en' | 'hi' | 'mr' | 'bn' | 'ta' | 'te' | 'gu' | 'kn' | 'ml' | 'pa' | 'ur' | 'es' | 'fr' | 'de' | 'pt' | 'ar' | 'zh' | 'ja' | 'ko'
+const UI_LANGUAGES = [{"code":"en","native":"English"},{"code":"hi","native":"हिन्दी"},{"code":"mr","native":"मराठी"},{"code":"bn","native":"বাংলা"},{"code":"ta","native":"தமிழ்"},{"code":"te","native":"తెలుగు"},{"code":"gu","native":"ગુજરાતી"},{"code":"kn","native":"ಕನ್ನಡ"},{"code":"ml","native":"മലയാളം"},{"code":"pa","native":"ਪੰਜਾਬੀ"},{"code":"ur","native":"اردو"},{"code":"es","native":"Español"},{"code":"fr","native":"Français"},{"code":"de","native":"Deutsch"},{"code":"pt","native":"Português"},{"code":"ar","native":"العربية"},{"code":"zh","native":"中文"},{"code":"ja","native":"日本語"},{"code":"ko","native":"한국어"}]
+const UI_COPY: Record<UiLanguage, string[]> = {"en":["Home","Free Speed Test","Internet Doctor","Network Tools","Global Network","Test History","Performance Report","About TEZZ CONNECT","Language"],"hi":["होम","मुफ़्त स्पीड टेस्ट","इंटरनेट डॉक्टर","नेटवर्क टूल","ग्लोबल नेटवर्क","टेस्ट इतिहास","प्रदर्शन रिपोर्ट","TEZZ CONNECT के बारे में","भाषा"],"mr":["मुख्यपृष्ठ","मोफत स्पीड टेस्ट","इंटरनेट डॉक्टर","नेटवर्क साधने","जागतिक नेटवर्क","चाचणी इतिहास","कामगिरी अहवाल","TEZZ CONNECT बद्दल","भाषा"],"bn":["হোম","বিনামূল্যে স্পিড টেস্ট","ইন্টারনেট ডাক্তার","নেটওয়ার্ক টুল","বিশ্ব নেটওয়ার্ক","পরীক্ষার ইতিহাস","পারফরম্যান্স রিপোর্ট","TEZZ CONNECT সম্পর্কে","ভাষা"],"ta":["முகப்பு","இலவச வேகச் சோதனை","இணைய மருத்துவர்","நெட்வொர்க் கருவிகள்","உலகளாவிய நெட்வொர்க்","சோதனை வரலாறு","செயல்திறன் அறிக்கை","TEZZ CONNECT பற்றி","மொழி"],"te":["హోమ్","ఉచిత స్పీడ్ టెస్ట్","ఇంటర్నెట్ డాక్టర్","నెట్‌వర్క్ సాధనాలు","గ్లోబల్ నెట్‌వర్క్","పరీక్ష చరిత్ర","పనితీరు నివేదిక","TEZZ CONNECT గురించి","భాష"],"gu":["હોમ","મફત સ્પીડ ટેસ્ટ","ઇન્ટરનેટ ડૉક્ટર","નેટવર્ક ટૂલ્સ","વૈશ્વિક નેટવર્ક","ટેસ્ટ ઇતિહાસ","પ્રદર્શન અહેવાલ","TEZZ CONNECT વિશે","ભાષા"],"kn":["ಮುಖಪುಟ","ಉಚಿತ ವೇಗ ಪರೀಕ್ಷೆ","ಇಂಟರ್ನೆಟ್ ವೈದ್ಯರು","ನೆಟ್‌ವರ್ಕ್ ಪರಿಕರಗಳು","ಜಾಗತಿಕ ನೆಟ್‌ವರ್ಕ್","ಪರೀಕ್ಷೆ ಇತಿಹಾಸ","ಕಾರ್ಯಕ್ಷಮತೆ ವರದಿ","TEZZ CONNECT ಬಗ್ಗೆ","ಭಾಷೆ"],"ml":["ഹോം","സൗജന്യ സ്പീഡ് ടെസ്റ്റ്","ഇന്റർനെറ്റ് ഡോക്ടർ","നെറ്റ്‌വർക്ക് ഉപകരണങ്ങൾ","ആഗോള നെറ്റ്‌വർക്ക്","ടെസ്റ്റ് ചരിത്രം","പ്രകടന റിപ്പോർട്ട്","TEZZ CONNECT നെക്കുറിച്ച്","ഭാഷ"],"pa":["ਮੁੱਖ ਪੰਨਾ","ਮੁਫ਼ਤ ਸਪੀਡ ਟੈਸਟ","ਇੰਟਰਨੈੱਟ ਡਾਕਟਰ","ਨੈੱਟਵਰਕ ਟੂਲ","ਗਲੋਬਲ ਨੈੱਟਵਰਕ","ਟੈਸਟ ਇਤਿਹਾਸ","ਕਾਰਗੁਜ਼ਾਰੀ ਰਿਪੋਰਟ","TEZZ CONNECT ਬਾਰੇ","ਭਾਸ਼ਾ"],"ur":["صفحہ اول","مفت اسپیڈ ٹیسٹ","انٹرنیٹ ڈاکٹر","نیٹ ورک ٹولز","عالمی نیٹ ورک","ٹیسٹ کی تاریخ","کارکردگی رپورٹ","TEZZ CONNECT کے بارے میں","زبان"],"es":["Inicio","Prueba de velocidad gratis","Doctor de Internet","Herramientas de red","Red global","Historial de pruebas","Informe de rendimiento","Acerca de TEZZ CONNECT","Idioma"],"fr":["Accueil","Test de débit gratuit","Docteur Internet","Outils réseau","Réseau mondial","Historique des tests","Rapport de performance","À propos de TEZZ CONNECT","Langue"],"de":["Startseite","Kostenloser Geschwindigkeitstest","Internet-Doctor","Netzwerk-Tools","Globales Netzwerk","Testverlauf","Leistungsbericht","Über TEZZ CONNECT","Sprache"],"pt":["Início","Teste de velocidade grátis","Médico da Internet","Ferramentas de rede","Rede global","Histórico de testes","Relatório de desempenho","Sobre o TEZZ CONNECT","Idioma"],"ar":["الرئيسية","اختبار سرعة مجاني","طبيب الإنترنت","أدوات الشبكة","الشبكة العالمية","سجل الاختبارات","تقرير الأداء","حول TEZZ CONNECT","اللغة"],"zh":["首页","免费网速测试","网络医生","网络工具","全球网络","测试记录","性能报告","关于 TEZZ CONNECT","语言"],"ja":["ホーム","無料スピードテスト","インターネット診断","ネットワークツール","グローバルネットワーク","テスト履歴","パフォーマンスレポート","TEZZ CONNECTについて","言語"],"ko":["홈","무료 속도 테스트","인터넷 진단","네트워크 도구","글로벌 네트워크","테스트 기록","성능 보고서","TEZZ CONNECT 소개","언어"]}
+
 function App() {
+  const [language, setLanguage] = useState<UiLanguage>(() => {
+    try { const saved = localStorage.getItem('tezz-connect-language'); return UI_LANGUAGES.some(item => item.code === saved) ? saved as UiLanguage : 'en' } catch { return 'en' }
+  })
+  const copy = UI_COPY[language] ?? UI_COPY.en
+  function changeLanguage(next: UiLanguage) {
+    setLanguage(next)
+    try { localStorage.setItem('tezz-connect-language', next) } catch { /* Preference storage may be unavailable. */ }
+    document.documentElement.lang = next
+    document.documentElement.dir = next === 'ar' || next === 'ur' ? 'rtl' : 'ltr'
+  }
+  useEffect(() => { document.documentElement.lang = language; document.documentElement.dir = language === 'ar' || language === 'ur' ? 'rtl' : 'ltr' }, [language])
   const [state, setState] = useState<TestState>('idle')
   const [progress, setProgress] = useState(0)
   const [liveSpeed, setLiveSpeed] = useState(0)
@@ -911,20 +926,20 @@ function App() {
         <header className="tezz-header">
           <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
           <nav className="tezz-nav">
-            <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}><Home size={15}/> Home</a>
-            <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>Free Speed Test</a>
-            <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>Internet Doctor</a>
-            <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>Network Tools</a>
-            <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</a>
-            <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>Test History</a>
-            <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>Performance Report</a>
-            <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>About TEZZ CONNECT</a>
+            <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}><Home size={15}/> {copy[0]}</a>
+            <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
+            <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>{copy[2]}</a>
+            <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>{copy[3]}</a>
+            <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>{copy[4]}</a>
+            <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>{copy[5]}</a>
+            <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>{copy[6]}</a>
+            <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>{copy[7]}</a>
           </nav>
-          <div className="tezz-header-actions"><a className="tezz-header-search" aria-label="Explore network tools" title="Explore network tools" href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}><Search size={18}/></a><button className="tezz-menu" aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕ Close' : '☰ Menu'}</button></div>
+          <div className="tezz-header-actions"><label className="tezz-language-picker"><Globe2 size={15}/><span className="sr-only">{copy[8]}</span><select aria-label={copy[8]} value={language} onChange={event => changeLanguage(event.target.value as UiLanguage)}>{UI_LANGUAGES.map(item => <option key={item.code} value={item.code}>{item.native}</option>)}</select></label><a className="tezz-header-search" aria-label="Explore network tools" title="Explore network tools" href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}><Search size={18}/></a><button className="tezz-menu" aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕ Close' : '☰ Menu'}</button></div>
         </header>
         {mobileMenuOpen && <nav className="tezz-mobile-nav" id="tezz-mobile-nav" aria-label="Mobile navigation">
-          <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}>Home</a>
-          <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>Free Internet Speed Test</a>
+          <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}>{copy[0]}</a>
+          <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
           <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>Internet Doctor</a>
           <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>Network Tools</a>
           <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</a>
