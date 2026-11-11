@@ -308,6 +308,18 @@
     'guide.journey.step.7.description': "Your device receives the resources and your browser puts the text, images, styles and other page parts together. The website appears on your screen.",
     'guide.journey.step.7.analogy': "Your browser is like the person unpacking the delivered pieces and assembling the finished item.",
     'guide.journey.step.7.status': "Journey complete. You can restart or revisit any step.",
+    'guide.speed.body.mbps_intro': "Internet speed tells you how quickly data can move between your device and another point on the internet. You will usually see it written as Mbps, which means megabits per second.",
+    'guide.speed.body.units': "Here is an easy way to understand the units: internet plans use megabits (Mb), while file sizes are often shown in megabytes (MB). Eight bits make one byte. So, 100 Mbps works out to a theoretical maximum of about 12.5 MB per second, before normal network overhead and other limits.",
+    'guide.speed.body.snapshot': "A speed test is a snapshot. It measures your connection to a particular test server at that moment. It does not mean every app, game or website will run at that exact rate.",
+    'guide.speed.body.download': "Download speed is how quickly information comes to your device. You use it when you watch a video, open a website, download an app or receive a file.",
+    'guide.speed.body.upload': "Upload speed is how quickly information goes from your device to the internet. You use it when you send photos, back up files, share your screen or speak on a video call.",
+    'guide.speed.body.example': "For example, watching a movie mostly uses download speed. Sending a large video to a friend mostly uses upload speed. A video call uses both because you receive the other person's video and send your own.",
+    'guide.speed.body.needs_intro': "There is no magic number that suits every home. It depends on how many people are online, what they are doing and whether several activities happen at the same time. Use this as a simple starting point, not as a guaranteed minimum:",
+    'guide.speed.body.planner_intro': "Choose the activities happening at the same time. The planner estimates a useful starting point for download and upload capacity, with extra room for normal variation.",
+    'guide.speed.body.test_intro': "If you want to know whether your connection is performing well, try to make the test fair:",
+    'guide.speed.body.test_variation': "If the result changes a lot, look for a pattern. A single low result does not automatically mean your provider is at fault. The device, Wi-Fi signal, busy home network, test server and route can all make a difference.",
+    'guide.speed.body.read_intro': "A speed test is useful when you treat it as a measurement under specific conditions, rather than a permanent rating for your broadband. The result reflects the device, connection type, test server, route and network activity at the time you ran it. Two tests can disagree without either one being broken.",
+    'guide.speed.body.measure': "TEZZ CONNECT measures download and upload throughput using its own test endpoints. Its latency and jitter figures are based on HTTP request-and-response timing to the TEZZ network edge; they are not ICMP ping measurements. Results can change with your device, network and route.",
   };
   const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
   const originalAttributes = new WeakMap();
