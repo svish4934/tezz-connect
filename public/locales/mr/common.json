@@ -138,5 +138,20 @@
   "guide.journey.next_speed": "इंटरनेटचा वेग समजून घ्या Mbps आणि बँडविड्थचा अर्थ जाणून घ्या. मार्गदर्शिका वाचा →",
   "guide.journey.next_latency": "लेटन्सी आणि जिटर प्रतिसाद वेळ आणि स्थिरता का महत्त्वाची आहे ते जाणून घ्या.",
   "guide.journey.next_glossary": "नेटवर्किंग शब्दकोश DNS, राउटर, IP पत्ता आणि पॅकेटसारखे शब्द शोधा.",
-  "guide.journey.roadmap": "संपूर्ण इंटरनेट लर्निंग रोडमॅपसह पुढे जा →"
+  "guide.journey.roadmap": "संपूर्ण इंटरनेट लर्निंग रोडमॅपसह पुढे जा →",
+  "guide.speed.title": "इंटरनेटचा वेग समजून घ्या: Mbps, डाउनलोड आणि अपलोड वेगाचा अर्थ",
+  "guide.speed.meaning_heading": "इंटरनेटचा वेग म्हणजे नेमके काय?",
+  "guide.speed.directions_heading": "डाउनलोड आणि अपलोड वेगात काय फरक आहे?",
+  "guide.speed.need_heading": "तुम्हाला किती वेगाची गरज आहे?",
+  "guide.speed.planner_heading": "तुमच्या घराला किती इंटरनेट वेगाची गरज असू शकते?",
+  "guide.speed.transfer_heading": "डाउनलोड किंवा अपलोडसाठी किती वेळ लागेल?",
+  "guide.speed.test_heading": "उपयुक्त स्पीड टेस्ट निकाल कसा मिळवावा",
+  "guide.speed.read_heading": "इंटरनेट स्पीड टेस्टचे निकाल कसे समजून घ्यावेत",
+  "guide.speed.upgrade_heading": "जलद इंटरनेट प्लॅनमुळे प्रत्येक गोष्ट नेहमी जलद होते का?",
+  "guide.speed.bandwidth_heading": "बँडविड्थ, वेग आणि कार्यक्षमता संबंधित आहेत—पण सारखे नाहीत",
+  "guide.speed.faq_heading": "इंटरनेट वेगाबद्दल वारंवार विचारले जाणारे प्रश्न",
+  "guide.speed.measure_heading": "TEZZ CONNECT काय मोजते",
+  "guide.speed.check_heading": "तुमचे कनेक्शन तपासा",
+  "guide.speed.quiz_heading": "स्वतः करून पाहा",
+  "guide.speed.learn_heading": "शिकत राहा"
 }
