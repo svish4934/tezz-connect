@@ -61,6 +61,36 @@ for (const locale of manifest.locales || []) {
   }
 }
 
+// Check every translation key referenced by the initial interactive Knowledge Hub guides.
+const guideFiles = [
+  'public/guides/what-is-the-internet/index.html',
+  'public/guides/how-the-internet-works/index.html',
+  'public/guides/internet-speed-explained/index.html',
+];
+const referencedKeys = new Set();
+for (const guideFile of guideFiles) {
+  const guidePath = resolve(root, guideFile);
+  if (!existsSync(guidePath)) {
+    fail(`missing guide file for locale validation: ${guideFile}`);
+    continue;
+  }
+  const source = readFileSync(guidePath, 'utf8');
+  for (const match of source.matchAll(/data-i18n(?:-[\\w-]+)?=["']([^"']+)["']/g)) referencedKeys.add(match[1]);
+  for (const match of source.matchAll(/\\bt\\(["']([^"']+)["']\\)/g)) referencedKeys.add(match[1]);
+}
+for (const locale of manifest.locales || []) {
+  if (locale.status !== 'published' || !locale.bundle || locale.code === 'en') continue;
+  const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
+  if (!existsSync(bundlePath)) continue;
+  try {
+    const bundle = JSON.parse(readFileSync(bundlePath, 'utf8'));
+    const missing = [...referencedKeys].filter(key => typeof bundle[key] !== 'string' || !bundle[key].trim());
+    if (missing.length) fail(`${locale.code}: missing guide translation keys: ${missing.join(', ')}`);
+  } catch {
+    // The bundle parser above reports malformed JSON with the locale-specific path.
+  }
+}
+
 if (!codes.has(manifest.defaultLocale)) fail('defaultLocale must exist in locales');
 if (!codes.has(manifest.fallbackLocale)) fail('fallbackLocale must exist in locales');
 if (!manifest.locales.some(locale => locale.code === 'en' && locale.status === 'published')) {
