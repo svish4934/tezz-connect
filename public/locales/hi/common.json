@@ -138,5 +138,20 @@
   "guide.journey.next_speed": "इंटरनेट की गति समझें Mbps और बैंडविड्थ का अर्थ जानें। गाइड पढ़ें →",
   "guide.journey.next_latency": "लेटेंसी और जिटर जानें कि प्रतिक्रिया समय और स्थिरता क्यों मायने रखते हैं।",
   "guide.journey.next_glossary": "नेटवर्किंग शब्दावली DNS, राउटर, IP पता और पैकेट जैसे शब्द खोजें।",
-  "guide.journey.roadmap": "पूरी इंटरनेट लर्निंग रोडमैप के साथ आगे बढ़ें →"
+  "guide.journey.roadmap": "पूरी इंटरनेट लर्निंग रोडमैप के साथ आगे बढ़ें →",
+  "guide.speed.title": "इंटरनेट की गति समझें: Mbps, डाउनलोड और अपलोड स्पीड का अर्थ",
+  "guide.speed.meaning_heading": "इंटरनेट की गति का असल मतलब क्या है?",
+  "guide.speed.directions_heading": "डाउनलोड और अपलोड गति में क्या अंतर है?",
+  "guide.speed.need_heading": "आपको कितनी गति चाहिए?",
+  "guide.speed.planner_heading": "आपके घर को कितनी इंटरनेट गति की ज़रूरत हो सकती है?",
+  "guide.speed.transfer_heading": "डाउनलोड या अपलोड में कितना समय लगेगा?",
+  "guide.speed.test_heading": "उपयोगी स्पीड टेस्ट परिणाम कैसे पाएँ",
+  "guide.speed.read_heading": "अपने इंटरनेट स्पीड टेस्ट के परिणाम कैसे समझें",
+  "guide.speed.upgrade_heading": "क्या तेज़ इंटरनेट प्लान से हर चीज़ हमेशा तेज़ हो जाती है?",
+  "guide.speed.bandwidth_heading": "बैंडविड्थ, गति और प्रदर्शन जुड़े हैं—लेकिन एक जैसे नहीं",
+  "guide.speed.faq_heading": "इंटरनेट गति से जुड़े अक्सर पूछे जाने वाले सवाल",
+  "guide.speed.measure_heading": "TEZZ CONNECT क्या मापता है",
+  "guide.speed.check_heading": "अपना कनेक्शन जाँचें",
+  "guide.speed.quiz_heading": "खुद आज़माएँ",
+  "guide.speed.learn_heading": "सीखना जारी रखें"
 }
