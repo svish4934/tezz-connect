@@ -21,9 +21,9 @@ Each locale entry has:
 - `status`: `published` (only published locales appear in the picker)
 - `coverage`: translation completeness marker
 
-Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session. The current exact-text mechanism is a compatibility layer, not the final localization system for long-form guides; those need stable translation keys and explicit handling for attributes and interactive states.
+Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session. Use stable keys in HTML with `data-i18n="common.some_key"` for plain-text elements. For supported attributes, use `data-i18n-aria-label`, `data-i18n-aria-description`, `data-i18n-placeholder`, `data-i18n-title` or `data-i18n-alt`. Dynamic scripts can call `window.TEZZLanguage.t('common.some_key')` and listen for the `tezz-language-change` event to refresh generated text. The original exact-text dictionary remains as a compatibility layer for existing pages. Do not mark an element with `data-i18n` if it contains nested markup; key the leaf text elements instead.
 
-The manifest and locale bundles are static assets. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved.
+The manifest and locale bundles are static assets. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved. Run `npm run test:locales` to validate the manifest and registered bundle files.
 
 ## Globalization requirements
 
