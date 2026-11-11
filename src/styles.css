@@ -2154,3 +2154,54 @@ img, svg { max-width:100%; }
 .tezz-language-picker select option{background:#10243a;color:#f4fbff}
 .tezz-header-actions{gap:10px}
 @media(max-width:760px){.tezz-language-picker{min-height:34px;padding:0 7px}.tezz-language-picker select{max-width:94px;font-size:11px}}
+
+
+/* Keep the header controls usable on phones requesting the desktop site. */
+@media (hover:none) and (pointer:coarse) and (min-width:761px) and (max-width:1100px) {
+  .tezz-header {
+    min-height:68px!important;
+    height:auto!important;
+    padding:9px 16px!important;
+    gap:10px!important;
+    flex-wrap:nowrap!important;
+  }
+  .tezz-logo { flex:0 0 auto!important; }
+  .tezz-logo-word { font-size:clamp(18px,2vw,22px)!important; }
+  .tezz-nav { display:none!important; }
+  .tezz-header-actions {
+    display:flex!important;
+    flex:0 0 auto!important;
+    align-items:center!important;
+    gap:7px!important;
+    margin-left:auto!important;
+  }
+  .tezz-language-picker {
+    min-height:36px!important;
+    padding:0 8px!important;
+    gap:5px!important;
+    white-space:nowrap!important;
+  }
+  .tezz-language-picker select {
+    display:block!important;
+    width:82px!important;
+    max-width:82px!important;
+    font-size:11px!important;
+  }
+  .tezz-header-actions .tezz-header-search {
+    display:inline-flex!important;
+    width:36px!important;
+    height:36px!important;
+    padding:0!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  .tezz-header-actions .tezz-menu {
+    display:inline-flex!important;
+    min-height:36px!important;
+    padding:0 10px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    white-space:nowrap!important;
+    font-size:11px!important;
+  }
+}
