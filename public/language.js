@@ -229,6 +229,39 @@
   let language = 'en';
   const originals = new WeakMap();
   const localeBundles = Object.create(null);
+  const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
+  const originalAttributes = new WeakMap();
+
+  function translationFor(key) {
+    if (language === 'en') return key;
+    const dictionary = localeBundles[language] || copy[language] || {};
+    return typeof dictionary[key] === 'string' ? dictionary[key] : key;
+  }
+
+  function applyKeyedTranslations(root) {
+    if (!root || root.nodeType !== Node.ELEMENT_NODE) return;
+    const elements = [];
+    if (root.matches && root.matches('[data-i18n], [data-i18n-aria-label], [data-i18n-aria-description], [data-i18n-placeholder], [data-i18n-title], [data-i18n-alt]')) elements.push(root);
+    if (root.querySelectorAll) elements.push(...root.querySelectorAll('[data-i18n], [data-i18n-aria-label], [data-i18n-aria-description], [data-i18n-placeholder], [data-i18n-title], [data-i18n-alt]'));
+    elements.forEach(element => {
+      if (element.hasAttribute('data-i18n')) {
+        const key = element.getAttribute('data-i18n');
+        if (key && !element.children.length) {
+          if (!originals.has(element)) originals.set(element, element.textContent);
+          element.textContent = language === 'en' ? originals.get(element) : translationFor(key);
+        }
+      }
+      attributeNames.forEach(attribute => {
+        const dataName = 'data-i18n-' + attribute.replace(/^aria-/, 'aria-');
+        if (!element.hasAttribute(dataName)) return;
+        let saved = originalAttributes.get(element);
+        if (!saved) { saved = Object.create(null); originalAttributes.set(element, saved); }
+        if (!(attribute in saved)) saved[attribute] = element.getAttribute(attribute) || '';
+        const key = element.getAttribute(dataName);
+        element.setAttribute(attribute, language === 'en' ? saved[attribute] : translationFor(key));
+      });
+    });
+  }
   function translateText(root) {
     if (language === 'en') {
       const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -305,6 +338,7 @@
     const picker = document.querySelector('[data-tezz-language-picker] select');
     if (picker) picker.value = language;
     translateText(document.body);
+    applyKeyedTranslations(document.body);
     document.dispatchEvent(new CustomEvent('tezz-language-change', { detail: { language } }));
   }
   async function loadLocaleManifest() {
@@ -344,20 +378,36 @@
     document.documentElement.dir = directions.get(language) || 'ltr';
     addPicker();
     translateText(document.body);
+    applyKeyedTranslations(document.body);
     const observer = new MutationObserver(records => {
       for (const record of records) {
         if (record.type === 'childList') record.addedNodes.forEach(node => {
-          if (node.nodeType === Node.ELEMENT_NODE) translateText(node);
-          else if (node.nodeType === Node.TEXT_NODE) translateText(node.parentElement || document.body);
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            translateText(node);
+            applyKeyedTranslations(node);
+          } else if (node.nodeType === Node.TEXT_NODE) {
+            translateText(node.parentElement || document.body);
+            applyKeyedTranslations(node.parentElement || document.body);
+          }
         });
-        else if (record.type === 'characterData') translateText(record.target.parentElement || document.body);
+        else if (record.type === 'characterData') {
+          translateText(record.target.parentElement || document.body);
+          applyKeyedTranslations(record.target.parentElement || document.body);
+        }
       }
     });
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     window.addEventListener('storage', event => {
       if (event.key === KEY) setLanguage(event.newValue || 'en');
     });
-    window.TEZZLanguage = { setLanguage, getLanguage: () => language, languages };
+    window.TEZZLanguage = {
+      setLanguage,
+      getLanguage: () => language,
+      getLanguages: () => languages.slice(),
+      t: translationFor,
+      apply: root => applyKeyedTranslations(root || document.body),
+      languages
+    };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
