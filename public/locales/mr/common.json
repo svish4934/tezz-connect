@@ -56,5 +56,6 @@
   "common.to_transfer": "हस्तांतरित करण्यासाठी ",
   "common.download_word": "डाउनलोड",
   "common.upload_word": "अपलोड",
-  "common.transfer_end": " लागू शकतात."
+  "common.transfer_end": " लागू शकतात.",
+  "guide.internet.quiz_explanation": "बरोबर उत्तर. वाय-फाय हे तुमचे डिव्हाइस आणि राउटर यांच्यातील वायरलेस जोडणी आहे. इंटरनेट सेवा तुमच्या घरच्या नेटवर्कला इतर नेटवर्कशी जोडते."
 }
