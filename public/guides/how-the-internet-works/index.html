@@ -167,6 +167,7 @@
  next.addEventListener('click',()=>{if(current<steps.length-1){current++;render();}});
  reset.addEventListener('click',()=>{current=0;render();});
  render();
+ document.addEventListener('tezz-language-change', render);
  const check=document.getElementById('dns-check-button'),feedback=document.getElementById('dns-feedback');
  check.addEventListener('click',()=>{
   const answer=document.querySelector('input[name="dns-check"]:checked');
