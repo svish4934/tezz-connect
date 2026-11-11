@@ -166,7 +166,7 @@
  prev.addEventListener('click',()=>{if(current>0){current--;render();}});
  next.addEventListener('click',()=>{if(current<steps.length-1){current++;render();}});
  reset.addEventListener('click',()=>{current=0;render();});
- render();
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render,{once:true});else render();
  document.addEventListener('tezz-language-change', render);
  const check=document.getElementById('dns-check-button'),feedback=document.getElementById('dns-feedback');
  check.addEventListener('click',()=>{
