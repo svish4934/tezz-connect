@@ -153,24 +153,28 @@
 (()=> {
  const root=document.querySelector('.network-explorer');
  if(!root)return;
+ const t=key=>window.TEZZLanguage?.t(key)||key;
  const parts={
-  device:{kicker:'START HERE',title:'Your device starts the request',description:'Your phone or computer asks for a website when you type an address, tap a link or open an app.',impact:'An older device, busy background apps or an outdated browser can make pages feel slow even when the connection is fine.'},
-  wifi:{kicker:'LOCAL CONNECTION',title:'Wi-Fi or Ethernet carries data to your router',description:'Wi-Fi sends data wirelessly through radio signals. Ethernet uses a cable. Both connect your device to your home network.',impact:'Distance, thick walls and radio interference can weaken Wi-Fi. A damaged cable or adapter can affect a wired connection.'},
-  router:{kicker:'HOME NETWORK',title:'The router directs traffic',description:'Your router connects devices in your home and forwards their data towards the internet. It also helps returning data reach the right device.',impact:'Poor router placement, old equipment, overloaded hardware or incorrect settings can affect the whole home network.'},
-  provider:{kicker:'NETWORK TO NETWORK',title:'Your provider links your home to other networks',description:'Your internet service provider carries traffic from your home connection into its network and towards the destination. The route can cross several operators.',impact:'Network congestion, line faults or an issue in the provider network can slow many websites and apps at once.'},
-  dns:{kicker:'NAME LOOKUP',title:'DNS helps find the website address',description:'The Domain Name System helps match a name such as example.com with the IP address used to reach the service. A saved answer may be reused, so a new lookup is not always needed.',impact:'A DNS problem can stop a name from resolving even when your internet connection itself is working.'},
-  server:{kicker:'DESTINATION',title:'The website service sends the page data',description:'The request reaches the website service. It returns the files and information your browser needs. A nearby cache or content delivery network may serve some files.',impact:'A busy or distant server, large page files or a slow service can make one website slow while other sites work normally.'}
+  device:['START HERE','Your device starts the request'],
+  wifi:['LOCAL CONNECTION','Wi-Fi or Ethernet carries data to your router'],
+  router:['HOME NETWORK','The router directs traffic'],
+  provider:['NETWORK TO NETWORK','Your provider links your home to other networks'],
+  dns:['NAME LOOKUP','DNS helps find the website address'],
+  server:['DESTINATION','The website service sends the page data']
  };
+ let active='device';
  const buttons=[...root.querySelectorAll('[data-part]')];
- buttons.forEach(button=>button.addEventListener('click',()=>{
-  const item=parts[button.dataset.part];
-  if(!item)return;
-  buttons.forEach(other=>{const selected=other===button;other.classList.toggle('is-selected',selected);other.setAttribute('aria-pressed',String(selected));});
-  root.querySelector('#network-detail-kicker').textContent=item.kicker;
-  root.querySelector('#network-detail-title').textContent=item.title;
-  root.querySelector('#network-detail-description').textContent=item.description;
-  root.querySelector('#network-detail-impact').textContent=item.impact;
- }));
+ function render(key){
+  const item=parts[key];if(!item)return;active=key;
+  buttons.forEach(button=>{const selected=button.dataset.part===key;button.classList.toggle('is-selected',selected);button.setAttribute('aria-pressed',String(selected));});
+  ['kicker','title','description','impact'].forEach((field,index)=>{
+   const node=root.querySelector('#network-detail-'+field);
+   if(node)node.textContent=t('guide.internet.part.'+key+'.'+field);
+  });
+ }
+ buttons.forEach(button=>button.addEventListener('click',()=>render(button.dataset.part)));
+ document.addEventListener('tezz-language-change',()=>render(active));
+ render(active);
 })();
 </script>
 </body></html>
