@@ -959,10 +959,15 @@ function App() {
           <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
           <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>Internet Doctor</a>
           <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>Network Tools</a>
-          <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network</a>
-          <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>Test History</a>
-          <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>Performance Report</a>
-          <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>About TEZZ CONNECT</a>
+          <details className={`tezz-mobile-nav-group ${['Global Network', 'History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`} open={['Global Network', 'History', 'Report', 'About'].includes(activeTab)}>
+            <summary>Global Network <span aria-hidden="true">▾</span></summary>
+            <div className="tezz-mobile-nav-submenu">
+              <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); setMobileMenuOpen(false); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network overview</a>
+              <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History'); setMobileMenuOpen(false) }}>Test History</a>
+              <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report'); setMobileMenuOpen(false) }}>Performance Report</a>
+              <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About'); setMobileMenuOpen(false) }}>About TEZZ CONNECT</a>
+            </div>
+          </details>
         </nav>}
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
