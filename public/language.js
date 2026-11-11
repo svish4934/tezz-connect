@@ -318,9 +318,11 @@
   }
   async function setLanguage(next) {
     const requested = supported.has(next) ? next : 'en';
-    if (requested !== 'en' && !copy[requested] && !localeBundles[requested]) {
+    if (requested !== 'en' && !localeBundles[requested]) {
       const locale = languages.find(item => item.code === requested);
-      if (!locale || !locale.bundle) return;
+      if (!locale || !locale.bundle) {
+        language = requested;
+      } else {
       try {
         const response = await fetch(locale.bundle, { credentials: 'same-origin' });
         if (!response.ok) throw new Error('Locale bundle unavailable');
@@ -331,6 +333,7 @@
         const picker = document.querySelector('[data-tezz-language-picker] select');
         if (picker) picker.value = language;
         return;
+      }
       }
     }
     language = requested;
