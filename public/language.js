@@ -297,7 +297,7 @@
       }
       return;
     }
-    const dictionary = copy[language] || localeBundles[language] || {};
+    const dictionary = { ...(copy[language] || {}), ...(localeBundles[language] || {}) };
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         const parent = node.parentElement;
