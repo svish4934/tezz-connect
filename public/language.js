@@ -228,6 +228,7 @@
   };
   let language = 'en';
   const originals = new WeakMap();
+  const localeBundles = Object.create(null);
   function translateText(root) {
     if (language === 'en') {
       const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -237,7 +238,7 @@
       }
       return;
     }
-    const dictionary = copy[language] || {};
+    const dictionary = copy[language] || localeBundles[language] || {};
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         const parent = node.parentElement;
@@ -276,12 +277,28 @@
       select.append(option);
     });
     select.value = language;
-    select.addEventListener('change', () => setLanguage(select.value));
+    select.addEventListener('change', () => { setLanguage(select.value); });
     label.append(icon, select);
     host.append(label);
   }
-  function setLanguage(next) {
-    language = supported.has(next) ? next : 'en';
+  async function setLanguage(next) {
+    const requested = supported.has(next) ? next : 'en';
+    if (requested !== 'en' && !copy[requested] && !localeBundles[requested]) {
+      const locale = languages.find(item => item.code === requested);
+      if (!locale || !locale.bundle) return;
+      try {
+        const response = await fetch(locale.bundle, { credentials: 'same-origin' });
+        if (!response.ok) throw new Error('Locale bundle unavailable');
+        const bundle = await response.json();
+        if (!bundle || typeof bundle !== 'object' || Array.isArray(bundle)) throw new Error('Invalid locale bundle');
+        localeBundles[requested] = bundle;
+      } catch {
+        const picker = document.querySelector('[data-tezz-language-picker] select');
+        if (picker) picker.value = language;
+        return;
+      }
+    }
+    language = requested;
     try { localStorage.setItem(KEY, language); } catch {}
     document.documentElement.lang = language;
     document.documentElement.dir = directions.get(language) || 'ltr';
@@ -301,14 +318,16 @@
         /^[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-[A-Z]{2}|-[0-9]{3})?$/.test(item.code) &&
         typeof item.nativeName === 'string' && item.nativeName.trim() &&
         ['ltr', 'rtl'].includes(item.direction || 'ltr') &&
-        item.status === 'published'
+        item.status === 'published' &&
+        (copy[item.code] || (typeof item.bundle === 'string' && item.bundle.startsWith('/locales/') && !item.bundle.includes('..')))
       );
       if (!valid.some(item => item.code === 'en')) return;
       languages = valid.map(item => ({
         code: item.code,
         name: item.name || item.nativeName,
         nativeName: item.nativeName,
-        direction: item.direction || 'ltr'
+        direction: item.direction || 'ltr',
+        bundle: item.bundle || null
       }));
       supported = new Set(languages.map(item => item.code));
       directions = new Map(languages.map(item => [item.code, item.direction]));
