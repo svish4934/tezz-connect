@@ -228,11 +228,11 @@
   const originals = new WeakMap();
   function translateText(root) {
     if (language === 'en') {
-      root.querySelectorAll?.('*').forEach(element => {
-        element.childNodes.forEach(node => {
-          if (node.nodeType === Node.TEXT_NODE && originals.has(node)) node.nodeValue = originals.get(node);
-        });
-      });
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (originals.has(node)) node.nodeValue = originals.get(node);
+      }
       return;
     }
     const dictionary = copy[language] || {};
