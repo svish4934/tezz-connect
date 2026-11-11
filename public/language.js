@@ -234,8 +234,10 @@
 
   function translationFor(key) {
     if (language === 'en') return key;
-    const dictionary = localeBundles[language] || copy[language] || {};
-    return typeof dictionary[key] === 'string' ? dictionary[key] : key;
+    const bundle = localeBundles[language] || {};
+    const legacy = copy[language] || {};
+    if (typeof bundle[key] === 'string') return bundle[key];
+    return typeof legacy[key] === 'string' ? legacy[key] : key;
   }
 
   function applyKeyedTranslations(root) {
@@ -276,7 +278,7 @@
       acceptNode(node) {
         const parent = node.parentElement;
         if (!parent || /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA|INPUT|OPTION)$/i.test(parent.tagName)) return NodeFilter.FILTER_REJECT;
-        if (parent.closest('[data-no-translate],script,style,code,pre')) return NodeFilter.FILTER_REJECT;
+        if (parent.closest('[data-no-translate],[data-i18n],script,style,code,pre')) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
