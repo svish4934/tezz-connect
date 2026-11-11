@@ -21,7 +21,9 @@ Each locale entry has:
 - `status`: `published` (only published locales appear in the picker)
 - `coverage`: translation completeness marker
 
-Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session.\n\nThe manifest and locale bundles are static assets. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved.
+Locale bundles are UTF-8 JSON objects mapping the exact English source string to its reviewed translation. Keep `_meta` for locale, source locale, bundle version and review status; metadata is ignored by the text replacement logic. The runtime loads a bundle only when that language is selected and caches it for the current page session.
+
+The manifest and locale bundles are static assets. No translation API, external service, or additional Worker route is required. Existing operational speed-test and network APIs are not involved.
 
 ## Globalization requirements
 
