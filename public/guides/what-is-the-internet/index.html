@@ -174,7 +174,7 @@
  }
  buttons.forEach(button=>button.addEventListener('click',()=>render(button.dataset.part)));
  document.addEventListener('tezz-language-change',()=>render(active));
- render(active);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>render(active),{once:true});else render(active);
 })();
 </script>
 </body></html>
