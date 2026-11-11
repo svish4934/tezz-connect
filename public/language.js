@@ -229,15 +229,37 @@
   let language = 'en';
   const originals = new WeakMap();
   const localeBundles = Object.create(null);
+  const sourceStrings = {
+    'common.step_count': 'STEP',
+    'common.of': 'OF',
+    'common.journey_complete': 'Journey complete',
+    'common.choose_answer': 'Choose an answer first.',
+    'common.dns_feedback': 'DNS helps find the network address associated with a domain name. It does not boost Wi-Fi signal or increase your plan speed.',
+    'common.correct_prefix': 'Correct! ',
+    'common.incorrect_prefix': 'Not quite. ',
+    'common.less_second': 'Less than 1 second',
+    'common.about': 'About',
+    'common.second': 'seconds',
+    'common.minute': 'minutes',
+    'common.hour': 'hours',
+    'common.enter_valid_transfer': 'Enter a file size above 0 (up to 100,000) and a speed above 0 Mbps (up to 100,000).',
+    'common.estimate_at': 'At ',
+    'common.file_may_take': ' file may take ',
+    'common.to_transfer': ' to transfer ',
+    'common.download_word': 'download',
+    'common.upload_word': 'upload',
+    'common.transfer_end': ' in this estimate.',
+    'guide.internet.quiz_explanation': "That's right. Wi-Fi is the wireless link between your devices and router. Your internet service is the connection from your home network to other networks."
+  };
   const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
   const originalAttributes = new WeakMap();
 
   function translationFor(key) {
-    if (language === 'en') return key;
     const bundle = localeBundles[language] || {};
     const legacy = copy[language] || {};
-    if (typeof bundle[key] === 'string') return bundle[key];
-    return typeof legacy[key] === 'string' ? legacy[key] : key;
+    if (language !== 'en' && typeof bundle[key] === 'string') return bundle[key];
+    if (language !== 'en' && typeof legacy[key] === 'string') return legacy[key];
+    return typeof sourceStrings[key] === 'string' ? sourceStrings[key] : key;
   }
 
   function applyKeyedTranslations(root) {
