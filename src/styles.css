@@ -2278,3 +2278,52 @@ img, svg { max-width:100%; }
 @media (hover:none) and (pointer:coarse) and (min-width:761px) and (max-width:1100px) {
   .tezz-nav-dropdown { display:none!important; }
 }
+
+
+/* Expandable Global Network group inside the compact phone menu. */
+@media(max-width:800px){
+  .tezz-mobile-nav .tezz-mobile-nav-group{
+    grid-column:1/-1;
+    min-width:0;
+    border:1px solid #dce6f2;
+    border-radius:10px;
+    background:#fff;
+    overflow:hidden;
+  }
+  .tezz-mobile-nav .tezz-mobile-nav-group > summary{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:43px;
+    padding:10px 12px;
+    color:#17365f;
+    background:#edf5ff;
+    font:700 12px Manrope,system-ui,sans-serif;
+    list-style:none;
+    cursor:pointer;
+  }
+  .tezz-mobile-nav .tezz-mobile-nav-group > summary::-webkit-details-marker{display:none}
+  .tezz-mobile-nav .tezz-mobile-nav-group > summary::marker{content:""}
+  .tezz-mobile-nav .tezz-mobile-nav-group > summary span{transition:transform .18s ease}
+  .tezz-mobile-nav .tezz-mobile-nav-group[open] > summary span{transform:rotate(180deg)}
+  .tezz-mobile-nav .tezz-mobile-nav-submenu{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    padding:9px;
+    background:#fff;
+  }
+  .tezz-mobile-nav .tezz-mobile-nav-submenu a{
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    background:#f7f9fc;
+    border-color:#e5ebf3;
+    color:#243a58;
+  }
+  .tezz-mobile-nav .tezz-mobile-nav-submenu a.selected{
+    background:#e8f2ff;
+    border-color:#8bbcf2;
+    color:#125dbb;
+  }
+}
