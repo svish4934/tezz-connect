@@ -56,5 +56,6 @@
   "common.to_transfer": "ट्रांसफ़र करने में ",
   "common.download_word": "डाउनलोड",
   "common.upload_word": "अपलोड",
-  "common.transfer_end": "लग सकते हैं।"
+  "common.transfer_end": "लग सकते हैं।",
+  "guide.internet.quiz_explanation": "सही उत्तर। वाई-फ़ाई आपके डिवाइस और राउटर के बीच वायरलेस लिंक है। आपकी इंटरनेट सेवा आपके घरेलू नेटवर्क को दूसरे नेटवर्क से जोड़ती है।"
 }
