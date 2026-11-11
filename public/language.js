@@ -337,7 +337,9 @@
   }
   async function init() {
     await loadLocaleManifest();
-    language = readLanguage();
+    const savedLanguage = readLanguage();
+    language = 'en';
+    if (savedLanguage !== 'en') await setLanguage(savedLanguage);
     document.documentElement.lang = language;
     document.documentElement.dir = directions.get(language) || 'ltr';
     addPicker();
