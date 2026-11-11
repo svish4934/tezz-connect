@@ -384,6 +384,7 @@
     'guide.speed.planner.down': "Mbps download",
     'guide.speed.planner.up': "Mbps upload",
     'guide.speed.planner.disclaimer': "These are simple planning assumptions, not official minimums or a guarantee. Actual requirements vary by app, video quality, device, Wi-Fi conditions and simultaneous activity. Check the service provider's recommendations for your apps. Gaming is often more sensitive to latency and stability than raw bandwidth.",
+    'guide.speed.planner.important': "Important",
   };
   const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
   const originalAttributes = new WeakMap();
