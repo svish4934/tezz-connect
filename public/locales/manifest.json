@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "defaultLocale": "en",
+  "fallbackLocale": "en",
+  "locales": [
+    {
+      "code": "en",
+      "name": "English",
+      "nativeName": "English",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "complete"
+    },
+    {
+      "code": "hi",
+      "name": "Hindi",
+      "nativeName": "हिन्दी",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/hi/common.json"
+    },
+    {
+      "code": "mr",
+      "name": "Marathi",
+      "nativeName": "मराठी",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/mr/common.json"
+    },
+    {
+      "code": "bn",
+      "name": "Bengali",
+      "nativeName": "বাংলা",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/bn/common.json"
+    }
+  ],
+  "notes": "Only publish a locale after its user-facing strings have a reviewed translation. Use BCP 47 tags for regional variants (for example pt-BR, zh-Hant, en-GB)."
+}
