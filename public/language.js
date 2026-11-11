@@ -230,6 +230,7 @@
   const originals = new WeakMap();
   const localeBundles = Object.create(null);
   const sourceStrings = {
+    'common.next': 'Next step →',
     'common.choose_language': 'Choose website language',
     'common.language': 'Website language',
     'common.step_count': 'STEP',
