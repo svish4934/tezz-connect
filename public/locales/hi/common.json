@@ -551,5 +551,13 @@
   "Your laptop may still find a printer on the same home network during an internet outage, provided both devices and the router are working.": "इंटरनेट बंद होने पर भी आपका लैपटॉप उसी घरेलू नेटवर्क पर प्रिंटर खोज सकता है, बशर्ते दोनों डिवाइस और राउटर काम कर रहे हों।",
   "Two computers may exchange files over the home network without sending those files across the public internet.": "दो कंप्यूटर सार्वजनिक इंटरनेट पर फ़ाइल भेजे बिना घरेलू नेटवर्क से फ़ाइलें साझा कर सकते हैं।",
   "This normally needs both a working home network and a working route to the service. A fault in either place can interrupt playback.": "इसके लिए आम तौर पर काम करता घरेलू नेटवर्क और सेवा तक काम करता नेटवर्क मार्ग—दोनों चाहिए। किसी एक में खराबी से प्लेबैक रुक सकता है।",
-  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "प्रदाता की इंटरनेट सेवा उपलब्ध न होने पर भी आप अक्सर राउटर का स्थानीय सेटिंग पेज खोल सकते हैं।"
+  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "प्रदाता की इंटरनेट सेवा उपलब्ध न होने पर भी आप अक्सर राउटर का स्थानीय सेटिंग पेज खोल सकते हैं।",
+  "guide.security.eyebrow": "घरेलू नेटवर्क की व्यावहारिक सुरक्षा",
+  "guide.security.title": "अपने घर के Wi-Fi की सुरक्षा जाँचें",
+  "guide.security.lede": "आपका राउटर घरेलू नेटवर्क का मुख्य प्रवेश द्वार है। कुछ सावधानीपूर्वक सेटिंग्स जोखिम कम कर सकती हैं और यह नियंत्रित करने में मदद करती हैं कि कौन जुड़ सकता है।",
+  "guide.security.tool.eyebrow": "इंटरैक्टिव चेकलिस्ट",
+  "guide.security.tool.title": "अपने राउटर की सेटिंग्स देखें",
+  "guide.security.tool.intro": "अपने राउटर या इंटरनेट सेवा प्रदाता (ISP) का ऐप खोलें और हर बिंदु जाँचें। किसी सेटिंग की पुष्टि करने के बाद ही बॉक्स चुनें। विकल्प न मिले तो उसे खाली छोड़ें और राउटर की पुस्तिका देखें या ISP से पूछें।",
+  "guide.security.score": "{done} में से {total} जाँचे गए",
+  "guide.security.progress": "चेकलिस्ट पूरी होने की स्थिति"
 }
