@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   preview-smoke:
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/seo/pr-109-rebased-20261113') || (github.event_name == 'pull_request' && github.event.pull_request.number == 109 && github.event.pull_request.head.repo.full_name == github.repository)
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/seo/pr-109-rebased-20261113') || (github.event_name == 'pull_request' && github.event.pull_request.number == 113 && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch
