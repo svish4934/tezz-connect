@@ -335,5 +335,22 @@
   "guide.wifi.lab.outlook.copy.fair": "A distância, os obstáculos ou a posição do roteador podem reduzir a qualidade do sinal. Experimente um local mais central e aberto.",
   "guide.wifi.lab.outlook.copy.weak": "Vários fatores podem tornar a conexão menos confiável. Coloque o roteador em local aberto e elevado ou melhore a cobertura perto do dispositivo.",
   "guide.wifi.lab.outlook.note": "Ilustração apenas comparativa; os resultados reais dependem do roteador, da faixa, do imóvel e do dispositivo.",
-  "guide.wifi.lab.hint.dynamic": "Roteador: {router}. Dispositivo: {device}. O roteador está {placement}. A linha pontilhada é conceitual, não uma medição do sinal de rádio."
+  "guide.wifi.lab.hint.dynamic": "Roteador: {router}. Dispositivo: {device}. O roteador está {placement}. A linha pontilhada é conceitual, não uma medição do sinal de rádio.",
+  "guide.wifi.band.title": "Escolha a faixa Wi-Fi adequada",
+  "guide.wifi.band.alt": "Comparação conceitual: 2,4 GHz geralmente alcança distâncias maiores, enquanto 5 GHz e 6 GHz podem oferecer maior taxa de transferência em distâncias menores, quando compatíveis.",
+  "guide.wifi.band.caption": "Essas são diferenças gerais, não uma garantia de cobertura ou velocidade. O roteador, o dispositivo, as paredes e as redes próximas também influenciam.",
+  "guide.wifi.band.intro": "Muitos roteadores oferecem mais de uma faixa Wi-Fi. Nas configurações, você pode encontrar nomes como 2,4 GHz, 5 GHz ou 6 GHz.",
+  "guide.wifi.band.24": "Geralmente alcança mais longe e pode atravessar paredes melhor, mas pode ficar congestionada e costuma ter velocidades máximas menores.",
+  "guide.wifi.band.5": "Pode oferecer conexões mais rápidas nas proximidades, mas o sinal pode enfraquecer mais ao atravessar paredes ou com a distância.",
+  "guide.wifi.band.6": "Pode oferecer capacidade adicional em dispositivos compatíveis com Wi-Fi 6E ou Wi-Fi 7, mas tanto o roteador quanto o dispositivo precisam oferecer suporte.",
+  "guide.wifi.band.choice": "Não existe uma faixa ideal para todos os cômodos. Escolha a que oferece uma conexão estável onde você usa o dispositivo.",
+  "guide.wifi.devices.title": "Verifique o que mais está usando sua internet",
+  "guide.wifi.devices.body1": "Uma pessoa assistindo a um vídeo, outra baixando um jogo e um notebook fazendo backup podem usar a mesma conexão ao mesmo tempo. Se o Wi-Fi ficar lento, verifique se outro dispositivo está transferindo arquivos grandes.",
+  "guide.wifi.devices.body2": "Se o roteador mostrar os dispositivos conectados, procure aqueles que você não reconhece ou não usa mais. Troque a senha do Wi-Fi se suspeitar de uso desconhecido.",
+  "guide.wifi.interference.title": "Reduza a interferência e mantenha os equipamentos atualizados",
+  "guide.wifi.interference.body1": "Evite colocar o roteador perto de dispositivos ou objetos que possam interferir no sinal. Em prédios movimentados, redes Wi-Fi próximas também podem disputar o tempo de transmissão. Siga as orientações do fabricante antes de alterar configurações avançadas.",
+  "guide.wifi.interference.body2": "Verifique com o fabricante se há atualizações de firmware. Uma atualização pode corrigir falhas ou problemas de segurança, mas não necessariamente aumentará a velocidade da internet.",
+  "guide.wifi.compare.title": "Compare o Wi-Fi com uma conexão por cabo",
+  "guide.wifi.compare.body1": "Faça um teste de velocidade por Wi-Fi perto do roteador. Depois, se possível, conecte o mesmo dispositivo com um cabo Ethernet e teste novamente.",
+  "guide.wifi.compare.body2": "Se o resultado com fio for muito melhor, o problema pode estar no sinal Wi-Fi, na interferência ou na posição do roteador. Se os resultados forem parecidos e baixos, a causa pode ser seu plano, a rede do provedor, o dispositivo ou a rota do teste."
 }
