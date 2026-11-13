@@ -388,5 +388,17 @@
   "guide.wifi.case.caveat": "Este es un escenario ilustrativo, no un diagnóstico. Repite las pruebas, comprueba el cable Ethernet y la capacidad del puerto, y compara condiciones equivalentes antes de decidir.",
   "guide.wifi.case.feedback.empty": "Selecciona primero una respuesta y después comprueba tu razonamiento.",
   "guide.wifi.case.feedback.correct": "Correcto. El resultado por cable sugiere que, en esa prueba, la conexión a Internet puede ofrecer más velocidad al portátil. Investiga primero el enlace Wi-Fi: señal, ubicación del router, banda, interferencias y capacidad del dispositivo. Repite la comparación antes de sacar conclusiones.",
-  "guide.wifi.case.feedback.incorrect": "No es el mejor primer paso. El resultado por cable ya es mucho mayor, así que investiga primero la conexión Wi-Fi. Un plan más rápido o cambiar el DNS difícilmente solucionará un enlace inalámbrico débil."
+  "guide.wifi.case.feedback.incorrect": "No es el mejor primer paso. El resultado por cable ya es mucho mayor, así que investiga primero la conexión Wi-Fi. Un plan más rápido o cambiar el DNS difícilmente solucionará un enlace inalámbrico débil.",
+  "guide.wifi.quiz.eyebrow": "COMPROBACIÓN RÁPIDA",
+  "guide.wifi.quiz.title": "Pruébalo tú",
+  "guide.wifi.quiz.question": "El Wi-Fi es débil en un dormitorio, pero una prueba por cable junto al router es rápida. ¿Cuál es el mejor primer paso?",
+  "guide.wifi.quiz.legend": "Elige una respuesta",
+  "guide.wifi.quiz.option.coverage": "Comprueba la ubicación del router y la cobertura Wi-Fi antes de contratar un plan más rápido.",
+  "guide.wifi.quiz.option.upgrade": "Cambia inmediatamente al plan de Internet más caro.",
+  "guide.wifi.quiz.option.settings": "Cambia todos los ajustes del router a la vez.",
+  "guide.wifi.quiz.button": "Comprobar mi respuesta",
+  "guide.wifi.quiz.noscript": "Se necesita JavaScript para comprobar tu respuesta de forma interactiva. La guía anterior contiene la explicación.",
+  "guide.wifi.quiz.feedback.empty": "Elige primero una respuesta y después compruébala.",
+  "guide.wifi.quiz.feedback.correct": "¡Correcto! El resultado por cable sugiere que la conexión a Internet puede funcionar bien cerca del router. Comprueba primero la ubicación y el Wi-Fi, cambiando una sola cosa cada vez.",
+  "guide.wifi.quiz.feedback.incorrect": "No exactamente. Comprueba la ubicación del router y la cobertura Wi-Fi antes de cambiar de plan o varios ajustes."
 }
