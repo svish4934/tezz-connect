@@ -69,26 +69,26 @@
 <p data-i18n="guide.wifi.compare.body2">If the wired result is much better, the issue may be your Wi-Fi signal, interference or router placement. If both results are similar and lower than expected, the cause may be somewhere else—such as your plan, provider network, device or test route.</p>
 
 <section class="connection-compare" id="connection-compare" aria-labelledby="connection-compare-title">
- <div class="eyebrow">INTERACTIVE COMPARISON</div>
- <h3 id="connection-compare-title">Wi-Fi or internet connection? Compare your results.</h3>
- <p>Enter results from the same device, using the same speed-test service, first on Wi-Fi and then over Ethernet. Ideally test close to the router and repeat each test a few times under similar conditions.</p>
+ <div class="eyebrow" data-i18n="guide.wifi.compare.widget.eyebrow">INTERACTIVE COMPARISON</div>
+ <h3 id="connection-compare-title" data-i18n="guide.wifi.compare.widget.title">Wi-Fi or internet connection? Compare your results.</h3>
+ <p data-i18n="guide.wifi.compare.widget.intro">Enter results from the same device, using the same speed-test service, first on Wi-Fi and then over Ethernet. Ideally test close to the router and repeat each test a few times under similar conditions.</p>
  <div class="connection-compare-grid">
-  <fieldset><legend>Wi-Fi result (Mbps)</legend>
-   <label for="compare-wifi-down">Download</label><input id="compare-wifi-down" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 45">
-   <label for="compare-wifi-up">Upload</label><input id="compare-wifi-up" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 18">
+  <fieldset><legend data-i18n="guide.wifi.compare.widget.wifi">Wi-Fi result (Mbps)</legend>
+   <label for="compare-wifi-down" data-i18n="guide.wifi.compare.widget.download">Download</label><input id="compare-wifi-down" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 45">
+   <label for="compare-wifi-up" data-i18n="guide.wifi.compare.widget.upload">Upload</label><input id="compare-wifi-up" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 18">
   </fieldset>
-  <fieldset><legend>Ethernet result (Mbps)</legend>
+  <fieldset><legend data-i18n="guide.wifi.compare.widget.ethernet">Ethernet result (Mbps)</legend>
    <label for="compare-ethernet-down">Download</label><input id="compare-ethernet-down" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 90">
    <label for="compare-ethernet-up">Upload</label><input id="compare-ethernet-up" type="number" min="0" max="100000" step="0.1" inputmode="decimal" placeholder="e.g. 35">
   </fieldset>
  </div>
- <button type="button" class="connection-compare-button" id="compare-results-button">Compare my results</button>
+ <button type="button" class="connection-compare-button" id="compare-results-button" data-i18n="guide.wifi.compare.widget.button">Compare my results</button>
  <p class="connection-compare-error" id="compare-results-error" role="alert"></p>
  <div class="connection-compare-output" id="compare-results-output" aria-live="polite" hidden>
   <strong id="compare-results-title"></strong>
   <p id="compare-results-summary"></p>
   <ul id="compare-results-details"></ul>
-  <small>This is a troubleshooting clue, not a diagnosis. Wi-Fi and Ethernet tests can vary with server, time, device, cable, router port and background traffic. A 20% gap is used only as a simple learning heuristic—not an industry pass/fail threshold.</small>
+  <small data-i18n="guide.wifi.compare.widget.note">This is a troubleshooting clue, not a diagnosis. Wi-Fi and Ethernet tests can vary with server, time, device, cable, router port and background traffic. A 20% gap is used only as a simple learning heuristic—not an industry pass/fail threshold.</small>
  </div>
 </section>
 <style>
@@ -108,23 +108,23 @@
 @media(max-width:560px){.connection-compare-grid{grid-template-columns:1fr}}
 </style>
 <section class="wifi-case-study" id="wifi-case-study" aria-labelledby="wifi-case-title">
- <div class="eyebrow">PRACTICAL DIAGNOSTIC EXERCISE</div>
- <h3 id="wifi-case-title">Case study: what would you check first?</h3>
- <p>Imagine your household has a 100 Mbps plan. You test the same laptop, close to the router, under similar conditions:</p>
+ <div class="eyebrow" data-i18n="guide.wifi.case.eyebrow">PRACTICAL DIAGNOSTIC EXERCISE</div>
+ <h3 id="wifi-case-title" data-i18n="guide.wifi.case.title">Case study: what would you check first?</h3>
+ <p data-i18n="guide.wifi.case.intro">Imagine your household has a 100 Mbps plan. You test the same laptop, close to the router, under similar conditions:</p>
  <div class="wifi-case-results" role="group" aria-label="Example speed test results">
-  <div><span>Wi-Fi download</span><strong>42 Mbps</strong><small>Wi-Fi connection</small></div>
-  <div><span>Ethernet download</span><strong>92 Mbps</strong><small>Wired connection</small></div>
+  <div><span data-i18n="guide.wifi.case.wifi">Wi-Fi download</span><strong>42 Mbps</strong><small data-i18n="guide.wifi.case.wifi.caption">Wi-Fi connection</small></div>
+  <div><span data-i18n="guide.wifi.case.wired">Ethernet download</span><strong>92 Mbps</strong><small data-i18n="guide.wifi.case.wired.caption">Wired connection</small></div>
  </div>
- <p>The wired result is much higher. What is the most useful first investigation?</p>
+ <p data-i18n="guide.wifi.case.question">The wired result is much higher. What is the most useful first investigation?</p>
  <fieldset class="wifi-case-options">
-  <legend>Choose one answer</legend>
-  <label><input type="radio" name="wifi-case-answer" value="plan"><span>Immediately buy a faster internet plan.</span></label>
-  <label><input type="radio" name="wifi-case-answer" value="coverage"><span>Investigate Wi-Fi signal, router placement, band and interference.</span></label>
-  <label><input type="radio" name="wifi-case-answer" value="dns"><span>Change the DNS server because it controls Wi-Fi signal strength.</span></label>
+  <legend data-i18n="guide.wifi.case.legend">Choose one answer</legend>
+  <label><input type="radio" name="wifi-case-answer" value="plan"><span data-i18n="guide.wifi.case.option.plan">Immediately buy a faster internet plan.</span></label>
+  <label><input type="radio" name="wifi-case-answer" value="coverage"><span data-i18n="guide.wifi.case.option.coverage">Investigate Wi-Fi signal, router placement, band and interference.</span></label>
+  <label><input type="radio" name="wifi-case-answer" value="dns"><span data-i18n="guide.wifi.case.option.dns">Change the DNS server because it controls Wi-Fi signal strength.</span></label>
  </fieldset>
- <button type="button" class="wifi-case-check" id="wifi-case-check">Check my reasoning</button>
+ <button type="button" class="wifi-case-check" id="wifi-case-check" data-i18n="guide.wifi.case.button">Check my reasoning</button>
  <p class="wifi-case-feedback" id="wifi-case-feedback" role="status" aria-live="polite"></p>
- <p class="wifi-case-caveat">This is an illustrative scenario, not a diagnosis. Repeat tests, check the Ethernet cable and port capability, and compare like with like before deciding what to change.</p>
+ <p class="wifi-case-caveat" data-i18n="guide.wifi.case.caveat">This is an illustrative scenario, not a diagnosis. Repeat tests, check the Ethernet cable and port capability, and compare like with like before deciding what to change.</p>
 </section>
 <style>
 .wifi-case-study{margin:2rem 0;padding:clamp(1rem,3vw,1.5rem);border:1px solid #cfe0e9;border-radius:16px;background:linear-gradient(145deg,#f1f8fb,#fff 72%)}
@@ -144,7 +144,7 @@
 @media(max-width:420px){.wifi-case-results{grid-template-columns:1fr}}
 </style>
 <script>
-(()=>{const button=document.getElementById('wifi-case-check'),feedback=document.getElementById('wifi-case-feedback');if(!button||!feedback)return;button.addEventListener('click',()=>{const selected=document.querySelector('input[name="wifi-case-answer"]:checked');if(!selected){feedback.textContent='Select an answer first, then check your reasoning.';return;}feedback.textContent=selected.value==='coverage'?'Correct. The wired result suggests the internet service can deliver a higher speed to this laptop in that test. Investigate the Wi-Fi link first: signal strength, router placement, band, interference and device capability. Repeat the comparison before drawing a firm conclusion.':'Not the best first step. The wired result is already much higher, so investigate the Wi-Fi connection first. A faster plan or DNS change is unlikely to fix a weak wireless link.';});})();
+(()=>{const button=document.getElementById('wifi-case-check'),feedback=document.getElementById('wifi-case-feedback');if(!button||!feedback)return;const t=(k,f)=>window.TEZZLanguage&&typeof window.TEZZLanguage.t==='function'?window.TEZZLanguage.t(k):f;button.addEventListener('click',()=>{const selected=document.querySelector('input[name="wifi-case-answer"]:checked');if(!selected){feedback.textContent=t('guide.wifi.case.feedback.empty','Select an answer first, then check your reasoning.');return;}feedback.textContent=selected.value==='coverage'?t('guide.wifi.case.feedback.correct','Correct. The wired result suggests the internet service can deliver a higher speed to this laptop in that test. Investigate the Wi-Fi link first: signal strength, router placement, band, interference and device capability. Repeat the comparison before drawing a firm conclusion.'):t('guide.wifi.case.feedback.incorrect','Not the best first step. The wired result is already much higher, so investigate the Wi-Fi connection first. A faster plan or DNS change is unlikely to fix a weak wireless link.');});document.addEventListener('tezz-language-change',()=>{feedback.textContent='';});})();
 </script>
 <h2>6. Test more than once</h2>
 <p>Run a few tests at different times and write down where you were standing and whether you used Wi-Fi or a cable. Change one thing at a time, such as moving the router, so you can tell what actually helped.</p>
@@ -181,4 +181,4 @@ function update(){
 root.querySelectorAll('[data-wifi-preset]').forEach(button=>button.addEventListener('click',()=>{const p=presets[button.dataset.wifiPreset];if(!p)return;routerRoom.value=p.r;deviceRoom.value=p.d;setup.value=p.s;obstacles.value=String(p.o);interference.value=String(p.i);update();}));
 update();
 document.addEventListener('tezz-language-change',()=>{rooms.living.label=t('guide.wifi.room.living','LIVING ROOM');rooms.hall.label=t('guide.wifi.room.hall','HALLWAY');rooms.bedroom.label=t('guide.wifi.room.bedroom','BEDROOM');rooms.kitchen.label=t('guide.wifi.room.kitchen','KITCHEN');rooms.study.label=t('guide.wifi.room.study','STUDY');rooms.far.label=t('guide.wifi.room.far','FAR ROOM');update();});
-})();</script><script>(()=>{const root=document.querySelector('.connection-compare');if(!root)return;const ids=['compare-wifi-down','compare-wifi-up','compare-ethernet-down','compare-ethernet-up'];const fields=ids.map(id=>root.querySelector('#'+id));const error=root.querySelector('#compare-results-error'),output=root.querySelector('#compare-results-output'),title=root.querySelector('#compare-results-title'),summary=root.querySelector('#compare-results-summary'),details=root.querySelector('#compare-results-details');root.querySelector('#compare-results-button').addEventListener('click',()=>{error.textContent='';output.hidden=true;const values=fields.map(el=>el.value.trim()===''?NaN:Number(el.value));if(values.some(v=>!Number.isFinite(v)||v<0||v>100000)){error.textContent='Enter all four results as numbers from 0 to 100,000 Mbps.';return;}const [wd,wu,ed,eu]=values;const gap=(wired,wireless)=>((wired-wireless)/wired)*100;const dComparable=ed>0,uComparable=eu>0;const dg=dComparable?gap(ed,wd):null,ug=uComparable?gap(eu,wu):null;const dMuch=dComparable&&dg>=20,uMuch=uComparable&&ug>=20;let heading,body;if(!dComparable||!uComparable){heading='This comparison is incomplete.';body='An Ethernet result is 0 Mbps in at least one direction, so that direction cannot be compared as a percentage. Repeat the wired test and check the cable, adapter and router port before drawing a conclusion.';}else if(dMuch||uMuch){heading='Your Wi-Fi results are notably lower in this comparison.';body='The wired connection performed better in at least one direction. Check Wi-Fi signal strength, router placement, band selection and interference. Also confirm the Ethernet cable and router port are capable of the speeds you expect.';}else{heading='The two connection types are relatively close.';body='This comparison does not show a large Wi-Fi-only gap. If both results are lower than expected, check your plan, modem/router, device limits, test server and provider connection. The result is not proof that Wi-Fi is problem-free.';}title.textContent=heading;summary.textContent=body;details.replaceChildren();[['Download',wd,ed,dg],['Upload',wu,eu,ug]].forEach(([label,w,e,g])=>{const li=document.createElement('li');li.textContent=label+': Wi-Fi '+w+' Mbps; Ethernet '+e+' Mbps; '+(e===0?'percentage comparison not meaningful':g>=0?'Ethernet '+g.toFixed(1)+'% higher':'Wi-Fi '+Math.abs(g).toFixed(1)+'% higher')+' (relative to Ethernet).';details.append(li);});output.hidden=false;});})();</script></body></html>
+})();</script><script>(()=>{const root=document.querySelector('.connection-compare');if(!root)return;const t=(k,f)=>window.TEZZLanguage&&typeof window.TEZZLanguage.t==='function'?window.TEZZLanguage.t(k):f;const ids=['compare-wifi-down','compare-wifi-up','compare-ethernet-down','compare-ethernet-up'];const fields=ids.map(id=>root.querySelector('#'+id));const error=root.querySelector('#compare-results-error'),output=root.querySelector('#compare-results-output'),title=root.querySelector('#compare-results-title'),summary=root.querySelector('#compare-results-summary'),details=root.querySelector('#compare-results-details');root.querySelector('#compare-results-button').addEventListener('click',()=>{error.textContent='';output.hidden=true;const values=fields.map(el=>el.value.trim()===''?NaN:Number(el.value));if(values.some(v=>!Number.isFinite(v)||v<0||v>100000)){error.textContent=t('guide.wifi.compare.widget.error','Enter all four results as numbers from 0 to 100,000 Mbps.');return;}const [wd,wu,ed,eu]=values;const gap=(wired,wireless)=>((wired-wireless)/wired)*100;const dComparable=ed>0,uComparable=eu>0;const dg=dComparable?gap(ed,wd):null,ug=uComparable?gap(eu,wu):null;const dMuch=dComparable&&dg>=20,uMuch=uComparable&&ug>=20;let heading,body;if(!dComparable||!uComparable){heading=t('guide.wifi.compare.widget.incomplete.title','This comparison is incomplete.');body=t('guide.wifi.compare.widget.incomplete.body','An Ethernet result is 0 Mbps in at least one direction, so that direction cannot be compared as a percentage. Repeat the wired test and check the cable, adapter and router port before drawing a conclusion.');}else if(dMuch||uMuch){heading=t('guide.wifi.compare.widget.gap.title','Your Wi-Fi results are notably lower in this comparison.');body=t('guide.wifi.compare.widget.gap.body','The wired connection performed better in at least one direction. Check Wi-Fi signal strength, router placement, band selection and interference. Also confirm the Ethernet cable and router port are capable of the speeds you expect.');}else{heading=t('guide.wifi.compare.widget.close.title','The two connection types are relatively close.');body=t('guide.wifi.compare.widget.close.body','This comparison does not show a large Wi-Fi-only gap. If both results are lower than expected, check your plan, modem/router, device limits, test server and provider connection. The result is not proof that Wi-Fi is problem-free.');}title.textContent=heading;summary.textContent=body;details.replaceChildren();[[t('guide.wifi.compare.widget.download','Download'),wd,ed,dg],[t('guide.wifi.compare.widget.upload','Upload'),wu,eu,ug]].forEach(([label,w,e,g])=>{const li=document.createElement('li');const relation=e===0?t('guide.wifi.compare.widget.no-percent','percentage comparison not meaningful'):g>=0?t('guide.wifi.compare.widget.ethernet-higher','Ethernet {pct}% higher').replace('{pct}',g.toFixed(1)):t('guide.wifi.compare.widget.wifi-higher','Wi-Fi {pct}% higher').replace('{pct}',Math.abs(g).toFixed(1));li.textContent=label+': Wi-Fi '+w+' Mbps; Ethernet '+e+' Mbps; '+relation+' (relative to Ethernet).';details.append(li);});output.hidden=false;});document.addEventListener('tezz-language-change',()=>{error.textContent='';output.hidden=true;});})();</script></body></html>
