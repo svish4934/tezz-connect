@@ -43,6 +43,7 @@ for (const url of guideUrls) {
 
 const hubGuideLinks = [...hub.matchAll(/href=["'](\/guides\/[^"'#?]+)\/?["']/g)]
   .map(match => match[1].replace(/\/$/, '') + '/')
+  .filter(path => !/\.[a-z0-9]+$/i.test(path))
 const uniqueHubGuideLinks = [...new Set(hubGuideLinks)]
 const sitemapPaths = new Set(guideUrls.map(url => new URL(url).pathname))
 for (const path of uniqueHubGuideLinks) {
