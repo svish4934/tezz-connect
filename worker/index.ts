@@ -419,6 +419,26 @@ const app: ExportedHandler<Env> = {
 
     const response = await env.ASSETS.fetch(request)
 
+    // History and report contain browser-local, user-specific results. Keep
+    // these utility views out of search indexes while allowing link discovery.
+    const privateUtilityPaths = new Set(["/history", "/history/", "/report", "/report/"])
+    if (response.status === 200 &&
+        (response.headers.get("Content-Type") ?? "").includes("text/html") &&
+        privateUtilityPaths.has(url.pathname)) {
+      const noIndexResponse = new HTMLRewriter()
+        .on("head", { element(element) {
+          element.append('<meta name="robots" content="noindex,follow">', { html: true })
+        } })
+        .transform(response)
+      const headers = new Headers(noIndexResponse.headers)
+      headers.set("Cache-Control", "no-store")
+      return new Response(noIndexResponse.body, {
+        status: noIndexResponse.status,
+        statusText: noIndexResponse.statusText,
+        headers,
+      })
+    }
+
     // Route-specific metadata is sent in the initial HTML. Search crawlers
     // also receive concise, useful page content; normal browsers only receive
     // the React app shell, preventing the old SEO fallback flash.
@@ -468,7 +488,7 @@ const app: ExportedHandler<Env> = {
       // Keep the crawlable fallback for search crawlers, but do not flash it
       // in normal browsers while the React application is starting.
       const userAgent = request.headers.get("User-Agent") ?? ""
-      const isCrawler = /Googlebot|Bingbot|DuckDuckBot|Baiduspider|YandexBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot/i.test(userAgent)
+      const isCrawler = /Googlebot|Bingbot|DuckDuckBot|Baiduspider|YandexBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|OpenSEO|SEO.?crawler|crawler|spider|HeadlessChrome|Lighthouse|PageSpeed/i.test(userAgent)
       const fallbackStyles = `
         :root{color-scheme:dark;background:#090f1f}
         html,body{min-height:100%;margin:0;background:#090f1f;color:#edf3ff;font-family:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}
