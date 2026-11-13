@@ -56,12 +56,12 @@ await check('Cloudflare country locale endpoint', '/locale-country', (r, body) =
 await check('Simplified Chinese static locale bundle', '/locales/zh-CN/common.json', (r, body) => {
   const data = JSON.parse(body)
   return r.status === 200 && data['INTERNET SPEED TEST'] === '互联网速度测试' &&
-    data._meta?.pageTitles?.Overview && data._meta?.pageDescriptions?.Overview
+    typeof data._meta?.pageTitles?.Overview === 'string' && typeof data._meta?.pageDescriptions?.Overview === 'string'
 })
 await check('Arabic locale bundle and RTL metadata', '/locales/ar/common.json', (r, body) => {
   const data = JSON.parse(body)
   return r.status === 200 && data['INTERNET SPEED TEST'] === 'اختبار سرعة الإنترنت' &&
-    data._meta?.pageTitles?.Overview && data._meta?.pageDescriptions?.Overview
+    typeof data._meta?.pageTitles?.Overview === 'string' && typeof data._meta?.pageDescriptions?.Overview === 'string'
 })
 
 for (const [name, path, expected, title, canonical] of [
