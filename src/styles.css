@@ -2691,3 +2691,27 @@ img, svg { max-width:100%; }
  .tezz-meter-status{padding:6px 8px!important;font-size:9px!important}
 }
 @media(prefers-reduced-motion:reduce){.tezz-meter-status.active i{animation:none!important}}
+
+
+/* Subtle instrument animation: animated light only, never synthetic speed data. */
+.tezz-digital-meter:before{
+  animation:tezz-arc-breathe 4.8s ease-in-out infinite!important;
+  transform-origin:50% 100%!important;
+}
+.tezz-digital-meter:after{
+  animation:tezz-tick-glow 6.2s ease-in-out infinite!important;
+}
+.tezz-digital-meter{
+  background-size:100% 100%!important;
+}
+@keyframes tezz-arc-breathe{
+  0%,100%{filter:drop-shadow(0 0 10px rgba(34,211,238,.34));opacity:.88}
+  50%{filter:drop-shadow(0 0 19px rgba(34,211,238,.68));opacity:1}
+}
+@keyframes tezz-tick-glow{
+  0%,100%{opacity:.34}
+  50%{opacity:.62}
+}
+@media(prefers-reduced-motion:reduce){
+  .tezz-digital-meter:before,.tezz-digital-meter:after{animation:none!important}
+}
