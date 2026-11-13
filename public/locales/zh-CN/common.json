@@ -388,5 +388,17 @@
   "guide.wifi.case.caveat": "这是一个示例场景，不是诊断结论。决定更改前，请重复测试、检查以太网线和端口能力，并确保比较条件相近。",
   "guide.wifi.case.feedback.empty": "请先选择一个答案，再检查你的判断。",
   "guide.wifi.case.feedback.correct": "正确。有线结果表明，在这次测试中，互联网连接能够为这台笔记本提供更高速度。请先排查 Wi-Fi 链路：信号强度、路由器位置、频段、干扰和设备能力。得出明确结论前请重复对比。",
-  "guide.wifi.case.feedback.incorrect": "这不是最佳的第一步。有线结果已经明显更高，因此应先检查 Wi-Fi 连接。升级套餐或更改 DNS 不太可能解决无线链路较弱的问题。"
+  "guide.wifi.case.feedback.incorrect": "这不是最佳的第一步。有线结果已经明显更高，因此应先检查 Wi-Fi 连接。升级套餐或更改 DNS 不太可能解决无线链路较弱的问题。",
+  "guide.wifi.quiz.eyebrow": "快速知识测验",
+  "guide.wifi.quiz.title": "自己试一试",
+  "guide.wifi.quiz.question": "卧室里的 Wi-Fi 信号较弱，但路由器旁的有线测速很快。最好的第一步是什么？",
+  "guide.wifi.quiz.legend": "选择一个答案",
+  "guide.wifi.quiz.option.coverage": "在购买更高速的套餐前，先检查路由器位置和 Wi-Fi 覆盖范围。",
+  "guide.wifi.quiz.option.upgrade": "立即升级到最贵的互联网套餐。",
+  "guide.wifi.quiz.option.settings": "一次性更改路由器的所有设置。",
+  "guide.wifi.quiz.button": "检查我的答案",
+  "guide.wifi.quiz.noscript": "需要启用 JavaScript 才能交互式检查答案。上方指南中提供了解释。",
+  "guide.wifi.quiz.feedback.empty": "请先选择一个答案，然后进行检查。",
+  "guide.wifi.quiz.feedback.correct": "正确！有线结果表明，在路由器附近互联网连接可能正常。请先检查路由器位置和 Wi-Fi，每次只更改一个因素。",
+  "guide.wifi.quiz.feedback.incorrect": "还不完全正确。更改套餐或多项设置前，请先检查路由器位置和 Wi-Fi 覆盖范围。"
 }
