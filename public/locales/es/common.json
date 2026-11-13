@@ -400,5 +400,6 @@
   "guide.wifi.quiz.noscript": "Se necesita JavaScript para comprobar tu respuesta de forma interactiva. La guía anterior contiene la explicación.",
   "guide.wifi.quiz.feedback.empty": "Elige primero una respuesta y después compruébala.",
   "guide.wifi.quiz.feedback.correct": "¡Correcto! El resultado por cable sugiere que la conexión a Internet puede funcionar bien cerca del router. Comprueba primero la ubicación y el Wi-Fi, cambiando una sola cosa cada vez.",
-  "guide.wifi.quiz.feedback.incorrect": "No exactamente. Comprueba la ubicación del router y la cobertura Wi-Fi antes de cambiar de plan o varios ajustes."
+  "guide.wifi.quiz.feedback.incorrect": "No exactamente. Comprueba la ubicación del router y la cobertura Wi-Fi antes de cambiar de plan o varios ajustes.",
+  "guide.wifi.distance.medium": "Media"
 }
