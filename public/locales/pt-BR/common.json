@@ -343,5 +343,15 @@
   "guide.security.related.troubleshooter.body": "Investigue problemas comuns de internet em casa passo a passo.",
   "guide.security.related.open": "Abrir ferramenta →",
   "guide.security.footer.guides": "Todos os guias",
-  "guide.security.footer.about": "Sobre"
+  "guide.security.footer.about": "Sobre",
+  "guide.security.article.encryption.body": "A criptografia ajuda a proteger o tráfego sem fio contra pessoas sem autorização para entrar na sua rede. Use o modo mais forte compatível com o roteador e seus dispositivos. Se o WPA3 causar problemas com um aparelho antigo, verifique se o roteador oferece WPA2-AES seguro antes de recorrer a uma criptografia obsoleta.",
+  "guide.security.article.admin.body": "A conta de administrador controla as configurações do roteador, portanto proteja-a separadamente da senha do Wi-Fi. As atualizações de firmware podem incluir correções de segurança e melhorias de estabilidade. Baixe atualizações somente pela interface oficial do roteador ou pelo suporte confiável do fabricante.",
+  "guide.security.article.guest.body": "Dependendo de como o roteador implementa o isolamento, uma rede de convidados pode manter os dispositivos dos visitantes separados da rede principal. Alguns roteadores também oferecem uma rede exclusiva para dispositivos domésticos inteligentes. Consulte a descrição do recurso; nem toda rede de convidados ou IoT oferece o mesmo isolamento.",
+  "guide.security.note.body": "Segurança e desempenho são verificações diferentes. Se sua conexão estiver lenta ou instável, use estes recursos:",
+  "guide.security.note.troubleshooter": "solucionador de problemas de conexão",
+  "guide.security.note.and": "e o",
+  "guide.security.note.wifi": "guia para melhorar o Wi-Fi",
+  "guide.security.sources.ftc": "Comissão Federal de Comércio dos EUA: como proteger a rede Wi-Fi da sua casa",
+  "guide.security.sources.apple": "Apple: ajustes recomendados para roteadores e pontos de acesso Wi-Fi",
+  "guide.security.sources.cyber": "Centro Canadense de Segurança Cibernética: boas práticas de segurança para roteadores"
 }
