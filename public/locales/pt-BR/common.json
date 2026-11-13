@@ -388,5 +388,17 @@
   "guide.wifi.case.caveat": "Este é um cenário ilustrativo, não um diagnóstico. Repita os testes, confira o cabo Ethernet e a capacidade da porta e compare condições semelhantes antes de decidir o que mudar.",
   "guide.wifi.case.feedback.empty": "Escolha uma resposta primeiro e depois confira seu raciocínio.",
   "guide.wifi.case.feedback.correct": "Correto. O resultado com fio sugere que, nesse teste, a conexão pode fornecer uma velocidade maior ao notebook. Investigue primeiro o link Wi-Fi: sinal, posição do roteador, faixa, interferência e capacidade do dispositivo. Repita a comparação antes de concluir.",
-  "guide.wifi.case.feedback.incorrect": "Essa não é a melhor primeira etapa. O resultado com fio já é muito maior, então investigue primeiro a conexão Wi-Fi. Um plano mais rápido ou a troca de DNS provavelmente não corrigirá um link sem fio fraco."
+  "guide.wifi.case.feedback.incorrect": "Essa não é a melhor primeira etapa. O resultado com fio já é muito maior, então investigue primeiro a conexão Wi-Fi. Um plano mais rápido ou a troca de DNS provavelmente não corrigirá um link sem fio fraco.",
+  "guide.wifi.quiz.eyebrow": "VERIFICAÇÃO RÁPIDA",
+  "guide.wifi.quiz.title": "Faça você mesmo",
+  "guide.wifi.quiz.question": "O Wi-Fi está fraco no quarto, mas um teste com fio ao lado do roteador é rápido. Qual é a melhor primeira etapa?",
+  "guide.wifi.quiz.legend": "Escolha uma resposta",
+  "guide.wifi.quiz.option.coverage": "Verifique a posição do roteador e a cobertura Wi-Fi antes de contratar um plano mais rápido.",
+  "guide.wifi.quiz.option.upgrade": "Faça imediatamente upgrade para o plano de internet mais caro.",
+  "guide.wifi.quiz.option.settings": "Altere todas as configurações do roteador de uma só vez.",
+  "guide.wifi.quiz.button": "Verificar minha resposta",
+  "guide.wifi.quiz.noscript": "É necessário JavaScript para verificar sua resposta de forma interativa. O guia acima contém a explicação.",
+  "guide.wifi.quiz.feedback.empty": "Escolha uma resposta primeiro e depois confira.",
+  "guide.wifi.quiz.feedback.correct": "Correto! O resultado com fio sugere que a conexão com a internet pode estar boa perto do roteador. Verifique primeiro a posição e o Wi-Fi, alterando uma coisa por vez.",
+  "guide.wifi.quiz.feedback.incorrect": "Não exatamente. Verifique a posição do roteador e a cobertura Wi-Fi antes de mudar de plano ou várias configurações."
 }
