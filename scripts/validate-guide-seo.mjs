@@ -12,6 +12,8 @@ const guideUrls = urls.filter(url => new URL(url).pathname.startsWith('/guides/'
 const duplicates = urls.filter((url, index) => urls.indexOf(url) !== index)
 if (duplicates.length) errors.push('Duplicate sitemap URLs: ' + [...new Set(duplicates)].join(', '))
 if (guideUrls.length === 0) errors.push('No individual guide URLs found in sitemap')
+if (!urls.includes('https://tezzconnect.online/guides/')) errors.push('Knowledge Hub index is missing from sitemap')
+try { await readFile('public/guides/index.html', 'utf8') } catch { errors.push('Knowledge Hub index HTML file is missing') }
 
 for (const url of guideUrls) {
   const pathname = new URL(url).pathname
