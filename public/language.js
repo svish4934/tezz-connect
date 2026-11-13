@@ -600,6 +600,7 @@
     twitterDescription: document.querySelector('meta[name="twitter:description"]')?.content || ''
   };
   function applyLocalizedMetadata() {
+    if (window.location.pathname !== '/') return;
     const meta = (localeBundles[language] || {})._meta || {};
     document.title = language !== 'en' && meta.title ? meta.title : originalMetadata.title;
     const values = [
