@@ -303,6 +303,18 @@ let activeLocaleBundle: Record<string, unknown> = {}\nfunction speedText(languag
 const UI_COPY: Record<UiLanguage, string[]> = {"en":["Home","Free Speed Test","Internet Doctor","Network Tools","Global Network","Test History","Performance Report","About TEZZ CONNECT","Language"],"hi":["होम","मुफ़्त स्पीड टेस्ट","इंटरनेट डॉक्टर","नेटवर्क टूल","ग्लोबल नेटवर्क","टेस्ट इतिहास","प्रदर्शन रिपोर्ट","TEZZ CONNECT के बारे में","भाषा"],"mr":["मुख्यपृष्ठ","मोफत स्पीड टेस्ट","इंटरनेट डॉक्टर","नेटवर्क साधने","जागतिक नेटवर्क","चाचणी इतिहास","कामगिरी अहवाल","TEZZ CONNECT बद्दल","भाषा"],"bn":["হোম","বিনামূল্যে স্পিড টেস্ট","ইন্টারনেট ডাক্তার","নেটওয়ার্ক টুল","বিশ্ব নেটওয়ার্ক","পরীক্ষার ইতিহাস","পারফরম্যান্স রিপোর্ট","TEZZ CONNECT সম্পর্কে","ভাষা"],"zh-CN":["首页","免费网速测试","网络诊断助手","网络工具","全球网络","测试历史","性能报告","关于 TEZZ CONNECT","语言"],"pt-BR":["Início","Teste de velocidade grátis","Diagnóstico da internet","Ferramentas de rede","Rede global","Histórico de testes","Relatório de desempenho","Sobre a TEZZ CONNECT","Idioma"],"es":["Inicio","Prueba de velocidad gratis","Diagnóstico de internet","Herramientas de red","Red global","Historial de pruebas","Informe de rendimiento","Acerca de TEZZ CONNECT","Idioma"],"fr":["Accueil","Test de débit gratuit","Diagnostic Internet","Outils réseau","Réseau mondial","Historique des tests","Rapport de performances","À propos de TEZZ CONNECT","Langue"],"ar":["الرئيسية","اختبار سرعة مجاني","طبيب الإنترنت","أدوات الشبكة","الشبكة العالمية","سجل الاختبارات","تقرير الأداء","حول TEZZ CONNECT","اللغة"]}
 
 
+const LOCALE_CODES: UiLanguage[] = ['en', 'hi', 'mr', 'bn', 'zh-CN', 'pt-BR', 'es', 'fr', 'ar']
+function localeFromPath(pathname: string): UiLanguage | null {
+  const match = pathname.match(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(?:\/|$)/)
+  return match ? match[1] as UiLanguage : null
+}
+function stripLocalePrefix(pathname: string): string {
+  return pathname.replace(/^\/(?:hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(?=\/|$)/, '') || '/'
+}
+function localizedPath(locale: UiLanguage, basePath: string): string {
+  const cleanPath = basePath.startsWith('/') ? basePath : `/${basePath}`
+  return locale === 'en' ? cleanPath : `/${locale}${cleanPath === '/' ? '/' : cleanPath}`
+}
 function countryLocale(country: string): UiLanguage {
   if (country === 'CN') return 'zh-CN'
   if (country === 'BR') return 'pt-BR'
@@ -350,6 +362,8 @@ function translatePageText(root: ParentNode, locale: UiLanguage, dictionary: Rec
 
 function App() {
   const [language, setLanguage] = useState<UiLanguage>(() => {
+    const pathLocale = localeFromPath(window.location.pathname)
+    if (pathLocale) return pathLocale
     try {
       const saved = localStorage.getItem('tezz-connect-language')
       if (saved && UI_LANGUAGES.some(item => item.code === saved)) return saved as UiLanguage
@@ -364,6 +378,9 @@ function App() {
     try { localStorage.setItem('tezz-connect-language', next) } catch { /* Preference storage may be unavailable. */ }
     document.documentElement.lang = next
     document.documentElement.dir = next === 'ar' ? 'rtl' : 'ltr'
+    const basePath = stripLocalePrefix(window.location.pathname)
+    const nextPath = localizedPath(next, basePath)
+    if (window.location.pathname !== nextPath) window.history.replaceState({}, '', nextPath)
     window.dispatchEvent(new CustomEvent('tezz-language-change', { detail: { language: next } }))
   }
   useEffect(() => {
@@ -393,6 +410,14 @@ function App() {
       .catch(() => { /* Country detection is optional; English remains the fallback. */ })
     return () => { active = false }
   }, [])
+  useEffect(() => {
+    const pathLocale = localeFromPath(window.location.pathname)
+    if (pathLocale && pathLocale !== language) setLanguage(pathLocale)
+    else if (!pathLocale && language !== 'en') {
+      const saved = (() => { try { return localStorage.getItem('tezz-connect-language') } catch { return null } })()
+      if (saved === language) window.history.replaceState({}, '', localizedPath(language, stripLocalePrefix(window.location.pathname)))
+    }
+  }, [language])
   useEffect(() => {
     let active = true
     if (language === 'en') { activeLocaleBundle = {}; setLocaleBundle({}); return }
@@ -471,7 +496,7 @@ function App() {
     '/about': 'About',
   }
   const tabToRoute: Record<string, string> = Object.fromEntries(Object.entries(routeToTab).map(([path, tab]) => [tab, path]))
-  const [activeTab, setActiveTab] = useState(() => routeToTab[window.location.pathname] ?? 'Overview')
+  const [activeTab, setActiveTab] = useState(() => routeToTab[stripLocalePrefix(window.location.pathname)] ?? 'Overview')
   useEffect(() => {
     if (activeTab === 'Global Network' && !benchmarkLoaded && !benchmarkLoading) void refreshBenchmarkRegions()
   }, [activeTab, benchmarkLoaded, benchmarkLoading])
@@ -479,7 +504,8 @@ function App() {
 
   function navigateTo(tab: string) {
     setMobileMenuOpen(false)
-    const nextPath = tabToRoute[tab] ?? '/'
+    const basePath = tabToRoute[tab] ?? '/'
+    const nextPath = localizedPath(language, basePath)
     if (window.location.pathname !== nextPath) window.history.pushState({}, '', nextPath)
     setActiveTab(tab)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -488,7 +514,9 @@ function App() {
   useEffect(() => {
     const handlePopState = () => {
       setMobileMenuOpen(false)
-      setActiveTab(routeToTab[window.location.pathname] ?? 'Overview')
+      const pathLocale = localeFromPath(window.location.pathname)
+      if (pathLocale && pathLocale !== language) setLanguage(pathLocale)
+      setActiveTab(routeToTab[stripLocalePrefix(window.location.pathname)] ?? 'Overview')
     }
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
@@ -523,7 +551,8 @@ function App() {
     // Keep the canonical URL aligned with the SPA route instead of
     // inheriting the homepage canonical from the static HTML shell.
     const canonicalPath = tabToRoute[activeTab] ?? '/'
-    const canonicalUrl = new URL(canonicalPath, window.location.origin).toString()
+    const localizedCanonicalPath = localizedPath(language, canonicalPath)
+    const canonicalUrl = new URL(localizedCanonicalPath, window.location.origin).toString()
     let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (!canonical) {
       canonical = document.createElement('link')
@@ -534,6 +563,23 @@ function App() {
 
     const ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]')
     if (ogUrl) ogUrl.content = canonicalUrl
+
+    document.querySelectorAll('link[data-tezz-hreflang]').forEach(link => link.remove())
+    const alternateLocales: UiLanguage[] = [...LOCALE_CODES]
+    alternateLocales.forEach(locale => {
+      const alternate = document.createElement('link')
+      alternate.rel = 'alternate'
+      alternate.hreflang = locale
+      alternate.href = new URL(localizedPath(locale, canonicalPath), window.location.origin).toString()
+      alternate.dataset.tezzHreflang = 'true'
+      document.head.appendChild(alternate)
+    })
+    const fallback = document.createElement('link')
+    fallback.rel = 'alternate'
+    fallback.hreflang = 'x-default'
+    fallback.href = new URL(canonicalPath, window.location.origin).toString()
+    fallback.dataset.tezzHreflang = 'true'
+    document.head.appendChild(fallback)
   }, [activeTab, language, localeBundle])
   const [edgeInfo, setEdgeInfo] = useState<{ colo: string; country: string; region: string; asn: number | null; organization: string; fetchedAt: string } | null>(null)
   const [edgeLoading, setEdgeLoading] = useState(false)
