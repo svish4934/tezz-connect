@@ -2428,3 +2428,14 @@ img, svg { max-width:100%; }
   }
   .tezz-mobile-nav .tezz-mobile-nav-submenu a.selected { background:#e8f2ff!important;border-color:#8bbcf2!important;color:#125dbb!important; }
 }
+
+
+/* Mobile Network Tools: enforce a single readable card column on phones and touch-first devices. */
+@media screen and (max-width: 760px), screen and (pointer: coarse) and (max-width: 1400px) {
+  .starter-tools-stack .starter-tool-grid { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; grid-auto-flow: row !important; gap: 12px !important; }
+  .starter-tools-stack .starter-tool-card, .starter-tools-stack .starter-tool-card:nth-child(3) { grid-column: 1 / -1 !important; width: 100% !important; min-width: 0 !important; max-width: none !important; }
+  .starter-tools-stack .starter-tool-card > p { min-height: 0 !important; font-size: 13px !important; line-height: 1.6 !important; }
+  .starter-tools-stack .starter-tool-card h3 { font-size: 18px !important; line-height: 1.3 !important; }
+  .starter-tools-stack .starter-tool-card .section-kicker, .starter-tools-stack .starter-tool-card > label, .starter-tools-stack .starter-dns-form label { font-size: 11px !important; }
+  .starter-tools-stack .starter-tool-card .doctor-run-test { min-height: 48px !important; width: 100% !important; }
+}
