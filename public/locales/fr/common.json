@@ -335,5 +335,22 @@
   "guide.wifi.lab.outlook.copy.fair": "La distance, les obstacles ou l’emplacement du routeur peuvent réduire la qualité du signal. Essayez un endroit plus central et dégagé.",
   "guide.wifi.lab.outlook.copy.weak": "Plusieurs facteurs peuvent rendre cette connexion moins fiable. Placez le routeur dans un endroit ouvert et surélevé ou améliorez la couverture près de l’appareil.",
   "guide.wifi.lab.outlook.note": "Illustration relative uniquement ; les résultats réels dépendent du routeur, de la bande, du bâtiment et de l’appareil.",
-  "guide.wifi.lab.hint.dynamic": "Routeur : {router}. Appareil : {device}. Le routeur est {placement}. La ligne pointillée est conceptuelle et ne représente pas une mesure radio."
+  "guide.wifi.lab.hint.dynamic": "Routeur : {router}. Appareil : {device}. Le routeur est {placement}. La ligne pointillée est conceptuelle et ne représente pas une mesure radio.",
+  "guide.wifi.band.title": "Choisissez la bonne bande Wi-Fi",
+  "guide.wifi.band.alt": "Comparaison indicative : le 2,4 GHz porte souvent plus loin, tandis que les bandes 5 GHz et 6 GHz peuvent offrir un débit supérieur à plus courte portée si elles sont prises en charge.",
+  "guide.wifi.band.caption": "Il s’agit de tendances générales, pas d’une garantie de couverture ou de débit. Le routeur, l’appareil, les murs et les réseaux voisins comptent aussi.",
+  "guide.wifi.band.intro": "De nombreux routeurs proposent plusieurs bandes Wi-Fi. Vous pouvez voir des noms comme 2,4 GHz, 5 GHz ou 6 GHz dans les paramètres.",
+  "guide.wifi.band.24": "Cette bande porte souvent plus loin et traverse mieux les murs, mais elle peut être encombrée et offre généralement des débits de pointe plus faibles.",
+  "guide.wifi.band.5": "Elle peut offrir des connexions plus rapides à proximité, mais le signal peut davantage faiblir à travers les murs ou avec la distance.",
+  "guide.wifi.band.6": "Elle peut offrir une capacité supplémentaire sur les appareils compatibles Wi-Fi 6E ou Wi-Fi 7, mais le routeur et l’appareil doivent tous deux la prendre en charge.",
+  "guide.wifi.band.choice": "Il n’existe pas de bande idéale pour chaque pièce. Choisissez celle qui offre une connexion stable là où vous utilisez votre appareil.",
+  "guide.wifi.devices.title": "Vérifiez ce qui utilise aussi votre connexion Internet",
+  "guide.wifi.devices.body1": "Une personne regarde une vidéo, une autre télécharge un jeu et un ordinateur sauvegarde des fichiers : tout cela utilise la même connexion. Si le Wi-Fi ralentit, vérifiez si un autre appareil effectue un transfert volumineux.",
+  "guide.wifi.devices.body2": "Si votre routeur affiche les appareils connectés, repérez ceux que vous ne connaissez pas ou n’utilisez plus. Changez le mot de passe Wi-Fi si vous pensez qu’une personne inconnue utilise votre réseau.",
+  "guide.wifi.interference.title": "Réduisez les interférences et gardez vos équipements à jour",
+  "guide.wifi.interference.body1": "Évitez de placer le routeur près d’appareils ou d’objets susceptibles de perturber son signal. Dans un immeuble dense, les réseaux voisins peuvent aussi se partager le temps d’antenne. Suivez les consignes du fabricant avant de modifier les réglages avancés.",
+  "guide.wifi.interference.body2": "Consultez le fabricant pour les mises à jour du micrologiciel. Une mise à jour peut corriger des bugs ou des problèmes de sécurité, sans nécessairement augmenter le débit Internet.",
+  "guide.wifi.compare.title": "Comparez le Wi-Fi et une connexion filaire",
+  "guide.wifi.compare.body1": "Effectuez un test de débit en Wi-Fi près du routeur. Si possible, reliez ensuite le même appareil au routeur avec un câble Ethernet et recommencez le test.",
+  "guide.wifi.compare.body2": "Si le résultat filaire est nettement meilleur, le problème peut venir du signal Wi-Fi, des interférences ou de l’emplacement du routeur. Si les résultats sont proches et faibles, la cause peut être votre forfait, le réseau du fournisseur, l’appareil ou le trajet du test."
 }
