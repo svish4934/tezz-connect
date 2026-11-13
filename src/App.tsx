@@ -411,10 +411,13 @@ function App() {
     document.title = titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools'
 
     const descriptions: Record<string, string> = {
-      'Internet Doctor': 'Investigate slow or unstable internet with practical connection checks. Review speed, response time, Wi-Fi and stability signals, then follow clear troubleshooting steps.',
-      Network: 'Free IP address lookup, DNS record checker, Wi-Fi troubleshooting and browser-based network diagnostics from TEZZ CONNECT.',
-      'Global Network': 'Explore aggregate regional internet performance benchmarks from participating TEZZ CONNECT tests. See how opt-in samples are grouped and understand their limits.',
-      About: 'Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.',
+      Overview: 'Test your internet download speed, upload speed, latency and connection stability with the free TEZZ CONNECT browser speed test.',
+      'Internet Doctor': 'Troubleshoot slow or unstable internet with practical checks for speed, latency, Wi-Fi coverage and connection stability.',
+      Network: 'Use free network tools to check your public IP, look up DNS records and troubleshoot common Wi-Fi connection problems.',
+      'Global Network': 'Explore regional internet performance benchmarks from voluntary TEZZ CONNECT tests, with sample counts and clear data limitations.',
+      History: 'Review internet speed test results saved in this browser. Compare your download, upload, ping and jitter measurements over time.',
+      Report: 'View and export a private summary of your saved internet speed, latency and connection stability measurements.',
+      About: 'Learn how TEZZ CONNECT measures browser connection performance and helps people understand internet speed, Wi-Fi and networking.',
     }
     const description = descriptions[activeTab]
     const descriptionMeta = document.querySelector<HTMLMetaElement>('meta[name="description"]')
