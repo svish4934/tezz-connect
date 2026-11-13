@@ -173,7 +173,7 @@ assert.equal(response.status, 405)
 process.stdout.write('PASS  isolated language manifest, published bundle, HEAD, unknown locale, and method checks\\n')
 
 // Validation: no consent, wrong protocol, invalid values, malformed and oversized bodies.
-let response = await call('/api/v1/benchmarks/submit', { method: 'POST', body: payload({ consent: false }) })
+response = await call('/api/v1/benchmarks/submit', { method: 'POST', body: payload({ consent: false }) })
 assert.equal((await expectJson(response, 400)).ok, false)
 response = await call('/api/v1/benchmarks/submit', { method: 'POST', body: payload({ protocolVersion: 'v2' }) })
 assert.equal((await expectJson(response, 400)).ok, false)
