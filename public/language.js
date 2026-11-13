@@ -590,6 +590,30 @@
     'guide.speed.quiz.noscript': "JavaScript is needed to check your answer interactively. The guide above contains the explanation.",
     'guide.speed.faq.heading': "Common questions about internet speed",
   };
+
+  const originalMetadata = {
+    title: document.title,
+    description: document.querySelector('meta[name="description"]')?.content || '',
+    ogTitle: document.querySelector('meta[property="og:title"]')?.content || '',
+    ogDescription: document.querySelector('meta[property="og:description"]')?.content || '',
+    twitterTitle: document.querySelector('meta[name="twitter:title"]')?.content || '',
+    twitterDescription: document.querySelector('meta[name="twitter:description"]')?.content || ''
+  };
+  function applyLocalizedMetadata() {
+    const meta = (localeBundles[language] || {})._meta || {};
+    document.title = language !== 'en' && meta.title ? meta.title : originalMetadata.title;
+    const values = [
+      ['meta[name="description"]', meta.description, originalMetadata.description],
+      ['meta[property="og:title"]', meta.title, originalMetadata.ogTitle],
+      ['meta[property="og:description"]', meta.description, originalMetadata.ogDescription],
+      ['meta[name="twitter:title"]', meta.title, originalMetadata.twitterTitle],
+      ['meta[name="twitter:description"]', meta.description, originalMetadata.twitterDescription]
+    ];
+    values.forEach(([selector, translated, original]) => {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute('content', language !== 'en' && translated ? translated : original);
+    });
+  }
   const attributeNames = ['aria-label', 'aria-description', 'placeholder', 'title', 'alt'];
   const originalAttributes = new WeakMap();
 
@@ -705,6 +729,7 @@
     try { localStorage.setItem(KEY, language); } catch {}
     document.documentElement.lang = language;
     document.documentElement.dir = directions.get(language) || 'ltr';
+    applyLocalizedMetadata();
     const picker = document.querySelector('[data-tezz-language-picker] select');
     if (picker) picker.value = language;
     translateText(document.body);
@@ -759,6 +784,7 @@
     }
     document.documentElement.lang = language;
     document.documentElement.dir = directions.get(language) || 'ltr';
+    applyLocalizedMetadata();
     addPicker();
     translateText(document.body);
     applyKeyedTranslations(document.body);
