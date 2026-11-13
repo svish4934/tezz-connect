@@ -1,0 +1,67 @@
+name: PR 109 isolated Worker preview
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  preview-smoke:
+    if: github.event.pull_request.number == 109 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      - name: Install dependencies
+        run: npm ci
+      - name: Build preview assets
+        run: npm run build
+      - name: Deploy isolated Cloudflare Worker Preview
+        id: preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          set -o pipefail
+          npx wrangler preview --name pr-109 --message "PR #109 crawler and noindex verification" 2>&1 | tee preview.log
+          PREVIEW_URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' preview.log | head -n 1)"
+          test -n "$PREVIEW_URL" || { echo "Could not extract the Worker Preview URL"; exit 1; }
+          echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+      - name: Verify crawler HTML and utility noindex
+        env:
+          PREVIEW_URL: ${{ steps.preview.outputs.url }}
+        run: |
+          set -euo pipefail
+          for route in global-network internet-doctor tools; do
+            curl --fail --silent --show-error -A "OpenSEO" "$PREVIEW_URL/$route" -o "$route.html"
+            grep -qi '<h1[ >]' "$route.html" || { echo "Missing H1 on /$route"; exit 1; }
+            grep -q 'id="seo-fallback"' "$route.html" || { echo "Crawler fallback missing on /$route"; exit 1; }
+          done
+          for route in history report; do
+            curl --fail --silent --show-error -A "OpenSEO" "$PREVIEW_URL/$route" -o "$route.html"
+            grep -Eqi '<meta[^>]+name=["'\''"]robots["'\''"][^>]+content=["'\''"]noindex,follow["'\''"]' "$route.html" || {
+              echo "Missing noindex,follow on /$route"; exit 1;
+            }
+          done
+      - name: Verify normal browser receives SPA shell
+        env:
+          PREVIEW_URL: ${{ steps.preview.outputs.url }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error -A "Mozilla/5.0" "$PREVIEW_URL/global-network" -o browser.html
+          grep -q 'id="root"' browser.html
+          if grep -q 'id="seo-fallback"' browser.html; then
+            echo "SEO fallback leaked into normal browser response"
+            exit 1
+          fi
