@@ -400,5 +400,6 @@
   "guide.wifi.quiz.noscript": "JavaScript est nécessaire pour vérifier votre réponse de manière interactive. L’explication figure dans le guide ci-dessus.",
   "guide.wifi.quiz.feedback.empty": "Choisissez d’abord une réponse, puis vérifiez-la.",
   "guide.wifi.quiz.feedback.correct": "Exact ! Le résultat filaire suggère que la connexion Internet peut être bonne près du routeur. Vérifiez d’abord l’emplacement et le Wi-Fi, en ne changeant qu’un élément à la fois.",
-  "guide.wifi.quiz.feedback.incorrect": "Pas tout à fait. Vérifiez l’emplacement du routeur et la couverture Wi-Fi avant de changer de forfait ou plusieurs réglages."
+  "guide.wifi.quiz.feedback.incorrect": "Pas tout à fait. Vérifiez l’emplacement du routeur et la couverture Wi-Fi avant de changer de forfait ou plusieurs réglages.",
+  "guide.wifi.distance.medium": "Moyenne"
 }
