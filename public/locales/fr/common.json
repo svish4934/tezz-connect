@@ -271,5 +271,13 @@
   "guide.speed.toc.planner": "Estimer les besoins de votre foyer",
   "guide.speed.toc.transfer": "Estimer les durées de téléchargement et d’envoi",
   "guide.speed.toc.test": "Comment effectuer un test utile",
-  "guide.speed.cta.test": "Ouvrir le test de débit →"
+  "guide.speed.cta.test": "Ouvrir le test de débit →",
+  "guide.security.eyebrow": "Sécurité pratique du réseau domestique",
+  "guide.security.title": "Vérifiez la sécurité du Wi-Fi de votre domicile",
+  "guide.security.lede": "Votre routeur est la porte d’entrée de votre réseau domestique. Quelques réglages bien choisis peuvent réduire les risques évitables et vous aider à contrôler les connexions.",
+  "guide.security.tool.eyebrow": "Liste de contrôle interactive",
+  "guide.security.tool.title": "Vérifiez les réglages de votre routeur",
+  "guide.security.tool.intro": "Ouvrez l’application de votre routeur ou de votre fournisseur d’accès et vérifiez chaque point. Cochez une case uniquement après avoir confirmé le réglage. Si une option est introuvable, laissez-la décochée et consultez le manuel ou votre fournisseur.",
+  "guide.security.score": "{done} sur {total} vérifiés",
+  "guide.security.progress": "Progression de la liste de contrôle"
 }
