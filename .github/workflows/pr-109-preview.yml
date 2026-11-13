@@ -40,15 +40,23 @@ jobs:
           PREVIEW_URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' preview.log | head -n 1)"
           test -n "$PREVIEW_URL" || { echo "Could not extract the Worker Preview URL"; exit 1; }
           echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
-      - name: Verify crawler HTML and utility noindex
+      - name: Verify crawler HTML, metadata and utility noindex
         env:
           PREVIEW_URL: ${{ steps.preview.outputs.url }}
         run: |
           set -euo pipefail
           for route in global-network internet-doctor tools; do
             curl --fail --silent --show-error -A "OpenSEO" "$PREVIEW_URL/$route" -o "$route.html"
-            grep -qi '<h1[ >]' "$route.html" || { echo "Missing H1 on /$route"; exit 1; }
+            H1_COUNT="$(grep -Eo '<h1([[:space:]>])' "$route.html" | wc -l)"
+            test "$H1_COUNT" -eq 1 || { echo "Expected exactly one H1 on /$route; found $H1_COUNT"; exit 1; }
             grep -q 'id="seo-fallback"' "$route.html" || { echo "Crawler fallback missing on /$route"; exit 1; }
+            grep -qi '<title>[^<][^<]*</title>' "$route.html" || { echo "Missing title on /$route"; exit 1; }
+            grep -qi '<meta name="description" content="[^"]\+"' "$route.html" || { echo "Missing meta description on /$route"; exit 1; }
+            grep -qi '<link rel="canonical" href="https://tezzconnect.online/' "$route.html" || { echo "Missing production canonical on /$route"; exit 1; }
+            if grep -Eqi '<meta[^>]+name="robots"[^>]+content="noindex' "$route.html"; then
+              echo "Public route /$route unexpectedly contains meta noindex"
+              exit 1
+            fi
           done
           for route in history report; do
             curl --fail --silent --show-error -A "OpenSEO" "$PREVIEW_URL/$route" -o "$route.html"
