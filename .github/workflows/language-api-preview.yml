@@ -56,15 +56,21 @@ jobs:
             }
           '
 
-          curl --fail --silent --show-error -D hindi.headers "$PREVIEW_URL/language-api/v1/bundles/hi" -o hindi.json
-          grep -qi '^x-api-version: language-v1' hindi.headers
-          node --input-type=module -e '
-            import fs from "node:fs";
-            const bundle = JSON.parse(fs.readFileSync("hindi.json", "utf8"));
-            if (!bundle || typeof bundle !== "object" || Array.isArray(bundle)) {
-              throw new Error("Hindi bundle is not a JSON object");
-            }
-          '
+          for locale in hi mr bn zh-CN pt-BR es fr ar; do
+            curl --fail --silent --show-error -D "$locale.headers" "$PREVIEW_URL/language-api/v1/bundles/$locale" -o "$locale.json"
+            grep -qi '^x-api-version: language-v1' "$locale.headers"
+            node --input-type=module -e '
+              import fs from "node:fs";
+              const locale = process.argv[1];
+              const bundle = JSON.parse(fs.readFileSync(locale + ".json", "utf8"));
+              if (!bundle || typeof bundle !== "object" || Array.isArray(bundle)) {
+                throw new Error(locale + " bundle is not a JSON object");
+              }
+              if (bundle._meta?.locale !== locale) {
+                throw new Error(locale + " bundle metadata does not match the requested locale");
+              }
+            ' "$locale"
+          done
 
           HEAD_STATUS="$(curl --silent --output /dev/null --write-out '%{http_code}' --head "$PREVIEW_URL/language-api/v1/bundles/hi")"
           test "$HEAD_STATUS" = "200"
