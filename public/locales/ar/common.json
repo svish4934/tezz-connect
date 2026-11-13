@@ -400,5 +400,6 @@
   "guide.wifi.quiz.noscript": "يلزم JavaScript للتحقق من إجابتك تفاعليًا. يحتوي الدليل أعلاه على الشرح.",
   "guide.wifi.quiz.feedback.empty": "اختر إجابة أولًا ثم تحقق منها.",
   "guide.wifi.quiz.feedback.correct": "صحيح! تشير النتيجة السلكية إلى أن اتصال الإنترنت قد يكون جيدًا بالقرب من الراوتر. افحص موضع الراوتر وWi‑Fi أولًا، وغيّر عاملًا واحدًا في كل مرة.",
-  "guide.wifi.quiz.feedback.incorrect": "ليس تمامًا. تحقق من موضع الراوتر وتغطية Wi‑Fi قبل تغيير الباقة أو عدة إعدادات."
+  "guide.wifi.quiz.feedback.incorrect": "ليس تمامًا. تحقق من موضع الراوتر وتغطية Wi‑Fi قبل تغيير الباقة أو عدة إعدادات.",
+  "guide.wifi.distance.medium": "متوسط"
 }
