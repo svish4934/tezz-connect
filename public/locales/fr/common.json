@@ -343,5 +343,15 @@
   "guide.security.related.troubleshooter.body": "Examinez étape par étape les problèmes Internet courants à domicile.",
   "guide.security.related.open": "Ouvrir l’outil →",
   "guide.security.footer.guides": "Tous les guides",
-  "guide.security.footer.about": "À propos"
+  "guide.security.footer.about": "À propos",
+  "guide.security.article.encryption.body": "Le chiffrement contribue à protéger le trafic sans fil contre les personnes non autorisées à rejoindre votre réseau. Utilisez le mode le plus robuste pris en charge par votre routeur et vos appareils. Si WPA3 pose des problèmes avec un appareil ancien, vérifiez si votre routeur propose WPA2-AES sécurisé avant de choisir un chiffrement obsolète.",
+  "guide.security.article.admin.body": "Le compte administrateur contrôle les paramètres du routeur : protégez-le séparément du mot de passe Wi-Fi. Les mises à jour du micrologiciel peuvent inclure des correctifs de sécurité et des améliorations de stabilité. Téléchargez-les uniquement depuis l’interface officielle du routeur ou le canal d’assistance fiable du fabricant.",
+  "guide.security.article.guest.body": "Selon la manière dont le routeur gère l’isolation, un réseau invité peut séparer les appareils des visiteurs de votre réseau principal. Certains routeurs proposent aussi un réseau distinct pour les appareils domotiques. Consultez la description : tous les réseaux invités ou IoT n’offrent pas le même niveau d’isolation.",
+  "guide.security.note.body": "La sécurité et les performances nécessitent des vérifications différentes. Si votre connexion est lente ou instable, utilisez ces ressources :",
+  "guide.security.note.troubleshooter": "l’outil de dépannage de connexion",
+  "guide.security.note.and": "et le",
+  "guide.security.note.wifi": "guide pour améliorer le Wi-Fi",
+  "guide.security.sources.ftc": "Commission fédérale du commerce des États-Unis : sécuriser le réseau Wi-Fi de votre domicile",
+  "guide.security.sources.apple": "Apple : réglages recommandés pour les routeurs et points d’accès Wi-Fi",
+  "guide.security.sources.cyber": "Centre canadien pour la cybersécurité : bonnes pratiques de cybersécurité des routeurs"
 }
