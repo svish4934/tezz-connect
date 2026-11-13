@@ -97,8 +97,28 @@ class MemoryD1 {
 const database = new MemoryD1()
 const rateLimitCalls = []
 const allowRateLimit = { limit: async ({ key }) => { rateLimitCalls.push(key); return { success: true } } }
+const localeManifest = {
+  version: 1,
+  defaultLocale: 'en',
+  fallbackLocale: 'en',
+  locales: [
+    { code: 'en', status: 'published', coverage: 'complete' },
+    { code: 'hi', status: 'published', coverage: 'starter', bundle: '/locales/hi/common.json' },
+  ],
+}
+const hindiBundle = { 'Hello': 'नमस्ते' }
 const env = {
-  ASSETS: { fetch: async () => new Response('not found', { status: 404 }) },
+  ASSETS: { fetch: async request => {
+    const path = new URL(request.url).pathname
+    let body
+    if (path === '/locales/manifest.json') body = JSON.stringify(localeManifest)
+    else if (path === '/locales/hi/common.json') body = JSON.stringify(hindiBundle)
+    else return new Response('not found', { status: 404 })
+    return new Response(request.method === 'HEAD' ? null : body, {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    })
+  } },
   API_RATE_LIMITER: allowRateLimit,
   TRANSFER_RATE_LIMITER: allowRateLimit,
   BENCHMARK_RATE_LIMITER: allowRateLimit,
@@ -131,6 +151,26 @@ async function expectJson(response, status) {
   assert.equal(response.status, status)
   return response.json()
 }
+
+// The isolated language API serves only published static locale assets.
+let response = await call('/language-api/v1/manifest')
+assert.equal(response.status, 200)
+assert.equal(response.headers.get('x-api-version'), 'language-v1')
+assert.deepEqual((await response.json()).locales.map(locale => locale.code), ['en', 'hi'])
+response = await call('/language-api/v1/bundles/hi')
+assert.equal(response.status, 200)
+assert.match(response.headers.get('cache-control') ?? '', /max-age=300/)
+assert.deepEqual(await response.json(), hindiBundle)
+response = await call('/language-api/v1/bundles/hi', { method: 'HEAD' })
+assert.equal(response.status, 200)
+assert.equal(await response.text(), '')
+response = await call('/language-api/v1/bundles/fr')
+assert.equal(response.status, 404)
+response = await call('/language-api/v1/bundles/../worker')
+assert.equal(response.status, 404)
+response = await call('/language-api/v1/bundles/hi', { method: 'POST' })
+assert.equal(response.status, 405)
+process.stdout.write('PASS  isolated language manifest, published bundle, HEAD, unknown locale, and method checks\\n')
 
 // Validation: no consent, wrong protocol, invalid values, malformed and oversized bodies.
 let response = await call('/api/v1/benchmarks/submit', { method: 'POST', body: payload({ consent: false }) })
