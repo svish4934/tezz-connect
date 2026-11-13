@@ -541,6 +541,7 @@ function App() {
     document.title = language !== 'en' ? (localizedMeta.pageTitles?.[activeTab] ?? (activeTab === 'Overview' ? localizedMeta.title : undefined) ?? titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools') : (titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools')
 
     const descriptions: Record<string, string> = {
+      Overview: 'Run a free internet speed test with TEZZ CONNECT. Measure download and upload speed, browser response time and connection stability.',
       'Internet Doctor': 'Investigate slow or unstable internet with practical connection checks. Review speed, response time, Wi-Fi and stability signals, then follow clear troubleshooting steps.',
       Network: 'Free IP address lookup, DNS record checker, Wi-Fi troubleshooting and browser-based network diagnostics from TEZZ CONNECT.',
       'Global Network': 'Explore aggregate regional internet performance benchmarks from participating TEZZ CONNECT tests. See how opt-in samples are grouped and understand their limits.',
@@ -553,6 +554,12 @@ function App() {
     if (description && descriptionMeta) descriptionMeta.content = description
     const ogDescription = document.querySelector<HTMLMetaElement>('meta[property="og:description"]')
     if (description && ogDescription) ogDescription.content = description
+    const ogTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]')
+    if (ogTitle) ogTitle.content = document.title
+    const twitterTitle = document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')
+    if (twitterTitle) twitterTitle.content = document.title
+    const twitterDescription = document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')
+    if (description && twitterDescription) twitterDescription.content = description
 
     // Keep the canonical URL aligned with the SPA route instead of
     // inheriting the homepage canonical from the static HTML shell.
