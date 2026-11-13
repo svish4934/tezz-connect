@@ -84,5 +84,5 @@
       "bundle": "/locales/ar/common.json"
     }
   ],
-  "notes": "English is the source and fallback. Existing Hindi, Marathi and Bengali starter translations are retained. Global priority locales use reviewed starter bundles and remain marked starter until all site, guide, metadata and interactive content has completed native-language review."
+  "notes": "English remains the default and fallback. Hindi, Marathi and Bengali retain their existing starter coverage. Simplified Chinese, Brazilian Portuguese, Spanish, French and Arabic now include translated primary navigation, homepage content, key speed-test and diagnostic controls, and route-specific SEO metadata. Long-form guide coverage is still in progress; untranslated text falls back to English. Native-language review is required before marking any locale complete."
 }

@@ -2787,3 +2787,12 @@ img, svg { max-width:100%; }
   background: linear-gradient(145deg, #f8fcff, #eaf5fb) !important;
   border-color: #b8d5e6 !important;
 }
+
+
+/* Global localization and right-to-left layout support. Keep numeric test readouts LTR. */
+html[dir="rtl"] body{direction:rtl}
+html[dir="rtl"] input,html[dir="rtl"] textarea,html[dir="rtl"] select{direction:rtl;text-align:right}
+html[dir="rtl"] .head-inner,html[dir="rtl"] .nav,html[dir="rtl"] .toolbar{direction:rtl}
+html[dir="rtl"] .mono,html[dir="rtl"] [data-numeric],html[dir="rtl"] .metric-value,html[dir="rtl"] .speed-value{direction:ltr;unicode-bidi:isolate}
+html[dir="rtl"] .metric-value,html[dir="rtl"] .speed-value{ text-align:left }
+html[dir="rtl"] button,html[dir="rtl"] a{unicode-bidi:plaintext}
