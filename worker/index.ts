@@ -1,4 +1,4 @@
-import { handleLanguageApi } from "./language-api"
+import { handleLanguageApi } from "./language-api.js"
 
 interface RateLimitBinding {
   limit(options: { key: string }): Promise<{ success: boolean }>
