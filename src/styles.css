@@ -2627,3 +2627,67 @@ img, svg { max-width:100%; }
   .knowledge-hub-card{min-height:132px!important;padding:12px 10px!important}
 }
 @media(prefers-reduced-motion:reduce){.tezz-digital-start{transition:none!important}}
+
+
+/* TEZZ CONNECT instrument-grade meter — visual layer only; no measurement or API changes. */
+.tezz-digital-wrap{width:100%;max-width:720px;margin-inline:auto}
+.tezz-digital-meter{
+  position:relative!important;isolation:isolate!important;
+  min-height:390px!important;padding:27px clamp(18px,4vw,38px) 25px!important;
+  border:1px solid rgba(80,177,216,.42)!important;border-radius:28px!important;
+  background:
+    radial-gradient(ellipse at 50% 56%,rgba(8,145,178,.17),transparent 42%),
+    radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.13),transparent 54%),
+    linear-gradient(155deg,#0c1b30 0%,#071321 58%,#091a2d 100%)!important;
+  box-shadow:0 28px 72px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.075),inset 0 -1px 0 rgba(34,211,238,.08)!important;
+}
+.tezz-digital-meter:before{
+  top:57px!important;width:min(84%,470px)!important;height:clamp(145px,22vw,205px)!important;
+  border:0!important;border-radius:470px 470px 0 0!important;
+  background:conic-gradient(from 270deg at 50% 100%,#22d3ee 0deg,#0ea5e9 72deg,#2563eb 145deg,#8b5cf6 180deg,transparent 180.5deg 360deg)!important;
+  -webkit-mask:radial-gradient(ellipse at 50% 100%,transparent 0 70%,#000 71% 76%,transparent 77%)!important;
+  mask:radial-gradient(ellipse at 50% 100%,transparent 0 70%,#000 71% 76%,transparent 77%)!important;
+  filter:drop-shadow(0 0 13px rgba(34,211,238,.48))!important;opacity:.96!important;
+}
+.tezz-digital-meter:after{
+  top:66px!important;width:min(80%,444px)!important;height:clamp(135px,20vw,192px)!important;
+  border-radius:444px 444px 0 0!important;
+  background:repeating-conic-gradient(from 270deg at 50% 100%,rgba(145,226,255,.95) 0deg 1.15deg,transparent 1.15deg 5deg)!important;
+  -webkit-mask:radial-gradient(ellipse at 50% 100%,transparent 0 76%,#000 77% 80%,transparent 81%)!important;
+  mask:radial-gradient(ellipse at 50% 100%,transparent 0 76%,#000 77% 80%,transparent 81%)!important;
+  opacity:.52!important;
+}
+.tezz-meter-topline{position:relative!important;z-index:2!important}
+.tezz-digital-label{font-size:11px!important;font-weight:800!important;letter-spacing:2.6px!important;color:#b5d3e5!important}
+.tezz-meter-status{padding:7px 11px!important;border:1px solid rgba(103,232,249,.2)!important;border-radius:999px!important;background:rgba(8,145,178,.09)!important;font-size:10px!important;font-weight:800!important;letter-spacing:1.25px!important}
+.tezz-meter-status i{display:inline-block!important;width:7px!important;height:7px!important;margin-right:7px!important;border-radius:50%!important;background:#64748b!important;box-shadow:0 0 0 3px rgba(148,163,184,.12)!important}
+.tezz-meter-status.active i{background:#22d3ee!important;box-shadow:0 0 0 3px rgba(34,211,238,.15),0 0 13px #22d3ee!important;animation:tezz-meter-pulse 1.35s ease-in-out infinite!important}
+.tezz-meter-status.complete i{background:#34d399!important;box-shadow:0 0 0 3px rgba(52,211,153,.14)!important}
+.tezz-digital-reading{position:relative!important;z-index:2!important;margin:112px 0 0!important;gap:12px!important;align-items:baseline!important}
+.tezz-digital-reading strong{
+  font-variant-numeric:tabular-nums!important;font-feature-settings:"tnum"!important;
+  font-size:clamp(76px,9.3vw,116px)!important;line-height:.98!important;letter-spacing:-.075em!important;
+  color:#f4fbff!important;text-shadow:0 0 32px rgba(34,211,238,.25),0 4px 28px rgba(0,0,0,.3)!important;
+}
+.tezz-digital-reading span{font-size:clamp(15px,1.8vw,19px)!important;font-weight:700!important;letter-spacing:.02em!important;color:#67e8f9!important}
+.tezz-digital-caption{position:relative!important;z-index:2!important;margin-top:11px!important;font-size:12px!important;letter-spacing:.025em!important;color:#a7c0d4!important}
+.tezz-throughput-chart{position:relative!important;z-index:2!important;height:48px!important;margin-top:25px!important;padding:4px 0!important;border-top:1px solid rgba(86,145,180,.15)!important}
+.tezz-chart-grid{stroke:rgba(93,139,169,.2)!important;stroke-dasharray:2 5!important}
+.tezz-chart-line{stroke:#49e4f5!important;stroke-width:2.5!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 0 5px rgba(34,211,238,.7))!important}
+.tezz-chart-point{fill:#67e8f9!important;filter:drop-shadow(0 0 6px #22d3ee)!important}
+.tezz-digital-start{min-height:58px!important;border-radius:16px!important;font-size:14px!important;letter-spacing:.8px!important;text-transform:uppercase!important;box-shadow:0 14px 34px rgba(14,165,233,.3),inset 0 1px 0 rgba(255,255,255,.35)!important}
+.tezz-digital-start:focus-visible{outline:3px solid #a5f3fc!important;outline-offset:4px!important}
+.tezz-live-progress{max-width:560px!important;margin:14px auto 0!important;padding:12px 16px!important;border:1px solid rgba(34,211,238,.2)!important;border-radius:12px!important;background:rgba(8,24,42,.8)!important;color:#c5dceb!important}
+@keyframes tezz-meter-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.82)}}
+@media(max-width:760px){
+ .tezz-digital-meter{min-height:320px!important;padding:21px 15px 18px!important;border-radius:21px!important}
+ .tezz-digital-meter:before{top:57px!important;width:91%!important;height:145px!important}
+ .tezz-digital-meter:after{top:65px!important;width:86%!important;height:136px!important}
+ .tezz-digital-reading{margin-top:104px!important;gap:8px!important}
+ .tezz-digital-reading strong{font-size:clamp(62px,16vw,82px)!important;letter-spacing:-.07em!important}
+ .tezz-digital-reading span{font-size:14px!important}
+ .tezz-digital-caption{font-size:11px!important}
+ .tezz-throughput-chart{height:42px!important;margin-top:19px!important}
+ .tezz-meter-status{padding:6px 8px!important;font-size:9px!important}
+}
+@media(prefers-reduced-motion:reduce){.tezz-meter-status.active i{animation:none!important}}
