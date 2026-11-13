@@ -1,0 +1,82 @@
+name: Deploy TEZZ CONNECT (no D1 migrations)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_production_deploy:
+        description: "Explicitly confirm deployment to production"
+        required: true
+        type: choice
+        options:
+          - "no"
+          - "yes"
+        default: "no"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tezz-connect-production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Validate and deploy Worker/assets without D1 migrations
+    if: github.ref == 'refs/heads/main' && inputs.confirm_production_deploy == 'yes'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run benchmark handler integration tests
+        run: npm run test:benchmarks
+
+      - name: Run local benchmark D1 SQL integration tests
+        run: npm run test:benchmarks:d1
+
+      - name: Run local Wrangler D1 integration tests
+        run: npm run test:benchmarks:wrangler
+
+      - name: Validate Knowledge Hub locales
+        run: npm run test:locales
+
+      - name: Validate Knowledge Hub SEO
+        run: npm run test:seo-guides
+
+      - name: Build application
+        run: npm run build
+
+      - name: Verify Wrangler deployment configuration (dry run)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy --dry-run
+
+      - name: Verify Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing GitHub Actions secret: CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing GitHub Actions secret: CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+
+      # Deliberately do not run "wrangler d1 migrations apply".
+      # This workflow deploys the Worker and static assets only.
+      - name: Deploy Worker and static assets (no D1 migration command)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy
+
+      - name: Verify production endpoints
+        run: npm run smoke:production
