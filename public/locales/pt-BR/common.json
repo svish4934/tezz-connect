@@ -271,5 +271,13 @@
   "guide.speed.toc.planner": "Estime as necessidades da sua casa",
   "guide.speed.toc.transfer": "Estime o tempo de download e upload",
   "guide.speed.toc.test": "Como fazer um teste útil",
-  "guide.speed.cta.test": "Abrir teste de velocidade →"
+  "guide.speed.cta.test": "Abrir teste de velocidade →",
+  "guide.security.eyebrow": "Segurança prática para redes domésticas",
+  "guide.security.title": "Verifique a segurança do Wi-Fi da sua casa",
+  "guide.security.lede": "O roteador é a porta de entrada da sua rede doméstica. Alguns ajustes cuidadosos podem reduzir riscos evitáveis e ajudar a controlar quem pode se conectar.",
+  "guide.security.tool.eyebrow": "Lista de verificação interativa",
+  "guide.security.tool.title": "Revise as configurações do roteador",
+  "guide.security.tool.intro": "Abra o aplicativo do roteador ou da operadora e confira cada item. Marque uma caixa somente depois de verificar a configuração. Se não encontrar uma opção, deixe-a desmarcada e consulte o manual ou sua operadora.",
+  "guide.security.score": "{done} de {total} verificados",
+  "guide.security.progress": "Progresso da lista de verificação"
 }
