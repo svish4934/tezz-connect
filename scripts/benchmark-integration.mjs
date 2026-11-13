@@ -6,11 +6,13 @@ import { pathToFileURL } from 'node:url'
 import ts from 'typescript'
 
 const workerSource = await readFile(new URL('../worker/index.ts', import.meta.url), 'utf8')
-const compiled = ts.transpileModule(workerSource, {
-  compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 },
-}).outputText
+const languageApiSource = await readFile(new URL('../worker/language-api.ts', import.meta.url), 'utf8')
+const compilerOptions = { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 }
+const compiled = ts.transpileModule(workerSource, { compilerOptions }).outputText
+const compiledLanguageApi = ts.transpileModule(languageApiSource, { compilerOptions }).outputText
 const tempDir = await mkdtemp(join(tmpdir(), 'tezz-worker-test-'))
 const workerPath = join(tempDir, 'worker.mjs')
+await writeFile(join(tempDir, 'language-api.js'), compiledLanguageApi)
 await writeFile(workerPath, compiled)
 let worker
 try {
