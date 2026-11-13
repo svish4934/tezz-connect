@@ -3,7 +3,6 @@ import { join } from 'node:path'
 
 const worker = await readFile('worker/index.ts', 'utf8')
 const sitemapMatch = worker.match(/if \(url\.pathname === "\/sitemap\.xml"\)[\s\S]*?const body = `([\s\S]*?)`/)
-const sitemapMatch = worker.match(/if \(url\.pathname === "\\/sitemap\.xml"\)[\\s\\S]*?const body = `([\\s\\S]*?)`/)
 if (!sitemapMatch) throw new Error('Could not find the Worker sitemap response')
 const sitemap = sitemapMatch[1]
 const urls = [...sitemap.matchAll(/<loc>(https:\/\/tezzconnect\.online\/[^<]+)<\/loc>/g)].map(match => match[1])
