@@ -393,6 +393,7 @@ function App() {
   }, [language])
   useEffect(() => {
     let active = true
+    if (localeFromPath(window.location.pathname)) return
     try {
       if (localStorage.getItem('tezz-connect-language')) return
     } catch { return }
