@@ -400,5 +400,6 @@
   "guide.wifi.quiz.noscript": "需要启用 JavaScript 才能交互式检查答案。上方指南中提供了解释。",
   "guide.wifi.quiz.feedback.empty": "请先选择一个答案，然后进行检查。",
   "guide.wifi.quiz.feedback.correct": "正确！有线结果表明，在路由器附近互联网连接可能正常。请先检查路由器位置和 Wi-Fi，每次只更改一个因素。",
-  "guide.wifi.quiz.feedback.incorrect": "还不完全正确。更改套餐或多项设置前，请先检查路由器位置和 Wi-Fi 覆盖范围。"
+  "guide.wifi.quiz.feedback.incorrect": "还不完全正确。更改套餐或多项设置前，请先检查路由器位置和 Wi-Fi 覆盖范围。",
+  "guide.wifi.distance.medium": "中等"
 }
