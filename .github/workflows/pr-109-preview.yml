@@ -37,7 +37,7 @@ jobs:
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
           set -o pipefail
           npx wrangler preview --name pr-109 --message "PR #109 crawler and noindex verification" 2>&1 | tee preview.log
-          PREVIEW_URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\\.workers\\.dev' preview.log | head -n 1)"
+          PREVIEW_URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' preview.log | head -n 1)"
           test -n "$PREVIEW_URL" || { echo "Could not extract the Worker Preview URL"; exit 1; }
           echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
       - name: Verify crawler HTML, metadata and utility noindex
