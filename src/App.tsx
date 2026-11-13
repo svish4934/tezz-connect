@@ -375,6 +375,26 @@ function App() {
   }, [language])
   useEffect(() => {
     let active = true
+    try {
+      if (localStorage.getItem('tezz-connect-language')) return
+    } catch { return }
+    if (browserLocale() !== 'en') return
+    fetch('/locale-country', { credentials: 'same-origin', cache: 'no-store' })
+      .then(response => response.ok ? response.json() as Promise<{ country?: string }> : Promise.reject(new Error('Country lookup unavailable')))
+      .then(data => {
+        if (!active) return
+        try { if (localStorage.getItem('tezz-connect-language')) return } catch { return }
+        const next = countryLocale(data.country || 'XX')
+        if (next !== 'en') {
+          setLanguage(next)
+          try { localStorage.setItem('tezz-connect-language', next) } catch { /* Preference storage may be unavailable. */ }
+        }
+      })
+      .catch(() => { /* Country detection is optional; English remains the fallback. */ })
+    return () => { active = false }
+  }, [])
+  useEffect(() => {
+    let active = true
     if (language === 'en') { activeLocaleBundle = {}; setLocaleBundle({}); return }
     fetch(`/locales/${language}/common.json`, { credentials: 'same-origin' })
       .then(response => { if (!response.ok) throw new Error('Locale bundle unavailable'); return response.json() })
