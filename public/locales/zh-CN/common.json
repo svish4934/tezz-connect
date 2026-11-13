@@ -271,5 +271,13 @@
   "guide.speed.toc.planner": "估算家庭网络需求",
   "guide.speed.toc.transfer": "估算下载和上传时间",
   "guide.speed.toc.test": "如何进行有效的测速",
-  "guide.speed.cta.test": "打开网速测试 →"
+  "guide.speed.cta.test": "打开网速测试 →",
+  "guide.security.eyebrow": "实用的家庭网络安全",
+  "guide.security.title": "检查家庭 Wi-Fi 安全",
+  "guide.security.lede": "路由器是家庭网络的入口。调整几项关键设置，可以减少不必要的风险，并帮助管理哪些设备能够连接。",
+  "guide.security.tool.eyebrow": "互动检查清单",
+  "guide.security.tool.title": "检查路由器设置",
+  "guide.security.tool.intro": "打开路由器或 ISP 应用，逐项检查。确认设置后再勾选。如果找不到某个选项，请先不要勾选，查看路由器手册或咨询 ISP。",
+  "guide.security.score": "已检查 {done}/{total} 项",
+  "guide.security.progress": "检查清单完成进度"
 }
