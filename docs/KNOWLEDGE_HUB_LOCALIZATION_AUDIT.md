@@ -46,6 +46,19 @@ The 368 structured guide keys in Hindi, Marathi and Bengali currently cover only
 
 The bundle metadata itself confirms that long-form guide content remains incomplete. The legacy runtime supports exact text replacement and keyed text/attribute integration, but complex dynamic content must be explicitly wired to translation keys and refreshed on the language-change event.
 
+## Existing page integration and SEO findings
+
+A source scan of the 15 guide pages found explicit keyed localization markup on only three pages:
+
+| Page | `data-i18n` elements | Localized attribute elements | Language-change listeners |
+|---|---:|---:|---:|
+| How the internet works | 61 | 2 | 1 |
+| Internet speed explained | 152 | 1 | 1 |
+| What is the internet | 94 | 1 | 2 |
+| Each of the other 12 guide pages | 0 | 0 | 0 |
+
+The remaining pages therefore need explicit localization integration; adding dictionary entries alone will not localize their page content or interactive UI. All 15 guide pages currently have canonical links, but this scan found no `hreflang` declarations. This is a separate multilingual SEO requirement to assess carefully: do not invent locale URLs or claim localized pages are independently indexable until the routing and canonical strategy is implemented and tested.
+
 ## Required implementation sequence
 
 1. Build a per-page source inventory covering visible text, document title/description, Open Graph and structured metadata, breadcrumbs, navigation, links, image alt text, form labels, button names, status/error/success states, quiz content and generated interactive text.
