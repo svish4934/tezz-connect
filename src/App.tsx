@@ -414,7 +414,9 @@ function App() {
       'Internet Doctor': 'Investigate slow or unstable internet with practical connection checks. Review speed, response time, Wi-Fi and stability signals, then follow clear troubleshooting steps.',
       Network: 'Free IP address lookup, DNS record checker, Wi-Fi troubleshooting and browser-based network diagnostics from TEZZ CONNECT.',
       'Global Network': 'Explore aggregate regional internet performance benchmarks from participating TEZZ CONNECT tests. See how opt-in samples are grouped and understand their limits.',
-      About: 'Learn about TEZZ CONNECT, a free browser-based toolkit for measuring internet performance, understanding network behaviour and making informed connectivity decisions.',
+      About: 'Learn how TEZZ CONNECT measures internet performance with free browser-based tools and practical network guides.',
+      History: 'Review speed-test results saved locally in this browser. Your history is private to this device and is not uploaded or synced.',
+      Report: 'View and export a private summary of speed, latency and connection-stability measurements saved in this browser.',
     }
     const description = descriptions[activeTab]
     const descriptionMeta = document.querySelector<HTMLMetaElement>('meta[name="description"]')
@@ -1061,6 +1063,7 @@ function App() {
             <div className="about-cta"><div><span className="section-kicker">READY TO CHECK YOUR CONNECTION?</span><h2 style={{color:'#F7FBFF'}}>Start with a fresh speed test.</h2></div><button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 0) }}>Go to speed test <span aria-hidden="true">→</span></button></div>
           </section>}
           {activeTab === 'Global Network' && <section className="global-network-panel">
+            <h1 className="sr-only">Global Network Intelligence</h1>
             <div className="doctor-heading"><div><div className="section-kicker">{speedText(language, 'TEZZ GLOBAL NETWORK INTELLIGENCE')}</div><h2>{speedText(language, 'See the network edge serving your test.')}</h2><p>{speedText(language, "View the Cloudflare data centre handling this request separately from the source network's approximate country and region.")}</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
             <div className="global-edge-card">
               <div className="global-edge-top"><div><span className="section-kicker">{speedText(language, 'CURRENT TEZZ EDGE')}</span><h3>{edgeInfo?.colo || (edgeLoading ? 'Identifying edge…' : 'Edge information not loaded')}</h3></div><span className={edgeLoading ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
@@ -1118,6 +1121,7 @@ function App() {
             <div className="global-network-note"><ShieldCheck size={16}/><span>Privacy and accuracy: TEZZ displays the Cloudflare data-centre code separately from coarse source-network country, region and ASN metadata supplied with the request. It does not request GPS, expose your street address or run a separate IP geolocation lookup.</span></div>
           </section>}
           {activeTab === 'Network' && <section className="network-intel-panel">
+            <h1 className="sr-only">Network Tools</h1>
             <div className="doctor-heading"><div><div className="section-kicker">{speedText(language, 'TEZZ NETWORK INTELLIGENCE')}</div><h2>{speedText(language, 'Understand your connection.')}</h2><p>{speedText(language, 'Run independent response-time checks and review the network information your browser makes available.')}</p></div><span className="doctor-symbol"><Wifi size={23}/></span></div>
             <div className="network-intel-grid">
               <div className="network-primary"><span className={network.online ? 'finding-dot good' : 'finding-dot alert'} /><div><span className="section-kicker">{speedText(language, 'INTERNET REACHABILITY')}</span><strong>{network.online ? 'Browser reports online' : 'Browser reports offline'}</strong><p>{network.online ? 'Your device reports an active network connection. This does not guarantee that every website is reachable.' : 'Your device reports no active network connection. Check Wi-Fi or mobile data, then reconnect.'}</p></div></div>
@@ -1196,6 +1200,7 @@ function App() {
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> {speedText(language, 'Latency and response variation here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.')}</div>
           </section>}
           {activeTab === 'History' && <section className="history-page-panel">
+            <h1 className="sr-only">Internet Speed Test History</h1>
             <div className="doctor-heading"><div><div className="section-kicker">YOUR LOCAL TEST RECORDS</div><h2>Internet speed test history.</h2><p>Review your recent download, upload, HTTP latency and response variation measurements saved in this browser.</p></div><span className="doctor-symbol"><History size={23}/></span></div>
             <div className="history-page-summary"><div><span>Saved tests</span><strong>{history.length}</strong></div><div><span>Storage</span><strong>This browser only</strong></div><div><span>Retention</span><strong>Up to 50 tests</strong></div></div>
             {history.length === 0 ? <div className="empty-history"><History size={18}/><span>No saved tests yet. Run a speed test to build your history.</span></div> : <div className="history-table">
@@ -1219,6 +1224,7 @@ function App() {
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> Speed, latency and stability histories are stored locally in this browser and are not synced across devices. Clearing browser site data may remove these records.</div>
           </section>}
           {activeTab === 'Report' && <section className="performance-report-panel">
+            <h1 className="sr-only">Internet Performance Report</h1>
             <div className="doctor-heading"><div><div className="section-kicker">TEZZ CONNECT PERFORMANCE SUMMARY</div><h2>Your internet performance report.</h2><p>A combined view of your latest speed, latency and connection stability measurements saved in this browser.</p></div><span className="doctor-symbol"><ClipboardCopy size={23}/></span></div>
             <div className="performance-report-meta"><span>Generated {new Date().toLocaleString()}</span><span>Local browser data · Private</span></div>
             <div className="performance-report-visual">
