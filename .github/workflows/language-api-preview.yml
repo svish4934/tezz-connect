@@ -1,0 +1,81 @@
+name: Isolated Language API preview
+
+on:
+  push:
+    branches:
+      - feature/isolated-language-api-v1
+
+permissions:
+  contents: read
+
+jobs:
+  language-api-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout isolated branch
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      - name: Install dependencies
+        run: npm install
+      - name: Build application assets
+        run: npm run build
+      - name: Start local Worker preview
+        run: |
+          set -euo pipefail
+          npx wrangler dev --local --ip 127.0.0.1 --port 8787 --show-interactive-dev-session=false > worker-preview.log 2>&1 &
+          echo $! > worker-preview.pid
+          trap 'kill "$(cat worker-preview.pid)" 2>/dev/null || true' EXIT
+          PREVIEW_URL="http://127.0.0.1:8787"
+          READY=0
+          for attempt in $(seq 1 40); do
+            if curl --silent --fail "$PREVIEW_URL/" >/dev/null; then
+              READY=1
+              break
+            fi
+            sleep 2
+          done
+          if [ "$READY" -ne 1 ]; then
+            cat worker-preview.log
+            echo "Local Worker did not become ready"
+            exit 1
+          fi
+
+          curl --fail --silent --show-error -D manifest.headers "$PREVIEW_URL/language-api/v1/manifest" -o manifest.json
+          grep -qi '^x-api-version: language-v1' manifest.headers
+          grep -qi '^content-type: application/json' manifest.headers
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const manifest = JSON.parse(fs.readFileSync("manifest.json", "utf8"));
+            for (const locale of ["hi", "mr", "bn", "ar"]) {
+              if (!manifest.locales?.some(item => item.code === locale && item.status === "published")) {
+                throw new Error("Published locale missing from manifest: " + locale);
+              }
+            }
+          '
+
+          curl --fail --silent --show-error -D hindi.headers "$PREVIEW_URL/language-api/v1/bundles/hi" -o hindi.json
+          grep -qi '^x-api-version: language-v1' hindi.headers
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const bundle = JSON.parse(fs.readFileSync("hindi.json", "utf8"));
+            if (!bundle || typeof bundle !== "object" || Array.isArray(bundle)) {
+              throw new Error("Hindi bundle is not a JSON object");
+            }
+          '
+
+          HEAD_STATUS="$(curl --silent --output /dev/null --write-out '%{http_code}' --head "$PREVIEW_URL/language-api/v1/bundles/hi")"
+          test "$HEAD_STATUS" = "200"
+
+          UNKNOWN_STATUS="$(curl --silent --output /dev/null --write-out '%{http_code}' "$PREVIEW_URL/language-api/v1/bundles/zz")"
+          test "$UNKNOWN_STATUS" = "404"
+
+          METHOD_STATUS="$(curl --silent --output /dev/null --write-out '%{http_code}' -X POST "$PREVIEW_URL/language-api/v1/manifest")"
+          test "$METHOD_STATUS" = "405"
+
+          echo "Language API local preview smoke tests passed."
+      - name: Show Worker log on failure
+        if: failure()
+        run: cat worker-preview.log
