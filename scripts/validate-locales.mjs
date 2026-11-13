@@ -111,6 +111,38 @@ for (const locale of manifest.locales || []) {
   }
 }
 
+
+ // Validate the global SPA locale registry, core UI coverage and localized SEO metadata.
+const priorityLocales = ['zh-CN', 'pt-BR', 'es', 'fr', 'ar'];
+const requiredCoreKeys = ['INTERNET SPEED TEST', 'START SPEED TEST', 'Internet Connection Health Check', 'Latency Test', 'Wi-Fi Test', 'TEZZ INTERNET DOCTOR', 'Internet Knowledge Hub', 'Global Network', 'Test History', 'Performance Report', 'common.choose_language'];
+const appPath = resolve(root, 'src/App.tsx');
+if (existsSync(appPath)) {
+  const appSource = readFileSync(appPath, 'utf8');
+  for (const code of ['en', 'hi', 'mr', 'bn', ...priorityLocales]) {
+    if (!appSource.includes(`"code":"${code}"`)) fail(`main application language picker is missing ${code}`);
+  }
+} else fail('missing src/App.tsx language integration');
+
+for (const code of priorityLocales) {
+  const locale = (manifest.locales || []).find(item => item.code === code);
+  if (!locale || locale.direction !== (code === 'ar' ? 'rtl' : 'ltr')) fail(`${code}: manifest direction is incorrect`);
+  if (!locale?.bundle) continue;
+  const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
+  if (!existsSync(bundlePath)) continue;
+  try {
+    const bundle = JSON.parse(readFileSync(bundlePath, 'utf8'));
+    const missing = requiredCoreKeys.filter(key => typeof bundle[key] !== 'string' || !bundle[key].trim());
+    if (missing.length) fail(`${code}: missing required core UI translations: ${missing.join(', ')}`);
+    for (const route of ['Overview', 'Internet Doctor', 'Network', 'Global Network', 'History', 'Report', 'About']) {
+      if (typeof bundle._meta?.pageTitles?.[route] !== 'string' || typeof bundle._meta?.pageDescriptions?.[route] !== 'string') {
+        fail(`${code}: missing localized SEO title/description for ${route}`);
+      }
+    }
+  } catch (error) {
+    fail(`${code}: could not validate global locale bundle (${error.message})`);
+  }
+}
+
 if (!codes.has(manifest.defaultLocale)) fail('defaultLocale must exist in locales');
 if (!codes.has(manifest.fallbackLocale)) fail('fallbackLocale must exist in locales');
 if (!manifest.locales.some(locale => locale.code === 'en' && locale.status === 'published')) {
