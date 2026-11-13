@@ -50,7 +50,7 @@ jobs:
           done
           for route in history report; do
             curl --fail --silent --show-error -A "OpenSEO" "$PREVIEW_URL/$route" -o "$route.html"
-            grep -Eqi '<meta[^>]+name=["'\''"]robots["'\''"][^>]+content=["'\''"]noindex,follow["'\''"]' "$route.html" || {
+            grep -Eqi '<meta[^>]+name="robots"[^>]+content="noindex,follow"' "$route.html" || {
               echo "Missing noindex,follow on /$route"; exit 1;
             }
           done
