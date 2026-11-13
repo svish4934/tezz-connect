@@ -680,5 +680,6 @@
   "guide.wifi.quiz.noscript": "उत्तर को इंटरैक्टिव रूप से जाँचने के लिए JavaScript चाहिए। ऊपर दिए गए गाइड में स्पष्टीकरण है।",
   "guide.wifi.quiz.feedback.empty": "पहले एक उत्तर चुनें, फिर जाँचें।",
   "guide.wifi.quiz.feedback.correct": "सही! वायर्ड परिणाम बताता है कि राउटर के पास इंटरनेट कनेक्शन ठीक हो सकता है। पहले राउटर की जगह और Wi-Fi जाँचें और एक बार में एक ही बदलाव करें।",
-  "guide.wifi.quiz.feedback.incorrect": "पूरी तरह सही नहीं। प्लान या कई सेटिंग बदलने से पहले राउटर की जगह और Wi-Fi कवरेज जाँचें।"
+  "guide.wifi.quiz.feedback.incorrect": "पूरी तरह सही नहीं। प्लान या कई सेटिंग बदलने से पहले राउटर की जगह और Wi-Fi कवरेज जाँचें।",
+  "guide.wifi.distance.medium": "मध्यम"
 }
