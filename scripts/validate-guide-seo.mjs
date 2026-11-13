@@ -8,6 +8,8 @@ if (!sitemapMatch) throw new Error('Could not find the Worker sitemap response')
 const sitemap = sitemapMatch[1]
 const urls = [...sitemap.matchAll(/<loc>(https:\/\/tezzconnect\.online\/[^<]+)<\/loc>/g)].map(match => match[1])
 const errors = []
+const titles = new Map()
+const descriptions = new Map()
 const guideUrls = urls.filter(url => new URL(url).pathname.startsWith('/guides/') && new URL(url).pathname !== '/guides/')
 const duplicates = urls.filter((url, index) => urls.indexOf(url) !== index)
 if (duplicates.length) errors.push('Duplicate sitemap URLs: ' + [...new Set(duplicates)].join(', '))
@@ -32,7 +34,9 @@ for (const url of guideUrls) {
   const h1Count = (html.match(/<h1\b/gi) ?? []).length
   const robots = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']*)["']/i)?.[1] ?? ''
   if (!title) errors.push(`Missing title: ${url}`)
+  else titles.set(title, [...(titles.get(title) ?? []), url])
   if (!description) errors.push(`Missing meta description: ${url}`)
+  else descriptions.set(description, [...(descriptions.get(description) ?? []), url])
   if (canonical !== url) errors.push(`Canonical mismatch: ${url} (found: ${canonical ?? 'missing'})`)
   if (h1Count !== 1) errors.push(`Expected exactly one H1, found ${h1Count}: ${url}`)
   if (/noindex/i.test(robots)) errors.push(`Guide has a noindex directive: ${url}`)
@@ -40,6 +44,9 @@ for (const url of guideUrls) {
     errors.push(`Guide is missing from Knowledge Hub internal links: ${url}`)
   }
 }
+
+for (const [title, pages] of titles) if (pages.length > 1) errors.push(`Duplicate page title across guides: ${pages.join(', ')}`)
+for (const [description, pages] of descriptions) if (pages.length > 1) errors.push(`Duplicate meta description across guides: ${pages.join(', ')}`)
 
 const hubGuideLinks = [...hub.matchAll(/href=["'](\/guides\/[^"'#?]+)\/?["']/g)]
   .map(match => match[1].replace(/\/$/, '') + '/')
