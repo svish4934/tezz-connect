@@ -271,5 +271,13 @@
   "guide.speed.toc.planner": "Calcula las necesidades de tu hogar",
   "guide.speed.toc.transfer": "Calcula el tiempo de descarga y subida",
   "guide.speed.toc.test": "Cómo realizar una prueba útil",
-  "guide.speed.cta.test": "Abrir la prueba de velocidad →"
+  "guide.speed.cta.test": "Abrir la prueba de velocidad →",
+  "guide.security.eyebrow": "Seguridad práctica para redes domésticas",
+  "guide.security.title": "Comprueba la seguridad del Wi-Fi de tu hogar",
+  "guide.security.lede": "El router es la puerta de entrada a tu red doméstica. Unos pocos ajustes cuidadosos pueden reducir riesgos evitables y ayudarte a controlar quién se conecta.",
+  "guide.security.tool.eyebrow": "Lista interactiva",
+  "guide.security.tool.title": "Revisa los ajustes de tu router",
+  "guide.security.tool.intro": "Abre la aplicación del router o de tu proveedor de internet y revisa cada punto. Marca una casilla solo después de comprobar el ajuste. Si no encuentras una opción, déjala sin marcar y consulta el manual o a tu proveedor.",
+  "guide.security.score": "{done} de {total} comprobados",
+  "guide.security.progress": "Progreso de la lista de comprobación"
 }
