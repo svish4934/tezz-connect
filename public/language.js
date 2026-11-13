@@ -714,7 +714,7 @@
         language = requested;
       } else {
       try {
-        const response = await fetch(locale.bundle, { credentials: 'same-origin' });
+        const response = await fetch('/language-api/v1/bundles/' + encodeURIComponent(requested), { credentials: 'same-origin' });
         if (!response.ok) throw new Error('Locale bundle unavailable');
         const bundle = await response.json();
         if (!bundle || typeof bundle !== 'object' || Array.isArray(bundle)) throw new Error('Invalid locale bundle');
@@ -739,7 +739,7 @@
   }
   async function loadLocaleManifest() {
     try {
-      const response = await fetch('/locales/manifest.json', { credentials: 'same-origin', cache: 'no-cache' });
+      const response = await fetch('/language-api/v1/manifest', { credentials: 'same-origin', cache: 'no-cache' });
       if (!response.ok) return;
       const manifest = await response.json();
       if (!manifest || manifest.version !== 1 || !Array.isArray(manifest.locales)) return;

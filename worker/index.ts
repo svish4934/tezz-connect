@@ -1,3 +1,5 @@
+import { handleLanguageApi } from "./language-api.js"
+
 interface RateLimitBinding {
   limit(options: { key: string }): Promise<{ success: boolean }>
 }
@@ -29,6 +31,9 @@ function json(message: string, status = 200) {
 const app: ExportedHandler<Env> = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+    // Language content has its own read-only API and does not enter speed-test routes.
+    const languageApiResponse = await handleLanguageApi(request, env.ASSETS)
+    if (languageApiResponse) return languageApiResponse
     // Versioned public API. Legacy paths remain aliases during migration.
     const legacyApiAliases: Record<string, string> = {
       "/api/speed/ping": "/api/v1/speed/ping",
