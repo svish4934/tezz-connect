@@ -37,6 +37,33 @@ for (const [name, path] of appRoutes) {
     body.includes('/assets/'))
 }
 
+
+for (const [name, path] of [
+  ['Simplified Chinese localized homepage route', '/zh-CN/'],
+  ['Brazilian Portuguese localized tools route', '/pt-BR/tools'],
+  ['Arabic localized homepage route', '/ar/'],
+]) {
+  await check(name, path, (r, body) =>
+    r.status === 200 && r.headers.get('content-type')?.includes('text/html') &&
+    body.includes('<div id="root"') && body.includes('/assets/'))
+}
+
+await check('Cloudflare country locale endpoint', '/locale-country', (r, body) => {
+  const data = JSON.parse(body)
+  return r.status === 200 && r.headers.get('content-type')?.includes('application/json') &&
+    typeof data.country === 'string'
+})
+await check('Simplified Chinese static locale bundle', '/locales/zh-CN/common.json', (r, body) => {
+  const data = JSON.parse(body)
+  return r.status === 200 && data['INTERNET SPEED TEST'] === '互联网速度测试' &&
+    data._meta?.pageTitles?.Overview && data._meta?.pageDescriptions?.Overview
+})
+await check('Arabic locale bundle and RTL metadata', '/locales/ar/common.json', (r, body) => {
+  const data = JSON.parse(body)
+  return r.status === 200 && data['INTERNET SPEED TEST'] === 'اختبار سرعة الإنترنت' &&
+    data._meta?.pageTitles?.Overview && data._meta?.pageDescriptions?.Overview
+})
+
 for (const [name, path, expected, title, canonical] of [
   ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT', 'https://tezzconnect.online/'],
   ['About crawler SEO fallback', '/about', 'Understand your connection.', 'About TEZZ CONNECT | Internet Performance Tools', 'https://tezzconnect.online/about'],
