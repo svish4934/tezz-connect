@@ -271,5 +271,13 @@
   "guide.speed.toc.planner": "قدّر احتياجات منزلك",
   "guide.speed.toc.transfer": "قدّر زمن التنزيل والرفع",
   "guide.speed.toc.test": "كيفية إجراء اختبار مفيد",
-  "guide.speed.cta.test": "افتح اختبار السرعة ←"
+  "guide.speed.cta.test": "افتح اختبار السرعة ←",
+  "guide.security.eyebrow": "أمان عملي للشبكة المنزلية",
+  "guide.security.title": "تحقّق من أمان شبكة Wi-Fi المنزلية",
+  "guide.security.lede": "الموجّه هو بوابة الدخول إلى شبكتك المنزلية. يمكن لبعض الإعدادات المدروسة تقليل المخاطر التي يمكن تجنبها والمساعدة في التحكم في الأجهزة التي تتصل بالشبكة.",
+  "guide.security.tool.eyebrow": "قائمة تحقق تفاعلية",
+  "guide.security.tool.title": "راجع إعدادات الموجّه",
+  "guide.security.tool.intro": "افتح تطبيق الموجّه أو مزوّد خدمة الإنترنت وتحقق من كل بند. ضع علامة فقط بعد التأكد من الإعداد. إذا لم تجد خيارًا، فاتركه دون تحديد وراجع دليل الموجّه أو اسأل مزوّد الخدمة.",
+  "guide.security.score": "تم التحقق من {done} من {total}",
+  "guide.security.progress": "مدى اكتمال قائمة التحقق"
 }
