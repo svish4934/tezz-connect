@@ -37,7 +37,52 @@
       "status": "published",
       "coverage": "starter",
       "bundle": "/locales/bn/common.json"
+    },
+    {
+      "code": "zh-CN",
+      "name": "Chinese (Simplified)",
+      "nativeName": "简体中文",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/zh-CN/common.json"
+    },
+    {
+      "code": "pt-BR",
+      "name": "Portuguese (Brazil)",
+      "nativeName": "Português (Brasil)",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/pt-BR/common.json"
+    },
+    {
+      "code": "es",
+      "name": "Spanish",
+      "nativeName": "Español",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/es/common.json"
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "nativeName": "Français",
+      "direction": "ltr",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/fr/common.json"
+    },
+    {
+      "code": "ar",
+      "name": "Arabic",
+      "nativeName": "العربية",
+      "direction": "rtl",
+      "status": "published",
+      "coverage": "starter",
+      "bundle": "/locales/ar/common.json"
     }
   ],
-  "notes": "Only publish a locale after its user-facing strings have a reviewed translation. Use BCP 47 tags for regional variants (for example pt-BR, zh-Hant, en-GB)."
+  "notes": "English is the source and fallback. Existing Hindi, Marathi and Bengali starter translations are retained. Global priority locales use reviewed starter bundles and remain marked starter until all site, guide, metadata and interactive content has completed native-language review."
 }

@@ -7,7 +7,12 @@
     { code: 'en', name: 'English', nativeName: 'English', direction: 'ltr' },
     { code: 'hi', name: 'हिन्दी', nativeName: 'हिन्दी', direction: 'ltr' },
     { code: 'mr', name: 'मराठी', nativeName: 'मराठी', direction: 'ltr' },
-    { code: 'bn', name: 'বাংলা', nativeName: 'বাংলা', direction: 'ltr' }
+    { code: 'bn', name: 'বাংলা', nativeName: 'বাংলা', direction: 'ltr' },
+    { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文', direction: 'ltr', bundle: '/locales/zh-CN/common.json' },
+    { code: 'pt-BR', name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)', direction: 'ltr', bundle: '/locales/pt-BR/common.json' },
+    { code: 'es', name: 'Spanish', nativeName: 'Español', direction: 'ltr', bundle: '/locales/es/common.json' },
+    { code: 'fr', name: 'French', nativeName: 'Français', direction: 'ltr', bundle: '/locales/fr/common.json' },
+    { code: 'ar', name: 'Arabic', nativeName: 'العربية', direction: 'rtl', bundle: '/locales/ar/common.json' }
   ];
   let supported = new Set(languages.map(item => item.code));
   let directions = new Map(languages.map(item => [item.code, item.direction || 'ltr']));
@@ -740,6 +745,18 @@
     const savedLanguage = readLanguage();
     language = 'en';
     if (savedLanguage !== 'en') await setLanguage(savedLanguage);
+    else {
+      try {
+        const response = await fetch('/locale-country', { credentials: 'same-origin', cache: 'no-store' });
+        if (response.ok) {
+          const { country } = await response.json();
+          const countryLocale = country === 'CN' ? 'zh-CN' : country === 'BR' ? 'pt-BR' :
+            ['ES','MX','AR','BO','CL','CO','CR','CU','DO','EC','SV','GT','HN','NI','PA','PY','PE','PR','UY','VE'].includes(country) ? 'es' :
+            country === 'FR' ? 'fr' : ['DZ','BH','KM','DJ','EG','IQ','JO','KW','LB','LY','MR','MA','OM','PS','QA','SA','SO','SD','SY','TN','AE','YE'].includes(country) ? 'ar' : 'en';
+          if (countryLocale !== 'en') await setLanguage(countryLocale);
+        }
+      } catch { /* Country detection is optional; English remains the fallback. */ }
+    }
     document.documentElement.lang = language;
     document.documentElement.dir = directions.get(language) || 'ltr';
     addPicker();

@@ -99,7 +99,7 @@ if (!existsSync(runtimePath)) {
 }
 
 for (const locale of manifest.locales || []) {
-  if (locale.status !== 'published' || !locale.bundle || locale.code === 'en') continue;
+  if (locale.status !== 'published' || locale.coverage !== 'complete' || !locale.bundle || locale.code === 'en') continue;
   const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
   if (!existsSync(bundlePath)) continue;
   try {
