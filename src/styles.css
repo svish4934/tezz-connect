@@ -2439,3 +2439,71 @@ img, svg { max-width:100%; }
   .starter-tools-stack .starter-tool-card .section-kicker, .starter-tools-stack .starter-tool-card > label, .starter-tools-stack .starter-dns-form label { font-size: 11px !important; }
   .starter-tools-stack .starter-tool-card .doctor-run-test { min-height: 48px !important; width: 100% !important; }
 }
+
+
+/* Mobile social-app tiles: align icon, platform name and status as one centered stack. */
+@media (hover: none) and (pointer: coarse), (max-width: 760px) {
+  .tezz-social-panel .services-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+  }
+  .tezz-social-panel .service-tile {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: 30px auto auto !important;
+    justify-items: center !important;
+    align-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 5px !important;
+    min-width: 0 !important;
+    min-height: 96px !important;
+    height: auto !important;
+    padding: 9px 5px !important;
+    overflow: hidden !important;
+  }
+  .tezz-social-panel .service-logo {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: grid !important;
+    place-items: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 !important;
+    flex: none !important;
+  }
+  .tezz-social-panel .service-logo img {
+    display: block !important;
+    width: 23px !important;
+    height: 23px !important;
+    object-fit: contain !important;
+  }
+  .tezz-social-panel .service-name {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    font-weight: 750 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
+  .tezz-social-panel .service-status {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    font-size: 9px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+}
