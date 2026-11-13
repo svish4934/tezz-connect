@@ -343,5 +343,15 @@
   "guide.security.related.troubleshooter.body": "Revisa paso a paso los problemas habituales de Internet en casa.",
   "guide.security.related.open": "Abrir herramienta →",
   "guide.security.footer.guides": "Todas las guías",
-  "guide.security.footer.about": "Acerca de"
+  "guide.security.footer.about": "Acerca de",
+  "guide.security.article.encryption.body": "El cifrado ayuda a proteger el tráfico inalámbrico frente a personas sin permiso para conectarse a tu red. Utiliza el modo más seguro que admitan tu router y tus dispositivos. Si WPA3 causa problemas con un dispositivo antiguo, comprueba si el router ofrece WPA2-AES seguro antes de recurrir a un cifrado obsoleto.",
+  "guide.security.article.admin.body": "La cuenta de administrador controla los ajustes del router, así que protégela por separado de la contraseña del Wi-Fi. Las actualizaciones de firmware pueden incluir correcciones de seguridad y mejoras de estabilidad. Descarga actualizaciones solo desde la interfaz oficial del router o el canal de asistencia fiable del fabricante.",
+  "guide.security.article.guest.body": "Según cómo implemente el aislamiento el router, una red de invitados puede mantener sus dispositivos separados de la red principal. Algunos routers también ofrecen una red independiente para dispositivos domésticos inteligentes. Consulta la descripción de la función; no todas las redes de invitados o IoT ofrecen el mismo aislamiento.",
+  "guide.security.note.body": "La seguridad y el rendimiento requieren comprobaciones distintas. Si tu conexión es lenta o inestable, utiliza estos recursos:",
+  "guide.security.note.troubleshooter": "solucionador de problemas de conexión",
+  "guide.security.note.and": "y la",
+  "guide.security.note.wifi": "guía para mejorar el Wi-Fi",
+  "guide.security.sources.ftc": "Comisión Federal de Comercio de EE. UU.: cómo proteger la red Wi-Fi de tu hogar",
+  "guide.security.sources.apple": "Apple: ajustes recomendados para routers y puntos de acceso Wi-Fi",
+  "guide.security.sources.cyber": "Centro Canadiense de Ciberseguridad: buenas prácticas de ciberseguridad para routers"
 }
