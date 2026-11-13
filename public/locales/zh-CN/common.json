@@ -343,5 +343,15 @@
   "guide.security.related.troubleshooter.body": "逐步排查常见的家庭互联网问题。",
   "guide.security.related.open": "打开工具 →",
   "guide.security.footer.guides": "所有指南",
-  "guide.security.footer.about": "关于我们"
+  "guide.security.footer.about": "关于我们",
+  "guide.security.article.encryption.body": "加密有助于保护无线数据，避免未经授权加入网络的人获取这些数据。请使用路由器和设备支持的最强加密模式。如果 WPA3 与旧设备的兼容性出现问题，请确认路由器是否支持安全的 WPA2-AES，而不要改用过时的加密方式。",
+  "guide.security.article.admin.body": "管理员账户可以控制路由器设置，因此应与 Wi-Fi 密码分开保护。固件更新可能包含安全修复和稳定性改进。请仅通过路由器官方管理界面或制造商可信的支持渠道下载更新。",
+  "guide.security.article.guest.body": "根据路由器实现隔离的方式，访客网络可以将访客设备与主网络分开。一些路由器还为智能家居设备提供独立网络。请查看功能说明，不要假设所有访客或 IoT 网络都具有相同的隔离效果。",
+  "guide.security.note.body": "安全检查与性能检查是两回事。如果连接速度慢或不稳定，请使用以下资源：",
+  "guide.security.note.troubleshooter": "连接故障排查工具",
+  "guide.security.note.and": "以及",
+  "guide.security.note.wifi": "Wi-Fi 优化指南",
+  "guide.security.sources.ftc": "美国联邦贸易委员会：如何保护家庭 Wi-Fi 网络",
+  "guide.security.sources.apple": "Apple：Wi-Fi 路由器和接入点的推荐设置",
+  "guide.security.sources.cyber": "加拿大网络安全中心：路由器网络安全最佳实践"
 }
