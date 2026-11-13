@@ -1,0 +1,35 @@
+name: Knowledge Hub SEO validation
+
+on:
+  pull_request:
+    paths:
+      - "worker/index.ts"
+      - "public/guides/**"
+      - "scripts/validate-guide-seo.mjs"
+      - "package.json"
+      - ".github/workflows/knowledge-hub-seo.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "worker/index.ts"
+      - "public/guides/**"
+      - "scripts/validate-guide-seo.mjs"
+      - "package.json"
+      - ".github/workflows/knowledge-hub-seo.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-guides:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate sitemap and Knowledge Hub guides
+        run: npm run test:seo-guides
