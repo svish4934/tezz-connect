@@ -2760,3 +2760,30 @@ img, svg { max-width:100%; }
 .tezz-social-panel .service-status {
   color: #16856d !important;
 }
+
+
+/* Lighten homepage metric cards and quick-tool tiles for a calmer page flow. */
+.tezz-stat {
+  background: linear-gradient(145deg, #ffffff, #f3f8fc) !important;
+  color: #17324b !important;
+  border-color: #d8e5ef !important;
+  box-shadow: 0 8px 22px rgba(15, 35, 55, .07) !important;
+}
+.tezz-stat strong,
+.tezz-stat h3 {
+  color: #18344d !important;
+}
+.tezz-stat span,
+.tezz-stat p {
+  color: #63798e !important;
+}
+.tezz-feature-grid button {
+  background: linear-gradient(145deg, #ffffff, #f1f7fb) !important;
+  color: #18344d !important;
+  border-color: #d8e5ef !important;
+  box-shadow: 0 8px 22px rgba(15, 35, 55, .07) !important;
+}
+.tezz-feature-grid button:hover {
+  background: linear-gradient(145deg, #f8fcff, #eaf5fb) !important;
+  border-color: #b8d5e6 !important;
+}
