@@ -417,6 +417,15 @@ const app: ExportedHandler<Env> = {
       }
     }
 
+    if (url.pathname === "/locale-country") {
+      if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method not allowed", { status: 405, headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" } })
+      const country = (request as Request & { cf?: { country?: string } }).cf?.country ?? "XX"
+      return new Response(request.method === "HEAD" ? null : JSON.stringify({ country }), {
+        status: 200,
+        headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "Vary": "CF-IPCountry" },
+      })
+    }
+
     const response = await env.ASSETS.fetch(request)
 
     // History and report contain browser-local, user-specific results. Keep
