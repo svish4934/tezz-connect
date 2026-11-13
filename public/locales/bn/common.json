@@ -551,5 +551,13 @@
   "Your laptop may still find a printer on the same home network during an internet outage, provided both devices and the router are working.": "ইন্টারনেট বন্ধ থাকলেও আপনার ল্যাপটপ একই বাড়ির নেটওয়ার্কে থাকা প্রিন্টার খুঁজে পেতে পারে, যদি দুটি ডিভাইস ও রাউটার কাজ করে।",
   "Two computers may exchange files over the home network without sending those files across the public internet.": "দুটি কম্পিউটার পাবলিক ইন্টারনেট দিয়ে না পাঠিয়েও বাড়ির নেটওয়ার্কে ফাইল আদান-প্রদান করতে পারে।",
   "This normally needs both a working home network and a working route to the service. A fault in either place can interrupt playback.": "এর জন্য সাধারণত কার্যকর বাড়ির নেটওয়ার্ক এবং পরিষেবায় পৌঁছানোর কার্যকর পথ—দুটিই দরকার। যেকোনো একটিতে সমস্যা হলে প্লেব্যাক থামতে পারে।",
-  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "পরিষেবা প্রদানকারীর ইন্টারনেট পরিষেবা না থাকলেও অনেক সময় রাউটারের স্থানীয় সেটিংস পেজ খোলা যায়।"
+  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "পরিষেবা প্রদানকারীর ইন্টারনেট পরিষেবা না থাকলেও অনেক সময় রাউটারের স্থানীয় সেটিংস পেজ খোলা যায়।",
+  "guide.security.eyebrow": "বাড়ির নেটওয়ার্কের ব্যবহারিক নিরাপত্তা",
+  "guide.security.title": "আপনার বাড়ির Wi-Fi নিরাপত্তা পরীক্ষা করুন",
+  "guide.security.lede": "আপনার রাউটার বাড়ির নেটওয়ার্কের প্রধান প্রবেশদ্বার। কয়েকটি সতর্ক সেটিংস অপ্রয়োজনীয় ঝুঁকি কমাতে এবং কারা সংযোগ করতে পারবে তা নিয়ন্ত্রণ করতে সাহায্য করে।",
+  "guide.security.tool.eyebrow": "ইন্টার‌্যাক্টিভ চেকলিস্ট",
+  "guide.security.tool.title": "রাউটারের সেটিংস পর্যালোচনা করুন",
+  "guide.security.tool.intro": "আপনার রাউটার বা ISP অ্যাপ খুলে প্রতিটি বিষয় পরীক্ষা করুন। সেটিংস যাচাই করার পরেই বাক্সে টিক দিন। কোনো বিকল্প না পেলে সেটি ফাঁকা রাখুন এবং রাউটারের নির্দেশিকা দেখুন বা ISP-কে জিজ্ঞাসা করুন।",
+  "guide.security.score": "মোট {total}-এর মধ্যে {done}টি পরীক্ষা করা হয়েছে",
+  "guide.security.progress": "চেকলিস্ট সম্পূর্ণতার অগ্রগতি"
 }
