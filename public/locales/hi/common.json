@@ -763,5 +763,18 @@
   "Home": "होम",
   "/ Upload speed explained": "/ अपलोड स्पीड की व्याख्या",
   "plan for what happens when your household is busy, not only when one device is running a speed test. If you regularly make calls while someone else backs up videos or uploads work files, you need enough spare capacity for both activities to run comfortably.": "घर में व्यस्त समय के उपयोग को ध्यान में रखकर प्लान चुनें, केवल उस समय को नहीं जब एक डिवाइस स्पीड टेस्ट चला रहा हो। यदि आप अक्सर कॉल करते हैं और उसी समय कोई वीडियो बैकअप या काम की फ़ाइलें अपलोड करता है, तो दोनों गतिविधियों के लिए पर्याप्त अतिरिक्त क्षमता चाहिए।",
-  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · गर्व से भारत में निर्मित 🇮🇳"
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · गर्व से भारत में निर्मित 🇮🇳",
+  "Choose an answer first, then check it.": "पहले एक उत्तर चुनें, फिर जाँचें।",
+  "Correct!": "सही!",
+  "Not quite.": "पूरी तरह सही नहीं।",
+  "Watching a video mainly uses download capacity. Sending a file uses upload capacity, so check that result and repeat the test under fair conditions.": "वीडियो देखने में मुख्य रूप से डाउनलोड क्षमता का उपयोग होता है। फ़ाइल भेजने में अपलोड क्षमता लगती है, इसलिए उस परिणाम को जाँचें और उचित परिस्थितियों में टेस्ट दोहराएँ।",
+  "Enter valid values": "मान्य मान दर्ज करें",
+  "File size must be 1–100,000 MB and upload speed must be above 0 and no more than 10,000 Mbps.": "फ़ाइल का आकार 1–100,000 MB होना चाहिए और अपलोड गति 0 से अधिक तथा 10,000 Mbps से अधिक नहीं होनी चाहिए।",
+  "About": "लगभग",
+  "sec": "सेकंड",
+  "min": "मिनट",
+  "hr": "घंटे",
+  "day": "दिन",
+  "days": "दिन",
+  "A {mb} MB file at {mbps} Mbps, using an illustrative 80% of the stated rate.": "{mb} MB की फ़ाइल {mbps} Mbps पर, बताई गई गति के उदाहरणार्थ 80% उपयोग के आधार पर।"
 }
