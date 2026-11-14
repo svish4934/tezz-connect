@@ -387,5 +387,22 @@
   "Immediately upgrade to the most expensive internet plan.": "Faça upgrade imediatamente para o plano de internet mais caro.",
   "Change every router setting at once.": "Altere todas as configurações do roteador de uma só vez.",
   "Home Wi-Fi security checkup": "Verificação de segurança do Wi-Fi doméstico",
-  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · Feito com orgulho na Índia 🇮🇳"
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · Feito com orgulho na Índia 🇮🇳",
+  "Improve Wi-Fi with a practical checklist, interactive home-layout simulator, Wi-Fi vs Ethernet comparison and troubleshooting exercise.": "Melhore o Wi-Fi com uma lista prática, simulador interativo de layout doméstico, comparação entre Wi-Fi e Ethernet e exercício de solução de problemas.",
+  "Use an interactive Wi-Fi layout simulator, compare Wi-Fi and Ethernet results, and practise diagnosing common home network issues.": "Use um simulador interativo de layout Wi-Fi, compare os resultados de Wi-Fi e Ethernet e pratique o diagnóstico de problemas comuns da rede doméstica.",
+  "Comparison of central and obstructed Wi-Fi router placement": "Comparação entre o posicionamento central e obstruído do roteador Wi-Fi",
+  "Example speed test results": "Resultados ilustrativos do teste de velocidade",
+  "Guide navigation": "Navegação do guia",
+  "Interactive example home Wi-Fi layout": "Exemplo interativo de layout Wi-Fi doméstico",
+  "A router sends a signal through a home toward a device. The signal path and room labels update as you change the controls.": "Um roteador envia um sinal pela casa em direção a um dispositivo. O caminho do sinal e os nomes dos cômodos são atualizados quando você altera os controles.",
+  "LIVING ROOM": "SALA DE ESTAR",
+  "HALLWAY": "CORREDOR",
+  "BEDROOM": "QUARTO",
+  "KITCHEN": "COZINHA",
+  "STUDY": "ESCRITÓRIO",
+  "FAR ROOM": "CÔMODO DISTANTE",
+  "ROUTER": "ROTEADOR",
+  "YOUR DEVICE": "SEU DISPOSITIVO",
+  "TRY A SCENARIO": "EXPERIMENTE UM CENÁRIO",
+  "ROUTER + DEVICE": "ROTEADOR + DISPOSITIVO"
 }
