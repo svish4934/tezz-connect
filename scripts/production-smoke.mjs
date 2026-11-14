@@ -65,11 +65,11 @@ await check('Arabic locale bundle and RTL metadata', '/locales/ar/common.json', 
 })
 
 for (const [name, path, expected, title, canonical] of [
-  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT', 'https://tezzconnect.online/'],
+  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test | TEZZ CONNECT', 'https://tezzconnect.online/'],
   ['About crawler SEO fallback', '/about', 'Understand your connection.', 'About TEZZ CONNECT | Internet Performance Tools', 'https://tezzconnect.online/about'],
-  ['Internet Doctor crawler SEO fallback', '/internet-doctor', 'Find out why your internet feels slow or unstable.', 'Internet Doctor – Diagnose Slow or Unstable Internet | TEZZ CONNECT', 'https://tezzconnect.online/internet-doctor'],
-  ['Network tools crawler SEO fallback', '/tools', 'Practical network tools to understand your connection.', 'Free Network Tools – Check Connection, Latency & Network Details | TEZZ CONNECT', 'https://tezzconnect.online/tools'],
-  ['Global Network crawler SEO fallback', '/global-network', 'Explore regional internet performance signals.', 'Global Network Benchmarks – Regional Internet Performance | TEZZ CONNECT', 'https://tezzconnect.online/global-network'],
+  ['Internet Doctor crawler SEO fallback', '/internet-doctor', 'Find out why your internet feels slow or unstable.', 'Internet Doctor: Fix Slow Internet | TEZZ CONNECT', 'https://tezzconnect.online/internet-doctor'],
+  ['Network tools crawler SEO fallback', '/tools', 'Practical network tools to understand your connection.', 'Free Network Tools & Diagnostics | TEZZ CONNECT', 'https://tezzconnect.online/tools'],
+  ['Global Network crawler SEO fallback', '/global-network', 'Explore regional internet performance signals.', 'Global Network Benchmarks | TEZZ CONNECT', 'https://tezzconnect.online/global-network'],
 ]) {
   await check(name, path, (r, body) => {
     const missing = []
