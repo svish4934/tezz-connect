@@ -51,30 +51,80 @@
     </script>
     <meta name="description" content="Run a free internet speed test with TEZZ CONNECT. Measure download and upload speed, browser-based response time and connection stability for streaming, gaming and video calls." />
     <title>Free Internet Speed Test | TEZZ CONNECT</title>
-    <!-- Queue analytics immediately, but defer third-party downloads until after first paint. -->
+    <!-- Optional analytics and advertising load only after an affirmative choice. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SL6RDF7GHX');
-      window.addEventListener('load', function () {
-        var loadThirdParty = function () {
-          var analytics = document.createElement('script');
-          analytics.async = true;
-          analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX';
-          document.head.appendChild(analytics);
-          var ads = document.createElement('script');
-          ads.async = true;
-          ads.crossOrigin = 'anonymous';
-          ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
-          document.head.appendChild(ads);
-        };
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadThirdParty, { timeout: 5000 });
-        } else {
-          window.setTimeout(loadThirdParty, 2500);
+      gtag('consent', 'default', {
+        analytics_storage: 'denied', ad_storage: 'denied',
+        ad_user_data: 'denied', ad_personalization: 'denied',
+        functionality_storage: 'granted', security_storage: 'granted'
+      });
+      (function () {
+        var KEY = 'tezz_cookie_consent_v1';
+        var current = null;
+        try { current = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (_) {}
+        function loadScripts(prefs) {
+          gtag('consent', 'update', {
+            analytics_storage: prefs.analytics ? 'granted' : 'denied',
+            ad_storage: prefs.ads ? 'granted' : 'denied',
+            ad_user_data: prefs.ads ? 'granted' : 'denied',
+            ad_personalization: prefs.ads ? 'granted' : 'denied'
+          });
+          if (prefs.analytics && !document.getElementById('tezz-ga')) {
+            gtag('js', new Date());
+            gtag('config', 'G-SL6RDF7GHX');
+            var ga = document.createElement('script');
+            ga.id = 'tezz-ga'; ga.async = true;
+            ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX';
+            document.head.appendChild(ga);
+          }
+          if (prefs.ads && !document.getElementById('tezz-ads')) {
+            var ads = document.createElement('script');
+            ads.id = 'tezz-ads'; ads.async = true; ads.crossOrigin = 'anonymous';
+            ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
+            document.head.appendChild(ads);
+          }
         }
-      }, { once: true });
+        function save(prefs) {
+          prefs = { necessary: true, analytics: !!prefs.analytics, ads: !!prefs.ads, updatedAt: new Date().toISOString() };
+          try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (_) {}
+          current = prefs; loadScripts(prefs); render(false);
+        }
+        function render(show) {
+          var old = document.getElementById('tezz-cookie-panel');
+          if (old) old.remove();
+          if (!show) return;
+          var panel = document.createElement('section');
+          panel.id = 'tezz-cookie-panel';
+          panel.setAttribute('aria-label', 'Cookie preferences');
+          panel.innerHTML = '<div class="tezz-cookie-card"><div class="tezz-cookie-copy"><strong>Privacy choices</strong><p>Necessary storage keeps the site working. With your permission, analytics helps us improve TEZZ CONNECT and advertising supports the free service. You can change your choice any time.</p><a href="/cookie-policy/">Cookie Policy</a> · <a href="/privacy-policy/">Privacy Policy</a></div><div class="tezz-cookie-actions"><button type="button" data-action="reject">Reject optional</button><button type="button" data-action="manage">Manage</button><button type="button" data-action="accept">Accept all</button></div></div>';
+          document.body.appendChild(panel);
+          panel.querySelector('[data-action="reject"]').onclick = function(){ save({analytics:false,ads:false}); };
+          panel.querySelector('[data-action="accept"]').onclick = function(){ save({analytics:true,ads:true}); };
+          panel.querySelector('[data-action="manage"]').onclick = function(){
+            var oldPrefs = current || {analytics:false,ads:false};
+            var settings = document.createElement('div');
+            settings.className = 'tezz-cookie-settings';
+            settings.innerHTML = '<h3>Manage optional cookies</h3><label><input type="checkbox" checked disabled> Necessary storage <small>Always active</small></label><label><input id="tezz-analytics-choice" type="checkbox"> Analytics</label><label><input id="tezz-ads-choice" type="checkbox"> Advertising</label><div><button type="button" data-save>Save choices</button><button type="button" data-cancel>Cancel</button></div>';
+            panel.querySelector('.tezz-cookie-card').appendChild(settings);
+            settings.querySelector('#tezz-analytics-choice').checked = !!oldPrefs.analytics;
+            settings.querySelector('#tezz-ads-choice').checked = !!oldPrefs.ads;
+            settings.querySelector('[data-save]').onclick = function(){ save({analytics:settings.querySelector('#tezz-analytics-choice').checked,ads:settings.querySelector('#tezz-ads-choice').checked}); };
+            settings.querySelector('[data-cancel]').onclick = function(){ settings.remove(); };
+          };
+        }
+        var style = document.createElement('style');
+        style.textContent = '#tezz-cookie-panel{position:fixed;z-index:99999;left:16px;right:16px;bottom:16px;font:14px/1.5 system-ui,sans-serif;color:#17283d}#tezz-cookie-panel .tezz-cookie-card{max-width:980px;margin:auto;background:#fff;border:1px solid #cbd5e1;border-radius:14px;box-shadow:0 12px 40px #0003;padding:18px;display:flex;gap:20px;align-items:center;justify-content:space-between}#tezz-cookie-panel p{margin:5px 0}#tezz-cookie-panel a{color:#087f91}#tezz-cookie-panel button{border:1px solid #9aabba;background:#fff;color:#17283d;border-radius:8px;padding:9px 12px;font:inherit;cursor:pointer}#tezz-cookie-panel button[data-action=accept],#tezz-cookie-panel [data-save]{background:#087f91;color:#fff;border-color:#087f91}.tezz-cookie-actions{display:flex;gap:8px;flex-wrap:wrap}.tezz-cookie-settings{border-top:1px solid #dbe3eb;margin-top:14px;padding-top:12px}.tezz-cookie-settings label{display:block;margin:8px 0}.tezz-cookie-settings small{color:#64748b;margin-left:6px}.tezz-cookie-settings button{margin:8px 8px 0 0}@media(max-width:650px){#tezz-cookie-panel .tezz-cookie-card{display:block;padding:14px}.tezz-cookie-actions{margin-top:12px}#tezz-cookie-panel button{flex:1}}';
+        document.head.appendChild(style);
+        var manage = document.createElement('button');
+        manage.type = 'button'; manage.id = 'tezz-cookie-reopen'; manage.textContent = 'Cookie settings';
+        manage.style.cssText = 'position:fixed;z-index:9998;left:12px;bottom:12px;padding:7px 10px;border:1px solid #9aabba;border-radius:8px;background:#fff;color:#17283d;font:12px system-ui;cursor:pointer';
+        manage.onclick = function(){ render(true); };
+        document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(manage); });
+        if (current && current.necessary === true) loadScripts(current);
+        else document.addEventListener('DOMContentLoaded', function(){ render(true); });
+      })();
     </script>
   </head>
   <body>
