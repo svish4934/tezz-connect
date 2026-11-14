@@ -271,5 +271,21 @@
   "guide.speed.toc.planner": "قدّر احتياجات منزلك",
   "guide.speed.toc.transfer": "قدّر زمن التنزيل والرفع",
   "guide.speed.toc.test": "كيفية إجراء اختبار مفيد",
-  "guide.speed.cta.test": "افتح اختبار السرعة ←"
+  "guide.speed.cta.test": "افتح اختبار السرعة ←",
+  "guide.troubleshooter.skip": "انتقل إلى المحتوى الرئيسي",
+  "guide.troubleshooter.breadcrumb": "استكشاف مشكلات الاتصال وإصلاحها",
+  "guide.troubleshooter.eyebrow": "إرشادات عملية لاستكشاف مشكلات الإنترنت",
+  "guide.troubleshooter.title": "اعرف الخطوة التالية عندما يواجه اتصالك بالإنترنت مشكلة.",
+  "guide.troubleshooter.lede": "اختر المشكلة التي تلاحظها. تساعدك قائمة الفحص هذه على تحديد ما إذا كان ينبغي فحص Wi-Fi أو جهاز واحد أو الموجّه أو اتصال الإنترنت نفسه، دون التسرع في شراء معدات جديدة.",
+  "guide.troubleshooter.how_to": "كيفية استخدام هذا الدليل:",
+  "guide.troubleshooter.how_to_body": "ابدأ بالعرض الذي تلاحظه، واتبع الفحوصات بالترتيب، وغيّر شيئًا واحدًا في كل مرة. هذه خطوات تشخيصية وليست اختبارًا مباشرًا للشبكة. تبقى نتائجك في هذا المتصفح ولا يُرسل شيء إلى خادم.",
+  "guide.troubleshooter.build_checklist": "أنشئ قائمة الفحص",
+  "guide.troubleshooter.problem_heading": "ما المشكلة التي تواجهها؟",
+  "guide.troubleshooter.problem_intro": "اختر الحالة الأقرب إلى ما تواجهه. إذا كانت هناك مشكلات متعددة، فابدأ بالأكثر تأثيرًا عليك.",
+  "guide.troubleshooter.problem_label": "اختر مشكلة الإنترنت لديك",
+  "guide.troubleshooter.choose_problem": "اختر مشكلة…",
+  "guide.troubleshooter.build_button": "أنشئ خطة استكشاف الأخطاء",
+  "guide.troubleshooter.result_eyebrow": "خطة الفحص الأولية",
+  "guide.troubleshooter.fair_test": "اجعل المقارنة عادلة:",
+  "guide.troubleshooter.fair_test_body": "سجّل ما تغيّر وقارن في ظروف متشابهة. أوقف التنزيلات الكبيرة مؤقتًا، واستخدم الجهاز والموقع نفسيهما قدر الإمكان، وتجنب تغيير عدة إعدادات في الوقت نفسه."
 }
