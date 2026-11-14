@@ -555,5 +555,21 @@
   "guide.homeNetworkPlanner.plan1": "वायर्ड ॲक्सेस पॉइंटसह मुख्य राउटर",
   "guide.homeNetworkPlanner.plan2": "योग्य ठिकाणी ठेवलेल्या मेश प्रणालीसह मुख्य राउटर",
   "guide.homeNetworkPlanner.plan3": "योग्य ठिकाणी ठेवलेला एक राउटर पुरेसा ठरू शकतो",
-  "guide.homeNetworkPlanner.caution": "तुमच्याकडे असलेल्या उपकरणांपासून सुरुवात करा. चाचणीत कव्हरेज किंवा क्षमतेची खरी समस्या दिसल्यावरच अतिरिक्त उपकरणे जोडा."
+  "guide.homeNetworkPlanner.caution": "तुमच्याकडे असलेल्या उपकरणांपासून सुरुवात करा. चाचणीत कव्हरेज किंवा क्षमतेची खरी समस्या दिसल्यावरच अतिरिक्त उपकरणे जोडा.",
+  "guide.homeNetworkPlanner.skip": "मुख्य मजकुराकडे जा",
+  "guide.homeNetworkPlanner.eyebrow": "व्यावहारिक होम नेटवर्किंग",
+  "guide.homeNetworkPlanner.title": "तुमच्या घराला अनुरूप नेटवर्कची योजना करा",
+  "guide.homeNetworkPlanner.toc": "या मार्गदर्शकात",
+  "guide.homeNetworkPlanner.tooltitle": "तुमची प्रारंभिक नेटवर्क रचना तयार करा",
+  "guide.homeNetworkPlanner.size": "घराचा अंदाजे आकार",
+  "guide.homeNetworkPlanner.floors": "मजल्यांची संख्या",
+  "guide.homeNetworkPlanner.devices": "साधारणपणे किती उपकरणे जोडलेली असतात?",
+  "guide.homeNetworkPlanner.usage": "तुमच्यासाठी सर्वात महत्त्वाचे काय?",
+  "guide.homeNetworkPlanner.router": "इंटरनेट कनेक्शन घरात कुठून येते?",
+  "guide.homeNetworkPlanner.build": "माझी होम नेटवर्क योजना तयार करा",
+  "guide.homeNetworkPlanner.result": "तुमची प्रारंभिक नेटवर्क रचना",
+  "guide.homeNetworkPlanner.steps": "पुढील व्यावहारिक पावले",
+  "guide.homeNetworkPlanner.check": "स्थापित करण्यापूर्वी किंवा खरेदीपूर्वी",
+  "guide.homeNetworkPlanner.important": "महत्त्वाचे",
+  "guide.homeNetworkPlanner.related": "संबंधित मार्गदर्शक"
 }
