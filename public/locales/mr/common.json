@@ -686,5 +686,17 @@
   "guide.troubleshooter.faq.dns.q": "कमकुवत Wi-Fi सुधारण्यासाठी DNS बदलावा का?",
   "guide.troubleshooter.faq.dns.a": "DNS डोमेन नावे नेटवर्क पत्त्यांमध्ये रूपांतरित करण्यास मदत करतो; तो रेडिओ सिग्नल मजबूत करत नाही. एका खोलीत Wi-Fi कमकुवत असल्यास DNS बदलण्यापूर्वी राउटरची जागा, अडथळे आणि कव्हरेज तपासा.",
   "guide.troubleshooter.faq.reset.q": "राउटर फॅक्टरी रीसेट करणे सुरक्षित आहे का?",
-  "guide.troubleshooter.faq.reset.a": "हा सुरुवातीचा उपाय नसावा. फॅक्टरी रीसेटमुळे Wi-Fi नाव, पासवर्ड आणि सेवा प्रदात्याच्या विशिष्ट सेटिंग्ज पुसल्या जाऊ शकतात. प्रदाता किंवा उपकरण निर्माता सांगत असेल आणि पुन्हा जोडण्यासाठी आवश्यक माहिती तुमच्याकडे असेल तेव्हाच असे करा."
+  "guide.troubleshooter.faq.reset.a": "हा सुरुवातीचा उपाय नसावा. फॅक्टरी रीसेटमुळे Wi-Fi नाव, पासवर्ड आणि सेवा प्रदात्याच्या विशिष्ट सेटिंग्ज पुसल्या जाऊ शकतात. प्रदाता किंवा उपकरण निर्माता सांगत असेल आणि पुन्हा जोडण्यासाठी आवश्यक माहिती तुमच्याकडे असेल तेव्हाच असे करा.",
+  "guide.troubleshooter.related.eyebrow": "पुढे शिकत राहा",
+  "guide.troubleshooter.related.heading": "इंटरनेट नॉलेज हबमधील संबंधित मार्गदर्शिका",
+  "guide.troubleshooter.related.wifi.title": "Wi-Fi चा वेग सुधारा",
+  "guide.troubleshooter.related.wifi.body": "राउटरची जागा, व्यत्यय आणि उपयुक्त तपासण्या.",
+  "guide.troubleshooter.related.read": "मार्गदर्शिका वाचा →",
+  "guide.troubleshooter.related.latency.title": "Latency, ping आणि jitter",
+  "guide.troubleshooter.related.latency.body": "विलंब आणि अस्थिर प्रतिसाद वेळ समजून घ्या.",
+  "guide.troubleshooter.related.lab.title": "परस्परसंवादी नेटवर्क लॅब",
+  "guide.troubleshooter.related.lab.body": "Wi-Fi बँड आणि घरातील नेटवर्क मांडणी वापरून पाहा.",
+  "guide.troubleshooter.related.try": "लॅब वापरून पाहा →",
+  "guide.troubleshooter.related.all": "← इंटरनेट नॉलेज हबमधील सर्व मार्गदर्शिका पाहा",
+  "guide.troubleshooter.footer.brand": "© 2026 TEZZ CONNECT · अभिमानाने भारतात तयार केले 🇮🇳"
 }
