@@ -686,5 +686,17 @@
   "guide.troubleshooter.faq.dns.q": "দুর্বল Wi-Fi ঠিক করতে কি DNS বদলানো উচিত?",
   "guide.troubleshooter.faq.dns.a": "DNS ডোমেইন নামকে নেটওয়ার্ক ঠিকানায় রূপান্তর করতে সাহায্য করে; এটি রেডিও সিগন্যাল শক্তিশালী করে না। একটি ঘরে Wi-Fi দুর্বল হলে DNS বদলানোর আগে রাউটারের অবস্থান, বাধা ও কভারেজ পরীক্ষা করুন।",
   "guide.troubleshooter.faq.reset.q": "রাউটার ফ্যাক্টরি রিসেট করা কি নিরাপদ?",
-  "guide.troubleshooter.faq.reset.a": "এটি প্রথম পদক্ষেপ হওয়া উচিত নয়। ফ্যাক্টরি রিসেট করলে Wi-Fi নাম, পাসওয়ার্ড এবং প্রদানকারীর নির্দিষ্ট সেটিং মুছে যেতে পারে। প্রদানকারী বা যন্ত্র নির্মাতা পরামর্শ দিলে এবং পুনরায় সংযোগের তথ্য হাতে থাকলেই করুন।"
+  "guide.troubleshooter.faq.reset.a": "এটি প্রথম পদক্ষেপ হওয়া উচিত নয়। ফ্যাক্টরি রিসেট করলে Wi-Fi নাম, পাসওয়ার্ড এবং প্রদানকারীর নির্দিষ্ট সেটিং মুছে যেতে পারে। প্রদানকারী বা যন্ত্র নির্মাতা পরামর্শ দিলে এবং পুনরায় সংযোগের তথ্য হাতে থাকলেই করুন।",
+  "guide.troubleshooter.related.eyebrow": "আরও শিখুন",
+  "guide.troubleshooter.related.heading": "ইন্টারনেট নলেজ হাবের সম্পর্কিত গাইড",
+  "guide.troubleshooter.related.wifi.title": "Wi-Fi-এর গতি বাড়ান",
+  "guide.troubleshooter.related.wifi.body": "রাউটারের অবস্থান, বাধা ও ব্যবহারিক পরীক্ষা।",
+  "guide.troubleshooter.related.read": "গাইড পড়ুন →",
+  "guide.troubleshooter.related.latency.title": "Latency, ping ও jitter",
+  "guide.troubleshooter.related.latency.body": "বিলম্ব এবং অনিয়মিত প্রতিক্রিয়ার সময় বুঝুন।",
+  "guide.troubleshooter.related.lab.title": "ইন্টারঅ্যাকটিভ নেটওয়ার্ক ল্যাব",
+  "guide.troubleshooter.related.lab.body": "Wi-Fi ব্যান্ড ও বাড়ির নেটওয়ার্ক বিন্যাস নিয়ে পরীক্ষা করুন।",
+  "guide.troubleshooter.related.try": "ল্যাব ব্যবহার করুন →",
+  "guide.troubleshooter.related.all": "← ইন্টারনেট নলেজ হাবের সব গাইড দেখুন",
+  "guide.troubleshooter.footer.brand": "© 2026 TEZZ CONNECT · গর্বের সঙ্গে ভারতে তৈরি 🇮🇳"
 }
