@@ -387,5 +387,22 @@
   "Immediately upgrade to the most expensive internet plan.": "قم فورًا بالترقية إلى أغلى باقة إنترنت.",
   "Change every router setting at once.": "غيّر جميع إعدادات الموجّه دفعة واحدة.",
   "Home Wi-Fi security checkup": "فحص أمان Wi-Fi المنزلي",
-  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · صُنع بفخر في الهند 🇮🇳"
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · صُنع بفخر في الهند 🇮🇳",
+  "Improve Wi-Fi with a practical checklist, interactive home-layout simulator, Wi-Fi vs Ethernet comparison and troubleshooting exercise.": "حسّن Wi-Fi باستخدام قائمة تحقق عملية ومحاكي تخطيط منزلي تفاعلي ومقارنة بين Wi-Fi وEthernet وتمرين لاستكشاف المشكلات.",
+  "Use an interactive Wi-Fi layout simulator, compare Wi-Fi and Ethernet results, and practise diagnosing common home network issues.": "استخدم محاكي تخطيط Wi-Fi تفاعليًا، وقارن نتائج Wi-Fi وEthernet، وتدرّب على تشخيص مشكلات الشبكة المنزلية الشائعة.",
+  "Comparison of central and obstructed Wi-Fi router placement": "مقارنة بين وضع الموجّه في موقع مركزي وموقع تعترضه العوائق",
+  "Example speed test results": "نتائج توضيحية لاختبار السرعة",
+  "Guide navigation": "التنقل في الدليل",
+  "Interactive example home Wi-Fi layout": "مثال تفاعلي لتخطيط Wi-Fi المنزلي",
+  "A router sends a signal through a home toward a device. The signal path and room labels update as you change the controls.": "يرسل الموجّه إشارة عبر المنزل باتجاه جهاز. يتحدّث مسار الإشارة وتسميات الغرف عند تغيير عناصر التحكم.",
+  "LIVING ROOM": "غرفة المعيشة",
+  "HALLWAY": "الممر",
+  "BEDROOM": "غرفة النوم",
+  "KITCHEN": "المطبخ",
+  "STUDY": "غرفة الدراسة",
+  "FAR ROOM": "الغرفة البعيدة",
+  "ROUTER": "الموجّه",
+  "YOUR DEVICE": "جهازك",
+  "TRY A SCENARIO": "جرّب سيناريو",
+  "ROUTER + DEVICE": "الموجّه + الجهاز"
 }
