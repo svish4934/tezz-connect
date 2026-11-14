@@ -306,5 +306,19 @@
   "roadmap.progress.unavailable": "El almacenamiento del navegador no está disponible. Las marcas permanecerán hasta cerrar la página.",
   "roadmap.progress.cleared": "Tu progreso de aprendizaje se ha restablecido en este navegador.",
   "roadmap.meta.title": "Ruta de aprendizaje de Internet: de principiante a avanzado",
-  "roadmap.meta.description": "Ruta gratuita sobre fundamentos de Internet, Mbps, Wi-Fi, latencia y solución práctica de problemas."
+  "roadmap.meta.description": "Ruta gratuita sobre fundamentos de Internet, Mbps, Wi-Fi, latencia y solución práctica de problemas.",
+  "roadmap.nav.label": "Navegación de la guía",
+  "roadmap.breadcrumb.title": "Ruta de aprendizaje de Internet",
+  "roadmap.lesson1.desc": "Comprende cómo trabajan juntos tu dispositivo, router, proveedor y servidor.",
+  "roadmap.lesson2.desc": "Aprende qué significan descarga, subida y Mbps, y por qué los archivos usan unidades distintas.",
+  "roadmap.lesson3.desc": "Descubre cómo enviar archivos, copias en la nube, directos y videollamadas usan la subida.",
+  "roadmap.lesson4.desc": "Distingue problemas generales, de un dispositivo, de cobertura Wi-Fi o de una aplicación.",
+  "roadmap.lesson5.desc": "Comprende la ubicación del router, paredes, interferencias y las bandas de 2,4, 5 y 6 GHz.",
+  "roadmap.lesson6.desc": "Aprende qué hacen routers, extensores, sistemas mesh, puntos de acceso y switches.",
+  "roadmap.lesson7.desc": "Comprende el tiempo de respuesta, su variación y la pérdida de paquetes, especialmente en llamadas y juegos.",
+  "roadmap.lesson8.desc": "Descubre por qué la distancia al servidor, la respuesta estable y la pérdida de paquetes importan tanto como el ancho de banda.",
+  "roadmap.lesson9.desc": "Cambia condiciones de red de ejemplo y observa cómo las bandas Wi-Fi, la distribución y las respuestas afectan la conexión.",
+  "roadmap.practice.label": "Pruébalo:",
+  "roadmap.finish.eyebrow": "Sigue ampliando tus conocimientos",
+  "roadmap.note.label": "Nota sobre el progreso:"
 }
