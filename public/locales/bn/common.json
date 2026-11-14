@@ -623,5 +623,14 @@
   "Compare Wi-Fi with Ethernet near the router if possible.": "সম্ভব হলে রাউটারের কাছে Wi-Fi ও Ethernet-এর তুলনা করুন।",
   "Change one thing at a time and repeat the test.": "একবারে একটি বিষয় পরিবর্তন করে পরীক্ষা আবার করুন।",
   "Consider mesh or an access point only after checking placement and the wired connection.": "রাউটারের অবস্থান ও তারযুক্ত সংযোগ পরীক্ষা করার পরেই মেশ বা অ্যাক্সেস পয়েন্ট বিবেচনা করুন।",
-  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "রঙিন সিগন্যাল মানচিত্র ধারণা বোঝাতে পারে, কিন্তু আপনার বাড়ির প্রকৃত কার্যকারিতা কেবল বাস্তব পরীক্ষাই দেখাতে পারে। কী পরীক্ষা করতে হবে তা শিখতে সিমুলেটর ব্যবহার করুন—কোনো ঘরে নির্দিষ্ট গতি নিশ্চিত ধরে নিতে নয়।"
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "রঙিন সিগন্যাল মানচিত্র ধারণা বোঝাতে পারে, কিন্তু আপনার বাড়ির প্রকৃত কার্যকারিতা কেবল বাস্তব পরীক্ষাই দেখাতে পারে। কী পরীক্ষা করতে হবে তা শিখতে সিমুলেটর ব্যবহার করুন—কোনো ঘরে নির্দিষ্ট গতি নিশ্চিত ধরে নিতে নয়।",
+  "Busy": "ব্যস্ত",
+  "Low": "কম",
+  "ROUTER": "রাউটার",
+  "DEVICE": "ডিভাইস",
+  "ROUTER + DEVICE": "রাউটার + ডিভাইস",
+  "Router location. ": "রাউটারের অবস্থান। ",
+  "Device location. ": "ডিভাইসের অবস্থান। ",
+  "Router and device share this area. ": "রাউটার ও ডিভাইস একই এলাকায় রয়েছে। ",
+  "Five by five example home floor plan": "পাঁচ বাই পাঁচ উদাহরণমূলক বাড়ির ফ্লোর প্ল্যান"
 }
