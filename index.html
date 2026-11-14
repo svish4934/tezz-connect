@@ -17,12 +17,36 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "TEZZ CONNECT",
-        "url": "https://tezzconnect.online/",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Any",
-        "description": "Free online internet speed test to measure download speed, upload speed, browser-based response time and network stability."
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://tezzconnect.online/#organization",
+            "name": "TEZZ CONNECT",
+            "url": "https://tezzconnect.online/",
+            "description": "An independent digital platform providing free browser-based internet performance tools and practical networking education.",
+            "email": "tezzconnect.contact@gmail.com",
+            "knowsAbout": ["Internet performance measurement", "Download and upload throughput", "HTTP response time", "Wi-Fi", "Home networking", "Internet troubleshooting"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://tezzconnect.online/#website",
+            "url": "https://tezzconnect.online/",
+            "name": "TEZZ CONNECT",
+            "publisher": { "@id": "https://tezzconnect.online/#organization" },
+            "inLanguage": ["en", "hi", "mr", "bn", "zh-CN", "pt-BR", "es", "fr", "ar"]
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://tezzconnect.online/#speed-test",
+            "name": "TEZZ CONNECT Internet Speed Test",
+            "url": "https://tezzconnect.online/",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "isAccessibleForFree": true,
+            "publisher": { "@id": "https://tezzconnect.online/#organization" },
+            "description": "Free browser-based internet speed test measuring download and upload throughput and browser-based HTTP response timing to TEZZ CONNECT network endpoints."
+          }
+        ]
       }
     </script>
     <meta name="description" content="Run a free internet speed test with TEZZ CONNECT. Measure download and upload speed, browser-based response time and connection stability for streaming, gaming and video calls." />
