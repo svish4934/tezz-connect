@@ -623,5 +623,14 @@
   "Compare Wi-Fi with Ethernet near the router if possible.": "यदि संभव हो, तो राउटर के पास Wi-Fi और Ethernet की तुलना करें।",
   "Change one thing at a time and repeat the test.": "एक बार में एक ही चीज़ बदलें और परीक्षण दोहराएँ।",
   "Consider mesh or an access point only after checking placement and the wired connection.": "राउटर की जगह और वायर्ड कनेक्शन जाँचने के बाद ही मेश या एक्सेस पॉइंट पर विचार करें।",
-  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "रंगीन सिग्नल नक्शा किसी अवधारणा को समझा सकता है, लेकिन आपके घर में वास्तविक प्रदर्शन केवल वास्तविक परीक्षण से पता चलता है। सिम्युलेटर का उपयोग यह जानने के लिए करें कि क्या जाँचना है—यह तय करने के लिए नहीं कि किसी कमरे में गति की गारंटी है।"
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "रंगीन सिग्नल नक्शा किसी अवधारणा को समझा सकता है, लेकिन आपके घर में वास्तविक प्रदर्शन केवल वास्तविक परीक्षण से पता चलता है। सिम्युलेटर का उपयोग यह जानने के लिए करें कि क्या जाँचना है—यह तय करने के लिए नहीं कि किसी कमरे में गति की गारंटी है।",
+  "Busy": "व्यस्त",
+  "Low": "कम",
+  "ROUTER": "राउटर",
+  "DEVICE": "डिवाइस",
+  "ROUTER + DEVICE": "राउटर + डिवाइस",
+  "Router location. ": "राउटर का स्थान। ",
+  "Device location. ": "डिवाइस का स्थान। ",
+  "Router and device share this area. ": "राउटर और डिवाइस इसी क्षेत्र में हैं। ",
+  "Five by five example home floor plan": "पाँच गुणा पाँच घर का उदाहरणात्मक नक्शा"
 }
