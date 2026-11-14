@@ -328,5 +328,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "Équipements réseau",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "Comparez les routeurs, répéteurs et systèmes mesh.",
   "guide.interactiveNetworkLab.footerGuides": "Tous les guides",
-  "guide.interactiveNetworkLab.footerAbout": "À propos"
+  "guide.interactiveNetworkLab.footerAbout": "À propos",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "À proximité",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "À l’autre bout du logement",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "Pièce éloignée",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "Essayez d’abord 2,4 GHz",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "Essayez d’abord 5 GHz",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "Comparez 5 GHz et 6 GHz",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "Instable",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "Un peu de délai",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "Réactive",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "Routeur unique",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "Routeur + répéteur",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "Système mesh",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "Choisissez d’abord une réponse.",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "Exact. Repérez où la couverture diminue et vérifiez l’emplacement du routeur.",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "Identifiez d’abord le problème de couverture et ne changez qu’un paramètre à la fois.",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "Des paquets peuvent être perdus",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Requête et réponse"
 }
