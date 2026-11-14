@@ -383,5 +383,8 @@
   "guide.homeNetworkPlanner.placementHeading": "ضع الأجهزة في أماكن مناسبة",
   "guide.homeNetworkPlanner.checkHeading": "قبل التثبيت أو الشراء",
   "guide.homeNetworkPlanner.footerGuides": "جميع الأدلة",
-  "guide.homeNetworkPlanner.footerAbout": "من نحن"
+  "guide.homeNetworkPlanner.footerAbout": "من نحن",
+  "guide.homeNetworkPlanner.navAria": "التنقل في الدليل",
+  "guide.homeNetworkPlanner.flowAria": "مسار اتصال الشبكة المقترح",
+  "guide.homeNetworkPlanner.imageAlt": "أمثلة على تخطيطات راوتر واحد وموسع Wi-Fi وشبكة Mesh"
 }
