@@ -383,5 +383,8 @@
   "guide.homeNetworkPlanner.placementHeading": "Bien positionner les équipements",
   "guide.homeNetworkPlanner.checkHeading": "Avant l’installation ou l’achat",
   "guide.homeNetworkPlanner.footerGuides": "Tous les guides",
-  "guide.homeNetworkPlanner.footerAbout": "À propos"
+  "guide.homeNetworkPlanner.footerAbout": "À propos",
+  "guide.homeNetworkPlanner.navAria": "Navigation du guide",
+  "guide.homeNetworkPlanner.flowAria": "Chemin de connexion réseau suggéré",
+  "guide.homeNetworkPlanner.imageAlt": "Exemples de configurations avec un routeur, un répéteur Wi-Fi et un réseau mesh"
 }
