@@ -271,5 +271,21 @@
   "guide.speed.toc.planner": "Estime as necessidades da sua casa",
   "guide.speed.toc.transfer": "Estime o tempo de download e upload",
   "guide.speed.toc.test": "Como fazer um teste útil",
-  "guide.speed.cta.test": "Abrir teste de velocidade →"
+  "guide.speed.cta.test": "Abrir teste de velocidade →",
+  "guide.troubleshooter.skip": "Pular para o conteúdo principal",
+  "guide.troubleshooter.breadcrumb": "Diagnóstico de conexão",
+  "guide.troubleshooter.eyebrow": "SOLUÇÃO PRÁTICA DE PROBLEMAS DE INTERNET",
+  "guide.troubleshooter.title": "Descubra o próximo passo quando sua internet apresentar problemas.",
+  "guide.troubleshooter.lede": "Escolha o problema que você percebeu. Esta lista guiada ajuda a identificar se vale investigar o Wi-Fi, um dispositivo, o roteador ou a própria conexão com a internet — antes de comprar equipamentos novos.",
+  "guide.troubleshooter.how_to": "Como usar este guia:",
+  "guide.troubleshooter.how_to_body": "Comece pelo sintoma, siga as verificações na ordem e altere uma coisa por vez. As sugestões são etapas de diagnóstico, não um teste de rede em tempo real. Seus resultados ficam neste navegador; nada é enviado a um servidor.",
+  "guide.troubleshooter.build_checklist": "MONTE SUA LISTA DE VERIFICAÇÃO",
+  "guide.troubleshooter.problem_heading": "O que está acontecendo?",
+  "guide.troubleshooter.problem_intro": "Escolha a opção mais próxima. Se houver mais de um problema, comece pelo que mais afeta você.",
+  "guide.troubleshooter.problem_label": "Selecione seu problema de internet",
+  "guide.troubleshooter.choose_problem": "Escolha um problema…",
+  "guide.troubleshooter.build_button": "Criar meu plano de diagnóstico",
+  "guide.troubleshooter.result_eyebrow": "SEU PLANO INICIAL DE INVESTIGAÇÃO",
+  "guide.troubleshooter.fair_test": "Faça uma comparação justa:",
+  "guide.troubleshooter.fair_test_body": "Registre o que mudou e compare em condições semelhantes. Pause downloads grandes, mantenha o mesmo dispositivo e local sempre que possível e evite alterar várias configurações ao mesmo tempo."
 }
