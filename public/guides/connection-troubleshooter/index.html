@@ -158,6 +158,23 @@ const label=document.createElement('label');label.className='trouble-step-check'
 caution.textContent=plan.caution;updateProgress();results.hidden=false;results.focus();
 });
 reset.addEventListener('click',()=>{select.value='';results.hidden=true;steps.replaceChildren();progress.textContent=tr('guide.troubleshooter.progress','{done} of {total} checks completed').replace('{done}','0').replace('{total}','4');select.focus();});
+document.addEventListener('tezz-language-change',()=>{
+const plan=plans[select.value];
+if(!plan||results.hidden)return;
+title.textContent=tr('guide.troubleshooter.plan.'+select.value+'.title',plan.title);
+summary.textContent=tr('guide.troubleshooter.plan.'+select.value+'.summary',plan.summary);
+caution.textContent=tr('guide.troubleshooter.plan.'+select.value+'.caution',plan.caution);
+steps.querySelectorAll('.trouble-step').forEach((item,index)=>{
+const step=plan.steps[index];if(!step)return;
+const heading=item.querySelector('h4');const body=item.querySelector('p');const label=item.querySelector('.trouble-step-check span');
+if(heading)heading.textContent=tr('guide.troubleshooter.plan.'+select.value+'.step.'+(index+1)+'.title',step[0]);
+if(body)body.textContent=tr('guide.troubleshooter.plan.'+select.value+'.step.'+(index+1)+'.body',step[1]);
+if(label)label.textContent=tr('guide.troubleshooter.mark_complete','Mark this check as completed');
+});
+const checks=[...steps.querySelectorAll('input[type="checkbox"]')];
+const done=checks.filter(check=>check.checked).length;
+progress.textContent=tr('guide.troubleshooter.progress','{done} of {total} checks completed').replace('{done}',String(done)).replace('{total}',String(checks.length));
+});
 })();
 </script>
 </body>
