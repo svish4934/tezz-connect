@@ -351,5 +351,19 @@
   "glossary.term.ethernet.title": "以太网",
   "glossary.term.ethernet.description": "有线网络标准；固定设备使用时可能比 Wi-Fi 更稳定。",
   "glossary.term.dns.title": "DNS",
-  "glossary.term.dns.description": "查询域名并返回设备连接所需的 IP 地址等信息。"
+  "glossary.term.dns.description": "查询域名并返回设备连接所需的 IP 地址等信息。",
+  "glossary.skip": "跳转到主要内容",
+  "glossary.nav.label": "指南导航",
+  "glossary.nav.hub": "知识中心",
+  "glossary.nav.roadmap": "学习路线图",
+  "glossary.breadcrumb.home": "首页",
+  "glossary.breadcrumb.hub": "互联网知识中心",
+  "glossary.breadcrumb.current": "网络术语表",
+  "glossary.toc.search": "搜索术语表",
+  "glossary.toc.quiz": "检查学习成果",
+  "glossary.toc.related": "查看相关指南",
+  "glossary.related.speed": "了解下载速度、上传速度和 Mbps",
+  "glossary.related.latency": "了解延迟、Ping、抖动和丢包",
+  "glossary.related.internet": "了解请求在互联网中的传递过程",
+  "glossary.related.wifi": "查看 Wi-Fi 覆盖示例"
 }
