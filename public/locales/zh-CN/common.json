@@ -320,5 +320,17 @@
   "roadmap.lesson9.desc": "更改示例网络条件，观察 Wi-Fi 频段、布局和响应行为如何影响连接。",
   "roadmap.practice.label": "试一试：",
   "roadmap.finish.eyebrow": "继续拓展知识",
-  "roadmap.note.label": "关于学习进度："
+  "roadmap.note.label": "关于学习进度：",
+  "roadmap.meta.steps": "9 个学习步骤",
+  "roadmap.meta.levels": "3 个级别",
+  "roadmap.meta.no_login": "无需登录",
+  "roadmap.toc.beginner": "级别 1：入门",
+  "roadmap.toc.practical": "级别 2：实用技能",
+  "roadmap.toc.advanced": "级别 3：进阶理解",
+  "roadmap.toc.finish": "下一步",
+  "roadmap.practice.beginner": "解释下载视频与上传照片的区别。查看测速结果中的下载和上传数值，判断哪一个更高。",
+  "roadmap.practice.practical": "选择一个 Wi-Fi 不稳定的房间。比较路由器附近和该房间的连接，再参考故障排查指南，判断是否需要新设备。",
+  "roadmap.practice.advanced": "在延迟模拟器或网络实验室中每次只更改一项设置。描述变化及原因。这些是教学模型，并非家庭网络测量值。",
+  "roadmap.finish.body": "需要测量当前连接时，请运行真实测速。使用指南理解结果、谨慎比较条件，并决定下一步排查什么。",
+  "roadmap.note.body": "课程勾选状态仅保存在此设备的浏览器中，不与账户关联，也不会发送给 TEZZ CONNECT。清除存储或更换设备可能导致进度丢失。此清单不颁发证书。本路线图用于自主学习，并非专业网络资格。"
 }
