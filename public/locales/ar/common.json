@@ -344,5 +344,14 @@
   "Compare Wi-Fi with Ethernet near the router if possible.": "إن أمكن، قارن بين Wi-Fi وEthernet بالقرب من الموجّه.",
   "Change one thing at a time and repeat the test.": "غيّر شيئًا واحدًا في كل مرة ثم أعد الاختبار.",
   "Consider mesh or an access point only after checking placement and the wired connection.": "فكّر في نظام Mesh أو نقطة وصول فقط بعد التحقق من الموقع والاتصال السلكي.",
-  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "قد تساعد خريطة الإشارة الملونة في شرح الفكرة، لكن الاختبار الفعلي في منزلك وحده يوضح الأداء الحقيقي. استخدم المحاكي لمعرفة ما ينبغي فحصه، لا لافتراض أن سرعة معينة مضمونة في غرفة بعينها."
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "قد تساعد خريطة الإشارة الملونة في شرح الفكرة، لكن الاختبار الفعلي في منزلك وحده يوضح الأداء الحقيقي. استخدم المحاكي لمعرفة ما ينبغي فحصه، لا لافتراض أن سرعة معينة مضمونة في غرفة بعينها.",
+  "Busy": "مشغول",
+  "Low": "منخفض",
+  "ROUTER": "الموجّه",
+  "DEVICE": "الجهاز",
+  "ROUTER + DEVICE": "الموجّه + الجهاز",
+  "Router location. ": "موقع الموجّه. ",
+  "Device location. ": "موقع الجهاز. ",
+  "Router and device share this area. ": "الموجّه والجهاز في المنطقة نفسها. ",
+  "Five by five example home floor plan": "مخطط توضيحي للمنزل بخمسة صفوف وخمسة أعمدة"
 }
