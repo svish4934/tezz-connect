@@ -335,5 +335,18 @@
   "Understand routers, mesh systems, switches and access points.": "了解路由器、Mesh 系统、交换机和接入点。",
   "Read guide →": "阅读指南 →",
   "Work through common home internet problems.": "逐步排查常见的家庭网络问题。",
-  "Open tool →": "打开工具 →"
+  "Open tool →": "打开工具 →",
+  "guide.security.eyebrow": "家庭网络实用安全",
+  "guide.security.meta": "TEZZ CONNECT · 家庭 Wi-Fi 安全检查",
+  "guide.security.checklist": "交互式检查清单",
+  "guide.security.performance_intro": "安全性和性能需要分别检查。如果连接速度慢或不稳定，请使用：",
+  "guide.security.troubleshooter_link": "连接故障排查工具",
+  "guide.security.performance_join": "以及",
+  "guide.security.wifi_guide_link": "Wi-Fi 优化指南",
+  "US Federal Trade Commission: How to secure your home Wi-Fi network": "美国联邦贸易委员会：如何保护家庭 Wi-Fi 网络",
+  "— encryption and default settings.": "— 加密与默认设置。",
+  "Apple: Recommended settings for Wi-Fi routers and access points": "Apple：Wi-Fi 路由器和接入点的推荐设置",
+  "— WPA3, WPA2-AES and deprecated modes.": "— WPA3、WPA2-AES 和已弃用模式。",
+  "Canadian Centre for Cyber Security: Router cyber security best practices": "加拿大网络安全中心：路由器网络安全最佳实践",
+  "— WPS, firmware, guest access and remote administration.": "— WPS、固件、访客访问和远程管理。"
 }
