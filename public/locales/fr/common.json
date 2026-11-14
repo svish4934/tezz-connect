@@ -271,5 +271,21 @@
   "guide.speed.toc.planner": "Estimer les besoins de votre foyer",
   "guide.speed.toc.transfer": "Estimer les durées de téléchargement et d’envoi",
   "guide.speed.toc.test": "Comment effectuer un test utile",
-  "guide.speed.cta.test": "Ouvrir le test de débit →"
+  "guide.speed.cta.test": "Ouvrir le test de débit →",
+  "guide.troubleshooter.skip": "Aller au contenu principal",
+  "guide.troubleshooter.breadcrumb": "Dépannage de la connexion",
+  "guide.troubleshooter.eyebrow": "DÉPANNAGE PRATIQUE DE LA CONNEXION INTERNET",
+  "guide.troubleshooter.title": "Trouvez la prochaine étape lorsque votre connexion pose problème.",
+  "guide.troubleshooter.lede": "Choisissez le problème constaté. Cette liste guidée vous aide à déterminer s’il faut examiner le Wi-Fi, un appareil, le routeur ou la connexion Internet elle-même, sans acheter immédiatement du matériel neuf.",
+  "guide.troubleshooter.how_to": "Comment utiliser ce guide :",
+  "guide.troubleshooter.how_to_body": "Commencez par le symptôme, suivez les vérifications dans l’ordre et ne modifiez qu’un seul élément à la fois. Il s’agit d’étapes de diagnostic, pas d’un test réseau en direct. Vos résultats restent dans ce navigateur ; aucune donnée n’est envoyée à un serveur.",
+  "guide.troubleshooter.build_checklist": "CRÉER VOTRE LISTE DE VÉRIFICATION",
+  "guide.troubleshooter.problem_heading": "Quel est le problème ?",
+  "guide.troubleshooter.problem_intro": "Choisissez le cas qui correspond le mieux. Si plusieurs problèmes se présentent, commencez par celui qui vous affecte le plus.",
+  "guide.troubleshooter.problem_label": "Sélectionnez votre problème Internet",
+  "guide.troubleshooter.choose_problem": "Choisir un problème…",
+  "guide.troubleshooter.build_button": "Créer mon plan de dépannage",
+  "guide.troubleshooter.result_eyebrow": "VOTRE PREMIER PLAN D’INVESTIGATION",
+  "guide.troubleshooter.fair_test": "Comparez dans des conditions similaires :",
+  "guide.troubleshooter.fair_test_body": "Notez ce qui a changé et comparez dans des conditions similaires. Mettez en pause les téléchargements volumineux, gardez si possible le même appareil et le même emplacement, et évitez de modifier plusieurs paramètres à la fois."
 }
