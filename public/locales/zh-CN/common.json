@@ -361,5 +361,18 @@
   "guide.homeNetworkPlanner.flow9": "Wi‑Fi 路由器",
   "guide.homeNetworkPlanner.flow10": "手机、笔记本电脑和电视",
   "guide.homeNetworkPlanner.cautionFloors": "楼层之间的建筑材料会显著影响无线链路；确定节点数量前，请逐层测试。",
-  "guide.homeNetworkPlanner.cautionBackhaul": "楼层之间使用有线回程通常比无线链路更稳定、更可预测。"
+  "guide.homeNetworkPlanner.cautionBackhaul": "楼层之间使用有线回程通常比无线链路更稳定、更可预测。",
+  "guide.homeNetworkPlanner.body1": "在典型家庭中，互联网服务会接入调制解调器或光纤 ONT。路由器将家庭网络连接到该服务，并提供有线端口，通常也提供 Wi‑Fi。其他设备可直接连接路由器、通过交换机连接，或连接到额外的接入点或 Mesh 节点。",
+  "guide.homeNetworkPlanner.body2": "网络交换机可增加以太网端口。无线接入点会在连接到网络的位置提供 Wi‑Fi 覆盖，通常通过以太网连接。Mesh 系统使用多个协同工作的 Wi‑Fi 单元；这些单元之间需要合适的无线连接，或在支持时使用有线连接。",
+  "guide.homeNetworkPlanner.place1": "尽量将主路由器放在开阔、较高的位置，不要放在柜子里或电视后面。",
+  "guide.homeNetworkPlanner.place2": "将无线 Mesh 节点放在仍能从主设备或其他节点获得良好连接的位置。",
+  "guide.homeNetworkPlanner.place3": "条件允许时，为固定且对延迟敏感的设备使用以太网。",
+  "guide.homeNetworkPlanner.place4": "避免将接入点或 Mesh 节点放在大型金属物体、密集障碍物或干扰源旁边。",
+  "guide.homeNetworkPlanner.place5": "每次只调整一个位置，并在实际使用网络的房间进行测试。",
+  "guide.homeNetworkPlanner.check1": "检查 ISP 提供的网速和连接类型。",
+  "guide.homeNetworkPlanner.check2": "检查路由器、ONT 和设备端口的能力。",
+  "guide.homeNetworkPlanner.check3": "确定哪些设备最适合使用有线连接。",
+  "guide.homeNetworkPlanner.check4": "为每台设备规划安全的布线路径和电源位置。",
+  "guide.homeNetworkPlanner.check5": "购买额外设备前，先测试现有网络。",
+  "guide.homeNetworkPlanner.note": "此规划工具根据您的回答提供学习建议。它不会检查建筑、测量无线电信号、核验产品兼容性，也不保证覆盖范围。实际效果取决于墙体、建筑结构、设备、干扰、摆放位置和服务质量。"
 }
