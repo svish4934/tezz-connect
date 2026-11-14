@@ -654,5 +654,14 @@
   "guide.homeNetworkPlanner.check3": "तय करें कि किन डिवाइसों को वायर्ड कनेक्शन से सबसे अधिक लाभ होगा।",
   "guide.homeNetworkPlanner.check4": "हर डिवाइस के लिए सुरक्षित केबल मार्ग और बिजली की उपलब्धता की योजना बनाएँ।",
   "guide.homeNetworkPlanner.check5": "अतिरिक्त उपकरण खरीदने से पहले मौजूदा नेटवर्क का परीक्षण करें।",
-  "guide.homeNetworkPlanner.note": "यह प्लानर आपके जवाबों के आधार पर सीखने के उद्देश्य से सुझाव देता है। यह इमारत का निरीक्षण, रेडियो सिग्नल का मापन, उत्पाद संगतता की जाँच या कवरेज की गारंटी नहीं करता। वास्तविक परिणाम दीवारों, निर्माण, उपकरणों, हस्तक्षेप, जगह और सेवा की गुणवत्ता पर निर्भर करते हैं।"
+  "guide.homeNetworkPlanner.note": "यह प्लानर आपके जवाबों के आधार पर सीखने के उद्देश्य से सुझाव देता है। यह इमारत का निरीक्षण, रेडियो सिग्नल का मापन, उत्पाद संगतता की जाँच या कवरेज की गारंटी नहीं करता। वास्तविक परिणाम दीवारों, निर्माण, उपकरणों, हस्तक्षेप, जगह और सेवा की गुणवत्ता पर निर्भर करते हैं।",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "ज्ञान केंद्र",
+  "guide.homeNetworkPlanner.navRoadmap": "लर्निंग रोडमैप",
+  "guide.homeNetworkPlanner.crumbHome": "होम",
+  "guide.homeNetworkPlanner.crumbHub": "इंटरनेट ज्ञान केंद्र",
+  "guide.homeNetworkPlanner.crumbPlanner": "होम नेटवर्क प्लानर",
+  "guide.homeNetworkPlanner.placementHeading": "उपकरण सही जगह रखें",
+  "guide.homeNetworkPlanner.checkHeading": "इंस्टॉल करने या खरीदने से पहले",
+  "guide.homeNetworkPlanner.footerGuides": "सभी गाइड",
+  "guide.homeNetworkPlanner.footerAbout": "हमारे बारे में"
 }
