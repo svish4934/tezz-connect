@@ -625,5 +625,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "बरोबर. आधी कव्हरेज कुठे कमी होते आणि राउटरची जागा तपासा.",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "आधी कव्हरेजची समस्या ओळखा आणि एका वेळी एकच गोष्ट बदला.",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "काही पॅकेट हरवू शकतात",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "विनंती आणि प्रतिसाद"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "विनंती आणि प्रतिसाद",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "निवडलेले उपकरण फक्त 2.4 GHz ला सपोर्ट करते.",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "अधिक अंतर किंवा अनेक भिंती असल्यास 2.4 GHz पासून सुरुवात करा.",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "जवळ सपोर्ट असलेल्या 5 GHz व 6 GHz ची तुलना करा.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "कमी विलंब आणि कमी बदल यामुळे वापर अधिक सुरळीत होतो.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "परस्परसंवादी वापर कमी तत्पर किंवा कमी स्थिर वाटू शकतो.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "विलंब, बदल किंवा पॅकेट लॉसमुळे थांबे, लॅग किंवा विस्कळीत ऑडिओ-व्हिडिओ होऊ शकते.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "एक राउटर संपूर्ण घर सांभाळतो; दूरच्या खोल्यांमध्ये सिग्नल कमकुवत असू शकतो.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "एक्स्टेंडर कमकुवत भागात वाय-फाय पोहोचवतो; मुख्य राउटरचा चांगला सिग्नल आवश्यक आहे.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "मेशचे अनेक नोड मोठ्या घरात कव्हरेज देतात; जागा आणि बॅकहॉल महत्त्वाचे आहेत.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "लहान घरात योग्य जागी ठेवलेला एक राउटर वापरून पाहा.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "मूळ वाय-फाय चांगले मिळते तिथे एक्स्टेंडर ठेवा.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "नोडची सुसंगतता आणि वायर्ड बॅकहॉल तपासा."
 }
