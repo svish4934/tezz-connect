@@ -299,7 +299,7 @@
   "glossary.quiz.correct": "Correto. Jitter é a variação no atraso dos pacotes.",
   "glossary.quiz.incorrect": "Não exatamente. Jitter descreve a variação no atraso dos pacotes. Consulte o guia de latência e jitter para uma explicação visual.",
   "glossary.next.title": "Coloque estes termos em prática",
-  "glossary.next.body": "Agora que você conhece os termos, veja como os conceitos funcionam juntos. Um teste de velocidade mede a taxa de transferência nas condições do teste; o ping ajuda a entender o tempo de resposta; e a posição do roteador Wi-Fi pode influenciar a qualidade do enlace sem fio.",
+  "glossary.next.body": "Agora que você conhece os termos, veja como eles funcionam em conjunto. Um teste de velocidade mede o throughput nas condições do teste; o ping ajuda a entender o tempo de resposta; e a posição do roteador Wi-Fi pode influenciar a qualidade do enlace sem fio.",
   "glossary.remember.title": "Lembre-se",
   "glossary.remember.body": "Um único número raramente explica toda a conexão. Velocidades de download e upload, latência, jitter, perda de pacotes, qualidade do Wi-Fi e o serviço remoto podem afetar a experiência.",
   "glossary.count.dynamic": "Exibindo {visible} de {total} termos",
