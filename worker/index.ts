@@ -592,12 +592,12 @@ const app: ExportedHandler<Env> = {
 
     // Localized SPA routes need route-specific metadata in the first HTML response.
     // This keeps their canonical URLs and language signals correct before React hydrates.
-    const localizedRoute = url.pathname.match(/^\\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\\/.*)?$/)
+    const localizedRoute = url.pathname.match(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\/.*)?$/)
     if (localizedRoute && response.status === 200 &&
         (response.headers.get("Content-Type") ?? "").includes("text/html")) {
       const locale = localizedRoute[1]
       const suffix = localizedRoute[2] ?? "/"
-      const routePath = suffix === "/" ? "/" : (suffix.replace(/\\/+$/, "") || "/")
+      const routePath = suffix === "/" ? "/" : (suffix.replace(/\/+$/, "") || "/")
       const pageByPath: Record<string, string> = {
         "/": "Overview",
         "/about": "About",
@@ -634,7 +634,7 @@ const app: ExportedHandler<Env> = {
             ? "https://tezzconnect.online" + path
             : "https://tezzconnect.online/" + language + path
           return '<link rel="alternate" hreflang="' + language + '" href="' + href + '" />'
-        }).join("\\n") + '\\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
+        }).join("\n") + '\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
         const localizedResponse = new HTMLRewriter()
           .on("html", { element(element) {
             element.setAttribute("lang", locale)
