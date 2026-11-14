@@ -383,5 +383,8 @@
   "guide.homeNetworkPlanner.placementHeading": "合理摆放设备",
   "guide.homeNetworkPlanner.checkHeading": "安装或购买前",
   "guide.homeNetworkPlanner.footerGuides": "所有指南",
-  "guide.homeNetworkPlanner.footerAbout": "关于我们"
+  "guide.homeNetworkPlanner.footerAbout": "关于我们",
+  "guide.homeNetworkPlanner.navAria": "指南导航",
+  "guide.homeNetworkPlanner.flowAria": "建议的网络连接路径",
+  "guide.homeNetworkPlanner.imageAlt": "单路由器、Wi-Fi 扩展器和 Mesh 网络布局示例"
 }
