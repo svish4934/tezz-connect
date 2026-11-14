@@ -631,5 +631,19 @@
   "glossary.term.ethernet.title": "इथरनेट",
   "glossary.term.ethernet.description": "वायर्ड नेटवर्क मानके; स्थिर डिव्हाइससाठी Wi-Fi पेक्षा अधिक स्थिर असू शकते.",
   "glossary.term.dns.title": "DNS",
-  "glossary.term.dns.description": "डोमेन नाव शोधून IP पत्त्यासारखी आवश्यक माहिती देणारी प्रणाली."
+  "glossary.term.dns.description": "डोमेन नाव शोधून IP पत्त्यासारखी आवश्यक माहिती देणारी प्रणाली.",
+  "glossary.skip": "मुख्य मजकुराकडे जा",
+  "glossary.nav.label": "मार्गदर्शिका नेव्हिगेशन",
+  "glossary.nav.hub": "ज्ञान केंद्र",
+  "glossary.nav.roadmap": "लर्निंग रोडमॅप",
+  "glossary.breadcrumb.home": "मुख्यपृष्ठ",
+  "glossary.breadcrumb.hub": "इंटरनेट ज्ञान केंद्र",
+  "glossary.breadcrumb.current": "नेटवर्किंग शब्दकोश",
+  "glossary.toc.search": "शब्दकोश शोधा",
+  "glossary.toc.quiz": "तुम्ही काय शिकलात ते तपासा",
+  "glossary.toc.related": "संबंधित मार्गदर्शिका पाहा",
+  "glossary.related.speed": "डाउनलोड वेग, अपलोड वेग आणि Mbps समजून घ्या",
+  "glossary.related.latency": "लेटन्सी, पिंग, जिटर आणि पॅकेट लॉस समजून घ्या",
+  "glossary.related.internet": "इंटरनेटवरील विनंतीचा प्रवास पाहा",
+  "glossary.related.wifi": "Wi-Fi कव्हरेजचे उदाहरण पाहा"
 }
