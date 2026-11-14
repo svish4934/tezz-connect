@@ -1094,7 +1094,7 @@ function App() {
     <div className="app-shell">
       <main className="main tezz-main" id="tezz-top">
         <header className="tezz-header">
-          <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT home"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
+          <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
           <nav className="tezz-nav">
             <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}><Home size={15}/> {copy[0]}</a>
             <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
