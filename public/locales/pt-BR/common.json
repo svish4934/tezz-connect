@@ -341,5 +341,13 @@
   "guide.buying.read": "Ler o guia →",
   "guide.buying.allguides": "Explorar todos os guias da Central de conhecimento da Internet →",
   "guide.buying.about": "Sobre",
-  "guide.buying.footer": "Feito com orgulho na Índia 🇮🇳"
+  "guide.buying.footer": "Feito com orgulho na Índia 🇮🇳",
+  "guide.buying.routerpara": "Um roteador conecta os dispositivos da sua casa à internet e geralmente cria sua rede Wi‑Fi. Compare a geração Wi‑Fi, as bandas compatíveis, a velocidade das portas Ethernet, as atualizações de segurança e a compatibilidade com o modem ou ONT de fibra do provedor.",
+  "guide.buying.meshpara": "Um sistema mesh usa duas ou mais unidades para distribuir Wi‑Fi pela casa. Uma se conecta à internet e as outras ajudam a cobrir cômodos distantes. Pode ser útil em casas maiores ou quando um roteador não alcança todos os ambientes.",
+  "guide.buying.extenderpara": "Um repetidor recebe o sinal Wi‑Fi existente e o retransmite mais longe. Pode ajudar em uma pequena área com sinal fraco, mas precisa receber um bom sinal do roteador. Colocá-lo onde o Wi‑Fi quase não funciona pode não ajudar.",
+  "guide.buying.ethernetpara": "Um cabo Ethernet conecta um dispositivo diretamente ao roteador ou switch de rede. Costuma ser uma boa opção para computadores, TVs e consoles, pois evita muitos problemas de sinal Wi‑Fi.",
+  "guide.buying.switchpara": "Um switch de rede oferece mais portas Ethernet. Se o roteador tem poucas portas e você quer conectar TV, computador, console e outros dispositivos cabeados, um switch pode adicionar conexões.",
+  "guide.buying.promisebody": "Este guia ajuda você a entender os equipamentos, não a pressionar uma compra. Atualmente, não há links de afiliados nem espaços pagos. Se isso mudar, os links comerciais serão identificados claramente.",
+  "guide.buying.fitbody": "Comprar um roteador novo não é o primeiro passo para toda reclamação de lentidão. Identifique primeiro o ponto fraco: o serviço que chega à casa, a cobertura Wi‑Fi, as portas cabeadas ou a quantidade de dispositivos. O produto adequado depende da casa e dos equipamentos do provedor.",
+  "guide.buying.budgetbody": "Anote o problema, os cômodos e dispositivos afetados e os recursos necessários. Compare o custo total — nós mesh extras, adaptadores ou instalação — com uma solução cabeada ou de posicionamento mais simples. Não escolha apenas pelo número de Mbps anunciado: ele não garante a velocidade real de um dispositivo."
 }
