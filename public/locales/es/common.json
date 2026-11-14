@@ -299,7 +299,7 @@
   "glossary.quiz.correct": "Correcto. El jitter es la variación del retraso de los paquetes.",
   "glossary.quiz.incorrect": "No exactamente. El jitter describe la variación del retraso de los paquetes. Consulta la guía de latencia y jitter para verlo explicado.",
   "glossary.next.title": "Pon estos términos en práctica",
-  "glossary.next.body": "Ahora que conoces el vocabulario, descubre cómo se relacionan los conceptos. Una prueba de velocidad mide el rendimiento en sus condiciones de prueba; el ping ayuda a entender el tiempo de respuesta; y la ubicación del router Wi-Fi puede influir en la calidad del enlace inalámbrico.",
+  "glossary.next.body": "Ahora que conoces los términos, observa cómo funcionan juntos. Una prueba de velocidad mide el rendimiento en las condiciones de prueba; el ping ayuda a entender el tiempo de respuesta; y la ubicación del router Wi-Fi puede influir en la calidad del enlace inalámbrico.",
   "glossary.remember.title": "Recuerda",
   "glossary.remember.body": "Un solo número rara vez explica toda la conexión. La velocidad de descarga y subida, la latencia, el jitter, la pérdida de paquetes, la calidad del Wi-Fi y el servicio remoto pueden afectar la experiencia.",
   "glossary.count.dynamic": "Se muestran {visible} de {total} términos",
