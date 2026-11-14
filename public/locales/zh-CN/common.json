@@ -345,5 +345,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "正确。先找出覆盖变弱的位置并检查路由器摆放。",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "先找出覆盖问题，每次只改变一个条件。",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "可能有数据包丢失",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "请求与响应"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "请求与响应",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "所选设备仅支持 2.4 GHz。",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "距离较远或隔着多堵墙时，可以先尝试 2.4 GHz。",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "在近距离比较设备支持的 5 GHz 和 6 GHz。",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "较低的延迟和较小的波动有助于交互活动保持流畅。",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "交互活动可能感觉不够即时或稳定。",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "延迟、波动或丢包可能造成停顿、卡顿以及音视频不连贯。",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "一台路由器覆盖整个住宅，较远房间的信号可能较弱。",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "扩展器可将 Wi-Fi 延伸到弱信号区域，但需要接收到主路由器的可用信号。",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "多个 Mesh 节点可覆盖较大的住宅；节点位置和回程链路很重要。",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "适合面积较小且路由器摆放合理的住宅。",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "将扩展器放在原始 Wi-Fi 信号仍较好的位置。",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "检查节点兼容性以及是否可以使用有线回程。"
 }
