@@ -406,5 +406,17 @@
   "guide.troubleshooter.faq.dns.q": "¿Debo cambiar el DNS para solucionar una señal Wi-Fi débil?",
   "guide.troubleshooter.faq.dns.a": "El DNS ayuda a traducir nombres de dominio en direcciones de red; no refuerza la señal de radio. Si el Wi-Fi es débil en una habitación, revisa la ubicación, los obstáculos y la cobertura antes de cambiar el DNS.",
   "guide.troubleshooter.faq.reset.q": "¿Es seguro restablecer el router a los valores de fábrica?",
-  "guide.troubleshooter.faq.reset.a": "No debería ser uno de los primeros pasos. El restablecimiento puede borrar el nombre y la contraseña del Wi-Fi y los ajustes específicos del proveedor. Hazlo solo si el proveedor o el fabricante lo recomienda y tienes los datos necesarios para volver a conectarte."
+  "guide.troubleshooter.faq.reset.a": "No debería ser uno de los primeros pasos. El restablecimiento puede borrar el nombre y la contraseña del Wi-Fi y los ajustes específicos del proveedor. Hazlo solo si el proveedor o el fabricante lo recomienda y tienes los datos necesarios para volver a conectarte.",
+  "guide.troubleshooter.related.eyebrow": "Sigue aprendiendo",
+  "guide.troubleshooter.related.heading": "Guías relacionadas del Centro de Conocimiento de Internet",
+  "guide.troubleshooter.related.wifi.title": "Mejora la velocidad del Wi-Fi",
+  "guide.troubleshooter.related.wifi.body": "Ubicación del router, interferencias y comprobaciones prácticas.",
+  "guide.troubleshooter.related.read": "Leer la guía →",
+  "guide.troubleshooter.related.latency.title": "Latencia, ping y jitter",
+  "guide.troubleshooter.related.latency.body": "Comprende los retrasos y los tiempos de respuesta irregulares.",
+  "guide.troubleshooter.related.lab.title": "Laboratorio de red interactivo",
+  "guide.troubleshooter.related.lab.body": "Experimenta con bandas Wi-Fi y diseños de redes domésticas.",
+  "guide.troubleshooter.related.try": "Probar el laboratorio →",
+  "guide.troubleshooter.related.all": "← Ver todas las guías del Centro de Conocimiento de Internet",
+  "guide.troubleshooter.footer.brand": "© 2026 TEZZ CONNECT · Orgullosamente creado en India 🇮🇳"
 }
