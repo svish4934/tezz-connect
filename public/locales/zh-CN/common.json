@@ -344,5 +344,14 @@
   "Compare Wi-Fi with Ethernet near the router if possible.": "如果可以，请在路由器附近比较 Wi-Fi 和以太网连接。",
   "Change one thing at a time and repeat the test.": "每次只更改一项，然后重复测试。",
   "Consider mesh or an access point only after checking placement and the wired connection.": "检查路由器位置和有线连接后，再考虑 Mesh 或接入点。",
-  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "彩色信号地图可以帮助解释概念，但只有在家中进行实际测试才能了解真实性能。请使用模拟器学习需要检查的因素，而不要据此认定某个房间能保证达到特定速度。"
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "彩色信号地图可以帮助解释概念，但只有在家中进行实际测试才能了解真实性能。请使用模拟器学习需要检查的因素，而不要据此认定某个房间能保证达到特定速度。",
+  "Busy": "繁忙",
+  "Low": "低",
+  "ROUTER": "路由器",
+  "DEVICE": "设备",
+  "ROUTER + DEVICE": "路由器 + 设备",
+  "Router location. ": "路由器位置。",
+  "Device location. ": "设备位置。",
+  "Router and device share this area. ": "路由器和设备位于同一区域。",
+  "Five by five example home floor plan": "五乘五示例家庭平面图"
 }
