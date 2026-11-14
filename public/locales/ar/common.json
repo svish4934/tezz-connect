@@ -271,5 +271,9 @@
   "guide.speed.toc.planner": "قدّر احتياجات منزلك",
   "guide.speed.toc.transfer": "قدّر زمن التنزيل والرفع",
   "guide.speed.toc.test": "كيفية إجراء اختبار مفيد",
-  "guide.speed.cta.test": "افتح اختبار السرعة ←"
+  "guide.speed.cta.test": "افتح اختبار السرعة ←",
+  "guide.homeNetworkPlanner.plan1": "موجّه رئيسي مع نقاط وصول سلكية",
+  "guide.homeNetworkPlanner.plan2": "موجّه رئيسي مع نظام Mesh موضوع بعناية",
+  "guide.homeNetworkPlanner.plan3": "قد يكفي موجّه واحد في موقع مناسب",
+  "guide.homeNetworkPlanner.caution": "ابدأ بالمعدات المتوفرة لديك. أضف أجهزة أخرى فقط بعد أن تكشف الاختبارات عن مشكلة فعلية في التغطية أو السعة."
 }
