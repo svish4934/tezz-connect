@@ -275,5 +275,21 @@
   "guide.homeNetworkPlanner.plan1": "موجّه رئيسي مع نقاط وصول سلكية",
   "guide.homeNetworkPlanner.plan2": "موجّه رئيسي مع نظام Mesh موضوع بعناية",
   "guide.homeNetworkPlanner.plan3": "قد يكفي موجّه واحد في موقع مناسب",
-  "guide.homeNetworkPlanner.caution": "ابدأ بالمعدات المتوفرة لديك. أضف أجهزة أخرى فقط بعد أن تكشف الاختبارات عن مشكلة فعلية في التغطية أو السعة."
+  "guide.homeNetworkPlanner.caution": "ابدأ بالمعدات المتوفرة لديك. أضف أجهزة أخرى فقط بعد أن تكشف الاختبارات عن مشكلة فعلية في التغطية أو السعة.",
+  "guide.homeNetworkPlanner.skip": "انتقل إلى المحتوى الرئيسي",
+  "guide.homeNetworkPlanner.eyebrow": "الشبكات المنزلية العملية",
+  "guide.homeNetworkPlanner.title": "خطط لشبكة منزلية تناسب مساحتك",
+  "guide.homeNetworkPlanner.toc": "في هذا الدليل",
+  "guide.homeNetworkPlanner.tooltitle": "أنشئ تخطيط الشبكة الأولي",
+  "guide.homeNetworkPlanner.size": "حجم المنزل التقريبي",
+  "guide.homeNetworkPlanner.floors": "عدد الطوابق",
+  "guide.homeNetworkPlanner.devices": "كم عدد الأجهزة المتصلة عادةً؟",
+  "guide.homeNetworkPlanner.usage": "ما الأمر الأهم بالنسبة إليك؟",
+  "guide.homeNetworkPlanner.router": "من أين يدخل اتصال الإنترنت إلى المنزل؟",
+  "guide.homeNetworkPlanner.build": "أنشئ خطة شبكتي المنزلية",
+  "guide.homeNetworkPlanner.result": "بنية الشبكة الأولية",
+  "guide.homeNetworkPlanner.steps": "الخطوات العملية التالية",
+  "guide.homeNetworkPlanner.check": "قبل التثبيت أو الشراء",
+  "guide.homeNetworkPlanner.important": "مهم",
+  "guide.homeNetworkPlanner.related": "أدلة ذات صلة"
 }
