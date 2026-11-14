@@ -299,7 +299,7 @@
   "glossary.quiz.correct": "Correct. La gigue est la variation du délai des paquets.",
   "glossary.quiz.incorrect": "Pas tout à fait. La gigue désigne la variation du délai des paquets. Consultez le guide sur la latence et la gigue pour une explication visuelle.",
   "glossary.next.title": "Mettez ces termes en pratique",
-  "glossary.next.body": "Maintenant que vous connaissez le vocabulaire, découvrez comment ces notions interagissent. Un test de débit mesure le débit utile dans les conditions du test ; le ping aide à comprendre le temps de réponse ; et l’emplacement du routeur Wi-Fi peut influencer la qualité de la liaison sans fil.",
+  "glossary.next.body": "Maintenant que vous connaissez les termes, voyez comment ils fonctionnent ensemble. Un test de débit mesure le débit utile dans les conditions du test ; le ping aide à comprendre le temps de réponse ; et l'emplacement du routeur Wi-Fi peut influencer la qualité de la liaison sans fil.",
   "glossary.remember.title": "À retenir",
   "glossary.remember.body": "Un seul chiffre explique rarement toute la connexion. Les débits descendant et montant, la latence, la gigue, la perte de paquets, la qualité du Wi-Fi et le service distant peuvent tous influencer l’expérience.",
   "glossary.count.dynamic": "{visible} termes sur {total} affichés",
