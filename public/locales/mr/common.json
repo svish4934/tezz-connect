@@ -654,5 +654,14 @@
   "guide.homeNetworkPlanner.check3": "कोणत्या उपकरणांना वायर्ड जोडणीचा सर्वाधिक फायदा होईल ते ठरवा.",
   "guide.homeNetworkPlanner.check4": "प्रत्येक उपकरणासाठी सुरक्षित केबल मार्ग आणि वीजपुरवठ्याची व्यवस्था ठरवा.",
   "guide.homeNetworkPlanner.check5": "अतिरिक्त उपकरणे खरेदी करण्यापूर्वी सध्याच्या नेटवर्कची चाचणी घ्या.",
-  "guide.homeNetworkPlanner.note": "हा प्लॅनर तुमच्या उत्तरांवर आधारित शिकण्यासाठी शिफारस देतो. तो इमारतीची पाहणी, रेडिओ सिग्नलचे मोजमाप, उत्पादन सुसंगतता तपासणी किंवा कव्हरेजची हमी देत नाही. प्रत्यक्ष परिणाम भिंती, बांधकाम, उपकरणे, हस्तक्षेप, जागा आणि सेवेच्या गुणवत्तेवर अवलंबून असतात."
+  "guide.homeNetworkPlanner.note": "हा प्लॅनर तुमच्या उत्तरांवर आधारित शिकण्यासाठी शिफारस देतो. तो इमारतीची पाहणी, रेडिओ सिग्नलचे मोजमाप, उत्पादन सुसंगतता तपासणी किंवा कव्हरेजची हमी देत नाही. प्रत्यक्ष परिणाम भिंती, बांधकाम, उपकरणे, हस्तक्षेप, जागा आणि सेवेच्या गुणवत्तेवर अवलंबून असतात.",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "ज्ञान केंद्र",
+  "guide.homeNetworkPlanner.navRoadmap": "लर्निंग रोडमॅप",
+  "guide.homeNetworkPlanner.crumbHome": "मुख्यपृष्ठ",
+  "guide.homeNetworkPlanner.crumbHub": "इंटरनेट ज्ञान केंद्र",
+  "guide.homeNetworkPlanner.crumbPlanner": "होम नेटवर्क प्लॅनर",
+  "guide.homeNetworkPlanner.placementHeading": "उपकरणे योग्य ठिकाणी ठेवा",
+  "guide.homeNetworkPlanner.checkHeading": "बसवण्यापूर्वी किंवा खरेदीपूर्वी",
+  "guide.homeNetworkPlanner.footerGuides": "सर्व मार्गदर्शिका",
+  "guide.homeNetworkPlanner.footerAbout": "आमच्याबद्दल"
 }
