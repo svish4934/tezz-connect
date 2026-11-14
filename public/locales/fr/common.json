@@ -351,5 +351,19 @@
   "glossary.term.ethernet.title": "Ethernet",
   "glossary.term.ethernet.description": "Normes réseau filaires ; plus stables que le Wi-Fi pour les appareils fixes.",
   "glossary.term.dns.title": "DNS",
-  "glossary.term.dns.description": "Recherche les noms de domaine et renvoie des informations comme l'adresse IP nécessaire."
+  "glossary.term.dns.description": "Recherche les noms de domaine et renvoie des informations comme l'adresse IP nécessaire.",
+  "glossary.skip": "Aller au contenu principal",
+  "glossary.nav.label": "Navigation du guide",
+  "glossary.nav.hub": "Centre de connaissances",
+  "glossary.nav.roadmap": "Parcours d’apprentissage",
+  "glossary.breadcrumb.home": "Accueil",
+  "glossary.breadcrumb.hub": "Centre de connaissances Internet",
+  "glossary.breadcrumb.current": "Glossaire réseau",
+  "glossary.toc.search": "Rechercher dans le glossaire",
+  "glossary.toc.quiz": "Vérifier vos acquis",
+  "glossary.toc.related": "Voir les guides associés",
+  "glossary.related.speed": "Comprendre les débits descendant, montant et les Mbps",
+  "glossary.related.latency": "Découvrir la latence, le ping, la gigue et la perte de paquets",
+  "glossary.related.internet": "Suivre une requête sur Internet",
+  "glossary.related.wifi": "Voir un exemple de couverture Wi-Fi"
 }
