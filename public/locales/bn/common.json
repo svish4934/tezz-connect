@@ -551,5 +551,13 @@
   "Your laptop may still find a printer on the same home network during an internet outage, provided both devices and the router are working.": "ইন্টারনেট বন্ধ থাকলেও আপনার ল্যাপটপ একই বাড়ির নেটওয়ার্কে থাকা প্রিন্টার খুঁজে পেতে পারে, যদি দুটি ডিভাইস ও রাউটার কাজ করে।",
   "Two computers may exchange files over the home network without sending those files across the public internet.": "দুটি কম্পিউটার পাবলিক ইন্টারনেট দিয়ে না পাঠিয়েও বাড়ির নেটওয়ার্কে ফাইল আদান-প্রদান করতে পারে।",
   "This normally needs both a working home network and a working route to the service. A fault in either place can interrupt playback.": "এর জন্য সাধারণত কার্যকর বাড়ির নেটওয়ার্ক এবং পরিষেবায় পৌঁছানোর কার্যকর পথ—দুটিই দরকার। যেকোনো একটিতে সমস্যা হলে প্লেব্যাক থামতে পারে।",
-  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "পরিষেবা প্রদানকারীর ইন্টারনেট পরিষেবা না থাকলেও অনেক সময় রাউটারের স্থানীয় সেটিংস পেজ খোলা যায়।"
+  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "পরিষেবা প্রদানকারীর ইন্টারনেট পরিষেবা না থাকলেও অনেক সময় রাউটারের স্থানীয় সেটিংস পেজ খোলা যায়।",
+  "common.breadcrumb.home": "হোম",
+  "common.breadcrumb.guides": "গাইড",
+  "guide.internet.title.short": "ইন্টারনেট কী?",
+  "guide.internet.eyebrow.interactive": "ইন্টার‌্যাক্টিভ এক্সপ্লোরার",
+  "guide.internet.eyebrow.quiz": "ছোট্ট জ্ঞান যাচাই",
+  "guide.internet.eyebrow.related": "এরপর কী শিখবেন",
+  "guide.internet.related.wifi.read": "গাইড পড়ুন →",
+  "guide.internet.related.latency.read": "গাইড পড়ুন →"
 }
