@@ -374,5 +374,14 @@
   "guide.homeNetworkPlanner.check3": "حدد الأجهزة التي ستستفيد أكثر من الاتصالات السلكية.",
   "guide.homeNetworkPlanner.check4": "خطط لمسارات كابلات آمنة ومنافذ طاقة مناسبة لكل جهاز.",
   "guide.homeNetworkPlanner.check5": "اختبر الشبكة الحالية قبل شراء معدات إضافية.",
-  "guide.homeNetworkPlanner.note": "تقدم هذه الأداة توصية تعليمية بناءً على إجاباتك. ولا تفحص المبنى أو تقيس إشارات الراديو أو تتحقق من توافق المنتجات أو تضمن التغطية. تعتمد النتائج الفعلية على الجدران والبناء والمعدات والتداخل والموضع وجودة الخدمة."
+  "guide.homeNetworkPlanner.note": "تقدم هذه الأداة توصية تعليمية بناءً على إجاباتك. ولا تفحص المبنى أو تقيس إشارات الراديو أو تتحقق من توافق المنتجات أو تضمن التغطية. تعتمد النتائج الفعلية على الجدران والبناء والمعدات والتداخل والموضع وجودة الخدمة.",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "مركز المعرفة",
+  "guide.homeNetworkPlanner.navRoadmap": "مسار التعلم",
+  "guide.homeNetworkPlanner.crumbHome": "الرئيسية",
+  "guide.homeNetworkPlanner.crumbHub": "مركز معرفة الإنترنت",
+  "guide.homeNetworkPlanner.crumbPlanner": "مخطط الشبكة المنزلية",
+  "guide.homeNetworkPlanner.placementHeading": "ضع الأجهزة في أماكن مناسبة",
+  "guide.homeNetworkPlanner.checkHeading": "قبل التثبيت أو الشراء",
+  "guide.homeNetworkPlanner.footerGuides": "جميع الأدلة",
+  "guide.homeNetworkPlanner.footerAbout": "من نحن"
 }
