@@ -271,5 +271,21 @@
   "guide.speed.toc.planner": "估算家庭网络需求",
   "guide.speed.toc.transfer": "估算下载和上传时间",
   "guide.speed.toc.test": "如何进行有效的测速",
-  "guide.speed.cta.test": "打开网速测试 →"
+  "guide.speed.cta.test": "打开网速测试 →",
+  "guide.troubleshooter.skip": "跳转到主要内容",
+  "guide.troubleshooter.breadcrumb": "网络连接故障排查",
+  "guide.troubleshooter.eyebrow": "实用的互联网故障排查",
+  "guide.troubleshooter.title": "网络出现问题时，找到下一步该怎么做。",
+  "guide.troubleshooter.lede": "选择您遇到的问题。本指南将帮助您判断应检查 Wi-Fi、单台设备、路由器还是互联网连接，而不是立即购买新设备。",
+  "guide.troubleshooter.how_to": "如何使用本指南：",
+  "guide.troubleshooter.how_to_body": "先选择问题症状，按顺序完成检查，并且每次只更改一项。这里提供的是诊断步骤，并非实时网络测试。结果仅保存在当前浏览器中，不会发送到服务器。",
+  "guide.troubleshooter.build_checklist": "生成排查清单",
+  "guide.troubleshooter.problem_heading": "遇到了什么问题？",
+  "guide.troubleshooter.problem_intro": "选择最符合的情况。如果有多个问题，请先处理影响最大的一个。",
+  "guide.troubleshooter.problem_label": "选择您的网络问题",
+  "guide.troubleshooter.choose_problem": "选择一个问题…",
+  "guide.troubleshooter.build_button": "生成我的故障排查计划",
+  "guide.troubleshooter.result_eyebrow": "您的初步排查计划",
+  "guide.troubleshooter.fair_test": "保持测试条件一致：",
+  "guide.troubleshooter.fair_test_body": "记录发生的变化，并在相似条件下进行比较。暂停大型下载，尽可能使用同一台设备和同一位置，避免同时更改多个设置。"
 }
