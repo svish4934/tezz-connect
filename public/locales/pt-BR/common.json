@@ -361,5 +361,18 @@
   "guide.homeNetworkPlanner.flow9": "Roteador Wi-Fi",
   "guide.homeNetworkPlanner.flow10": "Celulares, notebooks e TVs",
   "guide.homeNetworkPlanner.cautionFloors": "A construção entre os andares pode afetar bastante os links sem fio; teste cada andar antes de decidir quantos nós serão necessários.",
-  "guide.homeNetworkPlanner.cautionBackhaul": "O backhaul cabeado costuma ser mais previsível do que um link sem fio entre andares."
+  "guide.homeNetworkPlanner.cautionBackhaul": "O backhaul cabeado costuma ser mais previsível do que um link sem fio entre andares.",
+  "guide.homeNetworkPlanner.body1": "Em uma casa típica, o serviço de internet chega a um modem ou ONT de fibra. O roteador conecta a rede doméstica a esse serviço e oferece portas cabeadas e, muitas vezes, Wi-Fi. Outros dispositivos se conectam diretamente ao roteador, por um switch ou por pontos de acesso ou nós mesh adicionais.",
+  "guide.homeNetworkPlanner.body2": "Um switch de rede adiciona portas Ethernet. Um ponto de acesso sem fio amplia a cobertura Wi-Fi em um local conectado à rede, geralmente por Ethernet. Um sistema mesh usa várias unidades Wi-Fi coordenadas; elas precisam de uma conexão adequada entre si, sem fio ou cabeada, se houver suporte.",
+  "guide.homeNetworkPlanner.place1": "Mantenha o roteador principal em um local aberto e elevado, quando possível — não dentro de um armário ou atrás da televisão.",
+  "guide.homeNetworkPlanner.place2": "Posicione os nós mesh sem fio onde ainda recebam uma boa conexão da unidade principal ou de outro nó.",
+  "guide.homeNetworkPlanner.place3": "Use Ethernet para dispositivos fixos e sensíveis à latência quando for viável.",
+  "guide.homeNetworkPlanner.place4": "Evite colocar pontos de acesso ou nós mesh perto de objetos metálicos grandes, obstáculos densos ou fontes de interferência.",
+  "guide.homeNetworkPlanner.place5": "Altere uma posição por vez e teste nos cômodos onde as pessoas realmente usam a rede.",
+  "guide.homeNetworkPlanner.check1": "Confira a velocidade e o tipo de conexão fornecidos pelo seu provedor.",
+  "guide.homeNetworkPlanner.check2": "Verifique os recursos das portas do roteador, do ONT e dos dispositivos.",
+  "guide.homeNetworkPlanner.check3": "Decida quais dispositivos se beneficiam mais de conexões cabeadas.",
+  "guide.homeNetworkPlanner.check4": "Planeje rotas seguras para os cabos e acesso à energia para cada dispositivo.",
+  "guide.homeNetworkPlanner.check5": "Teste a rede atual antes de comprar equipamentos adicionais.",
+  "guide.homeNetworkPlanner.note": "Este planejador oferece uma recomendação educativa com base nas suas respostas. Ele não inspeciona o imóvel, mede sinais de rádio, verifica compatibilidade de produtos nem garante cobertura. Os resultados reais dependem das paredes, da construção, dos equipamentos, das interferências, do posicionamento e da qualidade do serviço."
 }
