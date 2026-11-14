@@ -654,5 +654,14 @@
   "guide.homeNetworkPlanner.check3": "কোন ডিভাইসগুলো তারযুক্ত সংযোগে সবচেয়ে বেশি উপকৃত হবে তা ঠিক করুন।",
   "guide.homeNetworkPlanner.check4": "প্রতিটি ডিভাইসের জন্য নিরাপদ কেবল পথ ও বিদ্যুতের ব্যবস্থা পরিকল্পনা করুন।",
   "guide.homeNetworkPlanner.check5": "অতিরিক্ত সরঞ্জাম কেনার আগে বর্তমান নেটওয়ার্ক পরীক্ষা করুন।",
-  "guide.homeNetworkPlanner.note": "এই প্ল্যানার আপনার উত্তরের ভিত্তিতে শেখার জন্য সুপারিশ দেয়। এটি ভবন পরিদর্শন, রেডিও সিগন্যাল পরিমাপ, পণ্যের সামঞ্জস্য পরীক্ষা বা কভারেজের নিশ্চয়তা দেয় না। বাস্তব ফলাফল দেয়াল, নির্মাণ, সরঞ্জাম, হস্তক্ষেপ, অবস্থান ও পরিষেবার মানের ওপর নির্ভর করে।"
+  "guide.homeNetworkPlanner.note": "এই প্ল্যানার আপনার উত্তরের ভিত্তিতে শেখার জন্য সুপারিশ দেয়। এটি ভবন পরিদর্শন, রেডিও সিগন্যাল পরিমাপ, পণ্যের সামঞ্জস্য পরীক্ষা বা কভারেজের নিশ্চয়তা দেয় না। বাস্তব ফলাফল দেয়াল, নির্মাণ, সরঞ্জাম, হস্তক্ষেপ, অবস্থান ও পরিষেবার মানের ওপর নির্ভর করে।",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "জ্ঞানকেন্দ্র",
+  "guide.homeNetworkPlanner.navRoadmap": "শেখার রোডম্যাপ",
+  "guide.homeNetworkPlanner.crumbHome": "হোম",
+  "guide.homeNetworkPlanner.crumbHub": "ইন্টারনেট জ্ঞানকেন্দ্র",
+  "guide.homeNetworkPlanner.crumbPlanner": "হোম নেটওয়ার্ক প্ল্যানার",
+  "guide.homeNetworkPlanner.placementHeading": "সরঞ্জাম সঠিকভাবে স্থাপন করুন",
+  "guide.homeNetworkPlanner.checkHeading": "ইনস্টল বা কেনার আগে",
+  "guide.homeNetworkPlanner.footerGuides": "সব গাইড",
+  "guide.homeNetworkPlanner.footerAbout": "আমাদের সম্পর্কে"
 }
