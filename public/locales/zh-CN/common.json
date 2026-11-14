@@ -287,5 +287,13 @@
   "guide.troubleshooter.build_button": "生成我的故障排查计划",
   "guide.troubleshooter.result_eyebrow": "您的初步排查计划",
   "guide.troubleshooter.fair_test": "保持测试条件一致：",
-  "guide.troubleshooter.fair_test_body": "记录发生的变化，并在相似条件下进行比较。暂停大型下载，尽可能使用同一台设备和同一位置，避免同时更改多个设置。"
+  "guide.troubleshooter.fair_test_body": "记录发生的变化，并在相似条件下进行比较。暂停大型下载，尽可能使用同一台设备和同一位置，避免同时更改多个设置。",
+  "guide.troubleshooter.option.slow_all": "所有设备上的网速都很慢",
+  "guide.troubleshooter.option.one_device": "只有一部手机、笔记本电脑或设备速度慢",
+  "guide.troubleshooter.option.weak_room": "某个房间或远离路由器的位置 Wi-Fi 信号弱",
+  "guide.troubleshooter.option.lag": "游戏或视频通话出现延迟、冻结或卡顿",
+  "guide.troubleshooter.option.drops": "网络连接不断断开",
+  "guide.troubleshooter.option.upload": "上传文件或进行视频通话很慢",
+  "guide.troubleshooter.option.new_device": "新设备无法连接 Wi-Fi",
+  "guide.troubleshooter.reset": "重置"
 }
