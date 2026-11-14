@@ -567,5 +567,13 @@
   "guide.troubleshooter.build_button": "मेरी समस्या-जाँच योजना बनाएँ",
   "guide.troubleshooter.result_eyebrow": "आपकी शुरुआती जाँच योजना",
   "guide.troubleshooter.fair_test": "जाँच को निष्पक्ष रखें:",
-  "guide.troubleshooter.fair_test_body": "क्या बदला, इसे लिखें और समान परिस्थितियों में तुलना करें। बड़े डाउनलोड रोकें, जहाँ संभव हो वही डिवाइस और स्थान रखें, और एक साथ कई सेटिंग न बदलें।"
+  "guide.troubleshooter.fair_test_body": "क्या बदला, इसे लिखें और समान परिस्थितियों में तुलना करें। बड़े डाउनलोड रोकें, जहाँ संभव हो वही डिवाइस और स्थान रखें, और एक साथ कई सेटिंग न बदलें।",
+  "guide.troubleshooter.option.slow_all": "हर डिवाइस पर इंटरनेट धीमा लगता है",
+  "guide.troubleshooter.option.one_device": "केवल एक फोन, लैपटॉप या डिवाइस धीमा है",
+  "guide.troubleshooter.option.weak_room": "एक कमरे में या राउटर से दूर Wi-Fi कमजोर है",
+  "guide.troubleshooter.option.lag": "गेमिंग या वीडियो कॉल में देरी, रुकावट या अटकाव है",
+  "guide.troubleshooter.option.drops": "कनेक्शन बार-बार टूटता है",
+  "guide.troubleshooter.option.upload": "फ़ाइल अपलोड करना या वीडियो कॉल करना धीमा है",
+  "guide.troubleshooter.option.new_device": "नया डिवाइस Wi-Fi से कनेक्ट नहीं हो पा रहा है",
+  "guide.troubleshooter.reset": "रीसेट"
 }
