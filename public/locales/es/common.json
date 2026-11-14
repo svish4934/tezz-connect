@@ -344,5 +344,14 @@
   "Compare Wi-Fi with Ethernet near the router if possible.": "Si es posible, compara el Wi-Fi con Ethernet cerca del router.",
   "Change one thing at a time and repeat the test.": "Cambia una sola cosa cada vez y repite la prueba.",
   "Consider mesh or an access point only after checking placement and the wired connection.": "Plantéate usar una red mesh o un punto de acceso solo después de comprobar la ubicación y la conexión por cable.",
-  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "Un mapa de señal en colores puede explicar un concepto, pero solo una prueba real en tu hogar muestra el rendimiento efectivo. Usa el simulador para aprender qué debes investigar, no para asumir que una habitación tendrá una velocidad garantizada."
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "Un mapa de señal en colores puede explicar un concepto, pero solo una prueba real en tu hogar muestra el rendimiento efectivo. Usa el simulador para aprender qué debes investigar, no para asumir que una habitación tendrá una velocidad garantizada.",
+  "Busy": "Ocupado",
+  "Low": "Bajo",
+  "ROUTER": "ROUTER",
+  "DEVICE": "DISPOSITIVO",
+  "ROUTER + DEVICE": "ROUTER + DISPOSITIVO",
+  "Router location. ": "Ubicación del router. ",
+  "Device location. ": "Ubicación del dispositivo. ",
+  "Router and device share this area. ": "El router y el dispositivo comparten esta área. ",
+  "Five by five example home floor plan": "Plano de ejemplo de una vivienda de cinco por cinco"
 }
