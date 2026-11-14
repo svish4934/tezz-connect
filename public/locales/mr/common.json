@@ -615,5 +615,13 @@
   "Try router placement and connection comparisons.": "राउटरचे स्थान बदलून आणि कनेक्शनची तुलना करून पाहा.",
   "Understand extenders, mesh and access points.": "एक्स्टेंडर, मेश आणि ॲक्सेस पॉइंट समजून घ्या.",
   "Work through common connection symptoms.": "कनेक्शनच्या सामान्य लक्षणांवर उपाय करून पाहा.",
-  "Continue with the Internet Learning Roadmap →": "इंटरनेट लर्निंग रोडमॅप पुढे सुरू ठेवा →"
+  "Continue with the Internet Learning Roadmap →": "इंटरनेट लर्निंग रोडमॅप पुढे सुरू ठेवा →",
+  "Wi-Fi uses radio waves. As the signal travels through a home, distance and building materials can reduce the energy that reaches your device. Walls, floors, metal surfaces, appliances and the router's position all influence the result.": "Wi-Fi रेडिओ लहरी वापरते. घरातून सिग्नल जाताना अंतर आणि बांधकाम साहित्यामुळे तुमच्या डिव्हाइसपर्यंत पोहोचणारी ऊर्जा कमी होऊ शकते. भिंती, मजले, धातूचे पृष्ठभाग, उपकरणे आणि राउटरचे स्थान या सर्वांचा परिणाम होतो.",
+  "Often, 2.4 GHz can travel farther and pass through some obstacles better than higher-frequency bands. But it can be more crowded and usually has less available channel capacity. 5 GHz and 6 GHz can provide faster links in suitable conditions, especially closer to the router, but their coverage can be more limited. Your device and router must support the band.": "अनेकदा 2.4 GHz अधिक अंतरापर्यंत पोहोचू शकते आणि काही अडथळ्यांमधून उच्च-वारंवारतेच्या बँडपेक्षा चांगले जाऊ शकते. मात्र त्यावर गर्दी अधिक असू शकते आणि उपलब्ध चॅनेल क्षमता सहसा कमी असते. योग्य परिस्थितीत 5 GHz आणि 6 GHz जलद कनेक्शन देऊ शकतात, विशेषतः राउटरजवळ; पण त्यांचे कव्हरेज कमी असू शकते. तुमचे डिव्हाइस आणि राउटर त्या बँडला समर्थन देत असावेत.",
+  "Place the router in an open, raised and reasonably central location.": "राउटर मोकळ्या, उंच आणि शक्यतो मध्यवर्ती ठिकाणी ठेवा.",
+  "Test from the rooms where you actually use the connection.": "ज्या खोल्यांमध्ये तुम्ही प्रत्यक्ष कनेक्शन वापरता, तिथे चाचणी घ्या.",
+  "Compare Wi-Fi with Ethernet near the router if possible.": "शक्य असल्यास राउटरजवळ Wi-Fi आणि Ethernet यांची तुलना करा.",
+  "Change one thing at a time and repeat the test.": "एका वेळी एकच गोष्ट बदला आणि चाचणी पुन्हा करा.",
+  "Consider mesh or an access point only after checking placement and the wired connection.": "राउटरचे स्थान आणि वायर्ड कनेक्शन तपासल्यानंतरच मेश किंवा ॲक्सेस पॉइंटचा विचार करा.",
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "रंगीत सिग्नल नकाशा संकल्पना समजावू शकतो; पण प्रत्यक्ष कामगिरी फक्त घरातील चाचणीनेच कळते. काय तपासावे हे शिकण्यासाठी सिम्युलेटर वापरा—एखाद्या खोलीत ठरावीक वेगाची हमी आहे असे मानण्यासाठी नाही."
 }
