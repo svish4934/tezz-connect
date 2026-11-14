@@ -567,5 +567,13 @@
   "guide.troubleshooter.build_button": "আমার সমস্যা সমাধানের পরিকল্পনা তৈরি করুন",
   "guide.troubleshooter.result_eyebrow": "আপনার প্রাথমিক অনুসন্ধান পরিকল্পনা",
   "guide.troubleshooter.fair_test": "পরীক্ষাটি একই শর্তে করুন:",
-  "guide.troubleshooter.fair_test_body": "কী পরিবর্তন হয়েছে তা লিখে রাখুন এবং একই রকম পরিস্থিতিতে তুলনা করুন। বড় ডাউনলোড থামান, সম্ভব হলে একই ডিভাইস ও অবস্থান ব্যবহার করুন এবং একসঙ্গে একাধিক সেটিং বদলাবেন না।"
+  "guide.troubleshooter.fair_test_body": "কী পরিবর্তন হয়েছে তা লিখে রাখুন এবং একই রকম পরিস্থিতিতে তুলনা করুন। বড় ডাউনলোড থামান, সম্ভব হলে একই ডিভাইস ও অবস্থান ব্যবহার করুন এবং একসঙ্গে একাধিক সেটিং বদলাবেন না।",
+  "guide.troubleshooter.option.slow_all": "সব ডিভাইসেই ইন্টারনেট ধীর মনে হচ্ছে",
+  "guide.troubleshooter.option.one_device": "শুধু একটি ফোন, ল্যাপটপ বা ডিভাইস ধীর",
+  "guide.troubleshooter.option.weak_room": "একটি ঘরে বা রাউটার থেকে দূরে Wi-Fi দুর্বল",
+  "guide.troubleshooter.option.lag": "গেম বা ভিডিও কলে দেরি হয়, থেমে যায় বা আটকে যায়",
+  "guide.troubleshooter.option.drops": "সংযোগ বারবার বিচ্ছিন্ন হচ্ছে",
+  "guide.troubleshooter.option.upload": "ফাইল আপলোড বা ভিডিও কলে সমস্যা হচ্ছে",
+  "guide.troubleshooter.option.new_device": "নতুন ডিভাইস Wi-Fi-তে সংযোগ করতে পারছে না",
+  "guide.troubleshooter.reset": "রিসেট"
 }
