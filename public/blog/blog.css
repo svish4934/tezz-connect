@@ -10,3 +10,13 @@
 .tb-article-body .tb-sources ul{margin:0;padding-left:20px}
 .tb-article-body .tb-sources li{margin:8px 0;font-size:14px;line-height:1.55}
 @media(max-width:650px){.tb-article-body{margin-top:22px;font-size:15px}.tb-article-body section{margin:25px 0}.tb-article-body section p{font-size:14px}.tb-article-body .tb-sources{padding:17px}}
+
+/* Real editorial photography for Blog cards and article headers */
+.tb-card-art{height:auto;aspect-ratio:16/9;padding:0;display:block;overflow:hidden;background:#edf3f7}
+.tb-card-art img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+.tb-card>a:hover .tb-card-art img{transform:scale(1.025)}
+.tb-article-image{max-width:900px;margin:26px auto 34px}
+.tb-article-image img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:#edf3f7}
+.tb-article-image figcaption{margin-top:8px;font-size:11px;line-height:1.5;color:#607286}
+.tb-article-image figcaption a{color:#075d7c;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:650px){.tb-article-image{margin:20px auto 26px}.tb-article-image img{border-radius:11px}}
