@@ -608,5 +608,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "नेटवर्किंग उपकरण",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "राउटर, एक्सटेंडर और मेश सिस्टम की तुलना करें।",
   "guide.interactiveNetworkLab.footerGuides": "सभी गाइड",
-  "guide.interactiveNetworkLab.footerAbout": "हमारे बारे में"
+  "guide.interactiveNetworkLab.footerAbout": "हमारे बारे में",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "पास में",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "घर के दूसरी ओर",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "दूर का कमरा",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "पहले 2.4 GHz आज़माएँ",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "पहले 5 GHz आज़माएँ",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "5 GHz और 6 GHz की तुलना करें",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "अस्थिर",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "कुछ देरी",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "तेज़ प्रतिक्रिया",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "एक राउटर",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "राउटर + एक्सटेंडर",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "मेश सिस्टम",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "पहले एक उत्तर चुनें।",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "सही। पहले कवरेज की कमी और राउटर की जगह जाँचें।",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "पहले कवरेज की समस्या पहचानें और एक बार में एक स्थिति बदलें।",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "कुछ पैकेट खो सकते हैं",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "अनुरोध और प्रतिक्रिया"
 }
