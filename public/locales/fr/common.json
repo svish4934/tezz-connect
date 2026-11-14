@@ -335,5 +335,18 @@
   "Understand routers, mesh systems, switches and access points.": "Comprenez les routeurs, systèmes mesh, commutateurs et points d’accès.",
   "Read guide →": "Lire le guide →",
   "Work through common home internet problems.": "Suivez les étapes pour résoudre les problèmes Internet domestiques courants.",
-  "Open tool →": "Ouvrir l’outil →"
+  "Open tool →": "Ouvrir l’outil →",
+  "guide.security.eyebrow": "SÉCURITÉ PRATIQUE DU RÉSEAU DOMESTIQUE",
+  "guide.security.meta": "TEZZ CONNECT · Vérification de la sécurité du Wi-Fi domestique",
+  "guide.security.checklist": "LISTE DE CONTRÔLE INTERACTIVE",
+  "guide.security.performance_intro": "La sécurité et les performances nécessitent des vérifications distinctes. Si votre connexion est lente ou instable, utilisez :",
+  "guide.security.troubleshooter_link": "outil de dépannage de connexion",
+  "guide.security.performance_join": "et",
+  "guide.security.wifi_guide_link": "guide d’amélioration du Wi-Fi",
+  "US Federal Trade Commission: How to secure your home Wi-Fi network": "Commission fédérale du commerce des États-Unis : sécuriser votre réseau Wi-Fi domestique",
+  "— encryption and default settings.": "— chiffrement et paramètres par défaut.",
+  "Apple: Recommended settings for Wi-Fi routers and access points": "Apple : réglages recommandés pour les routeurs et points d’accès Wi-Fi",
+  "— WPA3, WPA2-AES and deprecated modes.": "— WPA3, WPA2-AES et modes obsolètes.",
+  "Canadian Centre for Cyber Security: Router cyber security best practices": "Centre canadien pour la cybersécurité : bonnes pratiques de cybersécurité des routeurs",
+  "— WPS, firmware, guest access and remote administration.": "— WPS, micrologiciel, accès invité et administration à distance."
 }
