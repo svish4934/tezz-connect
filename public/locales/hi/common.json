@@ -663,5 +663,8 @@
   "guide.homeNetworkPlanner.placementHeading": "उपकरण सही जगह रखें",
   "guide.homeNetworkPlanner.checkHeading": "इंस्टॉल करने या खरीदने से पहले",
   "guide.homeNetworkPlanner.footerGuides": "सभी गाइड",
-  "guide.homeNetworkPlanner.footerAbout": "हमारे बारे में"
+  "guide.homeNetworkPlanner.footerAbout": "हमारे बारे में",
+  "guide.homeNetworkPlanner.navAria": "गाइड नेविगेशन",
+  "guide.homeNetworkPlanner.flowAria": "सुझाए गए नेटवर्क कनेक्शन का मार्ग",
+  "guide.homeNetworkPlanner.imageAlt": "सिंगल राउटर, वाई-फ़ाई एक्सटेंडर और मेश नेटवर्क लेआउट के उदाहरण"
 }
