@@ -341,5 +341,13 @@
   "guide.buying.read": "Lire le guide →",
   "guide.buying.allguides": "Explorer tous les guides du Centre de connaissances Internet →",
   "guide.buying.about": "À propos",
-  "guide.buying.footer": "Fièrement créé en Inde 🇮🇳"
+  "guide.buying.footer": "Fièrement créé en Inde 🇮🇳",
+  "guide.buying.routerpara": "Un routeur relie les appareils de votre domicile à Internet et crée généralement votre réseau Wi‑Fi. Comparez la génération Wi‑Fi, les bandes prises en charge, le débit des ports Ethernet, les mises à jour de sécurité et la compatibilité avec le modem ou l’ONT fibre du fournisseur.",
+  "guide.buying.meshpara": "Un système maillé utilise au moins deux unités pour répartir le Wi‑Fi dans le logement. L’une se connecte à Internet et les autres couvrent les pièces éloignées. Cette solution peut être utile dans un grand logement ou lorsqu’un routeur ne dessert pas toutes les pièces.",
+  "guide.buying.extenderpara": "Un répéteur capte le signal Wi‑Fi existant et le retransmet plus loin. Il peut aider dans une petite zone mal couverte, mais doit d’abord recevoir un signal correct du routeur. Le placer là où le Wi‑Fi fonctionne à peine peut ne rien améliorer.",
+  "guide.buying.ethernetpara": "Un câble Ethernet relie directement un appareil au routeur ou à un commutateur. C’est souvent un bon choix pour les ordinateurs, téléviseurs et consoles, car il évite de nombreux problèmes de signal Wi‑Fi.",
+  "guide.buying.switchpara": "Un commutateur réseau ajoute des ports Ethernet. Si votre routeur en possède peu et que vous souhaitez connecter un téléviseur, un ordinateur, une console et d’autres appareils filaires, il peut ajouter des connexions.",
+  "guide.buying.promisebody": "Ce guide vise à vous aider à comprendre les équipements, pas à vous pousser à acheter. Il ne contient actuellement aucun lien affilié ni emplacement sponsorisé. Si cela change, les liens commerciaux seront clairement signalés.",
+  "guide.buying.fitbody": "Acheter un nouveau routeur n’est pas la première étape face à chaque plainte de lenteur. Identifiez d’abord le point faible : le service Internet entrant, la couverture Wi‑Fi, les ports filaires ou le nombre d’appareils. Le bon produit dépend du logement et de l’équipement du fournisseur.",
+  "guide.buying.budgetbody": "Notez le problème, les pièces et appareils concernés ainsi que les fonctions nécessaires. Comparez le coût total — nœuds mesh, adaptateurs ou installation compris — à une solution filaire ou à un simple repositionnement. Ne choisissez pas uniquement le chiffre en Mbps annoncé : il ne garantit pas le débit d’un appareil."
 }
