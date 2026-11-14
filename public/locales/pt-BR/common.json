@@ -287,5 +287,13 @@
   "guide.troubleshooter.build_button": "Criar meu plano de diagnóstico",
   "guide.troubleshooter.result_eyebrow": "SEU PLANO INICIAL DE INVESTIGAÇÃO",
   "guide.troubleshooter.fair_test": "Faça uma comparação justa:",
-  "guide.troubleshooter.fair_test_body": "Registre o que mudou e compare em condições semelhantes. Pause downloads grandes, mantenha o mesmo dispositivo e local sempre que possível e evite alterar várias configurações ao mesmo tempo."
+  "guide.troubleshooter.fair_test_body": "Registre o que mudou e compare em condições semelhantes. Pause downloads grandes, mantenha o mesmo dispositivo e local sempre que possível e evite alterar várias configurações ao mesmo tempo.",
+  "guide.troubleshooter.option.slow_all": "A internet parece lenta em todos os dispositivos",
+  "guide.troubleshooter.option.one_device": "Apenas um celular, notebook ou dispositivo está lento",
+  "guide.troubleshooter.option.weak_room": "O Wi-Fi está fraco em um cômodo ou longe do roteador",
+  "guide.troubleshooter.option.lag": "Jogos ou chamadas de vídeo apresentam atraso ou travamentos",
+  "guide.troubleshooter.option.drops": "A conexão cai repetidamente",
+  "guide.troubleshooter.option.upload": "O envio de arquivos ou as chamadas de vídeo estão lentos",
+  "guide.troubleshooter.option.new_device": "Um dispositivo novo não consegue se conectar ao Wi-Fi",
+  "guide.troubleshooter.reset": "Redefinir"
 }
