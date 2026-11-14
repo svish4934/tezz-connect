@@ -336,5 +336,13 @@
   "Try router placement and connection comparisons.": "جرّب تغيير موقع الموجّه ومقارنة الاتصالات.",
   "Understand extenders, mesh and access points.": "تعرّف على المقويات وأنظمة Mesh ونقاط الوصول.",
   "Work through common connection symptoms.": "اتبع خطوات معالجة أعراض الاتصال الشائعة.",
-  "Continue with the Internet Learning Roadmap →": "تابع مسار تعلم الإنترنت →"
+  "Continue with the Internet Learning Roadmap →": "تابع مسار تعلم الإنترنت →",
+  "Wi-Fi uses radio waves. As the signal travels through a home, distance and building materials can reduce the energy that reaches your device. Walls, floors, metal surfaces, appliances and the router's position all influence the result.": "يستخدم Wi-Fi موجات راديوية. أثناء انتقال الإشارة داخل المنزل، قد تقلل المسافة ومواد البناء الطاقة التي تصل إلى جهازك. تؤثر الجدران والأرضيات والأسطح المعدنية والأجهزة وموقع الموجّه في النتيجة.",
+  "Often, 2.4 GHz can travel farther and pass through some obstacles better than higher-frequency bands. But it can be more crowded and usually has less available channel capacity. 5 GHz and 6 GHz can provide faster links in suitable conditions, especially closer to the router, but their coverage can be more limited. Your device and router must support the band.": "غالبًا ما يصل نطاق 2.4 جيجاهرتز إلى مسافة أبعد ويجتاز بعض العوائق أفضل من النطاقات الأعلى ترددًا. لكنه قد يكون أكثر ازدحامًا، وعادةً ما تتوفر له سعة قنوات أقل. يمكن أن يوفر نطاقا 5 و6 جيجاهرتز اتصالات أسرع في الظروف المناسبة، خاصة بالقرب من الموجّه، لكن تغطيتهما قد تكون أضيق. يجب أن يدعم جهازك والموجّه النطاق المستخدم.",
+  "Place the router in an open, raised and reasonably central location.": "ضع الموجّه في مكان مفتوح ومرتفع وقريب من وسط المنزل.",
+  "Test from the rooms where you actually use the connection.": "اختبر الاتصال من الغرف التي تستخدمه فيها فعليًا.",
+  "Compare Wi-Fi with Ethernet near the router if possible.": "إن أمكن، قارن بين Wi-Fi وEthernet بالقرب من الموجّه.",
+  "Change one thing at a time and repeat the test.": "غيّر شيئًا واحدًا في كل مرة ثم أعد الاختبار.",
+  "Consider mesh or an access point only after checking placement and the wired connection.": "فكّر في نظام Mesh أو نقطة وصول فقط بعد التحقق من الموقع والاتصال السلكي.",
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "قد تساعد خريطة الإشارة الملونة في شرح الفكرة، لكن الاختبار الفعلي في منزلك وحده يوضح الأداء الحقيقي. استخدم المحاكي لمعرفة ما ينبغي فحصه، لا لافتراض أن سرعة معينة مضمونة في غرفة بعينها."
 }
