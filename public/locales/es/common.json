@@ -328,5 +328,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "Equipos de red",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "Compara routers, extensores y sistemas mesh.",
   "guide.interactiveNetworkLab.footerGuides": "Todas las guías",
-  "guide.interactiveNetworkLab.footerAbout": "Acerca de"
+  "guide.interactiveNetworkLab.footerAbout": "Acerca de",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "Cerca",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "Al otro lado de casa",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "Habitación lejana",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "Prueba primero 2,4 GHz",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "Prueba primero 5 GHz",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "Compara 5 GHz y 6 GHz",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "Inestable",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "Algo de demora",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "Con buena respuesta",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "Un solo router",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "Router + extensor",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "Sistema mesh",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "Primero elige una respuesta.",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "Correcto. Averigua dónde cae la cobertura y comprueba la ubicación del router.",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "Primero identifica el problema de cobertura y cambia una condición cada vez.",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "Se pueden perder algunos paquetes",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Solicitud y respuesta"
 }
