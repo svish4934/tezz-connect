@@ -351,5 +351,19 @@
   "glossary.term.ethernet.title": "Ethernet",
   "glossary.term.ethernet.description": "معايير شبكات سلكية؛ قد تكون أكثر ثباتًا من Wi-Fi للأجهزة الثابتة.",
   "glossary.term.dns.title": "DNS",
-  "glossary.term.dns.description": "يبحث عن أسماء النطاقات ويعيد معلومات مثل عنوان IP الذي يحتاج إليه الجهاز."
+  "glossary.term.dns.description": "يبحث عن أسماء النطاقات ويعيد معلومات مثل عنوان IP الذي يحتاج إليه الجهاز.",
+  "glossary.skip": "انتقل إلى المحتوى الرئيسي",
+  "glossary.nav.label": "التنقل في الدليل",
+  "glossary.nav.hub": "مركز المعرفة",
+  "glossary.nav.roadmap": "مسار التعلم",
+  "glossary.breadcrumb.home": "الرئيسية",
+  "glossary.breadcrumb.hub": "مركز معرفة الإنترنت",
+  "glossary.breadcrumb.current": "مسرد الشبكات",
+  "glossary.toc.search": "ابحث في المسرد",
+  "glossary.toc.quiz": "تحقق مما تعلمته",
+  "glossary.toc.related": "استكشف الأدلة ذات الصلة",
+  "glossary.related.speed": "افهم سرعة التنزيل والرفع ووحدة Mbps",
+  "glossary.related.latency": "استكشف زمن الاستجابة وPing والتذبذب وفقدان الحزم",
+  "glossary.related.internet": "تابع مسار طلب عبر الإنترنت",
+  "glossary.related.wifi": "استكشف مثالًا على تغطية Wi-Fi"
 }
