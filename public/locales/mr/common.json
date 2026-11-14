@@ -551,5 +551,21 @@
   "Your laptop may still find a printer on the same home network during an internet outage, provided both devices and the router are working.": "इंटरनेट बंद असतानाही तुमचा लॅपटॉप त्याच घरच्या नेटवर्कवरील प्रिंटर शोधू शकतो, जर दोन्ही डिव्हाइस आणि राउटर कार्यरत असतील.",
   "Two computers may exchange files over the home network without sending those files across the public internet.": "दोन संगणक सार्वजनिक इंटरनेटवर फाइल न पाठवता घरच्या नेटवर्कवर फाइल्सची देवाणघेवाण करू शकतात.",
   "This normally needs both a working home network and a working route to the service. A fault in either place can interrupt playback.": "यासाठी सामान्यतः कार्यरत घरचे नेटवर्क आणि सेवेकडे जाणारा कार्यरत मार्ग दोन्ही आवश्यक असतात. दोन्हीपैकी कुठेही बिघाड झाल्यास प्लेबॅक थांबू शकतो.",
-  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "प्रदात्याची इंटरनेट सेवा उपलब्ध नसतानाही तुम्ही अनेकदा राउटरचे स्थानिक सेटिंग्ज पेज उघडू शकता."
+  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "प्रदात्याची इंटरनेट सेवा उपलब्ध नसतानाही तुम्ही अनेकदा राउटरचे स्थानिक सेटिंग्ज पेज उघडू शकता.",
+  "guide.troubleshooter.skip": "मुख्य मजकुराकडे जा",
+  "guide.troubleshooter.breadcrumb": "कनेक्शन समस्यानिवारक",
+  "guide.troubleshooter.eyebrow": "इंटरनेट समस्यानिवारणासाठी व्यावहारिक मार्गदर्शन",
+  "guide.troubleshooter.title": "इंटरनेटमध्ये अडचण आल्यास पुढचे पाऊल ओळखा.",
+  "guide.troubleshooter.lede": "तुमची समस्या निवडा. ही मार्गदर्शित तपासणीसूची Wi-Fi, एखादे डिव्हाइस, राउटर किंवा इंटरनेट कनेक्शन यांपैकी कशाची तपासणी करावी हे ठरवण्यास मदत करते—लगेच नवीन उपकरण खरेदी न करता.",
+  "guide.troubleshooter.how_to": "या मार्गदर्शकाचा वापर कसा करावा:",
+  "guide.troubleshooter.how_to_body": "समस्येचे लक्षण निवडा, तपासण्या क्रमाने करा आणि एका वेळी एकच बदल करा. या सूचना निदानासाठी आहेत; हा थेट नेटवर्क टेस्ट नाही. तुमचे परिणाम याच ब्राउझरमध्ये राहतात; सर्व्हरवर काहीही पाठवले जात नाही.",
+  "guide.troubleshooter.build_checklist": "तुमची तपासणीसूची तयार करा",
+  "guide.troubleshooter.problem_heading": "काय समस्या येत आहे?",
+  "guide.troubleshooter.problem_intro": "सर्वात जवळची समस्या निवडा. एकापेक्षा जास्त समस्या असल्यास, सर्वाधिक परिणाम करणाऱ्या समस्येपासून सुरुवात करा.",
+  "guide.troubleshooter.problem_label": "तुमची इंटरनेट समस्या निवडा",
+  "guide.troubleshooter.choose_problem": "समस्या निवडा…",
+  "guide.troubleshooter.build_button": "माझी समस्यानिवारण योजना तयार करा",
+  "guide.troubleshooter.result_eyebrow": "तुमची प्राथमिक तपासणी योजना",
+  "guide.troubleshooter.fair_test": "तुलना योग्य पद्धतीने करा:",
+  "guide.troubleshooter.fair_test_body": "काय बदलले ते नोंदवा आणि समान परिस्थितीत तुलना करा. मोठे डाउनलोड थांबवा, शक्य असल्यास तेच डिव्हाइस आणि ठिकाण वापरा आणि एकाच वेळी अनेक सेटिंग्ज बदलू नका."
 }
