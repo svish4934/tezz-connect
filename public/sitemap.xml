@@ -6,26 +6,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://tezzconnect.online/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://tezzconnect.online/internet-doctor</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tezzconnect.online/tools</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tezzconnect.online/global-network</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tezzconnect.online/guides/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
