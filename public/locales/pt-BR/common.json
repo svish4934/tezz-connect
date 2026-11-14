@@ -383,5 +383,8 @@
   "guide.homeNetworkPlanner.placementHeading": "Posicione os equipamentos corretamente",
   "guide.homeNetworkPlanner.checkHeading": "Antes de instalar ou comprar",
   "guide.homeNetworkPlanner.footerGuides": "Todos os guias",
-  "guide.homeNetworkPlanner.footerAbout": "Sobre"
+  "guide.homeNetworkPlanner.footerAbout": "Sobre",
+  "guide.homeNetworkPlanner.navAria": "Navegação do guia",
+  "guide.homeNetworkPlanner.flowAria": "Caminho de conexão de rede sugerido",
+  "guide.homeNetworkPlanner.imageAlt": "Exemplos de layouts com roteador único, repetidor Wi-Fi e rede mesh"
 }
