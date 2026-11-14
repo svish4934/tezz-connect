@@ -320,5 +320,17 @@
   "roadmap.lesson9.desc": "Modifiez les conditions réseau et observez comment les bandes Wi-Fi, l’agencement et les réponses influencent la connexion.",
   "roadmap.practice.label": "À essayer :",
   "roadmap.finish.eyebrow": "Continuez à approfondir vos connaissances",
-  "roadmap.note.label": "À propos de la progression :"
+  "roadmap.note.label": "À propos de la progression :",
+  "roadmap.meta.steps": "9 étapes d’apprentissage",
+  "roadmap.meta.levels": "3 niveaux",
+  "roadmap.meta.no_login": "Aucune connexion requise",
+  "roadmap.toc.beginner": "Niveau 1 : Débutant",
+  "roadmap.toc.practical": "Niveau 2 : Compétences pratiques",
+  "roadmap.toc.advanced": "Niveau 3 : Approfondissement",
+  "roadmap.toc.finish": "Que faire ensuite",
+  "roadmap.practice.beginner": "Expliquez la différence entre télécharger une vidéo et envoyer une photo. Comparez les valeurs descendantes et montantes du test.",
+  "roadmap.practice.practical": "Choisissez une pièce où le Wi-Fi est peu fiable. Comparez la connexion près du routeur et dans cette pièce, puis consultez le guide avant d’acheter du matériel.",
+  "roadmap.practice.advanced": "Modifiez un seul paramètre à la fois dans le simulateur ou le laboratoire. Décrivez le changement et sa cause. Ce sont des modèles pédagogiques, pas des mesures de votre réseau domestique.",
+  "roadmap.finish.body": "Lancez un test réel pour mesurer votre connexion. Utilisez les guides pour comprendre le résultat, comparer les conditions et décider quoi examiner.",
+  "roadmap.note.body": "Les coches sont enregistrées localement dans ce navigateur et sur cet appareil. Elles ne sont liées à aucun compte et ne sont pas envoyées à TEZZ CONNECT. Effacer le stockage ou changer d’appareil peut supprimer la progression. La liste ne délivre aucun certificat ; ce parcours est éducatif, pas une qualification professionnelle."
 }
