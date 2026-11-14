@@ -320,5 +320,17 @@
   "roadmap.lesson9.desc": "Cambia condiciones de red de ejemplo y observa cómo las bandas Wi-Fi, la distribución y las respuestas afectan la conexión.",
   "roadmap.practice.label": "Pruébalo:",
   "roadmap.finish.eyebrow": "Sigue ampliando tus conocimientos",
-  "roadmap.note.label": "Nota sobre el progreso:"
+  "roadmap.note.label": "Nota sobre el progreso:",
+  "roadmap.meta.steps": "9 pasos de aprendizaje",
+  "roadmap.meta.levels": "3 niveles",
+  "roadmap.meta.no_login": "No necesitas iniciar sesión",
+  "roadmap.toc.beginner": "Nivel 1: Principiante",
+  "roadmap.toc.practical": "Nivel 2: Habilidades prácticas",
+  "roadmap.toc.advanced": "Nivel 3: Conocimientos avanzados",
+  "roadmap.toc.finish": "Qué hacer después",
+  "roadmap.practice.beginner": "Explica la diferencia entre descargar un vídeo y subir una foto. Compara los valores de descarga y subida e identifica el mayor.",
+  "roadmap.practice.practical": "Elige una habitación donde el Wi-Fi no sea fiable. Compara la conexión junto al router y allí; consulta la guía antes de decidir si necesitas equipos nuevos.",
+  "roadmap.practice.advanced": "Cambia un ajuste cada vez en el simulador de latencia o laboratorio. Describe qué cambió y por qué. Son modelos didácticos, no mediciones de tu red doméstica.",
+  "roadmap.finish.body": "Ejecuta una prueba real para medir tu conexión. Usa las guías para entender el resultado, comparar condiciones y decidir qué investigar.",
+  "roadmap.note.body": "Las marcas se guardan localmente en este navegador y dispositivo. No están vinculadas a una cuenta ni se envían a TEZZ CONNECT. Borrar el almacenamiento o cambiar de dispositivo puede eliminar el progreso. La lista no otorga un certificado; la ruta es educativa, no una cualificación profesional."
 }
