@@ -631,5 +631,19 @@
   "glossary.term.ethernet.title": "ইথারনেট",
   "glossary.term.ethernet.description": "ওয়্যার্ড নেটওয়ার্ক মান; স্থির ডিভাইসে Wi-Fi-এর চেয়ে স্থিতিশীল হতে পারে।",
   "glossary.term.dns.title": "DNS",
-  "glossary.term.dns.description": "ডোমেইন নাম খুঁজে IP ঠিকানার মতো প্রয়োজনীয় তথ্য দেয় এমন ব্যবস্থা।"
+  "glossary.term.dns.description": "ডোমেইন নাম খুঁজে IP ঠিকানার মতো প্রয়োজনীয় তথ্য দেয় এমন ব্যবস্থা।",
+  "glossary.skip": "মূল বিষয়বস্তুতে যান",
+  "glossary.nav.label": "গাইড নেভিগেশন",
+  "glossary.nav.hub": "জ্ঞানকেন্দ্র",
+  "glossary.nav.roadmap": "লার্নিং রোডম্যাপ",
+  "glossary.breadcrumb.home": "হোম",
+  "glossary.breadcrumb.hub": "ইন্টারনেট জ্ঞানকেন্দ্র",
+  "glossary.breadcrumb.current": "নেটওয়ার্কিং শব্দকোষ",
+  "glossary.toc.search": "শব্দকোষ খুঁজুন",
+  "glossary.toc.quiz": "আপনি কী শিখেছেন যাচাই করুন",
+  "glossary.toc.related": "সম্পর্কিত গাইড দেখুন",
+  "glossary.related.speed": "ডাউনলোড গতি, আপলোড গতি ও Mbps বুঝুন",
+  "glossary.related.latency": "লেটেন্সি, পিং, জিটার ও প্যাকেট লস জানুন",
+  "glossary.related.internet": "ইন্টারনেট জুড়ে একটি অনুরোধের যাত্রা দেখুন",
+  "glossary.related.wifi": "Wi-Fi কভারেজের উদাহরণ দেখুন"
 }
