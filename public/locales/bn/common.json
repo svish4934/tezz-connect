@@ -663,5 +663,8 @@
   "guide.homeNetworkPlanner.placementHeading": "সরঞ্জাম সঠিকভাবে স্থাপন করুন",
   "guide.homeNetworkPlanner.checkHeading": "ইনস্টল বা কেনার আগে",
   "guide.homeNetworkPlanner.footerGuides": "সব গাইড",
-  "guide.homeNetworkPlanner.footerAbout": "আমাদের সম্পর্কে"
+  "guide.homeNetworkPlanner.footerAbout": "আমাদের সম্পর্কে",
+  "guide.homeNetworkPlanner.navAria": "গাইড নেভিগেশন",
+  "guide.homeNetworkPlanner.flowAria": "প্রস্তাবিত নেটওয়ার্ক সংযোগের পথ",
+  "guide.homeNetworkPlanner.imageAlt": "একটি রাউটার, ওয়াই-ফাই এক্সটেন্ডার এবং মেশ নেটওয়ার্ক বিন্যাসের উদাহরণ"
 }
