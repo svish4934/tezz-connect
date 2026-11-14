@@ -152,7 +152,7 @@ const updateProgress=()=>{const checks=[...steps.querySelectorAll('input[type="c
 plan.steps.forEach((step,index)=>{
 const item=document.createElement('article');item.className='trouble-step';
 const number=document.createElement('span');number.className='trouble-step-number';number.textContent=String(index+1);
-const copy=document.createElement('div');const heading=document.createElement('h4');heading.textContent=step[0];const body=document.createElement('p');body.textContent=step[1];
+const copy=document.createElement('div');const heading=document.createElement('h4');heading.textContent=tr('guide.troubleshooter.plan.'+select.value+'.step.'+(index+1)+'.title',step[0]);const body=document.createElement('p');body.textContent=tr('guide.troubleshooter.plan.'+select.value+'.step.'+(index+1)+'.body',step[1]);
 const label=document.createElement('label');label.className='trouble-step-check';const check=document.createElement('input');check.type='checkbox';check.addEventListener('change',()=>{item.classList.toggle('is-complete',check.checked);updateProgress();});const labelText=document.createElement('span');labelText.textContent=tr('guide.troubleshooter.mark_complete','Mark this check as completed');label.append(check,labelText);copy.append(heading,body,label);item.append(number,copy);steps.append(item);
 });
 caution.textContent=plan.caution;updateProgress();results.hidden=false;results.focus();
