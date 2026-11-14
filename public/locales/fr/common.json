@@ -287,5 +287,13 @@
   "guide.troubleshooter.build_button": "Créer mon plan de dépannage",
   "guide.troubleshooter.result_eyebrow": "VOTRE PREMIER PLAN D’INVESTIGATION",
   "guide.troubleshooter.fair_test": "Comparez dans des conditions similaires :",
-  "guide.troubleshooter.fair_test_body": "Notez ce qui a changé et comparez dans des conditions similaires. Mettez en pause les téléchargements volumineux, gardez si possible le même appareil et le même emplacement, et évitez de modifier plusieurs paramètres à la fois."
+  "guide.troubleshooter.fair_test_body": "Notez ce qui a changé et comparez dans des conditions similaires. Mettez en pause les téléchargements volumineux, gardez si possible le même appareil et le même emplacement, et évitez de modifier plusieurs paramètres à la fois.",
+  "guide.troubleshooter.option.slow_all": "Internet lent sur tous les appareils",
+  "guide.troubleshooter.option.one_device": "Un seul téléphone, ordinateur ou appareil est lent",
+  "guide.troubleshooter.option.weak_room": "Le Wi-Fi est faible dans une pièce ou loin du routeur",
+  "guide.troubleshooter.option.lag": "Les jeux ou appels vidéo présentent du retard ou des saccades",
+  "guide.troubleshooter.option.drops": "La connexion se déconnecte sans cesse",
+  "guide.troubleshooter.option.upload": "L’envoi de fichiers ou les appels vidéo sont lents",
+  "guide.troubleshooter.option.new_device": "Un nouvel appareil ne peut pas se connecter au Wi-Fi",
+  "guide.troubleshooter.reset": "Réinitialiser"
 }
