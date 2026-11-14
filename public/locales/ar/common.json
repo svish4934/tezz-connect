@@ -328,5 +328,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "معدات الشبكات",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "قارن بين الموجّهات والموسعات وأنظمة Mesh.",
   "guide.interactiveNetworkLab.footerGuides": "جميع الأدلة",
-  "guide.interactiveNetworkLab.footerAbout": "من نحن"
+  "guide.interactiveNetworkLab.footerAbout": "من نحن",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "قريب",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "في الجهة الأخرى من المنزل",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "غرفة بعيدة",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "جرّب 2.4 GHz أولاً",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "جرّب 5 GHz أولاً",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "قارن بين 5 GHz و6 GHz",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "غير مستقر",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "بعض التأخير",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "استجابة جيدة",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "موجّه واحد",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "موجّه + موسّع إشارة",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "نظام Mesh",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "اختر إجابة أولاً.",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "صحيح. حدّد موضع ضعف التغطية وتحقق من مكان الموجّه.",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "حدّد مشكلة التغطية أولاً وغيّر عاملاً واحداً في كل مرة.",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "قد تُفقد بعض الحزم",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "طلب واستجابة"
 }
