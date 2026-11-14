@@ -4,7 +4,27 @@
     "sourceLocale": "en",
     "version": 1,
     "reviewStatus": "draft",
-    "scope": "shared interface, interactive guide journeys, and newly localized Knowledge Hub guide content"
+    "scope": "shared interface, interactive guide journeys, and newly localized Knowledge Hub guide content",
+    "title": "मोफत इंटरनेट स्पीड टेस्ट | TEZZ CONNECT",
+    "description": "TEZZ CONNECT वापरून डाउनलोड व अपलोड वेग, ब्राउझर प्रतिसाद वेळ आणि कनेक्शनची स्थिरता मोजा.",
+    "pageTitles": {
+      "Overview": "मोफत इंटरनेट स्पीड टेस्ट | TEZZ CONNECT",
+      "Internet Doctor": "इंटरनेट निदान | TEZZ CONNECT",
+      "Network": "नेटवर्क साधने | TEZZ CONNECT",
+      "Global Network": "जागतिक नेटवर्क माहिती | TEZZ CONNECT",
+      "History": "स्पीड टेस्ट इतिहास | TEZZ CONNECT",
+      "Report": "नेटवर्क कामगिरी अहवाल | TEZZ CONNECT",
+      "About": "TEZZ CONNECT विषयी"
+    },
+    "pageDescriptions": {
+      "Overview": "TEZZ CONNECT वापरून डाउनलोड, अपलोड वेग, ब्राउझर प्रतिसाद वेळ आणि कनेक्शनची स्थिरता मोजा.",
+      "Internet Doctor": "संथ किंवा अस्थिर इंटरनेटची कारणे व्यावहारिक तपासण्यांद्वारे शोधा.",
+      "Network": "IP, DNS आणि नेटवर्क तपासण्यासाठी मोफत साधने वापरा.",
+      "Global Network": "स्वेच्छेने दिलेल्या चाचण्यांमधील प्रादेशिक नेटवर्क कामगिरीची एकत्रित माहिती पाहा.",
+      "History": "या ब्राउझरमध्ये जतन केलेले तुमचे खाजगी स्पीड टेस्ट निकाल पाहा.",
+      "Report": "या डिव्हाइसवर जतन केलेल्या नेटवर्क मोजमापांचा सारांश पाहा आणि निर्यात करा.",
+      "About": "TEZZ CONNECT ची इंटरनेट मापन साधने आणि पद्धती जाणून घ्या."
+    }
   },
   "common.skip": "मुख्य मजकुराकडे जा",
   "common.hub": "ज्ञान केंद्र",

@@ -4,7 +4,27 @@
     "sourceLocale": "en",
     "version": 1,
     "reviewStatus": "draft",
-    "scope": "shared interface, interactive guide journeys, and newly localized Knowledge Hub guide content"
+    "scope": "shared interface, interactive guide journeys, and newly localized Knowledge Hub guide content",
+    "title": "বিনামূল্যে ইন্টারনেট স্পিড টেস্ট | TEZZ CONNECT",
+    "description": "TEZZ CONNECT দিয়ে ডাউনলোড ও আপলোডের গতি, ব্রাউজারের প্রতিক্রিয়ার সময় এবং সংযোগের স্থিতিশীলতা মাপুন।",
+    "pageTitles": {
+      "Overview": "বিনামূল্যে ইন্টারনেট স্পিড টেস্ট | TEZZ CONNECT",
+      "Internet Doctor": "ইন্টারনেট ডায়াগনস্টিক | TEZZ CONNECT",
+      "Network": "নেটওয়ার্ক টুলস | TEZZ CONNECT",
+      "Global Network": "গ্লোবাল নেটওয়ার্ক তথ্য | TEZZ CONNECT",
+      "History": "স্পিড টেস্টের ইতিহাস | TEZZ CONNECT",
+      "Report": "নেটওয়ার্ক পারফরম্যান্স রিপোর্ট | TEZZ CONNECT",
+      "About": "TEZZ CONNECT সম্পর্কে"
+    },
+    "pageDescriptions": {
+      "Overview": "TEZZ CONNECT দিয়ে ডাউনলোড ও আপলোডের গতি, ব্রাউজারের প্রতিক্রিয়ার সময় এবং সংযোগের স্থিতিশীলতা মাপুন।",
+      "Internet Doctor": "ব্যবহারিক পরীক্ষার মাধ্যমে ধীর বা অস্থির ইন্টারনেট সংযোগের কারণ খুঁজুন।",
+      "Network": "IP, DNS এবং নেটওয়ার্ক পরীক্ষা করার জন্য বিনামূল্যের টুল ব্যবহার করুন।",
+      "Global Network": "স্বেচ্ছায় অংশগ্রহণকারীদের দেওয়া আঞ্চলিক নেটওয়ার্ক পারফরম্যান্সের সমষ্টিগত তথ্য দেখুন।",
+      "History": "এই ব্রাউজারে সংরক্ষিত আপনার ব্যক্তিগত স্পিড টেস্টের ফলাফল দেখুন।",
+      "Report": "এই ডিভাইসে সংরক্ষিত নেটওয়ার্ক পরিমাপের সারাংশ দেখুন এবং রপ্তানি করুন।",
+      "About": "TEZZ CONNECT-এর ইন্টারনেট পরিমাপের টুল ও পদ্ধতি সম্পর্কে জানুন।"
+    }
   },
   "common.skip": "মূল বিষয়বস্তুতে যান",
   "common.hub": "জ্ঞানকেন্দ্র",

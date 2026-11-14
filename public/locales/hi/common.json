@@ -4,7 +4,27 @@
     "sourceLocale": "en",
     "version": 1,
     "reviewStatus": "draft",
-    "scope": "shared interface, interactive guide journeys, and newly localized Knowledge Hub guide content"
+    "scope": "shared interface, interactive guide journeys, and newly localized Knowledge Hub guide content",
+    "title": "मुफ़्त इंटरनेट स्पीड टेस्ट | TEZZ CONNECT",
+    "description": "TEZZ CONNECT से डाउनलोड और अपलोड स्पीड, ब्राउज़र प्रतिक्रिया समय और कनेक्शन की स्थिरता मापें।",
+    "pageTitles": {
+      "Overview": "मुफ़्त इंटरनेट स्पीड टेस्ट | TEZZ CONNECT",
+      "Internet Doctor": "इंटरनेट समस्या जाँच | TEZZ CONNECT",
+      "Network": "नेटवर्क टूल्स | TEZZ CONNECT",
+      "Global Network": "वैश्विक नेटवर्क जानकारी | TEZZ CONNECT",
+      "History": "स्पीड टेस्ट इतिहास | TEZZ CONNECT",
+      "Report": "इंटरनेट प्रदर्शन रिपोर्ट | TEZZ CONNECT",
+      "About": "TEZZ CONNECT के बारे में"
+    },
+    "pageDescriptions": {
+      "Overview": "TEZZ CONNECT से डाउनलोड, अपलोड स्पीड, ब्राउज़र प्रतिक्रिया समय और कनेक्शन की स्थिरता जाँचें।",
+      "Internet Doctor": "धीमे या अस्थिर इंटरनेट की समस्या को व्यावहारिक जाँचों से समझें।",
+      "Network": "IP, DNS और नेटवर्क समस्याएँ जाँचने के लिए मुफ़्त टूल इस्तेमाल करें।",
+      "Global Network": "स्वेच्छा से साझा किए गए क्षेत्रीय नेटवर्क प्रदर्शन के आँकड़े देखें।",
+      "History": "इस ब्राउज़र में सुरक्षित निजी स्पीड टेस्ट परिणाम देखें।",
+      "Report": "इस डिवाइस पर सहेजे गए नेटवर्क माप का सारांश देखें और निर्यात करें।",
+      "About": "TEZZ CONNECT के इंटरनेट मापन टूल और तरीकों के बारे में जानें।"
+    }
   },
   "common.skip": "मुख्य सामग्री पर जाएँ",
   "common.hub": "ज्ञान केंद्र",
