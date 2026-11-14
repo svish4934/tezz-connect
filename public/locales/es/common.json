@@ -271,5 +271,21 @@
   "guide.speed.toc.planner": "Calcula las necesidades de tu hogar",
   "guide.speed.toc.transfer": "Calcula el tiempo de descarga y subida",
   "guide.speed.toc.test": "Cómo realizar una prueba útil",
-  "guide.speed.cta.test": "Abrir la prueba de velocidad →"
+  "guide.speed.cta.test": "Abrir la prueba de velocidad →",
+  "guide.troubleshooter.skip": "Saltar al contenido principal",
+  "guide.troubleshooter.breadcrumb": "Solucionador de problemas de conexión",
+  "guide.troubleshooter.eyebrow": "SOLUCIÓN PRÁCTICA DE PROBLEMAS DE INTERNET",
+  "guide.troubleshooter.title": "Encuentra el siguiente paso cuando tu conexión falle.",
+  "guide.troubleshooter.lede": "Elige el problema que observas. Esta lista guiada te ayuda a decidir si debes revisar el Wi-Fi, un dispositivo, el router o la propia conexión a internet, sin comprar equipos nuevos de inmediato.",
+  "guide.troubleshooter.how_to": "Cómo usar esta guía:",
+  "guide.troubleshooter.how_to_body": "Empieza por el síntoma, sigue las comprobaciones en orden y cambia una sola cosa cada vez. Son pasos de diagnóstico, no una prueba de red en directo. Los resultados permanecen en este navegador; no se envía nada a un servidor.",
+  "guide.troubleshooter.build_checklist": "CREA TU LISTA DE COMPROBACIÓN",
+  "guide.troubleshooter.problem_heading": "¿Qué está fallando?",
+  "guide.troubleshooter.problem_intro": "Elige la opción más parecida. Si hay varios problemas, empieza por el que más te afecta.",
+  "guide.troubleshooter.problem_label": "Selecciona tu problema de internet",
+  "guide.troubleshooter.choose_problem": "Elige un problema…",
+  "guide.troubleshooter.build_button": "Crear mi plan de diagnóstico",
+  "guide.troubleshooter.result_eyebrow": "TU PRIMER PLAN DE INVESTIGACIÓN",
+  "guide.troubleshooter.fair_test": "Compara en condiciones similares:",
+  "guide.troubleshooter.fair_test_body": "Anota qué ha cambiado y compara en condiciones parecidas. Pausa las descargas grandes, utiliza el mismo dispositivo y lugar cuando sea posible y evita cambiar varios ajustes a la vez."
 }
