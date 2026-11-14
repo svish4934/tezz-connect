@@ -345,5 +345,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "Exact. Repérez où la couverture diminue et vérifiez l’emplacement du routeur.",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "Identifiez d’abord le problème de couverture et ne changez qu’un paramètre à la fois.",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "Des paquets peuvent être perdus",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Requête et réponse"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Requête et réponse",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "L’appareil sélectionné ne prend en charge que 2,4 GHz.",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "Commencez par 2,4 GHz si la distance est grande ou s’il y a plusieurs murs.",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "À proximité, comparez 5 GHz et 6 GHz si les appareils sont compatibles.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "Un faible délai et peu de variations favorisent la fluidité des activités interactives.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "Les activités interactives peuvent sembler moins immédiates ou moins régulières.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "Le délai, les variations ou la perte de paquets peuvent provoquer des pauses, du décalage ou un son et une vidéo irréguliers.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "Un routeur couvre tout le logement ; les pièces éloignées peuvent recevoir un signal plus faible.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "Un répéteur peut étendre le Wi-Fi, mais il doit recevoir un signal utilisable du routeur principal.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "Plusieurs nœuds mesh couvrent les grands logements ; leur emplacement et la liaison entre eux comptent.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "Convient à un logement compact avec un routeur bien placé.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "Placez le répéteur là où le Wi-Fi d’origine reste assez bon.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "Vérifiez la compatibilité des nœuds et la possibilité d’une liaison filaire."
 }
