@@ -336,5 +336,13 @@
   "Try router placement and connection comparisons.": "尝试调整路由器位置并比较连接。",
   "Understand extenders, mesh and access points.": "了解扩展器、Mesh 和接入点。",
   "Work through common connection symptoms.": "逐步排查常见连接问题。",
-  "Continue with the Internet Learning Roadmap →": "继续学习互联网学习路线图 →"
+  "Continue with the Internet Learning Roadmap →": "继续学习互联网学习路线图 →",
+  "Wi-Fi uses radio waves. As the signal travels through a home, distance and building materials can reduce the energy that reaches your device. Walls, floors, metal surfaces, appliances and the router's position all influence the result.": "Wi-Fi 使用无线电波。信号在家庭环境中传播时，距离和建筑材料会降低到达设备的能量。墙壁、地板、金属表面、电器以及路由器的位置都会影响结果。",
+  "Often, 2.4 GHz can travel farther and pass through some obstacles better than higher-frequency bands. But it can be more crowded and usually has less available channel capacity. 5 GHz and 6 GHz can provide faster links in suitable conditions, especially closer to the router, but their coverage can be more limited. Your device and router must support the band.": "通常，2.4 GHz 的传播距离可能更远，也比高频段更容易穿过某些障碍物。但它可能更拥挤，通常可用信道容量也较低。在合适条件下，5 GHz 和 6 GHz 可提供更快的连接，尤其是在靠近路由器时，但覆盖范围可能较小。设备和路由器必须支持相应频段。",
+  "Place the router in an open, raised and reasonably central location.": "将路由器放在开阔、较高且相对居中的位置。",
+  "Test from the rooms where you actually use the connection.": "在实际使用网络的房间进行测试。",
+  "Compare Wi-Fi with Ethernet near the router if possible.": "如果可以，请在路由器附近比较 Wi-Fi 和以太网连接。",
+  "Change one thing at a time and repeat the test.": "每次只更改一项，然后重复测试。",
+  "Consider mesh or an access point only after checking placement and the wired connection.": "检查路由器位置和有线连接后，再考虑 Mesh 或接入点。",
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "彩色信号地图可以帮助解释概念，但只有在家中进行实际测试才能了解真实性能。请使用模拟器学习需要检查的因素，而不要据此认定某个房间能保证达到特定速度。"
 }
