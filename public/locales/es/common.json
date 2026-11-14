@@ -351,5 +351,19 @@
   "glossary.term.ethernet.title": "Ethernet",
   "glossary.term.ethernet.description": "Estándares de red cableada; pueden ser más estables que Wi-Fi en dispositivos fijos.",
   "glossary.term.dns.title": "DNS",
-  "glossary.term.dns.description": "Busca nombres de dominio y devuelve datos como la dirección IP que necesita el dispositivo."
+  "glossary.term.dns.description": "Busca nombres de dominio y devuelve datos como la dirección IP que necesita el dispositivo.",
+  "glossary.skip": "Ir al contenido principal",
+  "glossary.nav.label": "Navegación de la guía",
+  "glossary.nav.hub": "Centro de conocimiento",
+  "glossary.nav.roadmap": "Ruta de aprendizaje",
+  "glossary.breadcrumb.home": "Inicio",
+  "glossary.breadcrumb.hub": "Centro de conocimiento de internet",
+  "glossary.breadcrumb.current": "Glosario de redes",
+  "glossary.toc.search": "Buscar en el glosario",
+  "glossary.toc.quiz": "Comprobar lo aprendido",
+  "glossary.toc.related": "Ver guías relacionadas",
+  "glossary.related.speed": "Entiende la velocidad de descarga, subida y Mbps",
+  "glossary.related.latency": "Explora latencia, ping, jitter y pérdida de paquetes",
+  "glossary.related.internet": "Sigue una solicitud a través de internet",
+  "glossary.related.wifi": "Explora un ejemplo de cobertura Wi-Fi"
 }
