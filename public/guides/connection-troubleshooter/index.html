@@ -28,17 +28,17 @@
 <script defer src="/language.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#main-content">Skip to main content</a>
-<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="hub-nav" aria-label="Knowledge Hub navigation"><a href="/guides/">All guides</a><a href="/#tezz-speed-test">Speed test</a></nav></div></header>
+<a class="skip-link" href="#main-content" data-i18n="guide.troubleshooter.skip">Skip to main content</a>
+<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="hub-nav" aria-label="Knowledge Hub navigation"><a href="/guides/" data-i18n="common.all_guides">All guides</a><a href="/#tezz-speed-test" data-i18n="common.speed_test">Speed test</a></nav></div></header>
 <main class="wrap" id="main-content">
-<div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / Connection troubleshooter</div>
-<header class="hero"><div class="eyebrow">PRACTICAL INTERNET TROUBLESHOOTING</div><h1>Find the next step when your internet acts up.</h1><p class="lede">Choose the problem you notice. This guided checklist helps you narrow down whether to investigate Wi-Fi, one device, your router or the internet connection itself—without jumping straight to buying new equipment.</p><p class="meta">TEZZ CONNECT · Interactive learning tool · No sign-in or data collection</p></header>
-<section class="trouble-intro"><p><strong>How to use this guide:</strong> Start with the symptom, follow the checks in order and change one thing at a time. The suggestions are diagnostic steps, not a live network test. Your results stay in this browser; nothing is sent to a server.</p></section>
+<div class="crumb"><a href="/" data-i18n="common.home">Home</a> / <a href="/guides/" data-i18n="common.hub">Internet Knowledge Hub</a> / <span data-i18n="guide.troubleshooter.breadcrumb">Connection troubleshooter</span></div>
+<header class="hero"><div class="eyebrow" data-i18n="guide.troubleshooter.eyebrow">PRACTICAL INTERNET TROUBLESHOOTING</div><h1 data-i18n="guide.troubleshooter.title">Find the next step when your internet acts up.</h1><p class="lede" data-i18n="guide.troubleshooter.lede">Choose the problem you notice. This guided checklist helps you narrow down whether to investigate Wi-Fi, one device, your router or the internet connection itself—without jumping straight to buying new equipment.</p><p class="meta">TEZZ CONNECT · Interactive learning tool · No sign-in or data collection</p></header>
+<section class="trouble-intro"><p><strong data-i18n="guide.troubleshooter.how_to">How to use this guide:</strong> <span data-i18n="guide.troubleshooter.how_to_body">Start with the symptom, follow the checks in order and change one thing at a time. The suggestions are diagnostic steps, not a live network test. Your results stay in this browser; nothing is sent to a server.</span></p></section>
 <section class="trouble-panel" aria-labelledby="trouble-title">
-<div class="eyebrow">BUILD YOUR CHECKLIST</div><h2 id="trouble-title">What is going wrong?</h2><p>Choose the closest match. If more than one issue applies, start with the one that affects you most.</p>
-<label class="trouble-label" for="trouble-symptom">Select your internet problem</label>
+<div class="eyebrow" data-i18n="guide.troubleshooter.build_checklist">BUILD YOUR CHECKLIST</div><h2 id="trouble-title" data-i18n="guide.troubleshooter.problem_heading">What is going wrong?</h2><p data-i18n="guide.troubleshooter.problem_intro">Choose the closest match. If more than one issue applies, start with the one that affects you most.</p>
+<label class="trouble-label" for="trouble-symptom" data-i18n="guide.troubleshooter.problem_label">Select your internet problem</label>
 <select class="trouble-select" id="trouble-symptom">
-<option value="">Choose a problem…</option>
+<option value="" data-i18n="guide.troubleshooter.choose_problem">Choose a problem…</option>
 <option value="slow-all">Internet feels slow on every device</option>
 <option value="one-device">Only one phone, laptop or device is slow</option>
 <option value="weak-room">Wi-Fi is weak in one room or far from the router</option>
@@ -47,13 +47,13 @@
 <option value="upload">Uploading files or joining video calls is slow</option>
 <option value="new-device">A new device cannot connect to Wi-Fi</option>
 </select>
-<div><button class="trouble-button" id="trouble-build" type="button">Build my troubleshooting plan</button><button class="trouble-button secondary" id="trouble-reset" type="button">Reset</button></div>
+<div><button class="trouble-button" id="trouble-build" type="button" data-i18n="guide.troubleshooter.build_button">Build my troubleshooting plan</button><button class="trouble-button secondary" id="trouble-reset" type="button" data-i18n="common.restart">Reset</button></div>
 <div class="trouble-results" id="trouble-results" tabindex="-1" aria-live="polite" hidden>
-<div class="trouble-result-head"><small>YOUR FIRST INVESTIGATION PLAN</small><h3 id="trouble-result-title"></h3><p id="trouble-result-summary"></p></div>
+<div class="trouble-result-head"><small data-i18n="guide.troubleshooter.result_eyebrow">YOUR FIRST INVESTIGATION PLAN</small><h3 id="trouble-result-title"></h3><p id="trouble-result-summary"></p></div>
 <div class="trouble-progress" id="trouble-progress" role="status" aria-live="polite" aria-atomic="true">0 of 4 checks completed</div>
 <div class="trouble-steps" id="trouble-steps"></div>
 <div class="trouble-caution" id="trouble-caution"></div>
-<div class="trouble-note"><strong>Make the test fair:</strong> Record what changed and compare under similar conditions. Pause large downloads, keep the same device and location where possible, and avoid changing several settings at once.</div>
+<div class="trouble-note"><strong data-i18n="guide.troubleshooter.fair_test">Make the test fair:</strong> <span data-i18n="guide.troubleshooter.fair_test_body">Record what changed and compare under similar conditions. Pause large downloads, keep the same device and location where possible, and avoid changing several settings at once.</span></div>
 </div>
 </section>
 <section class="article">
