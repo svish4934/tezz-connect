@@ -320,5 +320,17 @@
   "roadmap.lesson9.desc": "Altere condições de rede de exemplo e observe como bandas Wi-Fi, layouts e respostas afetam a conexão.",
   "roadmap.practice.label": "Experimente:",
   "roadmap.finish.eyebrow": "Continue ampliando seu conhecimento",
-  "roadmap.note.label": "Sobre o progresso:"
+  "roadmap.note.label": "Sobre o progresso:",
+  "roadmap.meta.steps": "9 etapas de aprendizagem",
+  "roadmap.meta.levels": "3 níveis",
+  "roadmap.meta.no_login": "Não é necessário entrar",
+  "roadmap.toc.beginner": "Nível 1: Iniciante",
+  "roadmap.toc.practical": "Nível 2: Habilidades práticas",
+  "roadmap.toc.advanced": "Nível 3: Conhecimento avançado",
+  "roadmap.toc.finish": "O que fazer em seguida",
+  "roadmap.practice.beginner": "Explique a diferença entre baixar um vídeo e enviar uma foto. Compare os valores de download e upload do teste e identifique o maior.",
+  "roadmap.practice.practical": "Escolha um cômodo onde o Wi-Fi não seja confiável. Compare a conexão perto do roteador e no cômodo e consulte o guia antes de decidir se precisa de novos equipamentos.",
+  "roadmap.practice.advanced": "Altere uma configuração por vez no simulador de latência ou laboratório. Descreva o que mudou e por quê. São modelos educativos, não medições da sua rede doméstica.",
+  "roadmap.finish.body": "Faça um teste de velocidade real para medir sua conexão atual. Use os guias para entender o resultado, comparar condições e decidir o que investigar.",
+  "roadmap.note.body": "As marcações ficam salvas localmente neste navegador e dispositivo. Não são vinculadas a uma conta nem enviadas à TEZZ CONNECT. Limpar o armazenamento ou trocar de dispositivo pode apagar o progresso. A lista não emite certificado; o roteiro é educativo, não uma qualificação profissional."
 }
