@@ -615,5 +615,13 @@
   "Try router placement and connection comparisons.": "রাউটারের অবস্থান ও সংযোগের তুলনা করে দেখুন।",
   "Understand extenders, mesh and access points.": "এক্সটেন্ডার, মেশ ও অ্যাক্সেস পয়েন্ট সম্পর্কে জানুন।",
   "Work through common connection symptoms.": "সাধারণ সংযোগ সমস্যাগুলো ধাপে ধাপে সমাধান করুন।",
-  "Continue with the Internet Learning Roadmap →": "ইন্টারনেট লার্নিং রোডম্যাপ চালিয়ে যান →"
+  "Continue with the Internet Learning Roadmap →": "ইন্টারনেট লার্নিং রোডম্যাপ চালিয়ে যান →",
+  "Wi-Fi uses radio waves. As the signal travels through a home, distance and building materials can reduce the energy that reaches your device. Walls, floors, metal surfaces, appliances and the router's position all influence the result.": "Wi-Fi রেডিও তরঙ্গ ব্যবহার করে। বাড়ির ভেতর দিয়ে সিগন্যাল যাওয়ার সময় দূরত্ব ও নির্মাণসামগ্রী আপনার ডিভাইসে পৌঁছানো শক্তি কমাতে পারে। দেয়াল, মেঝে, ধাতব পৃষ্ঠ, যন্ত্রপাতি এবং রাউটারের অবস্থান—সবই ফলাফলে প্রভাব ফেলে।",
+  "Often, 2.4 GHz can travel farther and pass through some obstacles better than higher-frequency bands. But it can be more crowded and usually has less available channel capacity. 5 GHz and 6 GHz can provide faster links in suitable conditions, especially closer to the router, but their coverage can be more limited. Your device and router must support the band.": "অনেক সময় 2.4 GHz বেশি দূর যেতে পারে এবং উচ্চ-ফ্রিকোয়েন্সির ব্যান্ডের তুলনায় কিছু বাধা ভালোভাবে অতিক্রম করতে পারে। তবে এতে ভিড় বেশি হতে পারে এবং সাধারণত চ্যানেলের সক্ষমতা কম থাকে। উপযুক্ত পরিস্থিতিতে 5 GHz ও 6 GHz দ্রুত সংযোগ দিতে পারে, বিশেষত রাউটারের কাছে, কিন্তু কভারেজ সীমিত হতে পারে। আপনার ডিভাইস ও রাউটারকে ওই ব্যান্ড সমর্থন করতে হবে।",
+  "Place the router in an open, raised and reasonably central location.": "রাউটারটি খোলা, উঁচু এবং যথাসম্ভব কেন্দ্রীয় স্থানে রাখুন।",
+  "Test from the rooms where you actually use the connection.": "আপনি যে ঘরগুলোতে সংযোগ ব্যবহার করেন, সেখান থেকে পরীক্ষা করুন।",
+  "Compare Wi-Fi with Ethernet near the router if possible.": "সম্ভব হলে রাউটারের কাছে Wi-Fi ও Ethernet-এর তুলনা করুন।",
+  "Change one thing at a time and repeat the test.": "একবারে একটি বিষয় পরিবর্তন করে পরীক্ষা আবার করুন।",
+  "Consider mesh or an access point only after checking placement and the wired connection.": "রাউটারের অবস্থান ও তারযুক্ত সংযোগ পরীক্ষা করার পরেই মেশ বা অ্যাক্সেস পয়েন্ট বিবেচনা করুন।",
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "রঙিন সিগন্যাল মানচিত্র ধারণা বোঝাতে পারে, কিন্তু আপনার বাড়ির প্রকৃত কার্যকারিতা কেবল বাস্তব পরীক্ষাই দেখাতে পারে। কী পরীক্ষা করতে হবে তা শিখতে সিমুলেটর ব্যবহার করুন—কোনো ঘরে নির্দিষ্ট গতি নিশ্চিত ধরে নিতে নয়।"
 }
