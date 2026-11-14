@@ -618,5 +618,18 @@
   "Read guide →": "নির্দেশিকা পড়ুন →",
   "Connection troubleshooter": "সংযোগ সমস্যা সমাধানকারী",
   "Work through common home internet problems.": "বাড়ির সাধারণ ইন্টারনেট সমস্যাগুলোর ধাপভিত্তিক সমাধান করুন।",
-  "Open tool →": "টুল খুলুন →"
+  "Open tool →": "টুল খুলুন →",
+  "guide.security.eyebrow": "বাড়ির নেটওয়ার্ক নিরাপত্তা",
+  "guide.security.meta": "TEZZ CONNECT · বাড়ির Wi-Fi নিরাপত্তা পরীক্ষা",
+  "guide.security.checklist": "ইন্টারঅ্যাকটিভ চেকলিস্ট",
+  "guide.security.performance_intro": "নিরাপত্তা ও পারফরম্যান্স আলাদা বিষয়। আপনার সংযোগ ধীর বা অস্থির হলে এটি ব্যবহার করুন: ",
+  "guide.security.troubleshooter_link": "সংযোগ সমস্যা সমাধানকারী",
+  "guide.security.performance_join": "এবং",
+  "guide.security.wifi_guide_link": "Wi-Fi উন্নয়ন নির্দেশিকা",
+  "US Federal Trade Commission: How to secure your home Wi-Fi network": "মার্কিন ফেডারেল ট্রেড কমিশন: বাড়ির Wi-Fi নেটওয়ার্ক কীভাবে সুরক্ষিত করবেন",
+  "— encryption and default settings.": "— এনক্রিপশন ও ডিফল্ট সেটিংস।",
+  "Apple: Recommended settings for Wi-Fi routers and access points": "Apple: Wi-Fi রাউটার ও অ্যাক্সেস পয়েন্টের প্রস্তাবিত সেটিংস",
+  "— WPA3, WPA2-AES and deprecated modes.": "— WPA3, WPA2-AES ও অপ্রচলিত মোড।",
+  "Canadian Centre for Cyber Security: Router cyber security best practices": "কানাডিয়ান সাইবার সিকিউরিটি সেন্টার: রাউটারের সাইবার নিরাপত্তার সেরা পদ্ধতি",
+  "— WPS, firmware, guest access and remote administration.": "— WPS, ফার্মওয়্যার, গেস্ট অ্যাক্সেস ও রিমোট অ্যাডমিনিস্ট্রেশন।"
 }
