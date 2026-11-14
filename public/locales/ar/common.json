@@ -335,5 +335,18 @@
   "Understand routers, mesh systems, switches and access points.": "تعرّف على أجهزة التوجيه وأنظمة Mesh والمحولات ونقاط الوصول.",
   "Read guide →": "اقرأ الدليل ←",
   "Work through common home internet problems.": "اتبع خطوات معالجة مشكلات الإنترنت المنزلية الشائعة.",
-  "Open tool →": "افتح الأداة ←"
+  "Open tool →": "افتح الأداة ←",
+  "guide.security.eyebrow": "أمان الشبكة المنزلية عمليًا",
+  "guide.security.meta": "TEZZ CONNECT · فحص أمان Wi-Fi المنزلي",
+  "guide.security.checklist": "قائمة تحقق تفاعلية",
+  "guide.security.performance_intro": "الأمان والأداء يحتاجان إلى فحصين مختلفين. إذا كان اتصالك بطيئًا أو غير مستقر، فاستخدم:",
+  "guide.security.troubleshooter_link": "أداة استكشاف مشكلات الاتصال",
+  "guide.security.performance_join": "و",
+  "guide.security.wifi_guide_link": "دليل تحسين Wi-Fi",
+  "US Federal Trade Commission: How to secure your home Wi-Fi network": "لجنة التجارة الفيدرالية الأمريكية: كيفية تأمين شبكة Wi-Fi المنزلية",
+  "— encryption and default settings.": "— التشفير والإعدادات الافتراضية.",
+  "Apple: Recommended settings for Wi-Fi routers and access points": "Apple: الإعدادات الموصى بها لأجهزة توجيه Wi-Fi ونقاط الوصول",
+  "— WPA3, WPA2-AES and deprecated modes.": "— WPA3 وWPA2-AES والأوضاع المتقادمة.",
+  "Canadian Centre for Cyber Security: Router cyber security best practices": "المركز الكندي للأمن السيبراني: أفضل ممارسات الأمن السيبراني لأجهزة التوجيه",
+  "— WPS, firmware, guest access and remote administration.": "— WPS والبرامج الثابتة ووصول الضيوف والإدارة عن بُعد."
 }
