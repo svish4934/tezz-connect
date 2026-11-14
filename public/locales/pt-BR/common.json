@@ -406,5 +406,17 @@
   "guide.troubleshooter.faq.dns.q": "Devo alterar o DNS para corrigir um sinal Wi-Fi fraco?",
   "guide.troubleshooter.faq.dns.a": "O DNS ajuda a converter nomes de domínio em endereços de rede; ele não fortalece o sinal de rádio. Se o Wi-Fi estiver fraco em um cômodo, investigue a posição do roteador, os obstáculos e a cobertura antes de alterar o DNS.",
   "guide.troubleshooter.faq.reset.q": "É seguro restaurar o roteador para as configurações de fábrica?",
-  "guide.troubleshooter.faq.reset.a": "Essa não deve ser uma das primeiras medidas. A restauração pode apagar o nome e a senha do Wi-Fi e configurações específicas da operadora. Faça isso somente se a operadora ou o fabricante recomendar e se você tiver os dados necessários para reconectar."
+  "guide.troubleshooter.faq.reset.a": "Essa não deve ser uma das primeiras medidas. A restauração pode apagar o nome e a senha do Wi-Fi e configurações específicas da operadora. Faça isso somente se a operadora ou o fabricante recomendar e se você tiver os dados necessários para reconectar.",
+  "guide.troubleshooter.related.eyebrow": "Continue aprendendo",
+  "guide.troubleshooter.related.heading": "Guias relacionados do Internet Knowledge Hub",
+  "guide.troubleshooter.related.wifi.title": "Melhore a velocidade do Wi-Fi",
+  "guide.troubleshooter.related.wifi.body": "Posicionamento do roteador, interferência e verificações práticas.",
+  "guide.troubleshooter.related.read": "Ler guia →",
+  "guide.troubleshooter.related.latency.title": "Latência, ping e jitter",
+  "guide.troubleshooter.related.latency.body": "Entenda atrasos e tempos de resposta inconsistentes.",
+  "guide.troubleshooter.related.lab.title": "Laboratório interativo de rede",
+  "guide.troubleshooter.related.lab.body": "Experimente bandas Wi-Fi e layouts de redes domésticas.",
+  "guide.troubleshooter.related.try": "Experimentar o laboratório →",
+  "guide.troubleshooter.related.all": "← Ver todos os guias do Internet Knowledge Hub",
+  "guide.troubleshooter.footer.brand": "© 2026 TEZZ CONNECT · Feito com orgulho na Índia 🇮🇳"
 }
