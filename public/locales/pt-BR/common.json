@@ -374,5 +374,14 @@
   "guide.homeNetworkPlanner.check3": "Decida quais dispositivos se beneficiam mais de conexões cabeadas.",
   "guide.homeNetworkPlanner.check4": "Planeje rotas seguras para os cabos e acesso à energia para cada dispositivo.",
   "guide.homeNetworkPlanner.check5": "Teste a rede atual antes de comprar equipamentos adicionais.",
-  "guide.homeNetworkPlanner.note": "Este planejador oferece uma recomendação educativa com base nas suas respostas. Ele não inspeciona o imóvel, mede sinais de rádio, verifica compatibilidade de produtos nem garante cobertura. Os resultados reais dependem das paredes, da construção, dos equipamentos, das interferências, do posicionamento e da qualidade do serviço."
+  "guide.homeNetworkPlanner.note": "Este planejador oferece uma recomendação educativa com base nas suas respostas. Ele não inspeciona o imóvel, mede sinais de rádio, verifica compatibilidade de produtos nem garante cobertura. Os resultados reais dependem das paredes, da construção, dos equipamentos, das interferências, do posicionamento e da qualidade do serviço.",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "Central de conhecimento",
+  "guide.homeNetworkPlanner.navRoadmap": "Roteiro de aprendizagem",
+  "guide.homeNetworkPlanner.crumbHome": "Início",
+  "guide.homeNetworkPlanner.crumbHub": "Central de conhecimento sobre internet",
+  "guide.homeNetworkPlanner.crumbPlanner": "Planejador de rede doméstica",
+  "guide.homeNetworkPlanner.placementHeading": "Posicione os equipamentos corretamente",
+  "guide.homeNetworkPlanner.checkHeading": "Antes de instalar ou comprar",
+  "guide.homeNetworkPlanner.footerGuides": "Todos os guias",
+  "guide.homeNetworkPlanner.footerAbout": "Sobre"
 }
