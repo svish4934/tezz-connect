@@ -1493,7 +1493,7 @@ function App() {
               </a>
             </div>
           </section>
-          <footer><span>© 2026 TEZZ CONNECT <span className="footer-dot">•</span> Proudly built in India 🇮🇳</span><span><a href="/guides/">GUIDES</a> <span className="footer-dot">•</span> BUILT FOR A BETTER CONNECTION <span className="footer-dot">•</span> PRIVACY FIRST</span></footer>
+          <footer><span>© 2026 TEZZ CONNECT <span className="footer-dot">•</span> Proudly built in India 🇮🇳</span><span><a href="/guides/">GUIDES</a> <span className="footer-dot">•</span> BUILT FOR A BETTER CONNECTION <span className="footer-dot">•</span> PRIVACY FIRST</span><nav aria-label="Available languages" className="footer-language-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 14px', marginTop: '10px' }}>{UI_LANGUAGES.map(item => <a key={item.code} href={localizedPath(item.code as UiLanguage, '/')}>{item.native}</a>)}</nav></footer>
         </div>
       </main>
     </div>
