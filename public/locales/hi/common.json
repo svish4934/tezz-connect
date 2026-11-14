@@ -551,5 +551,9 @@
   "Your laptop may still find a printer on the same home network during an internet outage, provided both devices and the router are working.": "इंटरनेट बंद होने पर भी आपका लैपटॉप उसी घरेलू नेटवर्क पर प्रिंटर खोज सकता है, बशर्ते दोनों डिवाइस और राउटर काम कर रहे हों।",
   "Two computers may exchange files over the home network without sending those files across the public internet.": "दो कंप्यूटर सार्वजनिक इंटरनेट पर फ़ाइल भेजे बिना घरेलू नेटवर्क से फ़ाइलें साझा कर सकते हैं।",
   "This normally needs both a working home network and a working route to the service. A fault in either place can interrupt playback.": "इसके लिए आम तौर पर काम करता घरेलू नेटवर्क और सेवा तक काम करता नेटवर्क मार्ग—दोनों चाहिए। किसी एक में खराबी से प्लेबैक रुक सकता है।",
-  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "प्रदाता की इंटरनेट सेवा उपलब्ध न होने पर भी आप अक्सर राउटर का स्थानीय सेटिंग पेज खोल सकते हैं।"
+  "You can often open the router’s local settings page even when the provider’s internet service is unavailable.": "प्रदाता की इंटरनेट सेवा उपलब्ध न होने पर भी आप अक्सर राउटर का स्थानीय सेटिंग पेज खोल सकते हैं।",
+  "guide.homeNetworkPlanner.plan1": "मुख्य राउटर और वायर्ड एक्सेस पॉइंट",
+  "guide.homeNetworkPlanner.plan2": "मुख्य राउटर और सही जगह रखा मेश सिस्टम",
+  "guide.homeNetworkPlanner.plan3": "सही जगह रखा एक राउटर पर्याप्त हो सकता है",
+  "guide.homeNetworkPlanner.caution": "अपने मौजूदा उपकरणों से शुरुआत करें। परीक्षण में कवरेज या क्षमता की वास्तविक समस्या दिखने पर ही अतिरिक्त उपकरण जोड़ें।"
 }
