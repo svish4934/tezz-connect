@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   preview-smoke:
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/seo/pr-109-rebased-20261113') || (github.event_name == 'pull_request' && (github.event.pull_request.number == 113 || github.event.pull_request.number == 114 || github.event.pull_request.number == 133) && github.event.pull_request.head.repo.full_name == github.repository)
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/seo/pr-109-rebased-20261113') || (github.event_name == 'pull_request' && (github.event.pull_request.number == 113 || github.event.pull_request.number == 114 || github.event.pull_request.number == 133 || github.event.pull_request.number == 157) && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch
@@ -65,6 +65,17 @@ jobs:
               echo "Public route /$route unexpectedly contains meta noindex"
               exit 1
             fi
+          done
+          for locale in hi mr bn zh-CN pt-BR es fr ar; do
+            curl --fail --silent --show-error -A "Googlebot" "$PREVIEW_URL/$locale/" -o "$locale-home.html"
+            grep -qi "<html lang=\"$locale\"" "$locale-home.html" || { echo "Missing lang=$locale on /$locale/"; exit 1; }
+            grep -qi "hreflang=\"$locale\"" "$locale-home.html" || { echo "Missing $locale hreflang on /$locale/"; exit 1; }
+            grep -qi 'hreflang="x-default"' "$locale-home.html" || { echo "Missing x-default hreflang on /$locale/"; exit 1; }
+            grep -qi "href=\"https://tezzconnect.online/$locale/\"" "$locale-home.html" || { echo "Missing localized canonical on /$locale/"; exit 1; }
+          done
+          for route in hi/about mr/internet-doctor bn/tools zh-CN/about pt-BR/tools es/internet-doctor fr/about ar/tools; do
+            curl --fail --silent --show-error -A "Googlebot" "$PREVIEW_URL/$route" -o "localized-route.html"
+            grep -qi "href=\"https://tezzconnect.online/$route\"" localized-route.html || { echo "Missing localized canonical on /$route"; exit 1; }
           done
           for route in history report; do
             curl --fail --silent --show-error -A "OpenSEO" "$PREVIEW_URL/$route" -o "$route.html"
