@@ -387,5 +387,22 @@
   "Immediately upgrade to the most expensive internet plan.": "Passez immédiatement au forfait Internet le plus cher.",
   "Change every router setting at once.": "Modifiez tous les paramètres du routeur en même temps.",
   "Home Wi-Fi security checkup": "Vérification de la sécurité du Wi-Fi domestique",
-  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · Fièrement conçu en Inde 🇮🇳"
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · Fièrement conçu en Inde 🇮🇳",
+  "Improve Wi-Fi with a practical checklist, interactive home-layout simulator, Wi-Fi vs Ethernet comparison and troubleshooting exercise.": "Améliorez le Wi-Fi grâce à une liste pratique, un simulateur interactif de logement, une comparaison Wi-Fi/Ethernet et un exercice de dépannage.",
+  "Use an interactive Wi-Fi layout simulator, compare Wi-Fi and Ethernet results, and practise diagnosing common home network issues.": "Utilisez un simulateur interactif de configuration Wi-Fi, comparez les résultats Wi-Fi et Ethernet et entraînez-vous à diagnostiquer les problèmes courants du réseau domestique.",
+  "Comparison of central and obstructed Wi-Fi router placement": "Comparaison entre un routeur Wi-Fi placé au centre et un emplacement obstrué",
+  "Example speed test results": "Exemples de résultats du test de débit",
+  "Guide navigation": "Navigation du guide",
+  "Interactive example home Wi-Fi layout": "Exemple interactif de configuration Wi-Fi domestique",
+  "A router sends a signal through a home toward a device. The signal path and room labels update as you change the controls.": "Un routeur envoie un signal à travers le logement vers un appareil. Le trajet du signal et les noms des pièces sont mis à jour lorsque vous modifiez les commandes.",
+  "LIVING ROOM": "SALON",
+  "HALLWAY": "COULOIR",
+  "BEDROOM": "CHAMBRE",
+  "KITCHEN": "CUISINE",
+  "STUDY": "BUREAU",
+  "FAR ROOM": "PIÈCE ÉLOIGNÉE",
+  "ROUTER": "ROUTEUR",
+  "YOUR DEVICE": "VOTRE APPAREIL",
+  "TRY A SCENARIO": "ESSAYEZ UN SCÉNARIO",
+  "ROUTER + DEVICE": "ROUTEUR + APPAREIL"
 }
