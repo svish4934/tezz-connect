@@ -590,6 +590,74 @@ const app: ExportedHandler<Env> = {
         .transform(response)
     }
 
+    // Localized SPA routes need route-specific metadata in the first HTML response.
+    // This keeps their canonical URLs and language signals correct before React hydrates.
+    const localizedRoute = url.pathname.match(/^\\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\\/.*)?$/)
+    if (localizedRoute && response.status === 200 &&
+        (response.headers.get("Content-Type") ?? "").includes("text/html")) {
+      const locale = localizedRoute[1]
+      const suffix = localizedRoute[2] ?? "/"
+      const routePath = suffix === "/" ? "/" : (suffix.replace(/\\/+$/, "") || "/")
+      const pageByPath: Record<string, string> = {
+        "/": "Overview",
+        "/about": "About",
+        "/internet-doctor": "Internet Doctor",
+        "/tools": "Network",
+        "/global-network": "Global Network",
+      }
+      const page = pageByPath[routePath]
+      if (page) {
+        const defaults: Record<string, { title: string; description: string }> = {
+          Overview: { title: "Free Internet Speed Test | TEZZ CONNECT", description: "Run a free internet speed test with TEZZ CONNECT. Measure download and upload speed, browser response time and connection stability." },
+          "Internet Doctor": { title: "Internet Doctor: Fix Slow Internet | TEZZ CONNECT", description: "Troubleshoot slow or unstable internet with practical checks for speed, response time, Wi-Fi and connection stability." },
+          Network: { title: "Free Network Tools & Diagnostics | TEZZ CONNECT", description: "Explore free IP, DNS, Wi-Fi and browser-based network diagnostic tools from TEZZ CONNECT." },
+          "Global Network": { title: "Global Network Benchmarks | TEZZ CONNECT", description: "Explore opt-in regional internet performance benchmarks and understand what participating TEZZ CONNECT test samples can show." },
+          About: { title: "About TEZZ CONNECT | Internet Performance Tools", description: "Learn how TEZZ CONNECT measures internet performance with free browser-based tools and practical network guides." },
+        }
+        let localeMeta: { title?: string; description?: string; pageTitles?: Record<string, string>; pageDescriptions?: Record<string, string> } = {}
+        try {
+          const localeResponse = await env.ASSETS.fetch(new Request(new URL("/locales/" + locale + "/common.json", url.origin)))
+          if (localeResponse.ok) {
+            const localeData = await localeResponse.json() as { _meta?: typeof localeMeta }
+            localeMeta = localeData._meta ?? {}
+          }
+        } catch {
+          // Keep the safe English metadata fallback if a locale bundle is unavailable.
+        }
+        const title = localeMeta.pageTitles?.[page] ?? (page === "Overview" ? localeMeta.title : undefined) ?? defaults[page].title
+        const description = localeMeta.pageDescriptions?.[page] ?? (page === "Overview" ? localeMeta.description : undefined) ?? defaults[page].description
+        const canonical = "https://tezzconnect.online/" + locale + (routePath === "/" ? "/" : routePath)
+        const languages = ["en", "hi", "mr", "bn", "zh-CN", "pt-BR", "es", "fr", "ar"]
+        const alternates = languages.map((language) => {
+          const path = routePath === "/" ? "/" : routePath
+          const href = language === "en"
+            ? "https://tezzconnect.online" + path
+            : "https://tezzconnect.online/" + language + path
+          return '<link rel="alternate" hreflang="' + language + '" href="' + href + '" />'
+        }).join("\\n") + '\\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
+        const localizedResponse = new HTMLRewriter()
+          .on("html", { element(element) {
+            element.setAttribute("lang", locale)
+            if (locale === "ar") element.setAttribute("dir", "rtl")
+          } })
+          .on("head", { element(element) { element.append(alternates, { html: true }) } })
+          .on("title", { element(element) { element.setInnerContent(title) } })
+          .on('meta[name="description"]', { element(element) { element.setAttribute("content", description) } })
+          .on('link[rel="canonical"]', { element(element) { element.setAttribute("href", canonical) } })
+          .on('meta[property="og:title"]', { element(element) { element.setAttribute("content", title) } })
+          .on('meta[property="og:description"]', { element(element) { element.setAttribute("content", description) } })
+          .on('meta[property="og:url"]', { element(element) { element.setAttribute("content", canonical) } })
+          .on('meta[name="twitter:title"]', { element(element) { element.setAttribute("content", title) } })
+          .on('meta[name="twitter:description"]', { element(element) { element.setAttribute("content", description) } })
+          .transform(response)
+        return new Response(localizedResponse.body, {
+          status: localizedResponse.status,
+          statusText: localizedResponse.statusText,
+          headers: localizedResponse.headers,
+        })
+      }
+    }
+
     if (apiPath) {
       const headers = new Headers(response.headers)
       headers.set("X-API-Version", "v1")
