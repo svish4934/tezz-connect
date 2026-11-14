@@ -374,5 +374,14 @@
   "guide.homeNetworkPlanner.check3": "Decide qué dispositivos se benefician más de las conexiones por cable.",
   "guide.homeNetworkPlanner.check4": "Planifica rutas seguras para los cables y acceso a la alimentación para cada dispositivo.",
   "guide.homeNetworkPlanner.check5": "Prueba la red actual antes de comprar equipos adicionales.",
-  "guide.homeNetworkPlanner.note": "Este planificador ofrece una recomendación orientativa basada en tus respuestas. No inspecciona el edificio, mide señales de radio, comprueba la compatibilidad de productos ni garantiza cobertura. Los resultados reales dependen de las paredes, la construcción, los equipos, las interferencias, la ubicación y la calidad del servicio."
+  "guide.homeNetworkPlanner.note": "Este planificador ofrece una recomendación orientativa basada en tus respuestas. No inspecciona el edificio, mide señales de radio, comprueba la compatibilidad de productos ni garantiza cobertura. Los resultados reales dependen de las paredes, la construcción, los equipos, las interferencias, la ubicación y la calidad del servicio.",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "Centro de conocimiento",
+  "guide.homeNetworkPlanner.navRoadmap": "Ruta de aprendizaje",
+  "guide.homeNetworkPlanner.crumbHome": "Inicio",
+  "guide.homeNetworkPlanner.crumbHub": "Centro de conocimiento de Internet",
+  "guide.homeNetworkPlanner.crumbPlanner": "Planificador de red doméstica",
+  "guide.homeNetworkPlanner.placementHeading": "Coloca los equipos correctamente",
+  "guide.homeNetworkPlanner.checkHeading": "Antes de instalar o comprar",
+  "guide.homeNetworkPlanner.footerGuides": "Todas las guías",
+  "guide.homeNetworkPlanner.footerAbout": "Acerca de"
 }
