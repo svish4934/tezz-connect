@@ -287,5 +287,13 @@
   "guide.troubleshooter.build_button": "Crear mi plan de diagnóstico",
   "guide.troubleshooter.result_eyebrow": "TU PRIMER PLAN DE INVESTIGACIÓN",
   "guide.troubleshooter.fair_test": "Compara en condiciones similares:",
-  "guide.troubleshooter.fair_test_body": "Anota qué ha cambiado y compara en condiciones parecidas. Pausa las descargas grandes, utiliza el mismo dispositivo y lugar cuando sea posible y evita cambiar varios ajustes a la vez."
+  "guide.troubleshooter.fair_test_body": "Anota qué ha cambiado y compara en condiciones parecidas. Pausa las descargas grandes, utiliza el mismo dispositivo y lugar cuando sea posible y evita cambiar varios ajustes a la vez.",
+  "guide.troubleshooter.option.slow_all": "Internet lenta en todos los dispositivos",
+  "guide.troubleshooter.option.one_device": "Solo un teléfono, portátil o dispositivo está lento",
+  "guide.troubleshooter.option.weak_room": "El Wi-Fi es débil en una habitación o lejos del router",
+  "guide.troubleshooter.option.lag": "Los juegos o las videollamadas tienen retraso o cortes",
+  "guide.troubleshooter.option.drops": "La conexión se desconecta continuamente",
+  "guide.troubleshooter.option.upload": "Subir archivos o hacer videollamadas es lento",
+  "guide.troubleshooter.option.new_device": "Un dispositivo nuevo no puede conectarse al Wi-Fi",
+  "guide.troubleshooter.reset": "Restablecer"
 }
