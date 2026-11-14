@@ -94,6 +94,7 @@
         function render(show) {
           var old = document.getElementById('tezz-cookie-panel');
           if (old) old.remove();
+          if (!show) return;
           var panel = document.createElement('section');
           panel.id = 'tezz-cookie-panel';
           panel.setAttribute('aria-label', 'Cookie preferences');
