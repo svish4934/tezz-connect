@@ -271,5 +271,9 @@
   "guide.speed.toc.planner": "Calcula las necesidades de tu hogar",
   "guide.speed.toc.transfer": "Calcula el tiempo de descarga y subida",
   "guide.speed.toc.test": "Cómo realizar una prueba útil",
-  "guide.speed.cta.test": "Abrir la prueba de velocidad →"
+  "guide.speed.cta.test": "Abrir la prueba de velocidad →",
+  "guide.homeNetworkPlanner.plan1": "Router principal con puntos de acceso cableados",
+  "guide.homeNetworkPlanner.plan2": "Router principal con sistema mesh bien ubicado",
+  "guide.homeNetworkPlanner.plan3": "Un router bien ubicado puede ser suficiente",
+  "guide.homeNetworkPlanner.caution": "Empieza con los equipos que ya tienes. Añade hardware solo si las pruebas muestran un problema real de cobertura o capacidad."
 }
