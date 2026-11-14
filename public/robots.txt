@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://tezzconnect.online/sitemap.xml
+Sitemap: https://tezzconnect.online/blog/sitemap.xml
