@@ -625,5 +625,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "সঠিক। আগে কোথায় কভারেজ কমছে এবং রাউটারের অবস্থান পরীক্ষা করুন।",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "আগে কভারেজের সমস্যা শনাক্ত করুন এবং একবারে একটি শর্ত বদলান।",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "কিছু প্যাকেট হারাতে পারে",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "অনুরোধ ও প্রতিক্রিয়া"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "অনুরোধ ও প্রতিক্রিয়া",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "নির্বাচিত ডিভাইসটি শুধু 2.4 GHz সমর্থন করে।",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "দূরত্ব বেশি বা দেয়াল একাধিক হলে 2.4 GHz দিয়ে শুরু করুন।",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "কাছাকাছি সমর্থিত 5 GHz ও 6 GHz তুলনা করুন।",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "কম বিলম্ব ও কম ওঠানামা ইন্টারঅ্যাকটিভ কাজকে মসৃণ রাখে।",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "ইন্টারঅ্যাকটিভ কাজ কম তাৎক্ষণিক বা কম স্থিতিশীল মনে হতে পারে।",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "বিলম্ব, ওঠানামা বা প্যাকেট লসের কারণে বিরতি, ল্যাগ বা অসম অডিও-ভিডিও হতে পারে।",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "একটি রাউটার পুরো বাড়ি সামলায়; দূরের ঘরে সিগন্যাল দুর্বল হতে পারে।",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "এক্সটেন্ডার দুর্বল এলাকায় Wi-Fi পৌঁছে দিতে পারে; মূল রাউটার থেকে ভালো সিগন্যাল দরকার।",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "মেশের একাধিক নোড বড় বাড়িতে কভারেজ দেয়; অবস্থান ও ব্যাকহল গুরুত্বপূর্ণ।",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "ছোট বাড়িতে ভালোভাবে রাখা একটি রাউটার চেষ্টা করুন।",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "যেখানে মূল Wi-Fi ভালো, সেখানে এক্সটেন্ডার রাখুন।",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "নোডের সামঞ্জস্য ও তারযুক্ত ব্যাকহল পরীক্ষা করুন।"
 }
