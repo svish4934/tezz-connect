@@ -275,5 +275,21 @@
   "guide.homeNetworkPlanner.plan1": "Routeur principal avec points d’accès filaires",
   "guide.homeNetworkPlanner.plan2": "Routeur principal avec système mesh bien positionné",
   "guide.homeNetworkPlanner.plan3": "Un routeur bien placé peut suffire",
-  "guide.homeNetworkPlanner.caution": "Commencez avec les équipements dont vous disposez. N’ajoutez du matériel que si les tests révèlent un réel problème de couverture ou de capacité."
+  "guide.homeNetworkPlanner.caution": "Commencez avec les équipements dont vous disposez. N’ajoutez du matériel que si les tests révèlent un réel problème de couverture ou de capacité.",
+  "guide.homeNetworkPlanner.skip": "Aller au contenu principal",
+  "guide.homeNetworkPlanner.eyebrow": "Réseau domestique pratique",
+  "guide.homeNetworkPlanner.title": "Planifiez un réseau domestique adapté à votre espace",
+  "guide.homeNetworkPlanner.toc": "Dans ce guide",
+  "guide.homeNetworkPlanner.tooltitle": "Créez la configuration initiale de votre réseau",
+  "guide.homeNetworkPlanner.size": "Taille approximative du logement",
+  "guide.homeNetworkPlanner.floors": "Nombre d’étages",
+  "guide.homeNetworkPlanner.devices": "Combien d’appareils sont généralement connectés ?",
+  "guide.homeNetworkPlanner.usage": "Qu’est-ce qui compte le plus ?",
+  "guide.homeNetworkPlanner.router": "Où la connexion Internet entre-t-elle dans le logement ?",
+  "guide.homeNetworkPlanner.build": "Créer mon plan de réseau domestique",
+  "guide.homeNetworkPlanner.result": "VOTRE TOPOLOGIE DE DÉPART",
+  "guide.homeNetworkPlanner.steps": "Prochaines étapes pratiques",
+  "guide.homeNetworkPlanner.check": "Avant d’installer ou d’acheter",
+  "guide.homeNetworkPlanner.important": "Important",
+  "guide.homeNetworkPlanner.related": "Guides associés"
 }
