@@ -29,6 +29,16 @@ function json(message: string, status = 200) {
 const app: ExportedHandler<Env> = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+    // Consolidate HTTP and www variants onto the single HTTPS canonical host.
+    if (url.hostname === "www.tezzconnect.online" ||
+        (url.hostname === "tezzconnect.online" && url.protocol === "http:")) {
+      url.protocol = "https:"
+      url.hostname = "tezzconnect.online"
+      return new Response(null, {
+        status: 308,
+        headers: { Location: url.toString(), "Cache-Control": "public, max-age=3600" },
+      })
+    }
     // Versioned public API. Legacy paths remain aliases during migration.
     const legacyApiAliases: Record<string, string> = {
       "/api/speed/ping": "/api/v1/speed/ping",
@@ -76,39 +86,12 @@ const app: ExportedHandler<Env> = {
 
     // Serve robots.txt directly from the Worker so crawlers receive a plain-text
     // response independent of the static asset fallback.
-    // Serve the sitemap directly from the Worker so search crawlers receive
-    // deterministic XML without relying on the static asset fallback.
+    // Serve the repository sitemap through the static asset binding.
+    // This keeps the live sitemap (including localized URLs and hreflang links)
+    // in sync with public/sitemap.xml instead of maintaining a stale Worker copy.
     if (url.pathname === "/sitemap.xml") {
       if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method not allowed", { status: 405, headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" } })
-      const body = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tezzconnect.online/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://tezzconnect.online/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://tezzconnect.online/internet-doctor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://tezzconnect.online/tools</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://tezzconnect.online/global-network</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://tezzconnect.online/guides/internet-speed-explained/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/latency-and-jitter/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/improve-wifi-speed/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/upload-speed-explained/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/internet-speed-for-gaming/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/what-is-the-internet/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/networking-buying-guides/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/connection-troubleshooter/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/home-network-planner/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/how-the-internet-works/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/interactive-network-lab/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/internet-learning-roadmap/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/networking-glossary/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/wifi-security-checkup/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tezzconnect.online/guides/wifi-signal-simulator/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-</urlset>
-`
-      return new Response(request.method === "HEAD" ? null : body, {
-        status: 200,
-        headers: { ...noStore, "Content-Type": "application/xml; charset=utf-8" },
-      })
+      return env.ASSETS.fetch(request)
     }
 
     if (url.pathname === "/robots.txt") {
@@ -463,7 +446,7 @@ const app: ExportedHandler<Env> = {
     // the React app shell, preventing the old SEO fallback flash.
     const seoPages: Record<string, { title: string; description: string; canonical: string; fallback: string }> = {
       "/": {
-        title: "Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT",
+        title: "Free Internet Speed Test | TEZZ CONNECT",
         description: "Free internet speed test for download and upload speed, browser response time and connection stability.",
         canonical: "https://tezzconnect.online/",
         fallback: `<main id="seo-fallback"><header><p>FREE INTERNET PERFORMANCE TOOLS</p><h1>Test your internet speed with TEZZ CONNECT.</h1><p>Measure download speed, upload speed and browser-based response time. Understand connection stability and learn what your results mean.</p></header><section><h2>Check the performance of your connection</h2><p>Run a free browser-based speed test and review practical measurements for everyday internet use.</p><ul><li><strong>Download speed:</strong> see how quickly data reaches your device.</li><li><strong>Upload speed:</strong> check how quickly your device sends data.</li><li><strong>Response time and variation:</strong> understand how quickly the TEZZ CONNECT edge responds to browser requests.</li><li><strong>Connection guidance:</strong> explore common network issues and practical troubleshooting steps.</li></ul></section><section><h2>Tools to understand your internet</h2><p>Use Internet Doctor, network tools, connection history and learning guides to investigate performance beyond a single speed result.</p><p><a href="/internet-doctor">Internet Doctor</a> · <a href="/tools">Network tools</a> · <a href="/global-network">Global Network</a> · <a href="/guides/">Learning guides</a> · <a href="/about">About TEZZ CONNECT</a></p></section><section><h2>Measurements, not promises</h2><p>Results are estimates from your browser to TEZZ CONNECT network endpoints. They can vary with Wi-Fi conditions, device performance, browser activity, network congestion and the route to our edge.</p></section><p><a href="/about">Learn more about TEZZ CONNECT</a></p></main>`,
@@ -481,19 +464,19 @@ const app: ExportedHandler<Env> = {
         fallback: `<main id="seo-fallback"><header><p>ABOUT TEZZ CONNECT</p><h1>Understand your connection.</h1><p>TEZZ CONNECT is a free, browser-based toolkit that helps you measure internet performance, understand network behaviour and make more informed connectivity decisions.</p></header><section><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p><h3>Measure performance</h3><p>Run download and upload throughput tests, plus browser-based HTTP response-time and variation estimates.</p><h3>Understand connection issues</h3><p>Explore practical recommendations for common causes such as congestion, weak Wi-Fi conditions and competing network traffic.</p><h3>Explore your network</h3><p>Review available network-edge information, connection signals and public website endpoint checks.</p></section><section><h2>Built in India. Connecting the world.</h2><p>TEZZ CONNECT is an independent digital platform built for people who want clearer information about their internet connection.</p></section><section><h2>How measurements work</h2><p>Speed tests run in your browser against TEZZ CONNECT endpoints. Latency and response variation use HTTP request and response timing to our network edge; they are not ICMP ping measurements.</p></section><section><h2>Privacy and control</h2><p>Local test history stays in your browser. Regional benchmark contributions are optional and require your consent. The tools do not need your GPS location or street address.</p></section><section><h2>Contact us</h2><p>Questions, issues or ideas? Email <a href="mailto:tezzconnect.contact@gmail.com">tezzconnect.contact@gmail.com</a>.</p></section><p><a href="/">Start a speed test</a></p></main>`,
       },
       "/internet-doctor": {
-        title: "Internet Doctor – Diagnose Slow or Unstable Internet | TEZZ CONNECT",
+        title: "Internet Doctor: Fix Slow Internet | TEZZ CONNECT",
         description: "Troubleshoot slow or unstable internet with practical checks for speed, response time, Wi-Fi and connection stability.",
         canonical: "https://tezzconnect.online/internet-doctor",
         fallback: `<main id="seo-fallback"><header><p>INTERNET CONNECTION TROUBLESHOOTING</p><h1>Find out why your internet feels slow or unstable.</h1><p>Internet Doctor brings common connection checks together and explains what each result can—and cannot—tell you.</p></header><section><h2>Check the signals behind a connection problem</h2><ul><li><strong>Throughput:</strong> compare download and upload measurements with the needs of your activity.</li><li><strong>Response time:</strong> review browser-to-edge HTTP response timing; this is not an ICMP ping measurement.</li><li><strong>Stability:</strong> look for failed or unusually slow responses across repeated checks.</li><li><strong>Device and network state:</strong> check whether the browser reports an offline connection and whether network information is available.</li></ul></section><section><h2>Practical steps to try</h2><p>Move closer to the router, pause large downloads and cloud backups, restart network equipment when appropriate, and compare results on another device or connection. Change one thing at a time and test again.</p><p>Start with the <a href="/">free internet speed test</a>, then read the <a href="/guides/connection-troubleshooter/">connection troubleshooting guide</a> and <a href="/guides/latency-and-jitter/">latency and jitter guide</a>.</p></section><section><h2>Understand the limits</h2><p>Browser checks are useful clues, not a complete diagnosis of your ISP, router or every website. Results can vary with Wi-Fi conditions, device load, congestion and routing.</p></section></main>`,
       },
       "/tools": {
-        title: "Free Network Tools – Check Connection, Latency & Network Details | TEZZ CONNECT",
+        title: "Free Network Tools & Diagnostics | TEZZ CONNECT",
         description: "Explore free IP, DNS, Wi-Fi and browser-based network diagnostic tools from TEZZ CONNECT.",
         canonical: "https://tezzconnect.online/tools",
         fallback: `<main id="seo-fallback"><header><p>FREE BROWSER-BASED NETWORK UTILITIES</p><h1>Practical network tools to understand your connection.</h1><p>Use simple checks to explore connection status, response timing and the network information your browser can access.</p></header><section><h2>What you can investigate</h2><ul><li><strong>Connection status:</strong> see whether your browser currently reports that the device is online.</li><li><strong>HTTP response timing:</strong> measure how quickly a TEZZ CONNECT endpoint responds to browser requests.</li><li><strong>Stability:</strong> repeat checks to observe slow or failed responses over a short period.</li><li><strong>Network information:</strong> review browser-exposed connection hints and available edge details where supported.</li></ul></section><section><h2>Use the result in context</h2><p>Browser timing is not the same as ICMP ping, and browser-exposed network details are not available on every device. Compare repeated results and, where possible, test another device or network.</p><p>Continue with <a href="/internet-doctor">Internet Doctor</a>, the <a href="/">internet speed test</a> or the <a href="/guides/how-the-internet-works/">guide to how the internet works</a>.</p></section></main>`,
       },
       "/global-network": {
-        title: "Global Network Benchmarks – Regional Internet Performance | TEZZ CONNECT",
+        title: "Global Network Benchmarks | TEZZ CONNECT",
         description: "Explore opt-in regional internet performance benchmarks and understand what participating TEZZ CONNECT test samples can show.",
         canonical: "https://tezzconnect.online/global-network",
         fallback: `<main id="seo-fallback"><header><p>COMMUNITY NETWORK BENCHMARKS</p><h1>Explore regional internet performance signals.</h1><p>Global Network presents aggregate measurements from people who choose to contribute completed TEZZ CONNECT tests.</p></header><section><h2>What the regional view represents</h2><p>Available summaries group participating samples by reported country and region over a recent seven-day window. A region appears only after it reaches the minimum sample threshold.</p><ul><li><strong>Download and upload:</strong> average throughput reported by participating tests.</li><li><strong>Response time and variation:</strong> browser-based HTTP timing measurements to TEZZ CONNECT endpoints.</li><li><strong>Sample count:</strong> the number of contributions included in the aggregate.</li></ul></section><section><h2>Privacy and interpretation</h2><p>Contributions are optional and require explicit consent. The public view is an aggregate, not a live map of every ISP or a guarantee of the performance any individual will receive. Small or unavailable samples may not appear.</p><p>Run your own <a href="/">internet speed test</a> to compare your connection, or use <a href="/internet-doctor">Internet Doctor</a> to investigate issues.</p></section></main>`,
