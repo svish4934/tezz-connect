@@ -275,5 +275,21 @@
   "guide.homeNetworkPlanner.plan1": "主路由器搭配有线接入点",
   "guide.homeNetworkPlanner.plan2": "主路由器搭配合理摆放的 Mesh 系统",
   "guide.homeNetworkPlanner.plan3": "摆放得当的一台路由器可能就够了",
-  "guide.homeNetworkPlanner.caution": "先使用现有设备。只有测试确认存在覆盖或容量问题后，才添加硬件。"
+  "guide.homeNetworkPlanner.caution": "先使用现有设备。只有测试确认存在覆盖或容量问题后，才添加硬件。",
+  "guide.homeNetworkPlanner.skip": "跳至主要内容",
+  "guide.homeNetworkPlanner.eyebrow": "实用家庭网络",
+  "guide.homeNetworkPlanner.title": "规划适合您居住空间的家庭网络",
+  "guide.homeNetworkPlanner.toc": "本指南内容",
+  "guide.homeNetworkPlanner.tooltitle": "创建初始网络布局",
+  "guide.homeNetworkPlanner.size": "住宅大致面积",
+  "guide.homeNetworkPlanner.floors": "楼层数",
+  "guide.homeNetworkPlanner.devices": "通常连接多少台设备？",
+  "guide.homeNetworkPlanner.usage": "您最看重什么？",
+  "guide.homeNetworkPlanner.router": "互联网接入点位于哪里？",
+  "guide.homeNetworkPlanner.build": "生成我的家庭网络计划",
+  "guide.homeNetworkPlanner.result": "您的初始网络拓扑",
+  "guide.homeNetworkPlanner.steps": "实用的后续步骤",
+  "guide.homeNetworkPlanner.check": "安装或购买前",
+  "guide.homeNetworkPlanner.important": "重要提示",
+  "guide.homeNetworkPlanner.related": "相关指南"
 }
