@@ -555,5 +555,21 @@
   "guide.homeNetworkPlanner.plan1": "তারযুক্ত অ্যাক্সেস পয়েন্টসহ প্রধান রাউটার",
   "guide.homeNetworkPlanner.plan2": "সঠিক স্থানে রাখা মেশ সিস্টেমসহ প্রধান রাউটার",
   "guide.homeNetworkPlanner.plan3": "সঠিক স্থানে রাখা একটি রাউটারই যথেষ্ট হতে পারে",
-  "guide.homeNetworkPlanner.caution": "আপনার কাছে থাকা সরঞ্জাম দিয়ে শুরু করুন। পরীক্ষায় কভারেজ বা সক্ষমতার প্রকৃত সমস্যা দেখা গেলেই অতিরিক্ত সরঞ্জাম যোগ করুন।"
+  "guide.homeNetworkPlanner.caution": "আপনার কাছে থাকা সরঞ্জাম দিয়ে শুরু করুন। পরীক্ষায় কভারেজ বা সক্ষমতার প্রকৃত সমস্যা দেখা গেলেই অতিরিক্ত সরঞ্জাম যোগ করুন।",
+  "guide.homeNetworkPlanner.skip": "মূল বিষয়বস্তুতে যান",
+  "guide.homeNetworkPlanner.eyebrow": "ব্যবহারিক হোম নেটওয়ার্কিং",
+  "guide.homeNetworkPlanner.title": "আপনার বাড়ির উপযোগী নেটওয়ার্ক পরিকল্পনা করুন",
+  "guide.homeNetworkPlanner.toc": "এই নির্দেশিকায়",
+  "guide.homeNetworkPlanner.tooltitle": "আপনার প্রাথমিক নেটওয়ার্ক বিন্যাস তৈরি করুন",
+  "guide.homeNetworkPlanner.size": "বাড়ির আনুমানিক আকার",
+  "guide.homeNetworkPlanner.floors": "তলার সংখ্যা",
+  "guide.homeNetworkPlanner.devices": "সাধারণত কতটি ডিভাইস সংযুক্ত থাকে?",
+  "guide.homeNetworkPlanner.usage": "আপনার কাছে সবচেয়ে গুরুত্বপূর্ণ কী?",
+  "guide.homeNetworkPlanner.router": "ইন্টারনেট সংযোগ কোথা দিয়ে বাড়িতে ঢোকে?",
+  "guide.homeNetworkPlanner.build": "আমার হোম নেটওয়ার্ক পরিকল্পনা তৈরি করুন",
+  "guide.homeNetworkPlanner.result": "আপনার প্রাথমিক নেটওয়ার্ক কাঠামো",
+  "guide.homeNetworkPlanner.steps": "পরবর্তী করণীয়",
+  "guide.homeNetworkPlanner.check": "ইনস্টল বা কেনার আগে",
+  "guide.homeNetworkPlanner.important": "গুরুত্বপূর্ণ",
+  "guide.homeNetworkPlanner.related": "সম্পর্কিত নির্দেশিকা"
 }
