@@ -345,5 +345,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "Correto. Identifique onde a cobertura cai e verifique a posição do roteador.",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "Identifique primeiro o problema de cobertura e altere uma condição por vez.",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "Alguns pacotes podem se perder",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Solicitação e resposta"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Solicitação e resposta",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "O dispositivo selecionado aceita apenas 2,4 GHz.",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "Comece por 2,4 GHz quando houver maior distância ou várias paredes.",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "Perto do roteador, compare 5 GHz e 6 GHz se houver compatibilidade.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "Pouco atraso e pouca variação deixam as atividades interativas mais fluidas.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "As atividades interativas podem parecer menos imediatas ou consistentes.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "Atraso, variação ou perda de pacotes podem causar pausas, lag ou áudio e vídeo irregulares.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "Um roteador atende a casa toda; cômodos distantes podem receber sinal mais fraco.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "Um repetidor pode levar Wi-Fi a uma área fraca, mas precisa receber sinal utilizável do roteador principal.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "Vários nós mesh cobrem casas maiores; a posição e o backhaul importam.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "Boa opção para casas compactas com roteador bem posicionado.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "Coloque o repetidor onde o Wi-Fi original ainda esteja razoavelmente forte.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "Verifique a compatibilidade dos nós e a possibilidade de backhaul cabeado."
 }
