@@ -271,5 +271,9 @@
   "guide.speed.toc.planner": "Estimer les besoins de votre foyer",
   "guide.speed.toc.transfer": "Estimer les durées de téléchargement et d’envoi",
   "guide.speed.toc.test": "Comment effectuer un test utile",
-  "guide.speed.cta.test": "Ouvrir le test de débit →"
+  "guide.speed.cta.test": "Ouvrir le test de débit →",
+  "guide.homeNetworkPlanner.plan1": "Routeur principal avec points d’accès filaires",
+  "guide.homeNetworkPlanner.plan2": "Routeur principal avec système mesh bien positionné",
+  "guide.homeNetworkPlanner.plan3": "Un routeur bien placé peut suffire",
+  "guide.homeNetworkPlanner.caution": "Commencez avec les équipements dont vous disposez. N’ajoutez du matériel que si les tests révèlent un réel problème de couverture ou de capacité."
 }
