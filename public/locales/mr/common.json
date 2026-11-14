@@ -665,5 +665,22 @@
   "Immediately upgrade to the most expensive internet plan.": "लगेच सर्वात महाग इंटरनेट प्लॅन घ्या.",
   "Change every router setting at once.": "राउटरच्या सर्व सेटिंग्ज एकाच वेळी बदला.",
   "Home Wi-Fi security checkup": "घरगुती Wi-Fi सुरक्षा तपासणी",
-  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · अभिमानाने भारतात निर्मित 🇮🇳"
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · अभिमानाने भारतात निर्मित 🇮🇳",
+  "Improve Wi-Fi with a practical checklist, interactive home-layout simulator, Wi-Fi vs Ethernet comparison and troubleshooting exercise.": "व्यावहारिक तपासणी सूची, परस्परसंवादी घरगुती मांडणी सिम्युलेटर, Wi-Fi विरुद्ध Ethernet तुलना आणि समस्यानिवारण सरावाद्वारे Wi-Fi सुधारा.",
+  "Use an interactive Wi-Fi layout simulator, compare Wi-Fi and Ethernet results, and practise diagnosing common home network issues.": "परस्परसंवादी Wi-Fi मांडणी सिम्युलेटर वापरा, Wi-Fi आणि Ethernet निकालांची तुलना करा आणि घरगुती नेटवर्कमधील सामान्य समस्या शोधण्याचा सराव करा.",
+  "Comparison of central and obstructed Wi-Fi router placement": "मध्यवर्ती आणि अडथळ्यांनी वेढलेल्या Wi-Fi राउटरच्या स्थानाची तुलना",
+  "Example speed test results": "स्पीड टेस्टचे प्रातिनिधिक निकाल",
+  "Guide navigation": "मार्गदर्शक नेव्हिगेशन",
+  "Interactive example home Wi-Fi layout": "घरगुती Wi-Fi मांडणीचे परस्परसंवादी उदाहरण",
+  "A router sends a signal through a home toward a device. The signal path and room labels update as you change the controls.": "राउटर घरातून डिव्हाइसकडे सिग्नल पाठवतो. नियंत्रणे बदलल्यावर सिग्नलचा मार्ग आणि खोल्यांची नावे बदलतात.",
+  "LIVING ROOM": "बैठकीची खोली",
+  "HALLWAY": "मार्गिका",
+  "BEDROOM": "शयनकक्ष",
+  "KITCHEN": "स्वयंपाकघर",
+  "STUDY": "अभ्यासिका",
+  "FAR ROOM": "लांबची खोली",
+  "ROUTER": "राउटर",
+  "YOUR DEVICE": "तुमचे डिव्हाइस",
+  "TRY A SCENARIO": "एखादी परिस्थिती वापरून पाहा",
+  "ROUTER + DEVICE": "राउटर + डिव्हाइस"
 }
