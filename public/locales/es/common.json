@@ -345,5 +345,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "Correcto. Averigua dónde cae la cobertura y comprueba la ubicación del router.",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "Primero identifica el problema de cobertura y cambia una condición cada vez.",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "Se pueden perder algunos paquetes",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Solicitud y respuesta"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Solicitud y respuesta",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "El dispositivo seleccionado solo admite 2,4 GHz.",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "Empieza por 2,4 GHz si hay mucha distancia o varias paredes.",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "Cerca, compara 5 GHz y 6 GHz si ambos dispositivos son compatibles.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "Una demora y variación bajas ayudan a que las actividades interactivas sean fluidas.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "Las actividades interactivas pueden sentirse menos inmediatas o constantes.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "La demora, la variación o la pérdida de paquetes pueden causar pausas, lag o audio y vídeo irregulares.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "Un router cubre toda la casa; las habitaciones lejanas pueden recibir una señal más débil.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "Un extensor puede llevar Wi-Fi a una zona débil, pero necesita una señal útil del router principal.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "Varios nodos mesh cubren viviendas grandes; la ubicación y el enlace entre nodos importan.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "Buena opción para una casa compacta con el router bien situado.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "Coloca el extensor donde la señal Wi-Fi original siga siendo buena.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "Comprueba la compatibilidad de los nodos y si puedes usar conexión por cable."
 }
