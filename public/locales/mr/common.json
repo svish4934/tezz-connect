@@ -567,5 +567,13 @@
   "guide.troubleshooter.build_button": "माझी समस्यानिवारण योजना तयार करा",
   "guide.troubleshooter.result_eyebrow": "तुमची प्राथमिक तपासणी योजना",
   "guide.troubleshooter.fair_test": "तुलना योग्य पद्धतीने करा:",
-  "guide.troubleshooter.fair_test_body": "काय बदलले ते नोंदवा आणि समान परिस्थितीत तुलना करा. मोठे डाउनलोड थांबवा, शक्य असल्यास तेच डिव्हाइस आणि ठिकाण वापरा आणि एकाच वेळी अनेक सेटिंग्ज बदलू नका."
+  "guide.troubleshooter.fair_test_body": "काय बदलले ते नोंदवा आणि समान परिस्थितीत तुलना करा. मोठे डाउनलोड थांबवा, शक्य असल्यास तेच डिव्हाइस आणि ठिकाण वापरा आणि एकाच वेळी अनेक सेटिंग्ज बदलू नका.",
+  "guide.troubleshooter.option.slow_all": "प्रत्येक डिव्हाइसवर इंटरनेट मंद वाटते",
+  "guide.troubleshooter.option.one_device": "फक्त एक फोन, लॅपटॉप किंवा डिव्हाइस मंद आहे",
+  "guide.troubleshooter.option.weak_room": "एका खोलीत किंवा राउटरपासून दूर Wi-Fi कमकुवत आहे",
+  "guide.troubleshooter.option.lag": "गेमिंग किंवा व्हिडिओ कॉलमध्ये विलंब किंवा अडथळे येतात",
+  "guide.troubleshooter.option.drops": "कनेक्शन वारंवार तुटते",
+  "guide.troubleshooter.option.upload": "फाइल अपलोड करणे किंवा व्हिडिओ कॉल करणे मंद आहे",
+  "guide.troubleshooter.option.new_device": "नवीन डिव्हाइस Wi-Fi शी कनेक्ट होत नाही",
+  "guide.troubleshooter.reset": "रीसेट"
 }
