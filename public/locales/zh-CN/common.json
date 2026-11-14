@@ -328,5 +328,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "网络设备",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "比较路由器、扩展器和 Mesh 系统。",
   "guide.interactiveNetworkLab.footerGuides": "所有指南",
-  "guide.interactiveNetworkLab.footerAbout": "关于我们"
+  "guide.interactiveNetworkLab.footerAbout": "关于我们",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "近距离",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "房屋另一侧",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "较远的房间",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "先试试 2.4 GHz",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "先试试 5 GHz",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "比较 5 GHz 和 6 GHz",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "不稳定",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "有些延迟",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "响应灵敏",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "单台路由器",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "路由器 + 扩展器",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "Mesh 组网",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "请先选择一个答案。",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "正确。先找出覆盖变弱的位置并检查路由器摆放。",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "先找出覆盖问题，每次只改变一个条件。",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "可能有数据包丢失",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "请求与响应"
 }
