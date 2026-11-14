@@ -14,6 +14,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detect whether D1 schema or database configuration changed
+        id: d1_changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "apply=true" >> "$GITHUB_OUTPUT"
+            echo "Manual production deployment: preserve the existing D1 migration step."
+            exit 0
+          fi
+          if [ -z "$BEFORE_SHA" ] || [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "apply=true" >> "$GITHUB_OUTPUT"
+            echo "No usable push base SHA; applying migrations conservatively."
+            exit 0
+          fi
+          set +e
+          git diff --quiet "$BEFORE_SHA" "$HEAD_SHA" -- migrations/ wrangler.toml
+          diff_status=$?
+          set -e
+          if [ "$diff_status" -eq 0 ]; then
+            echo "apply=false" >> "$GITHUB_OUTPUT"
+            echo "No D1 migration or Wrangler database configuration changes; skipping remote migrations."
+          elif [ "$diff_status" -eq 1 ]; then
+            echo "apply=true" >> "$GITHUB_OUTPUT"
+            echo "D1 migration or Wrangler database configuration changed; migrations will run."
+          else
+            echo "git diff failed; refusing to skip D1 migrations."
+            exit "$diff_status"
+          fi
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -38,6 +71,7 @@ jobs:
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing GitHub Actions secret: CLOUDFLARE_API_TOKEN"; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing GitHub Actions secret: CLOUDFLARE_ACCOUNT_ID"; exit 1; }
       - name: Apply D1 migrations
+        if: steps.d1_changes.outputs.apply == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
