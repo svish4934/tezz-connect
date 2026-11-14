@@ -341,5 +341,13 @@
   "guide.buying.read": "Leer la guía →",
   "guide.buying.allguides": "Explorar todas las guías del Centro de conocimiento de Internet →",
   "guide.buying.about": "Acerca de",
-  "guide.buying.footer": "Orgullosamente creado en India 🇮🇳"
+  "guide.buying.footer": "Orgullosamente creado en India 🇮🇳",
+  "guide.buying.routerpara": "Un router conecta los dispositivos de tu hogar a Internet y normalmente crea tu red Wi‑Fi. Al compararlos, revisa la generación Wi‑Fi, las bandas compatibles, la velocidad de los puertos Ethernet, las actualizaciones de seguridad y la compatibilidad con el módem o la ONT de fibra del proveedor.",
+  "guide.buying.meshpara": "Un sistema mesh utiliza dos o más unidades para distribuir Wi‑Fi por la vivienda. Una se conecta a Internet y las demás ayudan a cubrir las habitaciones alejadas. Puede ser útil en viviendas grandes o cuando un router no llega a todas las estancias.",
+  "guide.buying.extenderpara": "Un extensor recibe la señal Wi‑Fi existente y la retransmite más lejos. Puede ayudar en una zona pequeña con poca señal, pero primero necesita recibir una señal aceptable del router. Colocarlo donde apenas funciona el Wi‑Fi puede no servir.",
+  "guide.buying.ethernetpara": "Un cable Ethernet conecta un dispositivo directamente al router o a un switch. Suele ser una buena opción para ordenadores, televisores y consolas, ya que evita muchos problemas de señal Wi‑Fi.",
+  "guide.buying.switchpara": "Un switch de red añade puertos Ethernet. Si el router tiene pocos puertos y quieres conectar un televisor, ordenador, consola y otros dispositivos cableados, el switch puede añadir conexiones.",
+  "guide.buying.promisebody": "Esta guía te ayuda a entender los equipos, no a presionarte para comprar. Actualmente no contiene enlaces de afiliados ni ubicaciones pagadas. Si eso cambia, identificaremos claramente los enlaces comerciales.",
+  "guide.buying.fitbody": "Comprar un router nuevo no es el primer paso ante cualquier queja de lentitud. Identifica primero el punto débil: el servicio que entra en casa, la cobertura Wi‑Fi, los puertos cableados o la cantidad de dispositivos. El producto adecuado depende de la vivienda y del equipo del operador.",
+  "guide.buying.budgetbody": "Anota el problema, las habitaciones y dispositivos afectados y las funciones necesarias. Compara el coste total —nodos mesh, adaptadores o instalación incluidos— con una solución cableada o de ubicación más sencilla. No elijas solo por la cifra de Mbps anunciada: no garantiza la velocidad de un dispositivo."
 }
