@@ -51,17 +51,31 @@
     </script>
     <meta name="description" content="Run a free internet speed test with TEZZ CONNECT. Measure download and upload speed, browser-based response time and connection stability for streaming, gaming and video calls." />
     <title>Free Internet Speed Test | TEZZ CONNECT</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX"></script>
+    <!-- Queue analytics immediately, but defer third-party downloads until after first paint. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-SL6RDF7GHX');
+      window.addEventListener('load', function () {
+        var loadThirdParty = function () {
+          var analytics = document.createElement('script');
+          analytics.async = true;
+          analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX';
+          document.head.appendChild(analytics);
+          var ads = document.createElement('script');
+          ads.async = true;
+          ads.crossOrigin = 'anonymous';
+          ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
+          document.head.appendChild(ads);
+        };
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadThirdParty, { timeout: 5000 });
+        } else {
+          window.setTimeout(loadThirdParty, 2500);
+        }
+      }, { once: true });
     </script>
-    <!-- Google AdSense site verification / ad delivery script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886"
-      crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="root"></div>
