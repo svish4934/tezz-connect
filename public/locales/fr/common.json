@@ -361,5 +361,18 @@
   "guide.homeNetworkPlanner.flow9": "Routeur Wi-Fi",
   "guide.homeNetworkPlanner.flow10": "Téléphones, ordinateurs portables et téléviseurs",
   "guide.homeNetworkPlanner.cautionFloors": "La structure entre les étages peut fortement affecter les liaisons sans fil ; testez chaque étage avant de décider du nombre de bornes.",
-  "guide.homeNetworkPlanner.cautionBackhaul": "Un backhaul filaire est souvent plus prévisible qu’une liaison sans fil entre étages."
+  "guide.homeNetworkPlanner.cautionBackhaul": "Un backhaul filaire est souvent plus prévisible qu’une liaison sans fil entre étages.",
+  "guide.homeNetworkPlanner.body1": "Dans un logement classique, le service Internet arrive à un modem ou à un ONT fibre. Le routeur relie le réseau domestique à ce service et fournit des ports filaires ainsi que, souvent, le Wi-Fi. Les autres appareils se connectent directement au routeur, via un commutateur ou par des points d’accès ou bornes mesh supplémentaires.",
+  "guide.homeNetworkPlanner.body2": "Un commutateur réseau ajoute des ports Ethernet. Un point d’accès sans fil fournit du Wi-Fi à un emplacement relié au réseau, souvent par Ethernet. Un système mesh utilise plusieurs unités Wi-Fi coordonnées ; elles doivent disposer d’une liaison adaptée entre elles, sans fil ou filaire si elle est prise en charge.",
+  "guide.homeNetworkPlanner.place1": "Dans la mesure du possible, placez le routeur principal dans un endroit dégagé et surélevé, pas dans un placard ni derrière un téléviseur.",
+  "guide.homeNetworkPlanner.place2": "Placez les bornes mesh sans fil à un endroit où elles reçoivent encore une bonne connexion de l’unité principale ou d’une autre borne.",
+  "guide.homeNetworkPlanner.place3": "Utilisez Ethernet pour les appareils fixes et sensibles à la latence lorsque c’est possible.",
+  "guide.homeNetworkPlanner.place4": "Évitez de placer les points d’accès ou bornes mesh près de gros objets métalliques, d’obstacles denses ou de sources d’interférences.",
+  "guide.homeNetworkPlanner.place5": "Ne changez qu’un emplacement à la fois et effectuez les tests dans les pièces où le réseau est réellement utilisé.",
+  "guide.homeNetworkPlanner.check1": "Vérifiez le débit et le type de connexion fournis par votre FAI.",
+  "guide.homeNetworkPlanner.check2": "Vérifiez les capacités des ports du routeur, de l’ONT et des appareils.",
+  "guide.homeNetworkPlanner.check3": "Déterminez quels appareils bénéficieront le plus d’une connexion filaire.",
+  "guide.homeNetworkPlanner.check4": "Prévoyez un cheminement sûr des câbles et un accès à l’alimentation pour chaque appareil.",
+  "guide.homeNetworkPlanner.check5": "Testez le réseau actuel avant d’acheter du matériel supplémentaire.",
+  "guide.homeNetworkPlanner.note": "Ce planificateur fournit une recommandation pédagogique à partir de vos réponses. Il n’inspecte pas le bâtiment, ne mesure pas les signaux radio, ne vérifie pas la compatibilité des produits et ne garantit pas la couverture. Les résultats réels dépendent des murs, de la construction, des équipements, des interférences, de l’emplacement et de la qualité du service."
 }
