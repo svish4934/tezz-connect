@@ -374,5 +374,14 @@
   "guide.homeNetworkPlanner.check3": "Déterminez quels appareils bénéficieront le plus d’une connexion filaire.",
   "guide.homeNetworkPlanner.check4": "Prévoyez un cheminement sûr des câbles et un accès à l’alimentation pour chaque appareil.",
   "guide.homeNetworkPlanner.check5": "Testez le réseau actuel avant d’acheter du matériel supplémentaire.",
-  "guide.homeNetworkPlanner.note": "Ce planificateur fournit une recommandation pédagogique à partir de vos réponses. Il n’inspecte pas le bâtiment, ne mesure pas les signaux radio, ne vérifie pas la compatibilité des produits et ne garantit pas la couverture. Les résultats réels dépendent des murs, de la construction, des équipements, des interférences, de l’emplacement et de la qualité du service."
+  "guide.homeNetworkPlanner.note": "Ce planificateur fournit une recommandation pédagogique à partir de vos réponses. Il n’inspecte pas le bâtiment, ne mesure pas les signaux radio, ne vérifie pas la compatibilité des produits et ne garantit pas la couverture. Les résultats réels dépendent des murs, de la construction, des équipements, des interférences, de l’emplacement et de la qualité du service.",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "Centre de connaissances",
+  "guide.homeNetworkPlanner.navRoadmap": "Parcours d’apprentissage",
+  "guide.homeNetworkPlanner.crumbHome": "Accueil",
+  "guide.homeNetworkPlanner.crumbHub": "Centre de connaissances Internet",
+  "guide.homeNetworkPlanner.crumbPlanner": "Planificateur de réseau domestique",
+  "guide.homeNetworkPlanner.placementHeading": "Bien positionner les équipements",
+  "guide.homeNetworkPlanner.checkHeading": "Avant l’installation ou l’achat",
+  "guide.homeNetworkPlanner.footerGuides": "Tous les guides",
+  "guide.homeNetworkPlanner.footerAbout": "À propos"
 }
