@@ -608,5 +608,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "নেটওয়ার্কিং সরঞ্জাম",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "রাউটার, এক্সটেন্ডার ও মেশ সিস্টেম তুলনা করুন।",
   "guide.interactiveNetworkLab.footerGuides": "সব গাইড",
-  "guide.interactiveNetworkLab.footerAbout": "আমাদের সম্পর্কে"
+  "guide.interactiveNetworkLab.footerAbout": "আমাদের সম্পর্কে",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "কাছাকাছি",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "বাড়ির অন্য প্রান্তে",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "দূরের ঘর",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "প্রথমে 2.4 GHz চেষ্টা করুন",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "প্রথমে 5 GHz চেষ্টা করুন",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "5 GHz ও 6 GHz তুলনা করুন",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "অস্থিতিশীল",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "কিছুটা বিলম্ব",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "দ্রুত সাড়া",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "একটি রাউটার",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "রাউটার + এক্সটেন্ডার",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "মেশ সিস্টেম",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "আগে একটি উত্তর বেছে নিন।",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "সঠিক। আগে কোথায় কভারেজ কমছে এবং রাউটারের অবস্থান পরীক্ষা করুন।",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "আগে কভারেজের সমস্যা শনাক্ত করুন এবং একবারে একটি শর্ত বদলান।",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "কিছু প্যাকেট হারাতে পারে",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "অনুরোধ ও প্রতিক্রিয়া"
 }
