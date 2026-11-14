@@ -271,5 +271,9 @@
   "guide.speed.toc.planner": "估算家庭网络需求",
   "guide.speed.toc.transfer": "估算下载和上传时间",
   "guide.speed.toc.test": "如何进行有效的测速",
-  "guide.speed.cta.test": "打开网速测试 →"
+  "guide.speed.cta.test": "打开网速测试 →",
+  "guide.homeNetworkPlanner.plan1": "主路由器搭配有线接入点",
+  "guide.homeNetworkPlanner.plan2": "主路由器搭配合理摆放的 Mesh 系统",
+  "guide.homeNetworkPlanner.plan3": "摆放得当的一台路由器可能就够了",
+  "guide.homeNetworkPlanner.caution": "先使用现有设备。只有测试确认存在覆盖或容量问题后，才添加硬件。"
 }
