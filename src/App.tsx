@@ -1109,6 +1109,7 @@ function App() {
                 <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>{copy[7]}</a>
               </div>
             </details>
+            <a href="/blog/">Blog</a>
           </nav>
           <div className="tezz-header-actions"><label className="tezz-language-picker"><Globe2 size={15}/><span className="sr-only">{copy[8]}</span><select aria-label={copy[8]} value={language} onChange={event => changeLanguage(event.target.value as UiLanguage)}>{UI_LANGUAGES.map(item => <option key={item.code} value={item.code}>{item.native}</option>)}</select></label><a className="tezz-header-search" aria-label="Explore network tools" title="Explore network tools" href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}><Search size={18}/></a><button className="tezz-menu" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕' : '☰'}</button></div>
         </header>
@@ -1126,6 +1127,7 @@ function App() {
               <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About'); setMobileMenuOpen(false) }}>About TEZZ CONNECT</a>
             </div>
           </details>
+          <a href="/blog/">Blog</a>
         </nav>}
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
