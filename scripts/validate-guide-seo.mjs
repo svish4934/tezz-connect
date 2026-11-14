@@ -3,9 +3,9 @@ import { join } from 'node:path'
 
 const worker = await readFile('worker/index.ts', 'utf8')
 const hub = await readFile('public/guides/index.html', 'utf8')
-const sitemapMatch = worker.match(/if \(url\.pathname === "\/sitemap\.xml"\)[\s\S]*?const body = `([\s\S]*?)`/)
-if (!sitemapMatch) throw new Error('Could not find the Worker sitemap response')
-const sitemap = sitemapMatch[1]
+// The Worker serves the maintained static sitemap asset. Validate that
+// source file directly so this check also verifies the localized hreflang sitemap.
+const sitemap = await readFile('public/sitemap.xml', 'utf8')
 const urls = [...sitemap.matchAll(/<loc>(https:\/\/tezzconnect\.online\/[^<]+)<\/loc>/g)].map(match => match[1])
 const errors = []
 const titles = new Map()
