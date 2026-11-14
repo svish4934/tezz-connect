@@ -615,5 +615,13 @@
   "Try router placement and connection comparisons.": "राउटर की जगह बदलकर और कनेक्शन की तुलना करके देखें।",
   "Understand extenders, mesh and access points.": "एक्सटेंडर, मेश और एक्सेस पॉइंट को समझें।",
   "Work through common connection symptoms.": "कनेक्शन की आम समस्याओं के समाधान के चरण अपनाएँ।",
-  "Continue with the Internet Learning Roadmap →": "इंटरनेट लर्निंग रोडमैप के साथ आगे बढ़ें →"
+  "Continue with the Internet Learning Roadmap →": "इंटरनेट लर्निंग रोडमैप के साथ आगे बढ़ें →",
+  "Wi-Fi uses radio waves. As the signal travels through a home, distance and building materials can reduce the energy that reaches your device. Walls, floors, metal surfaces, appliances and the router's position all influence the result.": "Wi-Fi रेडियो तरंगों का उपयोग करता है। घर में सिग्नल आगे बढ़ते समय दूरी और निर्माण सामग्री आपके डिवाइस तक पहुँचने वाली ऊर्जा कम कर सकती है। दीवारें, फर्श, धातु की सतहें, उपकरण और राउटर की स्थिति—सभी परिणाम को प्रभावित करते हैं।",
+  "Often, 2.4 GHz can travel farther and pass through some obstacles better than higher-frequency bands. But it can be more crowded and usually has less available channel capacity. 5 GHz and 6 GHz can provide faster links in suitable conditions, especially closer to the router, but their coverage can be more limited. Your device and router must support the band.": "अक्सर 2.4 GHz अधिक दूरी तक जा सकता है और कुछ बाधाओं से उच्च-आवृत्ति बैंड की तुलना में बेहतर गुजर सकता है। लेकिन इस पर भीड़ अधिक हो सकती है और आमतौर पर चैनल क्षमता कम उपलब्ध होती है। उपयुक्त परिस्थितियों में 5 GHz और 6 GHz तेज़ कनेक्शन दे सकते हैं, विशेषकर राउटर के पास, लेकिन उनका कवरेज सीमित हो सकता है। आपके डिवाइस और राउटर में उस बैंड का समर्थन होना चाहिए।",
+  "Place the router in an open, raised and reasonably central location.": "राउटर को खुली, ऊँची और यथासंभव केंद्रीय जगह पर रखें।",
+  "Test from the rooms where you actually use the connection.": "जिन कमरों में आप वास्तव में कनेक्शन का उपयोग करते हैं, वहाँ परीक्षण करें।",
+  "Compare Wi-Fi with Ethernet near the router if possible.": "यदि संभव हो, तो राउटर के पास Wi-Fi और Ethernet की तुलना करें।",
+  "Change one thing at a time and repeat the test.": "एक बार में एक ही चीज़ बदलें और परीक्षण दोहराएँ।",
+  "Consider mesh or an access point only after checking placement and the wired connection.": "राउटर की जगह और वायर्ड कनेक्शन जाँचने के बाद ही मेश या एक्सेस पॉइंट पर विचार करें।",
+  "A colourful signal map can explain a concept, but only a real test in your home can show actual performance. Use the simulator to learn what to investigate—not to decide that a particular room has a guaranteed speed.": "रंगीन सिग्नल नक्शा किसी अवधारणा को समझा सकता है, लेकिन आपके घर में वास्तविक प्रदर्शन केवल वास्तविक परीक्षण से पता चलता है। सिम्युलेटर का उपयोग यह जानने के लिए करें कि क्या जाँचना है—यह तय करने के लिए नहीं कि किसी कमरे में गति की गारंटी है।"
 }
