@@ -306,5 +306,19 @@
   "roadmap.progress.unavailable": "Le stockage du navigateur est indisponible. Les coches resteront jusqu’à la fermeture de la page.",
   "roadmap.progress.cleared": "Votre progression a été réinitialisée dans ce navigateur.",
   "roadmap.meta.title": "Parcours d’apprentissage d’Internet : du débutant à l’avancé",
-  "roadmap.meta.description": "Parcours gratuit sur les bases d’Internet, les Mbps, le Wi-Fi, la latence et le dépannage pratique."
+  "roadmap.meta.description": "Parcours gratuit sur les bases d’Internet, les Mbps, le Wi-Fi, la latence et le dépannage pratique.",
+  "roadmap.nav.label": "Navigation du guide",
+  "roadmap.breadcrumb.title": "Parcours d’apprentissage d’Internet",
+  "roadmap.lesson1.desc": "Comprenez comment votre appareil, routeur, fournisseur et serveur fonctionnent ensemble.",
+  "roadmap.lesson2.desc": "Découvrez la signification du débit descendant, montant et des Mbps, ainsi que les unités des fichiers.",
+  "roadmap.lesson3.desc": "Découvrez comment l’envoi de fichiers, les sauvegardes cloud, le direct et les appels utilisent le débit montant.",
+  "roadmap.lesson4.desc": "Distinguez un problème général, lié à un appareil, à la couverture Wi-Fi ou à une application.",
+  "roadmap.lesson5.desc": "Comprenez le placement du routeur, les murs, interférences et bandes 2,4, 5 et 6 GHz.",
+  "roadmap.lesson6.desc": "Découvrez le rôle des routeurs, répéteurs, systèmes mesh, points d’accès et commutateurs.",
+  "roadmap.lesson7.desc": "Comprenez le temps de réponse, ses variations et la perte de paquets, notamment pour les appels et les jeux.",
+  "roadmap.lesson8.desc": "Découvrez pourquoi la distance du serveur, la stabilité des réponses et la perte de paquets comptent autant que la bande passante.",
+  "roadmap.lesson9.desc": "Modifiez les conditions réseau et observez comment les bandes Wi-Fi, l’agencement et les réponses influencent la connexion.",
+  "roadmap.practice.label": "À essayer :",
+  "roadmap.finish.eyebrow": "Continuez à approfondir vos connaissances",
+  "roadmap.note.label": "À propos de la progression :"
 }
