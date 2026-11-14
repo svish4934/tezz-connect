@@ -383,5 +383,8 @@
   "guide.homeNetworkPlanner.placementHeading": "Coloca los equipos correctamente",
   "guide.homeNetworkPlanner.checkHeading": "Antes de instalar o comprar",
   "guide.homeNetworkPlanner.footerGuides": "Todas las guías",
-  "guide.homeNetworkPlanner.footerAbout": "Acerca de"
+  "guide.homeNetworkPlanner.footerAbout": "Acerca de",
+  "guide.homeNetworkPlanner.navAria": "Navegación de la guía",
+  "guide.homeNetworkPlanner.flowAria": "Ruta de conexión de red sugerida",
+  "guide.homeNetworkPlanner.imageAlt": "Ejemplos de diseños con un router, un extensor Wi-Fi y una red mesh"
 }
