@@ -406,5 +406,17 @@
   "guide.troubleshooter.faq.dns.q": "Dois-je modifier le DNS pour corriger un Wi-Fi faible ?",
   "guide.troubleshooter.faq.dns.a": "Le DNS aide à traduire les noms de domaine en adresses réseau ; il ne renforce pas le signal radio. Si le Wi-Fi est faible dans une pièce, examinez l’emplacement, les obstacles et la couverture avant de modifier le DNS.",
   "guide.troubleshooter.faq.reset.q": "Est-il sûr de réinitialiser le routeur aux paramètres d’usine ?",
-  "guide.troubleshooter.faq.reset.a": "Cela ne devrait pas être une première étape. Une réinitialisation peut effacer le nom et le mot de passe Wi-Fi ainsi que les paramètres propres au fournisseur. Faites-le uniquement sur recommandation du fournisseur ou du fabricant et si vous disposez des informations nécessaires pour vous reconnecter."
+  "guide.troubleshooter.faq.reset.a": "Cela ne devrait pas être une première étape. Une réinitialisation peut effacer le nom et le mot de passe Wi-Fi ainsi que les paramètres propres au fournisseur. Faites-le uniquement sur recommandation du fournisseur ou du fabricant et si vous disposez des informations nécessaires pour vous reconnecter.",
+  "guide.troubleshooter.related.eyebrow": "Pour aller plus loin",
+  "guide.troubleshooter.related.heading": "Guides associés du Centre de connaissances Internet",
+  "guide.troubleshooter.related.wifi.title": "Améliorer la vitesse du Wi-Fi",
+  "guide.troubleshooter.related.wifi.body": "Emplacement du routeur, interférences et vérifications pratiques.",
+  "guide.troubleshooter.related.read": "Lire le guide →",
+  "guide.troubleshooter.related.latency.title": "Latence, ping et gigue",
+  "guide.troubleshooter.related.latency.body": "Comprendre les délais et les temps de réponse irréguliers.",
+  "guide.troubleshooter.related.lab.title": "Laboratoire réseau interactif",
+  "guide.troubleshooter.related.lab.body": "Expérimentez avec les bandes Wi-Fi et les réseaux domestiques.",
+  "guide.troubleshooter.related.try": "Essayer le laboratoire →",
+  "guide.troubleshooter.related.all": "← Parcourir tous les guides du Centre de connaissances Internet",
+  "guide.troubleshooter.footer.brand": "© 2026 TEZZ CONNECT · Fièrement créé en Inde 🇮🇳"
 }
