@@ -387,5 +387,22 @@
   "Immediately upgrade to the most expensive internet plan.": "立即升级到最昂贵的互联网套餐。",
   "Change every router setting at once.": "一次性更改路由器的所有设置。",
   "Home Wi-Fi security checkup": "家庭 Wi-Fi 安全检查",
-  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · 自豪地打造于印度 🇮🇳"
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · 自豪地打造于印度 🇮🇳",
+  "Improve Wi-Fi with a practical checklist, interactive home-layout simulator, Wi-Fi vs Ethernet comparison and troubleshooting exercise.": "通过实用检查清单、交互式家庭布局模拟器、Wi-Fi 与以太网比较及故障排查练习来改善 Wi-Fi。",
+  "Use an interactive Wi-Fi layout simulator, compare Wi-Fi and Ethernet results, and practise diagnosing common home network issues.": "使用交互式 Wi-Fi 布局模拟器，比较 Wi-Fi 和以太网结果，并练习诊断常见家庭网络问题。",
+  "Comparison of central and obstructed Wi-Fi router placement": "居中摆放与受阻摆放的 Wi-Fi 路由器对比",
+  "Example speed test results": "示例测速结果",
+  "Guide navigation": "指南导航",
+  "Interactive example home Wi-Fi layout": "交互式家庭 Wi-Fi 布局示例",
+  "A router sends a signal through a home toward a device. The signal path and room labels update as you change the controls.": "路由器向设备发送信号，信号穿过家庭空间传播。更改控件时，信号路径和房间标签会更新。",
+  "LIVING ROOM": "客厅",
+  "HALLWAY": "走廊",
+  "BEDROOM": "卧室",
+  "KITCHEN": "厨房",
+  "STUDY": "书房",
+  "FAR ROOM": "较远的房间",
+  "ROUTER": "路由器",
+  "YOUR DEVICE": "您的设备",
+  "TRY A SCENARIO": "尝试一种场景",
+  "ROUTER + DEVICE": "路由器 + 设备"
 }
