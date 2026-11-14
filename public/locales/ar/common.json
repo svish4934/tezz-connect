@@ -152,8 +152,8 @@
   "Run the test": "تشغيل الاختبار",
   "Start test": "ابدأ الاختبار",
   "Stop test": "أوقف الاختبار",
-  "Download": "تنزيل",
-  "Upload": "رفع",
+  "Download": "التنزيل",
+  "Upload": "الرفع",
   "Latency": "زمن الاستجابة",
   "Jitter": "التذبذب",
   "INTERNET SPEED TEST": "اختبار سرعة الإنترنت",
@@ -432,5 +432,7 @@
   "Networking buying guides": "أدلة شراء معدات الشبكات",
   "Read guide →": "اقرأ الدليل →",
   "All guides": "كل الأدلة",
-  "About": "حول"
+  "About": "حول",
+  "Internet speed explained": "شرح سرعة الإنترنت",
+  "Latency, ping and jitter": "زمن الاستجابة وPing والتذبذب"
 }
