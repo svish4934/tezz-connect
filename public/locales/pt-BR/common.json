@@ -306,5 +306,19 @@
   "roadmap.progress.unavailable": "O armazenamento do navegador está indisponível. As marcações permanecem até fechar a página.",
   "roadmap.progress.cleared": "Seu progresso de aprendizagem foi redefinido neste navegador.",
   "roadmap.meta.title": "Roteiro de aprendizagem da internet: do iniciante ao avançado",
-  "roadmap.meta.description": "Roteiro gratuito sobre fundamentos da internet, Mbps, Wi-Fi, latência e solução prática de problemas."
+  "roadmap.meta.description": "Roteiro gratuito sobre fundamentos da internet, Mbps, Wi-Fi, latência e solução prática de problemas.",
+  "roadmap.nav.label": "Navegação do guia",
+  "roadmap.breadcrumb.title": "Roteiro de aprendizagem da internet",
+  "roadmap.lesson1.desc": "Entenda como seu dispositivo, roteador, provedor e servidor trabalham juntos.",
+  "roadmap.lesson2.desc": "Saiba o que significam download, upload e Mbps e por que arquivos usam unidades diferentes.",
+  "roadmap.lesson3.desc": "Veja como enviar arquivos, backups na nuvem, transmissões ao vivo e chamadas usam o upload.",
+  "roadmap.lesson4.desc": "Diferencie problemas gerais, de um dispositivo, de cobertura Wi-Fi ou de um aplicativo.",
+  "roadmap.lesson5.desc": "Entenda a posição do roteador, paredes, interferências e as faixas de 2,4, 5 e 6 GHz.",
+  "roadmap.lesson6.desc": "Saiba o que fazem roteadores, extensores, sistemas mesh, pontos de acesso e switches.",
+  "roadmap.lesson7.desc": "Entenda o tempo de resposta, sua variação e a perda de pacotes, especialmente em chamadas e jogos.",
+  "roadmap.lesson8.desc": "Entenda por que distância do servidor, resposta estável e perda de pacotes importam tanto quanto a largura de banda.",
+  "roadmap.lesson9.desc": "Altere condições de rede de exemplo e observe como bandas Wi-Fi, layouts e respostas afetam a conexão.",
+  "roadmap.practice.label": "Experimente:",
+  "roadmap.finish.eyebrow": "Continue ampliando seu conhecimento",
+  "roadmap.note.label": "Sobre o progresso:"
 }
