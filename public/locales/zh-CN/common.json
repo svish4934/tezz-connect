@@ -306,5 +306,19 @@
   "roadmap.progress.unavailable": "浏览器存储不可用。勾选状态仅在关闭页面前保留。",
   "roadmap.progress.cleared": "此浏览器中的学习进度已重置。",
   "roadmap.meta.title": "互联网学习路线图：从入门到进阶",
-  "roadmap.meta.description": "免费学习路线图，涵盖互联网基础、Mbps、Wi-Fi、延迟和实用故障排查。"
+  "roadmap.meta.description": "免费学习路线图，涵盖互联网基础、Mbps、Wi-Fi、延迟和实用故障排查。",
+  "roadmap.nav.label": "指南导航",
+  "roadmap.breadcrumb.title": "互联网学习路线图",
+  "roadmap.lesson1.desc": "了解你的设备、路由器、互联网服务提供商和网站服务器如何协同工作。",
+  "roadmap.lesson2.desc": "了解下载速度、上传速度和 Mbps 的含义，以及文件大小为何使用不同单位。",
+  "roadmap.lesson3.desc": "了解发送文件、云备份、直播和视频通话如何使用上传连接。",
+  "roadmap.lesson4.desc": "区分整个连接、单台设备、Wi-Fi 覆盖弱或特定应用的问题。",
+  "roadmap.lesson5.desc": "了解路由器位置、墙体、干扰，以及 2.4、5 和 6 GHz 频段的区别。",
+  "roadmap.lesson6.desc": "了解路由器、扩展器、Mesh 系统、以太网接入点和网络交换机的作用。",
+  "roadmap.lesson7.desc": "了解响应时间、响应波动和丢包，尤其是通话和游戏场景。",
+  "roadmap.lesson8.desc": "了解服务器距离、稳定响应时间和丢包为何可能与带宽同样重要。",
+  "roadmap.lesson9.desc": "更改示例网络条件，观察 Wi-Fi 频段、布局和响应行为如何影响连接。",
+  "roadmap.practice.label": "试一试：",
+  "roadmap.finish.eyebrow": "继续拓展知识",
+  "roadmap.note.label": "关于学习进度："
 }
