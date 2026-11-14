@@ -299,7 +299,7 @@
   "glossary.quiz.correct": "正确。抖动是数据包延迟的变化。",
   "glossary.quiz.incorrect": "不完全正确。抖动表示数据包延迟的变化。可查看延迟与抖动指南了解图解说明。",
   "glossary.next.title": "把这些术语运用起来",
-  "glossary.next.body": "了解这些术语后，看看它们如何相互作用。测速会在测试条件下测量吞吐量；Ping 有助于了解响应时间；Wi-Fi 路由器的位置会影响设备与路由器之间无线链路的质量。",
+  "glossary.next.body": "了解这些术语后，可以看看它们如何共同发挥作用。测速会在测试条件下测量吞吐量；Ping 有助于了解响应时间；Wi-Fi 路由器的位置会影响设备与路由器之间无线链路的质量。",
   "glossary.remember.title": "请记住",
   "glossary.remember.body": "单一数字很难说明整个连接状况。下载和上传速度、延迟、抖动、丢包、Wi-Fi 质量以及远程服务都可能影响体验。",
   "glossary.count.dynamic": "显示 {total} 个术语中的 {visible} 个",
