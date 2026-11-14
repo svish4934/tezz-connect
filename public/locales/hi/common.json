@@ -756,5 +756,12 @@
   "It can. A VPN adds an extra route and encryption work, and its server may have limited capacity or be far away. For a fair comparison, test with the VPN off and on using the same device and test method, if your work or privacy requirements allow it.": "हाँ। VPN अतिरिक्त नेटवर्क रूट और एन्क्रिप्शन जोड़ता है। उसका सर्वर सीमित क्षमता वाला या दूर हो सकता है। यदि आपकी ज़रूरतें अनुमति दें, तो उसी डिवाइस और टेस्ट तरीके से VPN चालू और बंद करके जाँचें।",
   "You can watch videos smoothly but sending a large video file takes a long time. Which result should you look at?": "आप वीडियो आसानी से देख पा रहे हैं, लेकिन बड़ी वीडियो फ़ाइल भेजने में बहुत समय लगता है। आपको किस परिणाम पर ध्यान देना चाहिए?",
   "JavaScript is needed to check your answer interactively. The guide above contains the explanation.": "इस उत्तर को इंटरैक्टिव तरीके से जाँचने के लिए JavaScript आवश्यक है। ऊपर दी गई गाइड में इसका स्पष्टीकरण है।",
-  "Build on this topic with these practical TEZZ CONNECT guides.": "इन उपयोगी TEZZ CONNECT गाइड के साथ इस विषय को और समझें।"
+  "Build on this topic with these practical TEZZ CONNECT guides.": "इन उपयोगी TEZZ CONNECT गाइड के साथ इस विषय को और समझें।",
+  "Skip to main content": "मुख्य सामग्री पर जाएँ",
+  "Knowledge Hub": "नॉलेज हब",
+  "Speed test": "स्पीड टेस्ट",
+  "Home": "होम",
+  "/ Upload speed explained": "/ अपलोड स्पीड की व्याख्या",
+  "plan for what happens when your household is busy, not only when one device is running a speed test. If you regularly make calls while someone else backs up videos or uploads work files, you need enough spare capacity for both activities to run comfortably.": "घर में व्यस्त समय के उपयोग को ध्यान में रखकर प्लान चुनें, केवल उस समय को नहीं जब एक डिवाइस स्पीड टेस्ट चला रहा हो। यदि आप अक्सर कॉल करते हैं और उसी समय कोई वीडियो बैकअप या काम की फ़ाइलें अपलोड करता है, तो दोनों गतिविधियों के लिए पर्याप्त अतिरिक्त क्षमता चाहिए।",
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© 2026 TEZZ CONNECT · गर्व से भारत में निर्मित 🇮🇳"
 }
