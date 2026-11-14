@@ -328,5 +328,22 @@
   "guide.interactiveNetworkLab.relatedEquipment": "Equipamentos de rede",
   "guide.interactiveNetworkLab.relatedEquipmentDesc": "Compare roteadores, repetidores e sistemas mesh.",
   "guide.interactiveNetworkLab.footerGuides": "Todos os guias",
-  "guide.interactiveNetworkLab.footerAbout": "Sobre"
+  "guide.interactiveNetworkLab.footerAbout": "Sobre",
+  "guide.interactiveNetworkLab.dynamic.distance.near": "Perto",
+  "guide.interactiveNetworkLab.dynamic.distance.across": "Do outro lado da casa",
+  "guide.interactiveNetworkLab.dynamic.distance.far": "Cômodo distante",
+  "guide.interactiveNetworkLab.dynamic.band.rec24": "Teste 2,4 GHz primeiro",
+  "guide.interactiveNetworkLab.dynamic.band.rec5": "Teste 5 GHz primeiro",
+  "guide.interactiveNetworkLab.dynamic.band.rec.compare": "Compare 5 GHz e 6 GHz",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.bad": "Instável",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.mid": "Algum atraso",
+  "guide.interactiveNetworkLab.dynamic.latency.grade.good": "Responsiva",
+  "guide.interactiveNetworkLab.dynamic.topology.single": "Roteador único",
+  "guide.interactiveNetworkLab.dynamic.topology.extender": "Roteador + repetidor",
+  "guide.interactiveNetworkLab.dynamic.topology.mesh": "Sistema mesh",
+  "guide.interactiveNetworkLab.dynamic.quiz.none": "Escolha uma resposta primeiro.",
+  "guide.interactiveNetworkLab.dynamic.quiz.correct": "Correto. Identifique onde a cobertura cai e verifique a posição do roteador.",
+  "guide.interactiveNetworkLab.dynamic.quiz.wrong": "Identifique primeiro o problema de cobertura e altere uma condição por vez.",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "Alguns pacotes podem se perder",
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "Solicitação e resposta"
 }
