@@ -361,5 +361,18 @@
   "guide.homeNetworkPlanner.flow9": "Router Wi-Fi",
   "guide.homeNetworkPlanner.flow10": "Teléfonos, portátiles y televisores",
   "guide.homeNetworkPlanner.cautionFloors": "La estructura entre plantas puede afectar mucho a los enlaces inalámbricos; prueba cada planta antes de decidir cuántos nodos necesitas.",
-  "guide.homeNetworkPlanner.cautionBackhaul": "El backhaul cableado suele ser más predecible que un enlace inalámbrico entre plantas."
+  "guide.homeNetworkPlanner.cautionBackhaul": "El backhaul cableado suele ser más predecible que un enlace inalámbrico entre plantas.",
+  "guide.homeNetworkPlanner.body1": "En una casa típica, el servicio de internet llega a un módem o una ONT de fibra. El router conecta la red doméstica a ese servicio y ofrece puertos cableados y, a menudo, Wi‑Fi. Otros dispositivos se conectan directamente al router, mediante un switch o a través de puntos de acceso o nodos mesh adicionales.",
+  "guide.homeNetworkPlanner.body2": "Un switch de red añade puertos Ethernet. Un punto de acceso inalámbrico añade cobertura Wi‑Fi en una ubicación conectada a la red, normalmente mediante Ethernet. Un sistema mesh utiliza varias unidades Wi‑Fi coordinadas, que necesitan una conexión adecuada entre sí, inalámbrica o cableada si es compatible.",
+  "guide.homeNetworkPlanner.place1": "Cuando sea posible, coloca el router principal en un lugar abierto y elevado, no dentro de un armario ni detrás del televisor.",
+  "guide.homeNetworkPlanner.place2": "Coloca los nodos mesh inalámbricos donde todavía reciban una buena conexión de la unidad principal o de otro nodo.",
+  "guide.homeNetworkPlanner.place3": "Usa Ethernet para dispositivos fijos y sensibles a la latencia cuando sea práctico.",
+  "guide.homeNetworkPlanner.place4": "Evita colocar puntos de acceso o nodos mesh junto a objetos metálicos grandes, obstáculos densos o fuentes de interferencia.",
+  "guide.homeNetworkPlanner.place5": "Cambia una ubicación cada vez y prueba desde las habitaciones donde se utiliza la red.",
+  "guide.homeNetworkPlanner.check1": "Comprueba la velocidad y el tipo de conexión que ofrece tu proveedor.",
+  "guide.homeNetworkPlanner.check2": "Comprueba las capacidades de los puertos del router, la ONT y los dispositivos.",
+  "guide.homeNetworkPlanner.check3": "Decide qué dispositivos se benefician más de las conexiones por cable.",
+  "guide.homeNetworkPlanner.check4": "Planifica rutas seguras para los cables y acceso a la alimentación para cada dispositivo.",
+  "guide.homeNetworkPlanner.check5": "Prueba la red actual antes de comprar equipos adicionales.",
+  "guide.homeNetworkPlanner.note": "Este planificador ofrece una recomendación orientativa basada en tus respuestas. No inspecciona el edificio, mide señales de radio, comprueba la compatibilidad de productos ni garantiza cobertura. Los resultados reales dependen de las paredes, la construcción, los equipos, las interferencias, la ubicación y la calidad del servicio."
 }
