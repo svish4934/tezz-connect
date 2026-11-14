@@ -756,5 +756,12 @@
   "It can. A VPN adds an extra route and encryption work, and its server may have limited capacity or be far away. For a fair comparison, test with the VPN off and on using the same device and test method, if your work or privacy requirements allow it.": "হ্যাঁ। VPN অতিরিক্ত রুট ও এনক্রিপশনের কাজ যোগ করে, এবং এর সার্ভারের ক্ষমতা সীমিত বা দূরে হতে পারে। প্রয়োজন অনুমতি দিলে একই ডিভাইস ও পদ্ধতিতে VPN চালু ও বন্ধ রেখে তুলনা করুন।",
   "You can watch videos smoothly but sending a large video file takes a long time. Which result should you look at?": "আপনি সহজেই ভিডিও দেখতে পারেন, কিন্তু বড় ভিডিও ফাইল পাঠাতে অনেক সময় লাগে। কোন ফলটি আপনার দেখা উচিত?",
   "JavaScript is needed to check your answer interactively. The guide above contains the explanation.": "এই উত্তরটি ইন্টার‌্যাক্টিভভাবে যাচাই করতে JavaScript প্রয়োজন। উপরের গাইডে ব্যাখ্যা দেওয়া আছে।",
-  "Build on this topic with these practical TEZZ CONNECT guides.": "এই ব্যবহারিক TEZZ CONNECT গাইডগুলি দিয়ে বিষয়টি আরও ভালোভাবে বুঝুন।"
+  "Build on this topic with these practical TEZZ CONNECT guides.": "এই ব্যবহারিক TEZZ CONNECT গাইডগুলি দিয়ে বিষয়টি আরও ভালোভাবে বুঝুন।",
+  "Skip to main content": "মূল বিষয়বস্তুতে যান",
+  "Knowledge Hub": "জ্ঞানকেন্দ্র",
+  "Speed test": "স্পিড টেস্ট",
+  "Home": "হোম",
+  "/ Upload speed explained": "/ আপলোডের গতি ব্যাখ্যা",
+  "plan for what happens when your household is busy, not only when one device is running a speed test. If you regularly make calls while someone else backs up videos or uploads work files, you need enough spare capacity for both activities to run comfortably.": "বাড়ির সবাই ব্যস্তভাবে ইন্টারনেট ব্যবহার করার সময় কী হয় তা ভেবে প্ল্যান করুন, শুধু একটি ডিভাইসে স্পিড টেস্ট চলার সময় নয়। আপনি কল করার সময় অন্য কেউ ভিডিও ব্যাকআপ বা কাজের ফাইল আপলোড করলে, দুটি কাজের জন্যই যথেষ্ট অতিরিক্ত ক্ষমতা দরকার।",
+  "© 2026 TEZZ CONNECT · Proudly built in India 🇮🇳": "© ২০২৬ TEZZ CONNECT · গর্বের সঙ্গে ভারতে তৈরি 🇮🇳"
 }
