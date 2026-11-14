@@ -406,5 +406,17 @@
   "guide.troubleshooter.faq.dns.q": "هل ينبغي تغيير DNS لإصلاح ضعف Wi-Fi؟",
   "guide.troubleshooter.faq.dns.a": "يساعد DNS في تحويل أسماء النطاقات إلى عناوين شبكة؛ لكنه لا يقوّي الإشارة اللاسلكية. إذا كان Wi-Fi ضعيفًا في غرفة واحدة، فتحقق من موضع الموجّه والعوائق والتغطية قبل تغيير DNS.",
   "guide.troubleshooter.faq.reset.q": "هل إعادة ضبط الموجّه إلى إعدادات المصنع آمنة؟",
-  "guide.troubleshooter.faq.reset.a": "لا ينبغي أن تكون خطوة أولى. فقد تمحو إعادة الضبط اسم شبكة Wi-Fi وكلمة المرور والإعدادات الخاصة بمزوّد الخدمة. لا تفعل ذلك إلا إذا أوصى به المزوّد أو الشركة المصنّعة وكانت لديك تفاصيل الإعداد اللازمة لإعادة الاتصال."
+  "guide.troubleshooter.faq.reset.a": "لا ينبغي أن تكون خطوة أولى. فقد تمحو إعادة الضبط اسم شبكة Wi-Fi وكلمة المرور والإعدادات الخاصة بمزوّد الخدمة. لا تفعل ذلك إلا إذا أوصى به المزوّد أو الشركة المصنّعة وكانت لديك تفاصيل الإعداد اللازمة لإعادة الاتصال.",
+  "guide.troubleshooter.related.eyebrow": "واصل التعلّم",
+  "guide.troubleshooter.related.heading": "أدلة ذات صلة من مركز معارف الإنترنت",
+  "guide.troubleshooter.related.wifi.title": "حسّن سرعة Wi-Fi",
+  "guide.troubleshooter.related.wifi.body": "موضع الموجّه والتداخل والفحوصات العملية.",
+  "guide.troubleshooter.related.read": "اقرأ الدليل ←",
+  "guide.troubleshooter.related.latency.title": "زمن الاستجابة وping وjitter",
+  "guide.troubleshooter.related.latency.body": "افهم التأخير وأوقات الاستجابة غير المنتظمة.",
+  "guide.troubleshooter.related.lab.title": "مختبر شبكة تفاعلي",
+  "guide.troubleshooter.related.lab.body": "جرّب نطاقات Wi-Fi وتخطيطات الشبكات المنزلية.",
+  "guide.troubleshooter.related.try": "جرّب المختبر ←",
+  "guide.troubleshooter.related.all": "← تصفّح جميع أدلة مركز معارف الإنترنت",
+  "guide.troubleshooter.footer.brand": "© 2026 TEZZ CONNECT · صُنع بفخر في الهند 🇮🇳"
 }
