@@ -374,5 +374,14 @@
   "guide.homeNetworkPlanner.check3": "确定哪些设备最适合使用有线连接。",
   "guide.homeNetworkPlanner.check4": "为每台设备规划安全的布线路径和电源位置。",
   "guide.homeNetworkPlanner.check5": "购买额外设备前，先测试现有网络。",
-  "guide.homeNetworkPlanner.note": "此规划工具根据您的回答提供学习建议。它不会检查建筑、测量无线电信号、核验产品兼容性，也不保证覆盖范围。实际效果取决于墙体、建筑结构、设备、干扰、摆放位置和服务质量。"
+  "guide.homeNetworkPlanner.note": "此规划工具根据您的回答提供学习建议。它不会检查建筑、测量无线电信号、核验产品兼容性，也不保证覆盖范围。实际效果取决于墙体、建筑结构、设备、干扰、摆放位置和服务质量。",
+  "guide.homeNetworkPlanner.navKnowledgeHub": "知识中心",
+  "guide.homeNetworkPlanner.navRoadmap": "学习路线图",
+  "guide.homeNetworkPlanner.crumbHome": "首页",
+  "guide.homeNetworkPlanner.crumbHub": "互联网知识中心",
+  "guide.homeNetworkPlanner.crumbPlanner": "家庭网络规划器",
+  "guide.homeNetworkPlanner.placementHeading": "合理摆放设备",
+  "guide.homeNetworkPlanner.checkHeading": "安装或购买前",
+  "guide.homeNetworkPlanner.footerGuides": "所有指南",
+  "guide.homeNetworkPlanner.footerAbout": "关于我们"
 }
