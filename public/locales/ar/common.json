@@ -345,5 +345,17 @@
   "guide.interactiveNetworkLab.dynamic.quiz.correct": "صحيح. حدّد موضع ضعف التغطية وتحقق من مكان الموجّه.",
   "guide.interactiveNetworkLab.dynamic.quiz.wrong": "حدّد مشكلة التغطية أولاً وغيّر عاملاً واحداً في كل مرة.",
   "guide.interactiveNetworkLab.dynamic.latency.caption.loss": "قد تُفقد بعض الحزم",
-  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "طلب واستجابة"
+  "guide.interactiveNetworkLab.dynamic.latency.caption.normal": "طلب واستجابة",
+  "guide.interactiveNetworkLab.dynamic.band.why.device": "الجهاز المحدد يدعم 2.4 GHz فقط.",
+  "guide.interactiveNetworkLab.dynamic.band.why.far": "ابدأ بتردد 2.4 GHz عند وجود مسافة طويلة أو عدة جدران.",
+  "guide.interactiveNetworkLab.dynamic.band.why.near": "قارن بين 5 GHz و6 GHz بالقرب من الموجّه إذا كان الجهازان يدعمانهما.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.good": "يساعد انخفاض التأخير والتذبذب على جعل الأنشطة التفاعلية أكثر سلاسة.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.mid": "قد تبدو الأنشطة التفاعلية أقل فورية أو أقل ثباتاً.",
+  "guide.interactiveNetworkLab.dynamic.latency.explain.bad": "قد يؤدي التأخير أو التذبذب أو فقدان الحزم إلى توقفات أو بطء أو صوت وفيديو غير منتظمين.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.single": "يغطي موجّه واحد المنزل كله، لذا قد تكون الإشارة أضعف في الغرف البعيدة.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.extender": "يمكن لموسّع الإشارة إيصال Wi-Fi إلى منطقة ضعيفة، لكنه يحتاج إلى إشارة جيدة من الموجّه الرئيسي.",
+  "guide.interactiveNetworkLab.dynamic.topology.copy.mesh": "تغطي عدة عُقد Mesh المنازل الأكبر؛ ويهم موضع العقد والربط بينها.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.single": "يناسب المنازل الصغيرة عندما يوضع الموجّه في مكان جيد.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.extender": "ضع الموسّع في مكان لا تزال فيه إشارة Wi-Fi الأصلية جيدة نسبياً.",
+  "guide.interactiveNetworkLab.dynamic.topology.tip.mesh": "تحقق من توافق العقد وإمكانية استخدام ربط سلكي."
 }
