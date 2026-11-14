@@ -663,5 +663,8 @@
   "guide.homeNetworkPlanner.placementHeading": "उपकरणे योग्य ठिकाणी ठेवा",
   "guide.homeNetworkPlanner.checkHeading": "बसवण्यापूर्वी किंवा खरेदीपूर्वी",
   "guide.homeNetworkPlanner.footerGuides": "सर्व मार्गदर्शिका",
-  "guide.homeNetworkPlanner.footerAbout": "आमच्याबद्दल"
+  "guide.homeNetworkPlanner.footerAbout": "आमच्याबद्दल",
+  "guide.homeNetworkPlanner.navAria": "मार्गदर्शिका नेव्हिगेशन",
+  "guide.homeNetworkPlanner.flowAria": "सुचवलेला नेटवर्क कनेक्शन मार्ग",
+  "guide.homeNetworkPlanner.imageAlt": "सिंगल राउटर, वाय-फाय एक्स्टेंडर आणि मेश नेटवर्क मांडणीची उदाहरणे"
 }
