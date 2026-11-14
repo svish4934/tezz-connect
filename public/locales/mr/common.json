@@ -618,5 +618,18 @@
   "Read guide →": "मार्गदर्शक वाचा →",
   "Connection troubleshooter": "कनेक्शन समस्या निवारक",
   "Work through common home internet problems.": "घरातील सामान्य इंटरनेट समस्यांवर टप्प्याटप्प्याने उपाय करा.",
-  "Open tool →": "साधन उघडा →"
+  "Open tool →": "साधन उघडा →",
+  "guide.security.eyebrow": "घरगुती नेटवर्क सुरक्षा",
+  "guide.security.meta": "TEZZ CONNECT · घरगुती वाय-फाय सुरक्षा तपासणी",
+  "guide.security.checklist": "परस्परसंवादी तपासणी यादी",
+  "guide.security.performance_intro": "सुरक्षा आणि कार्यक्षमता या वेगवेगळ्या तपासण्या आहेत. तुमचे कनेक्शन धीमे किंवा अस्थिर असल्यास हे वापरा: ",
+  "guide.security.troubleshooter_link": "कनेक्शन समस्या निवारक",
+  "guide.security.performance_join": "आणि",
+  "guide.security.wifi_guide_link": "वाय-फाय सुधार मार्गदर्शक",
+  "US Federal Trade Commission: How to secure your home Wi-Fi network": "अमेरिकेचा फेडरल ट्रेड कमिशन: घरच्या वाय-फाय नेटवर्कचे संरक्षण कसे करावे",
+  "— encryption and default settings.": "— एन्क्रिप्शन आणि डीफॉल्ट सेटिंग्ज.",
+  "Apple: Recommended settings for Wi-Fi routers and access points": "Apple: वाय-फाय राउटर आणि ॲक्सेस पॉइंटसाठी शिफारस केलेल्या सेटिंग्ज",
+  "— WPA3, WPA2-AES and deprecated modes.": "— WPA3, WPA2-AES आणि कालबाह्य मोड.",
+  "Canadian Centre for Cyber Security: Router cyber security best practices": "कॅनडियन सेंटर फॉर सायबर सिक्युरिटी: राउटर सायबर सुरक्षेच्या सर्वोत्तम पद्धती",
+  "— WPS, firmware, guest access and remote administration.": "— WPS, फर्मवेअर, अतिथी प्रवेश आणि रिमोट प्रशासन."
 }
