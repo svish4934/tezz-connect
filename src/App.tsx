@@ -530,7 +530,7 @@ function App() {
 
   useEffect(() => {
     const titles: Record<string, string> = {
-      Overview: 'Free Internet Speed Test | TEZZ CONNECT',
+      Overview: 'Free Internet Speed Test | Download & Upload | TEZZ CONNECT',
       'Internet Doctor': 'Internet Doctor | TEZZ CONNECT',
       Network: 'Network Tools | TEZZ CONNECT',
       'Global Network': 'Global Network Intelligence | TEZZ CONNECT',
@@ -542,7 +542,7 @@ function App() {
     document.title = language !== 'en' ? (localizedMeta.pageTitles?.[activeTab] ?? (activeTab === 'Overview' ? localizedMeta.title : undefined) ?? titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools') : (titles[activeTab] ?? 'TEZZ CONNECT | Internet Performance Tools')
 
     const descriptions: Record<string, string> = {
-      Overview: 'TEZZ CONNECT offers a free browser-based internet speed test for download, upload and latency, with practical guides in its Internet Knowledge Hub.',
+      Overview: 'Test download, upload and browser-based latency with TEZZ CONNECT’s free internet speed test. Explore practical Wi-Fi tips in our Internet Knowledge Hub.',
       'Internet Doctor': 'Investigate slow or unstable internet with practical connection checks. Review speed, response time, Wi-Fi and stability signals, then follow clear troubleshooting steps.',
       Network: 'Free IP address lookup, DNS record checker, Wi-Fi troubleshooting and browser-based network diagnostics from TEZZ CONNECT.',
       'Global Network': 'Explore aggregate regional internet performance benchmarks from participating TEZZ CONNECT tests. See how opt-in samples are grouped and understand their limits.',
