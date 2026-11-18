@@ -1,5 +1,3 @@
-import React from 'react'
-
 type Props = { colo?: string; country?: string; region?: string; asn?: number | null; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
 const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
