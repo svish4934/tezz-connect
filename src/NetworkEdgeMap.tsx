@@ -48,7 +48,7 @@ export default function NetworkEdgeMap({ colo, country, region, asn, organizatio
       <div><span>Source region</span><strong>{[region,country].filter(Boolean).join(', ') || 'Not provided'}</strong></div>
       <div><span>ASN</span><strong>{asn ? `AS${asn}` : 'Not provided'}</strong></div>
     </div>
-    <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}` : 'Edge metadata is provided by the network handling this request.'} This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
+    <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} Only the highlighted colo is detected data; other map markers and paths are illustrative. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
   </section>
 }
