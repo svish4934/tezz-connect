@@ -38,5 +38,7 @@ jobs:
           npx wrangler d1 migrations apply tezz-connect-preview --remote --config wrangler.preview-migrations.toml
       - name: Validate Knowledge Hub locales
         run: npm run test:locales
+      - name: Validate sitemap and Knowledge Hub SEO
+        run: npm run test:seo-guides
       - name: Build application
         run: npm run build
