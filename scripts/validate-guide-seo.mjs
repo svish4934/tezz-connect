@@ -6,7 +6,7 @@ const hub = await readFile('public/guides/index.html', 'utf8')
 // The Worker serves the maintained static sitemap asset. Validate that
 // source file directly so this check also verifies the localized hreflang sitemap.
 const sitemap = await readFile('public/sitemap.xml', 'utf8')
-const urls = [...sitemap.matchAll(/<loc>(https:\/\/tezzconnect\.online\/[^<]+)<\/loc>/g)].map(match => match[1])
+const urls = [...sitemap.matchAll(/<loc>(https:\/\/tezzconnect\.online\/[^<]*)<\/loc>/g)].map(match => match[1])
 const errors = []
 const titles = new Map()
 const descriptions = new Map()
