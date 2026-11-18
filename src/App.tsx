@@ -443,6 +443,7 @@ function App() {
     return () => observer.disconnect()
   }, [language, localeBundle])
   const [state, setState] = useState<TestState>('idle')
+  const speedTestLockRef = useRef(false)
   const [progress, setProgress] = useState(0)
   const [liveSpeed, setLiveSpeed] = useState(0)
   const [downloadBytes, setDownloadBytes] = useState(0)
@@ -990,7 +991,8 @@ function App() {
   }
 
   async function runTest() {
-    if (state === 'running') return
+    if (speedTestLockRef.current || state === 'running') return
+    speedTestLockRef.current = true
     setState('running')
     setProgress(8)
     setLiveSpeed(0)
@@ -1085,6 +1087,8 @@ function App() {
       setState('error')
       setServicePhase('idle')
       setProgress(0)
+    } finally {
+      speedTestLockRef.current = false
     }
   }
 
