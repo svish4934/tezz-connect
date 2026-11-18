@@ -443,6 +443,7 @@ function App() {
     return () => observer.disconnect()
   }, [language, localeBundle])
   const [state, setState] = useState<TestState>('idle')
+  const speedTestLockRef = useRef(false)
   const [progress, setProgress] = useState(0)
   const [liveSpeed, setLiveSpeed] = useState(0)
   const [downloadBytes, setDownloadBytes] = useState(0)
@@ -990,7 +991,8 @@ function App() {
   }
 
   async function runTest() {
-    if (state === 'running') return
+    if (speedTestLockRef.current || state === 'running') return
+    speedTestLockRef.current = true
     setState('running')
     setProgress(8)
     setLiveSpeed(0)
@@ -1085,6 +1087,8 @@ function App() {
       setState('error')
       setServicePhase('idle')
       setProgress(0)
+    } finally {
+      speedTestLockRef.current = false
     }
   }
 
@@ -1349,11 +1353,10 @@ function App() {
               <div className="doctor-status"><span className="section-kicker">{speedText(language, 'DIAGNOSTIC STATUS')}</span><strong className={result && quality === 'Needs attention' ? 'status-alert' : result && quality === 'Fair' ? 'status-caution' : 'status-positive'}>{result ? quality : speedText(language, 'Awaiting test')}</strong><p>{result ? `Measured download ${result.download} Mbps · HTTP round-trip ${result.ping} ms · HTTP response variation ${result.jitter} ms.` : speedText(language, 'Run the speed test first. The Doctor will use those measurements to tailor its recommendations.')}</p></div>
               <div className="doctor-findings">
                 {doctorFindings.map((finding) => <div className="doctor-finding" key={finding.title}><span className={`finding-dot ${finding.status}`} /><div><strong>{finding.title}</strong><p>{finding.detail}</p><small className="doctor-evidence">{finding.evidence}</small></div></div>)}
-                {!result && network.online && <button className="doctor-run-test" onClick={() => { void runTest() }} disabled={state === 'running'}>{state === 'running' ? speedText(language, 'Test running…') : speedText(language, 'Run speed test')} <span aria-hidden="true">→</span></button>}
               </div>
             </div>
             <div className="doctor-next-steps">
-              <div className="doctor-next-heading"><div><span className="section-kicker">{speedText(language, 'PERSONALISED TROUBLESHOOTING')}</span><h3>{speedText(language, 'Recommended next steps')}</h3></div><button className="doctor-run-test" onClick={() => { void runTest() }} disabled={state === 'running'}>{state === 'running' ? speedText(language, 'Test running…') : speedText(language, 'Run new test')} <span aria-hidden="true">→</span></button></div>
+              <div className="doctor-next-heading"><div><span className="section-kicker">{speedText(language, 'PERSONALISED TROUBLESHOOTING')}</span><h3>{speedText(language, 'Recommended next steps')}</h3></div>{network.online && <button className="doctor-run-test" onClick={() => { void runTest() }} disabled={state === 'running'}>{state === 'running' ? speedText(language, 'Test running…') : result ? speedText(language, 'Run new test') : speedText(language, 'Run speed test')} <span aria-hidden="true">→</span></button>}</div>
               <div className="doctor-next-grid">{doctorRecommendations.map(item => <div className="doctor-next-item" key={item.title}><span className={`doctor-priority ${item.priority}`}>{item.priority === 'high' ? speedText(language, 'Priority') : item.priority === 'medium' ? speedText(language, 'Suggested') : speedText(language, 'Next step')}</span><strong>{item.title}</strong><p>{item.detail}</p></div>)}</div>
             </div>
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> {speedText(language, 'Latency and response variation here are browser HTTP measurements, not ICMP ping. These are first-pass indicators, not a definitive line fault diagnosis. Results can vary with Wi-Fi signal, device load, server distance and ISP routing.')}</div>
