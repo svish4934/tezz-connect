@@ -14,7 +14,7 @@ const hubs = [{x:175,y:185},{x:490,y:155},{x:805,y:260},{x:895,y:225},{x:345,y:3
 export default function NetworkEdgeMap({ colo, country, region, asn, organization, loading, error, updatedAt, onRefresh }: Props) {
   const edge = colo ? edgeLocations[colo.toUpperCase()] : undefined
   return <section className="edge-map-card" aria-label="Network edge map">
-    <div className="edge-map-heading"><div><span className="section-kicker">NETWORK EDGE MAP</span><h3>Where your test is being served</h3><p>Cloudflare edge location is highlighted separately from your source network.</p></div><span className="edge-map-live"><i/> EDGE DATA</span></div>
+    <div className="edge-map-heading"><div><span className="section-kicker">NETWORK EDGE MAP</span><h3>Where your test is being served</h3><p>Cloudflare edge location is highlighted separately from your source network.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !colo ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error || !colo ? "NO EDGE DATA" : "EDGE DATA"}</span></div>
     <div className="edge-map-visual">
       <svg viewBox="0 0 1000 470" role="img" aria-label={edge ? `Illustrative global network map with Cloudflare edge at ${edge.label}` : 'Illustrative global network map'}>
         <defs>
@@ -38,9 +38,9 @@ export default function NetworkEdgeMap({ colo, country, region, asn, organizatio
         </g>
         <g>{hubs.map((h,i)=><g key={i}><circle cx={h.x} cy={h.y} r="4" fill="#36cbe2"/><circle cx={h.x} cy={h.y} r="10" fill="#36cbe2" opacity=".15"/></g>)}</g>
         {edge && <g filter="url(#edgeMapGlow)"><circle cx={edge.x} cy={edge.y} r="22" fill="#22d3ee" opacity=".13"/><circle cx={edge.x} cy={edge.y} r="9" fill="#65f3ff"/><circle cx={edge.x} cy={edge.y} r="3" fill="#fff"/></g>}
-        <g fill="#d6f6ff" fontSize="13" fontWeight="600"><text x="28" y="35">GLOBAL NETWORK VIEW</text>{edge && <text x={Math.min(edge.x+18,850)} y={edge.y-18}>{colo?.toUpperCase()} · {edge.label}</text>}</g>
+        <g fill="#d6f6ff" fontSize="13" fontWeight="600"><text x="28" y="35">GLOBAL NETWORK VIEW</text>{edge && <text x={edge.x > 780 ? edge.x-16 : edge.x+18} y={edge.y-18} textAnchor={edge.x > 780 ? "end" : "start"}>{colo?.toUpperCase()} · {edge.label}</text>}</g>
       </svg>
-      <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected serving edge</span><span><i className="edge-map-dot animated"/> Illustrative network animation</span></div>
+      <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected serving edge</span>{edge ? <span><i className="edge-map-dot animated"/> Illustrative network animation</span> : <span><i className="edge-map-dot animated"/> Illustrative network locations</span>}</div>
     </div>
     <div className="edge-map-details">
       <div><span className="section-kicker">CURRENT TEZZ EDGE</span><strong>{colo || (loading ? 'Identifying…' : 'Not available')}</strong><small>{edge?.label || 'Cloudflare point of presence'}</small></div>
