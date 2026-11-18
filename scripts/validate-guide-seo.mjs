@@ -13,6 +13,13 @@ const descriptions = new Map()
 const guideUrls = urls.filter(url => new URL(url).pathname.startsWith('/guides/') && new URL(url).pathname !== '/guides/')
 const duplicates = urls.filter((url, index) => urls.indexOf(url) !== index)
 if (duplicates.length) errors.push('Duplicate sitemap URLs: ' + [...new Set(duplicates)].join(', '))
+const homepageUrls = urls.filter(url => new URL(url).pathname === '/')
+if (homepageUrls.length !== 1) errors.push(`Expected exactly one canonical homepage URL in sitemap, found ${homepageUrls.length}`)
+const privateUtilityUrls = urls.filter(url => {
+  const pathname = new URL(url).pathname.replace(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(?=\/)/, '')
+  return /^\/(history|report)\/?$/.test(pathname)
+})
+if (privateUtilityUrls.length) errors.push('Private noindex utility URLs must not appear in sitemap: ' + privateUtilityUrls.join(', '))
 if (guideUrls.length === 0) errors.push('No individual guide URLs found in sitemap')
 if (!urls.includes('https://tezzconnect.online/guides/')) errors.push('Knowledge Hub index is missing from sitemap')
 try { await readFile('public/guides/index.html', 'utf8') } catch { errors.push('Knowledge Hub index HTML file is missing') }
