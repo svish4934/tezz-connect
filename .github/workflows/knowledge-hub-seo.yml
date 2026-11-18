@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "worker/index.ts"
+      - "index.html"
+      - "public/sitemap.xml"
       - "public/guides/**"
       - "scripts/validate-guide-seo.mjs"
       - "package.json"
