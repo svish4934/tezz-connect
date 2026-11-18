@@ -64,8 +64,8 @@ await check('Arabic locale bundle and RTL metadata', '/locales/ar/common.json', 
     typeof data._meta?.pageTitles?.Overview === 'string' && typeof data._meta?.pageDescriptions?.Overview === 'string'
 })
 
-for (const [name, path, expected, title, canonical] of [
-  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test | TEZZ CONNECT', 'https://tezzconnect.online/'],
+for (const [name, path, expected, title, canonical, description] of [
+  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test | Download & Upload | TEZZ CONNECT', 'https://tezzconnect.online/', 'Test download and upload speed, browser-based latency and response variation. Use Internet Doctor, DNS lookup and Wi-Fi tools to investigate connection issues.'],
   ['About crawler SEO fallback', '/about', 'Understand your connection.', 'About TEZZ CONNECT | Internet Performance Tools', 'https://tezzconnect.online/about'],
   ['Internet Doctor crawler SEO fallback', '/internet-doctor', 'Find out why your internet feels slow or unstable.', 'Internet Doctor: Fix Slow Internet | TEZZ CONNECT', 'https://tezzconnect.online/internet-doctor'],
   ['Network tools crawler SEO fallback', '/tools', 'Practical network tools to understand your connection.', 'Free Network Tools & Diagnostics | TEZZ CONNECT', 'https://tezzconnect.online/tools'],
@@ -78,6 +78,9 @@ for (const [name, path, expected, title, canonical] of [
     if (!body.includes(expected)) missing.push('expected page text missing')
     if (!body.includes(`<title>${title}</title>`)) missing.push('expected title missing')
     if (!body.includes(`href="${canonical}"`)) missing.push('expected canonical missing')
+    if (description && !body.includes(`<meta name="description" content="${description}"`)) missing.push('expected meta description missing')
+    if (description && !body.includes(`<meta property="og:description" content="${description}"`)) missing.push('expected Open Graph description missing')
+    if (description && !body.includes(`<meta name="twitter:description" content="${description}"`)) missing.push('expected Twitter description missing')
     if (!(r.headers.get('cache-control') ?? '').includes('no-store')) missing.push('crawler response is cacheable')
     return missing.length ? `HTTP ${r.status}; ${missing.join(', ')}; content-type=${r.headers.get('content-type')}; body-start=${body.slice(0, 220).replace(/\\s+/g, ' ')}` : true
   }, { headers: { 'user-agent': 'Googlebot' } })
