@@ -2804,3 +2804,20 @@ html[dir="rtl"] button,html[dir="rtl"] a{unicode-bidi:plaintext}
 footer{color:#aebed1}
 footer .footer-language-links a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:6px;color:#b7c6d8}
 footer a{color:#b7c6d8}
+
+
+/* Desktop navigation dropdown — match the dark TEZZ CONNECT header */
+.tezz-main .tezz-nav-dropdown-menu {
+  background:linear-gradient(145deg,#12243a 0%,#0b1728 100%)!important;
+  border:1px solid #29445f!important;
+  box-shadow:0 16px 36px rgba(0,0,0,.34),0 0 0 1px rgba(34,211,238,.05)!important;
+}
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a {
+  color:#eaf5ff!important;
+  background:transparent!important;
+}
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a:hover,
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a.selected {
+  color:#67e8f9!important;
+  background:rgba(34,211,238,.12)!important;
+}
