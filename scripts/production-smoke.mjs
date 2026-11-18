@@ -79,6 +79,8 @@ for (const [name, path, expected, title, canonical, description] of [
     if (!body.includes(`<title>${title}</title>`)) missing.push('expected title missing')
     if (!body.includes(`href="${canonical}"`)) missing.push('expected canonical missing')
     if (description && !body.includes(`<meta name="description" content="${description}"`)) missing.push('expected meta description missing')
+    if (description && !body.includes(`<meta property="og:description" content="${description}"`)) missing.push('expected Open Graph description missing')
+    if (description && !body.includes(`<meta name="twitter:description" content="${description}"`)) missing.push('expected Twitter description missing')
     if (!(r.headers.get('cache-control') ?? '').includes('no-store')) missing.push('crawler response is cacheable')
     return missing.length ? `HTTP ${r.status}; ${missing.join(', ')}; content-type=${r.headers.get('content-type')}; body-start=${body.slice(0, 220).replace(/\\s+/g, ' ')}` : true
   }, { headers: { 'user-agent': 'Googlebot' } })
