@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import NetworkEdgeMap from './NetworkEdgeMap'
 import {
-  Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2, Network, Server,
+  Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2,
   History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
   ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
