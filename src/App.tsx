@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import NetworkEdgeMap from './NetworkEdgeMap'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2, Network, Server,
   History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
@@ -1228,24 +1229,7 @@ function App() {
           {activeTab === 'Global Network' && <section className="global-network-panel">
             <h1 className="sr-only">Global Network Intelligence</h1>
             <div className="doctor-heading"><div><div className="section-kicker">{speedText(language, 'TEZZ GLOBAL NETWORK INTELLIGENCE')}</div><h2>{speedText(language, 'See the network edge serving your test.')}</h2><p>{speedText(language, "View the Cloudflare data centre handling this request separately from the source network's approximate country and region.")}</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
-            <div className="global-edge-card">
-              <div className="global-edge-top"><div><span className="section-kicker">{speedText(language, 'CURRENT TEZZ EDGE')}</span><h3>{edgeInfo?.colo || (edgeLoading ? 'Identifying edge…' : 'Edge information not loaded')}</h3></div><span className={edgeLoading ? 'latency-live-dot running' : 'latency-live-dot'} /></div>
-              <div className="global-edge-grid">
-                <div><span>Cloudflare data centre (colo)</span><strong>{edgeInfo?.colo || '—'}</strong></div>
-                <div><span>Source country (IP geolocation)</span><strong>{edgeInfo?.country || '—'}</strong></div>
-                <div><span>Source region (IP geolocation)</span><strong>{edgeInfo?.region || '—'}</strong></div>
-                <div><span>Source network ASN</span><strong>{edgeInfo?.asn ? `AS${edgeInfo.asn}` : '—'}</strong></div>
-                <div className="global-edge-operator"><span>Source network operator (ASN name)</span><strong>{edgeInfo?.organization || '—'}</strong></div>
-              </div>
-              <div className="global-edge-footer"><span>{edgeInfo ? `Updated at ${edgeInfo.fetchedAt}` : 'Metadata is supplied by the network edge handling this request.'}</span><button className="doctor-run-test" onClick={refreshEdgeInfo} disabled={edgeLoading}>{edgeLoading ? 'Refreshing…' : 'Refresh edge details'} <span aria-hidden="true">↻</span></button></div>
-              {edgeError && <p className="latency-error" role="alert">{edgeError}</p>}
-            </div>
-            <div className="global-route-card">
-              <div className="section-kicker">{speedText(language, 'WHAT THIS TELLS YOU')}</div><h3>{speedText(language, 'Your request reaches TEZZ through this edge.')}</h3>
-              <div className="global-route-flow"><div className="global-route-node"><Globe2 size={20}/><strong>Your browser</strong><span>Current device and network</span></div><div className="global-route-connector"><i/></div><div className="global-route-node edge"><Network size={20}/><strong>Cloudflare data centre</strong><span>{edgeInfo?.colo || 'Colo code'}</span></div><div className="global-route-connector"><i/></div><div className="global-route-node"><Server size={20}/><strong>TEZZ service</strong><span>Speed-test endpoint</span></div></div>
-              <p>The Cloudflare data-centre code identifies the point handling this request. Country, region and ASN describe the approximate source network based on IP geolocation; they do not identify the data-centre's physical location. This is not a traceroute and does not reveal your full ISP path, routers or cable route.</p>
-            </div>
-
+            <NetworkEdgeMap colo={edgeInfo?.colo} country={edgeInfo?.country} region={edgeInfo?.region} asn={edgeInfo?.asn} organization={edgeInfo?.organization} loading={edgeLoading} error={edgeError} updatedAt={edgeInfo?.fetchedAt} onRefresh={refreshEdgeInfo} />
             <div className="global-benchmarks-card">
               <div className="global-benchmarks-heading">
                 <div><div className="section-kicker">{speedText(language, 'COMMUNITY NETWORK BENCHMARKS')}</div><h3>{speedText(language, 'Regional performance overview')}</h3><p>Aggregated results from people who explicitly opted in to contribute completed TEZZ CONNECT tests.</p></div>
