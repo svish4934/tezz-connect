@@ -185,3 +185,40 @@ if (failures > 0) {
 } else {
   process.stdout.write('\nAll production smoke checks passed.\n')
 }
+
+
+await check('IP geolocation API response contract and privacy', '/api/v1/geolocation', (r, body) => {
+  let data
+  try { data = JSON.parse(body) } catch { return 'response is not valid JSON' }
+  const location = data.location
+  const privacy = data.privacy
+  const validCoordinate = value => value === null || (typeof value === 'number' && Number.isFinite(value))
+  const coordinatesValid = location?.coordinates === null ||
+    (location?.coordinates && validCoordinate(location.coordinates.latitude) &&
+      validCoordinate(location.coordinates.longitude) &&
+      location.coordinates.latitude >= -90 && location.coordinates.latitude <= 90 &&
+      location.coordinates.longitude >= -180 && location.coordinates.longitude <= 180)
+  const nullableStrings = ['city', 'region', 'regionCode', 'countryCode', 'continentCode', 'timezone']
+  return r.status === 200 &&
+    r.headers.get('content-type')?.includes('application/json') &&
+    r.headers.get('x-api-version') === 'v1' &&
+    (r.headers.get('cache-control') ?? '').includes('no-store') &&
+    data.ok === true && typeof data.available === 'boolean' &&
+    data.source === 'cloudflare-ip-geolocation' && data.method === 'ip' &&
+    data.precision === 'approximate' &&
+    nullableStrings.every(key => location && (location[key] === null || typeof location[key] === 'string')) &&
+    coordinatesValid &&
+    privacy?.ipAddressReturned === false &&
+    privacy?.locationStored === false &&
+    privacy?.gpsPermissionRequired === false &&
+    typeof data.timestamp === 'string' && Number.isFinite(Date.parse(data.timestamp))
+})
+await check('IP geolocation rejects unsupported methods', '/api/v1/geolocation', (r, body) => {
+  let data
+  try { data = JSON.parse(body) } catch { return 'error response is not valid JSON' }
+  return r.status === 405 && r.headers.get('allow') === 'GET, HEAD' &&
+    data.ok === false && data.message === 'Method not allowed'
+}, { method: 'POST' })
+await check('IP geolocation HEAD response', '/api/v1/geolocation', r =>
+  r.status === 200 && r.headers.get('x-api-version') === 'v1' &&
+  (r.headers.get('cache-control') ?? '').includes('no-store'), { method: 'HEAD' })
