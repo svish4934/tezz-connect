@@ -1,15 +1,14 @@
 type Props = { colo?: string; country?: string; region?: string; asn?: number | null; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
 const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
-  SIN: { x: 805, y: 260, label: 'Singapore' }, BOM: { x: 735, y: 270, label: 'Mumbai' },
-  DEL: { x: 755, y: 245, label: 'Delhi' }, LHR: { x: 490, y: 155, label: 'London' },
-  FRA: { x: 520, y: 165, label: 'Frankfurt' }, AMS: { x: 510, y: 155, label: 'Amsterdam' },
-  SJC: { x: 175, y: 185, label: 'San Jose' }, LAX: { x: 165, y: 205, label: 'Los Angeles' },
-  IAD: { x: 245, y: 180, label: 'Washington' }, MIA: { x: 255, y: 235, label: 'Miami' },
-  SYD: { x: 900, y: 385, label: 'Sydney' }, NRT: { x: 895, y: 225, label: 'Tokyo' },
-  HKG: { x: 850, y: 260, label: 'Hong Kong' }, GRU: { x: 345, y: 370, label: 'São Paulo' },
+  SIN: { x: 788, y: 232, label: 'Singapore' }, BOM: { x: 703, y: 185, label: 'Mumbai' },
+  DEL: { x: 714, y: 160, label: 'Delhi' }, LHR: { x: 500, y: 101, label: 'London' },
+  FRA: { x: 524, y: 104, label: 'Frankfurt' }, AMS: { x: 514, y: 98, label: 'Amsterdam' },
+  SJC: { x: 162, y: 138, label: 'San Jose' }, LAX: { x: 171, y: 145, label: 'Los Angeles' },
+  IAD: { x: 286, y: 133, label: 'Washington' }, MIA: { x: 277, y: 203, label: 'Miami' },
+  SYD: { x: 920, y: 324, label: 'Sydney' }, NRT: { x: 888, y: 141, label: 'Tokyo' },
+  HKG: { x: 817, y: 178, label: 'Hong Kong' }, GRU: { x: 371, y: 296, label: 'São Paulo' },
 }
-const hubs = [{x:175,y:185},{x:490,y:155},{x:805,y:260},{x:895,y:225},{x:345,y:370},{x:900,y:385},{x:255,y:235}]
 
 export default function NetworkEdgeMap({ colo, country, region, asn, organization, loading, error, updatedAt, onRefresh }: Props) {
   const edge = colo ? edgeLocations[colo.toUpperCase()] : undefined
