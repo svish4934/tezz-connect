@@ -277,6 +277,65 @@ const app: ExportedHandler<Env> = {
       }
     }
 
+    if (pathname === "/api/v1/geolocation") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response(JSON.stringify({ ok: false, message: "Method not allowed" }), {
+          status: 405,
+          headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" },
+        })
+      }
+
+      // Cloudflare's IP geolocation is an approximate network-derived estimate,
+      // not GPS. Do not return the visitor's IP address or persist location data.
+      const cf = (request as Request & { cf?: {
+        city?: string
+        region?: string
+        regionCode?: string
+        country?: string
+        continent?: string
+        timezone?: string
+        latitude?: string
+        longitude?: string
+      } }).cf
+
+      const latitude = cf?.latitude ? Number(cf.latitude) : null
+      const longitude = cf?.longitude ? Number(cf.longitude) : null
+      const hasCoordinates =
+        latitude !== null && longitude !== null &&
+        Number.isFinite(latitude) && Number.isFinite(longitude) &&
+        latitude >= -90 && latitude <= 90 &&
+        longitude >= -180 && longitude <= 180
+
+      const location = {
+        city: cf?.city ?? null,
+        region: cf?.region ?? null,
+        regionCode: cf?.regionCode ?? null,
+        countryCode: cf?.country ?? null,
+        continentCode: cf?.continent ?? null,
+        timezone: cf?.timezone ?? null,
+        coordinates: hasCoordinates ? { latitude, longitude } : null,
+      }
+      const available = Object.values(location).some(value => value !== null)
+
+      return new Response(request.method === "HEAD" ? null : JSON.stringify({
+        ok: true,
+        available,
+        source: "cloudflare-ip-geolocation",
+        method: "ip",
+        precision: "approximate",
+        location,
+        privacy: {
+          ipAddressReturned: false,
+          locationStored: false,
+          gpsPermissionRequired: false,
+        },
+        timestamp: new Date().toISOString(),
+      }), {
+        status: 200,
+        headers: { ...noStore, "Content-Type": "application/json; charset=utf-8", "X-API-Version": "v1" },
+      })
+    }
+
     if (pathname === "/api/v1/network/info") {
       if (request.method !== "GET") return json("Method not allowed", 405)
       const cf = (request as Request & { cf?: {
