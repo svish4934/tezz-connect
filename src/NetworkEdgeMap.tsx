@@ -1,7 +1,7 @@
 type Props = { colo?: string; country?: string; region?: string; asn?: number | null; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
 const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
-  SIN: { x: 788, y: 232, label: 'Singapore' }, BOM: { x: 703, y: 185, label: 'Mumbai' },
+  SIN: { x: 788, y: 232, label: 'Singapore' }, BOM: { x: 703, y: 185, label: 'Mumbai' }, BOS: { x: 302.6, y: 124.3, label: 'Boston' },
   DEL: { x: 714, y: 160, label: 'Delhi' }, LHR: { x: 500, y: 101, label: 'London' },
   FRA: { x: 524, y: 104, label: 'Frankfurt' }, AMS: { x: 514, y: 98, label: 'Amsterdam' },
   SJC: { x: 162, y: 138, label: 'San Jose' }, LAX: { x: 171, y: 145, label: 'Los Angeles' },
@@ -12,10 +12,10 @@ const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
 
 export default function NetworkEdgeMap({ colo, country, region, asn, organization, loading, error, updatedAt, onRefresh }: Props) {
   const edge = colo ? edgeLocations[colo.toUpperCase()] : undefined
-  return <section className="edge-map-card" aria-label="Network edge map">
-    <div className="edge-map-heading"><div><span className="section-kicker">NETWORK EDGE MAP</span><h3>Where your test is being served</h3><p>Cloudflare edge location is highlighted separately from your source network.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !colo ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error || !colo ? "NO EDGE DATA" : "EDGE DATA"}</span></div>
+  return <section className="edge-map-card" aria-label="Network serving location map">
+    <div className="edge-map-heading"><div><span className="section-kicker">NETWORK LOCATION</span><h3>Where your test is being served from</h3><p>The serving location is shown separately from your internet provider location.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !colo ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error || !colo ? "NO EDGE DATA" : "LOCATION FOUND"}</span></div>
     <div className="edge-map-visual">
-      <svg viewBox="0 0 1000 470" role="img" aria-label={edge ? `Geographic world map highlighting Cloudflare edge at ${edge.label}` : 'Geographic world map; serving edge location unavailable'}>
+      <svg viewBox="0 0 1000 470" role="img" aria-label={edge ? `Geographic world map highlighting the serving location at ${edge.label}` : 'Geographic world map; serving edge location unavailable'}>
         <defs>
           <linearGradient id="edgeMapOcean" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#07172c"/><stop offset="1" stopColor="#102b49"/></linearGradient>
           <filter id="edgeMapGlow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -32,12 +32,12 @@ export default function NetworkEdgeMap({ colo, country, region, asn, organizatio
       <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected serving edge</span><span>Geographic outlines: Natural Earth</span></div>
     </div>
     <div className="edge-map-details">
-      <div><span className="section-kicker">CURRENT TEZZ EDGE</span><strong>{colo || (loading ? 'Identifying…' : 'Not available')}</strong><small>{edge?.label || 'Cloudflare point of presence'}</small></div>
+      <div><span className="section-kicker">SERVING LOCATION</span><strong>{colo || (loading ? 'Identifying…' : 'Not available')}</strong><small>{edge?.label || 'Serving location not mapped'}</small></div>
       <div><span>Source network</span><strong>{organization || 'Not provided'}</strong></div>
       <div><span>Source region</span><strong>{[region,country].filter(Boolean).join(', ') || 'Not provided'}</strong></div>
       <div><span>ASN</span><strong>{asn ? `AS${asn}` : 'Not provided'}</strong></div>
     </div>
-    <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} Only the highlighted colo is detected data. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
+    <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} Only the highlighted serving location is detected data. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
   </section>
 }
