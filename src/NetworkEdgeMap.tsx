@@ -1,4 +1,4 @@
-type Props = { colo?: string; country?: string; region?: string; asn?: number | null; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
+type Props = { colo?: string; country?: string; region?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
 const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
   SIN: { x: 788, y: 232, label: 'Singapore' }, BOM: { x: 703, y: 185, label: 'Mumbai' }, BOS: { x: 302.6, y: 124.3, label: 'Boston' },
@@ -32,10 +32,8 @@ export default function NetworkEdgeMap({ colo, country, region, asn, organizatio
       <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected serving edge</span><span>Geographic outlines: Natural Earth</span></div>
     </div>
     <div className="edge-map-details">
-      <div><span className="section-kicker">SERVING LOCATION</span><strong>{colo || (loading ? 'Identifying…' : 'Not available')}</strong><small>{edge?.label || 'Serving location not mapped'}</small></div>
-      <div><span>Source network</span><strong>{organization || 'Not provided'}</strong></div>
-      <div><span>Source region</span><strong>{[region,country].filter(Boolean).join(', ') || 'Not provided'}</strong></div>
-      <div><span>ASN</span><strong>{asn ? `AS${asn}` : 'Not provided'}</strong></div>
+      <div><span className="section-kicker">SERVING LOCATION</span><strong>{edge?.label || (loading ? 'Finding location…' : 'Not available')}</strong><small>{edge ? country || 'Location identified' : 'We could not identify a mapped city'}</small></div>
+      <div><span>Your approximate area</span><strong>{[region,country].filter(Boolean).join(', ') || 'Not available'}</strong></div>
     </div>
     <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} Only the highlighted serving location is detected data. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
