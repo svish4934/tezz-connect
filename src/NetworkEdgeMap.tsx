@@ -33,7 +33,7 @@ export default function NetworkEdgeMap({ colo, country, region, organization, lo
     </div>
     <div className="edge-map-details">
       <div><span className="section-kicker">LOOKUP EDGE LOCATION</span><strong>{edge?.label || (loading ? 'Finding location…' : colo ? 'City mapping unavailable' : 'Not available')}</strong><small>{edge ? 'Edge that handled this lookup' : colo ? 'Edge detected; city not mapped' : 'No edge location data returned'}</small></div>
-      <div><span>Detected network operator</span><strong>{organization || 'Not identified'}</strong><small>Approximate network area: {[region, country ? new Intl.DisplayNames(['en'], { type: 'region' }).of(country) || country : ''].filter(Boolean).join(', ') || 'Not available'}</small></div>
+      <div><span>Network operator (ASN)</span><strong>{organization || 'Not identified'}</strong><small>Approximate source IP area: {[region, country ? new Intl.DisplayNames(['en'], { type: 'region' }).of(country) || country : ''].filter(Boolean).join(', ') || 'Not available'}</small></div>
     </div>
     <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} The highlighted point is the network edge that handled this lookup, not a verified route for every speed-test request. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
