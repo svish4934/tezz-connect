@@ -858,7 +858,7 @@ function App() {
     }
   }
 
-  async function refreshEdgeInfo() {
+  const refreshEdgeInfo = useCallback(async () => {
     setEdgeLoading(true)
     setEdgeError('')
     try {
@@ -879,11 +879,10 @@ function App() {
     } finally {
       setEdgeLoading(false)
     }
-  }
-
+  }, [])
   useEffect(() => {
     if (activeTab === 'Global Network') void refreshEdgeInfo()
-  }, [activeTab])
+  }, [activeTab, refreshEdgeInfo])
 
   async function runLatencyCheck() {
     if (latencyRunning) return
