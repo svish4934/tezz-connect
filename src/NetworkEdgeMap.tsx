@@ -13,7 +13,7 @@ const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
   HKG: { x: 817, y: 178, label: 'Hong Kong' }, GRU: { x: 371, y: 296, label: 'São Paulo' },
 }
 
-export default function NetworkEdgeMap({ colo, country, region, organization, loading, error, updatedAt, onRefresh }: Props) {
+export default function NetworkEdgeMap({ colo, organization, loading, error, updatedAt, onRefresh }: Props) {
   const [visitorLocation, setVisitorLocation] = useState<TezzIpGeolocation['location'] | null>(null)
   const [visitorLocationStatus, setVisitorLocationStatus] = useState<'loading' | 'available' | 'unavailable'>('loading')
 
