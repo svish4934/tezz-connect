@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getNetworkGeolocation, type TezzIpGeolocation } from './lib/geolocation'
+import { getDeviceGeolocation, getNetworkGeolocation, type TezzDeviceGeolocation, type TezzIpGeolocation } from './lib/geolocation'
 
 type Props = { colo?: string; country?: string; region?: string; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
@@ -16,6 +16,23 @@ const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
 export default function NetworkEdgeMap({ colo, organization, loading, error, updatedAt, onRefresh }: Props) {
   const [visitorLocation, setVisitorLocation] = useState<TezzIpGeolocation['location'] | null>(null)
   const [visitorLocationStatus, setVisitorLocationStatus] = useState<'loading' | 'available' | 'unavailable'>('loading')
+  const [deviceLocation, setDeviceLocation] = useState<TezzDeviceGeolocation | null>(null)
+  const [deviceLocationStatus, setDeviceLocationStatus] = useState<'idle' | 'loading' | 'available' | 'unavailable'>('idle')
+  const [deviceLocationError, setDeviceLocationError] = useState('')
+
+  async function requestDeviceLocation() {
+    setDeviceLocationStatus('loading')
+    setDeviceLocationError('')
+    try {
+      const location = await getDeviceGeolocation({ enableHighAccuracy: true, timeout: 15000, maximumAge: 0 })
+      setDeviceLocation(location)
+      setDeviceLocationStatus('available')
+    } catch (error) {
+      setDeviceLocation(null)
+      setDeviceLocationStatus('unavailable')
+      setDeviceLocationError(error instanceof Error ? error.message : 'Device location is unavailable')
+    }
+  }
 
   useEffect(() => {
     let active = true
@@ -55,7 +72,7 @@ export default function NetworkEdgeMap({ colo, organization, loading, error, upd
     </div>
     <div className="edge-map-details">
       <div><span className="section-kicker">TEZZ CONNECTION POINT</span><strong>{edge?.label || (loading ? 'Finding location…' : 'Not available')}</strong><small>{edge ? 'Detected network edge location' : 'We could not identify a mapped city'}</small>{colo && <small>Cloudflare colo code: {colo.toUpperCase()}</small>}</div>
-      <div><span>Your internet provider</span><strong>{organization || 'Not identified'}</strong><small>Your approximate visitor area: {visitorLocationStatus === 'loading' ? 'Checking…' : visitorLocationStatus === 'available' ? [visitorLocation?.city, visitorLocation?.region, visitorLocation?.countryCode].filter(Boolean).join(', ') || 'Not available' : 'Not available'}</small><small>Location source: TEZZ IP geolocation · approximate, not GPS</small></div>
+      <div><span>Your internet provider</span><strong>{organization || 'Not identified'}</strong><small>Your approximate visitor area: {visitorLocationStatus === 'loading' ? 'Checking…' : visitorLocationStatus === 'available' ? [visitorLocation?.city, visitorLocation?.region, visitorLocation?.countryCode].filter(Boolean).join(', ') || 'Not available' : 'Not available'}</small><small>Location source: TEZZ IP geolocation · approximate, not GPS</small><button type="button" className="doctor-run-test" onClick={requestDeviceLocation} disabled={deviceLocationStatus === 'loading'}>{deviceLocationStatus === 'loading' ? 'Getting device location…' : deviceLocationStatus === 'available' ? 'Refresh device location' : 'Use precise device location'}</button>{deviceLocationStatus === 'available' && deviceLocation && <small>Device GPS: {deviceLocation.latitude.toFixed(5)}, {deviceLocation.longitude.toFixed(5)} · accuracy ±{Math.round(deviceLocation.accuracyMeters)} m. Coordinates stay on this device.</small>}{deviceLocationError && <small role="status">{deviceLocationError}</small>}</div>
     </div>
     <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} The highlighted point is the detected TEZZ connection point. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
