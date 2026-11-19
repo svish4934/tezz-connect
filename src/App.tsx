@@ -1229,7 +1229,7 @@ function App() {
           {activeTab === 'Global Network' && <section className="global-network-panel">
             <h1 className="sr-only">Global Network Intelligence</h1>
             <div className="doctor-heading"><div><div className="section-kicker">{speedText(language, 'TEZZ GLOBAL NETWORK INTELLIGENCE')}</div><h2>{speedText(language, 'See the network edge serving your test.')}</h2><p>{speedText(language, "View the Cloudflare data centre handling this request separately from the source network's approximate country and region.")}</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
-            <NetworkEdgeMap colo={edgeInfo?.colo} country={edgeInfo?.country} region={edgeInfo?.region} loading={edgeLoading} error={edgeError} updatedAt={edgeInfo?.fetchedAt} onRefresh={refreshEdgeInfo} />
+            <NetworkEdgeMap colo={edgeInfo?.colo} country={edgeInfo?.country} region={edgeInfo?.region} organization={edgeInfo?.organization} loading={edgeLoading} error={edgeError} updatedAt={edgeInfo?.fetchedAt} onRefresh={refreshEdgeInfo} />
             <div className="global-benchmarks-card">
               <div className="global-benchmarks-heading">
                 <div><div className="section-kicker">{speedText(language, 'COMMUNITY NETWORK BENCHMARKS')}</div><h3>{speedText(language, 'Regional performance overview')}</h3><p>Aggregated results from people who explicitly opted in to contribute completed TEZZ CONNECT tests.</p></div>
