@@ -32,7 +32,7 @@ export default function NetworkEdgeMap({ colo, country, region, organization, lo
       <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected serving edge</span><span>Geographic outlines: Natural Earth</span></div>
     </div>
     <div className="edge-map-details">
-      <div><span className="section-kicker">TEZZ CONNECTION POINT</span><strong>{edge?.label || (loading ? 'Finding location…' : 'Not available')}</strong><small>{edge ? country || 'Location identified' : 'We could not identify a mapped city'}</small></div>
+      <div><span className="section-kicker">TEZZ CONNECTION POINT</span><strong>{edge?.label || (loading ? 'Finding location…' : 'Not available')}</strong><small>{edge ? 'Detected network edge location' : 'We could not identify a mapped city'}</small></div>
       <div><span>Your internet provider</span><strong>{organization || 'Not identified'}</strong><small>Your approximate area: {[region,country].filter(Boolean).join(', ') || 'Not available'}</small></div>
     </div>
     <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} The highlighted point is the detected TEZZ connection point. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
