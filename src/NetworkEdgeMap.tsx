@@ -10,7 +10,7 @@ const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
   HKG: { x: 817, y: 178, label: 'Hong Kong' }, GRU: { x: 371, y: 296, label: 'São Paulo' },
 }
 
-export default function NetworkEdgeMap({ colo, country, region, asn, organization, loading, error, updatedAt, onRefresh }: Props) {
+export default function NetworkEdgeMap({ colo, country, region, loading, error, updatedAt, onRefresh }: Props) {
   const edge = colo ? edgeLocations[colo.toUpperCase()] : undefined
   return <section className="edge-map-card" aria-label="Network serving location map">
     <div className="edge-map-heading"><div><span className="section-kicker">NETWORK LOCATION</span><h3>Where your test is being served from</h3><p>The serving location is shown separately from your internet provider location.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !colo ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error || !colo ? "NO EDGE DATA" : "LOCATION FOUND"}</span></div>
