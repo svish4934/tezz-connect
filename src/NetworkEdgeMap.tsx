@@ -12,10 +12,10 @@ const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
 
 export default function NetworkEdgeMap({ colo, country, region, organization, loading, error, updatedAt, onRefresh }: Props) {
   const edge = colo ? edgeLocations[colo.toUpperCase()] : undefined
-  return <section className="edge-map-card" aria-label="Network serving location map">
-    <div className="edge-map-heading"><div><span className="section-kicker">NETWORK LOCATION</span><h3>Where your test is being served from</h3><p>This shows the connection point handling the test, separately from your internet provider and approximate area.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !colo ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error || !colo ? "NO EDGE DATA" : "LOCATION FOUND"}</span></div>
+  return <section className="edge-map-card" aria-label="Network lookup edge map">
+    <div className="edge-map-heading"><div><span className="section-kicker">NETWORK ROUTING</span><h3>Where this network lookup was handled</h3><p>This identifies the network edge that handled this location lookup. It does not guarantee every speed-test request used the same edge.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !edge ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error ? "LOOKUP FAILED" : edge ? "EDGE IDENTIFIED" : colo ? "CITY NOT MAPPED" : "NO EDGE DATA"}</span></div>
     <div className="edge-map-visual">
-      <svg viewBox="0 0 1000 470" role="img" aria-label={edge ? `Map highlighting the TEZZ connection point at ${edge.label}` : 'Geographic world map; serving edge location unavailable'}>
+      <svg viewBox="0 0 1000 470" role="img" aria-label={edge ? `Map highlighting the network edge handling this lookup at ${edge.label}` : 'Geographic world map; lookup edge location unavailable'}>
         <defs>
           <linearGradient id="edgeMapOcean" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#07172c"/><stop offset="1" stopColor="#102b49"/></linearGradient>
           <filter id="edgeMapGlow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -29,13 +29,13 @@ export default function NetworkEdgeMap({ colo, country, region, organization, lo
         {edge && <g filter="url(#edgeMapGlow)"><circle cx={edge.x} cy={edge.y} r="27" fill="#22d3ee" opacity=".13"/><circle cx={edge.x} cy={edge.y} r="13" fill="#65f3ff" opacity=".22"/><circle cx={edge.x} cy={edge.y} r="7" fill="#65f3ff"/><circle cx={edge.x} cy={edge.y} r="2.5" fill="#fff"/></g>}
         <g fill="#e3f7ff" fontSize="17" fontWeight="650"><text x="30" y="38">WORLD VIEW</text>{edge && <text x={edge.x>760?edge.x-20:edge.x+20} y={Math.max(55,edge.y-24)} textAnchor={edge.x>760?"end":"start"}>{edge.label}</text>}</g>
       </svg>
-      <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected serving edge</span><span>Geographic outlines: Natural Earth</span></div>
+      <div className="edge-map-legend"><span><i className="edge-map-dot real"/> Detected lookup edge</span><span>Geographic outlines: Natural Earth</span></div>
     </div>
     <div className="edge-map-details">
-      <div><span className="section-kicker">TEZZ CONNECTION POINT</span><strong>{edge?.label || (loading ? 'Finding location…' : 'Not available')}</strong><small>{edge ? 'Detected network edge location' : 'We could not identify a mapped city'}</small></div>
-      <div><span>Your internet provider</span><strong>{organization || 'Not identified'}</strong><small>Your approximate area: {[region,country].filter(Boolean).join(', ') || 'Not available'}</small></div>
+      <div><span className="section-kicker">LOOKUP EDGE LOCATION</span><strong>{edge?.label || (loading ? 'Finding location…' : colo ? 'City mapping unavailable' : 'Not available')}</strong><small>{edge ? 'Edge that handled this lookup' : colo ? 'Edge detected; city not mapped' : 'No edge location data returned'}</small></div>
+      <div><span>Detected network operator</span><strong>{organization || 'Not identified'}</strong><small>Approximate network area: {[region, country ? new Intl.DisplayNames(['en'], { type: 'region' }).of(country) || country : ''].filter(Boolean).join(', ') || 'Not available'}</small></div>
     </div>
-    <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} The highlighted point is the detected TEZZ connection point. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
+    <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} The highlighted point is the network edge that handled this lookup, not a verified route for every speed-test request. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
   </section>
 }
