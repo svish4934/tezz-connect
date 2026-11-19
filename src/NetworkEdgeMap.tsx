@@ -4,7 +4,7 @@ import { getDeviceGeolocation, getNetworkGeolocation, type TezzDeviceGeolocation
 type Props = { colo?: string; country?: string; region?: string; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
 const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
-  SIN: { x: 788, y: 232, label: 'Singapore' }, BOM: { x: 703, y: 185, label: 'Mumbai' }, BOS: { x: 302.6, y: 124.3, label: 'Boston' },
+  SIN: { x: 788, y: 232, label: 'Singapore' }, BOM: { x: 703, y: 185, label: 'Mumbai' }, MRS: { x: 515, y: 122, label: 'Marseille' }, BOS: { x: 302.6, y: 124.3, label: 'Boston' },
   DEL: { x: 714, y: 160, label: 'Delhi' }, LHR: { x: 500, y: 101, label: 'London' },
   FRA: { x: 524, y: 104, label: 'Frankfurt' }, AMS: { x: 514, y: 98, label: 'Amsterdam' },
   SJC: { x: 162, y: 138, label: 'San Jose' }, LAX: { x: 171, y: 145, label: 'Los Angeles' },
