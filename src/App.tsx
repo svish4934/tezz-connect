@@ -881,6 +881,10 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    if (activeTab === 'Global Network') void refreshEdgeInfo()
+  }, [activeTab])
+
   async function runLatencyCheck() {
     if (latencyRunning) return
     setLatencyRunning(true)
@@ -1108,7 +1112,7 @@ function App() {
             <details className={`tezz-nav-dropdown ${['Global Network', 'History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`}>
               <summary aria-label="Global Network menu">Global Network <span aria-hidden="true">▾</span></summary>
               <div className="tezz-nav-dropdown-menu">
-                <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>{copy[4]}</a>
+                <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network') }}>{copy[4]}</a>
                 <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History') }}>{copy[5]}</a>
                 <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report') }}>{copy[6]}</a>
                 <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About') }}>{copy[7]}</a>
@@ -1126,7 +1130,7 @@ function App() {
           <details className={`tezz-mobile-nav-group ${['Global Network', 'History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`} open={['Global Network', 'History', 'Report', 'About'].includes(activeTab)}>
             <summary>Global Network <span aria-hidden="true">▾</span></summary>
             <div className="tezz-mobile-nav-submenu">
-              <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); setMobileMenuOpen(false); if (!edgeInfo && !edgeLoading) void refreshEdgeInfo() }}>Global Network overview</a>
+              <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); setMobileMenuOpen(false) }}>Global Network overview</a>
               <a className={activeTab === 'History' ? 'selected' : ''} href="/history" onClick={event => { event.preventDefault(); navigateTo('History'); setMobileMenuOpen(false) }}>Test History</a>
               <a className={activeTab === 'Report' ? 'selected' : ''} href="/report" onClick={event => { event.preventDefault(); navigateTo('Report'); setMobileMenuOpen(false) }}>Performance Report</a>
               <a className={activeTab === 'About' ? 'selected' : ''} href="/about" onClick={event => { event.preventDefault(); navigateTo('About'); setMobileMenuOpen(false) }}>About TEZZ CONNECT</a>
