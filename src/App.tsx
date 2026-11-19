@@ -1228,7 +1228,7 @@ function App() {
           </section>}
           {activeTab === 'Global Network' && <section className="global-network-panel">
             <h1 className="sr-only">Global Network Intelligence</h1>
-            <div className="doctor-heading"><div><div className="section-kicker">{speedText(language, 'TEZZ GLOBAL NETWORK INTELLIGENCE')}</div><h2>{speedText(language, 'See the network edge serving your test.')}</h2><p>{speedText(language, "See the TEZZ connection point handling this test, with your internet provider and approximate area shown separately.")}</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
+            <div className="doctor-heading"><div><div className="section-kicker">{speedText(language, 'TEZZ GLOBAL NETWORK INTELLIGENCE')}</div><h2>{speedText(language, 'See the network edge serving your test.')}</h2><p>{speedText(language, "See which network edge handled this lookup. Your network operator and approximate area are shown separately.")}</p></div><span className="doctor-symbol"><Globe2 size={23}/></span></div>
             <NetworkEdgeMap colo={edgeInfo?.colo} country={edgeInfo?.country} region={edgeInfo?.region} organization={edgeInfo?.organization} loading={edgeLoading} error={edgeError} updatedAt={edgeInfo?.fetchedAt} onRefresh={refreshEdgeInfo} />
             <div className="global-benchmarks-card">
               <div className="global-benchmarks-heading">
