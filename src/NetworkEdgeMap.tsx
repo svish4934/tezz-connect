@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react'
+import { getNetworkGeolocation, type TezzIpGeolocation } from './lib/geolocation'
+
 type Props = { colo?: string; country?: string; region?: string; organization?: string; loading?: boolean; error?: string; updatedAt?: string; onRefresh: () => void }
 
 const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
@@ -10,7 +13,26 @@ const edgeLocations: Record<string, { x: number; y: number; label: string }> = {
   HKG: { x: 817, y: 178, label: 'Hong Kong' }, GRU: { x: 371, y: 296, label: 'São Paulo' },
 }
 
-export default function NetworkEdgeMap({ colo, country, region, organization, loading, error, updatedAt, onRefresh }: Props) {
+export default function NetworkEdgeMap({ colo, organization, loading, error, updatedAt, onRefresh }: Props) {
+  const [visitorLocation, setVisitorLocation] = useState<TezzIpGeolocation['location'] | null>(null)
+  const [visitorLocationStatus, setVisitorLocationStatus] = useState<'loading' | 'available' | 'unavailable'>('loading')
+
+  useEffect(() => {
+    let active = true
+    getNetworkGeolocation()
+      .then(data => {
+        if (!active) return
+        setVisitorLocation(data.available ? data.location : null)
+        setVisitorLocationStatus(data.available ? 'available' : 'unavailable')
+      })
+      .catch(() => {
+        if (!active) return
+        setVisitorLocation(null)
+        setVisitorLocationStatus('unavailable')
+      })
+    return () => { active = false }
+  }, [])
+
   const edge = colo ? edgeLocations[colo.toUpperCase()] : undefined
   return <section className="edge-map-card" aria-label="Network serving location map">
     <div className="edge-map-heading"><div><span className="section-kicker">NETWORK LOCATION</span><h3>Where your test is being served from</h3><p>This shows the connection point handling the test, separately from your internet provider and approximate area.</p></div><span className={`edge-map-live${loading ? " is-loading" : error || !colo ? " is-unavailable" : ""}`}><i/> {loading ? "LOOKING UP" : error || !colo ? "NO EDGE DATA" : "LOCATION FOUND"}</span></div>
@@ -33,7 +55,7 @@ export default function NetworkEdgeMap({ colo, country, region, organization, lo
     </div>
     <div className="edge-map-details">
       <div><span className="section-kicker">TEZZ CONNECTION POINT</span><strong>{edge?.label || (loading ? 'Finding location…' : 'Not available')}</strong><small>{edge ? 'Detected network edge location' : 'We could not identify a mapped city'}</small>{colo && <small>Cloudflare colo code: {colo.toUpperCase()}</small>}</div>
-      <div><span>Your internet provider</span><strong>{organization || 'Not identified'}</strong><small>Your approximate area: {[region,country].filter(Boolean).join(', ') || 'Not available'}</small></div>
+      <div><span>Your internet provider</span><strong>{organization || 'Not identified'}</strong><small>Your approximate visitor area: {visitorLocationStatus === 'loading' ? 'Checking…' : visitorLocationStatus === 'available' ? [visitorLocation?.city, visitorLocation?.region, visitorLocation?.countryCode].filter(Boolean).join(', ') || 'Not available' : 'Not available'}</small><small>Location source: TEZZ IP geolocation · approximate, not GPS</small></div>
     </div>
     <div className="edge-map-footer"><small>{updatedAt ? `Updated at ${updatedAt}.` : 'Edge metadata is provided by the network handling this request.'} The highlighted point is the detected TEZZ connection point. Country outlines are geographic reference data, not network routes. This is not a traceroute.</small><button className="doctor-run-test" onClick={onRefresh} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh edge details'} ↻</button></div>
     {error && <p className="latency-error" role="alert">{error}</p>}
