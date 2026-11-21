@@ -33,13 +33,13 @@ jobs:
       - name: Detect changed guide
         id: guide
         env:
-          BASE_SHA: \${{ github.event.pull_request.base.sha || github.event.before }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           set -euo pipefail
           CHANGED_FILES=$(git diff --name-only "$BASE_SHA"...HEAD)
           GUIDE_FILE=$(printf '%s\n' "$CHANGED_FILES" | grep -E '^public/guides/[^/]+/index\.html$' | head -n 1 || true)
           if [ -n "$GUIDE_FILE" ]; then
-            GUIDE_PATH="/$(dirname "\${GUIDE_FILE#public/}")/"
+            GUIDE_PATH="/$(dirname "${GUIDE_FILE#public/}")/"
           elif printf '%s\n' "$CHANGED_FILES" | grep -qx 'public/guides/index.html'; then
             GUIDE_PATH="/guides/"
           else
