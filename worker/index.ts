@@ -735,10 +735,63 @@ const app: ExportedHandler<Env> = {
           .on('meta[name="twitter:title"]', { element(element) { element.setAttribute("content", title) } })
           .on('meta[name="twitter:description"]', { element(element) { element.setAttribute("content", description) } })
           .transform(response)
+
+        // Provide meaningful initial HTML to crawlers and link-preview agents.
+        // The React app remains unchanged for normal visitors; this fallback is
+        // appended only to crawler responses and uses the locale bundle's own
+        // translated labels and page metadata.
+        const userAgent = request.headers.get("User-Agent") ?? ""
+        const isCrawler = /Googlebot|Bingbot|DuckDuckBot|Baiduspider|YandexBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|OpenSEO|SEO.?crawler|crawler|spider|HeadlessChrome|Lighthouse|PageSpeed/i.test(userAgent)
+        if (isCrawler && (request.method === "GET" || request.method === "HEAD")) {
+          let localeData: Record<string, unknown> = {}
+          try {
+            const localeResponse = await env.ASSETS.fetch(new Request(new URL("/locales/" + locale + "/common.json", url.origin)))
+            if (localeResponse.ok) localeData = await localeResponse.json() as Record<string, unknown>
+          } catch {
+            // The translated metadata above remains available if a bundle cannot be read.
+          }
+          const label = (key: string, fallback: string) =>
+            typeof localeData[key] === "string" ? String(localeData[key]) : fallback
+          const escapeHtml = (value: string) => value
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;").replace(/'/g, "&#39;")
+          const heading = title.replace(/\\s*[|–-]\\s*TEZZ CONNECT\\s*$/i, "")
+          const fallback = '<main id="seo-fallback"><header><p>TEZZ CONNECT</p><h1>' +
+            escapeHtml(heading) + '</h1><p>' + escapeHtml(description) +
+            '</p></header><section><h2>' + escapeHtml(label("common.speed_test", "Speed test")) +
+            '</h2><p>' + escapeHtml(description) + '</p><nav><a href="/' + locale + '/">' +
+            escapeHtml(label("common.home", "Home")) + '</a> · <a href="/' + locale +
+            '/internet-doctor">' + escapeHtml(label("common.about", "Internet Doctor")) +
+            '</a> · <a href="/guides/">' + escapeHtml(label("common.hub", "Knowledge Hub")) +
+            '</a> · <a href="/about">' + escapeHtml(label("common.about", "About")) +
+            '</a></nav></section></main>'
+          const crawlerHtml = new HTMLRewriter()
+            .on("head", { element(element) {
+              element.append('<meta name="robots" content="index,follow"><style>' +
+                'body{font-family:system-ui,sans-serif;background:#090f1f;color:#edf3ff;margin:0}' +
+                '#seo-fallback{max-width:960px;margin:0 auto;padding:48px 20px;line-height:1.7}' +
+                '#seo-fallback header,#seo-fallback section{padding:24px;margin:18px 0;border:1px solid #26364b;border-radius:14px;background:#101c2d}' +
+                '#seo-fallback h1{font-size:clamp(28px,4vw,46px);line-height:1.15}' +
+                '#seo-fallback p{color:#b8c7d9}#seo-fallback a{color:#70d8d3;text-decoration:none}' +
+                '</style>', { html: true })
+            } })
+            .on("#root", { element(element) { element.append(fallback, { html: true }) } })
+            .transform(localizedResponse)
+          const headers = new Headers(crawlerHtml.headers)
+          headers.set("Cache-Control", "no-store")
+          headers.set("X-Content-Type-Options", "nosniff")
+          return new Response(request.method === "HEAD" ? null : crawlerHtml.body, {
+            status: crawlerHtml.status,
+            statusText: crawlerHtml.statusText,
+            headers,
+          })
+        }
+        const headers = new Headers(localizedResponse.headers)
+        headers.set("Cache-Control", "no-store")
         return new Response(localizedResponse.body, {
           status: localizedResponse.status,
           statusText: localizedResponse.statusText,
-          headers: localizedResponse.headers,
+          headers,
         })
       }
     }
