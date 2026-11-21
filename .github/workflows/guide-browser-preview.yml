@@ -36,7 +36,7 @@ jobs:
             echo "No changed guide index.html was found in this pull request."
             exit 1
           fi
-          GUIDE_PATH="/$(dirname "$GUIDE_FILE")/"
+          GUIDE_PATH="/$(dirname "${GUIDE_FILE#public/}")/"
           echo "path=$GUIDE_PATH" >> "$GITHUB_OUTPUT"
           echo "Browser preview target: $GUIDE_PATH"
 
@@ -111,7 +111,8 @@ jobs:
                 ['exactly one H1', result.h1Count === 1],
                 ['page title present', result.title.trim().length > 0],
                 ['guide content rendered', result.bodyText.trim().length > 500],
-                ['guide-specific interactive control detected when present', result.uploadCalculator || result.homePlanner || result.knowledgeCheck || result.bodyText.trim().length > 500],
+                ['home network planner controls detected', !guidePath.includes('/home-network-planner/') || result.homePlanner],
+      ['upload calculator controls detected', !guidePath.includes('/upload-speed-explained/') || result.uploadCalculator],
                 ['no horizontal overflow', result.scrollWidth <= result.viewportWidth + 1],
                 ['no uncaught browser errors', errors.length === 0],
               ];
