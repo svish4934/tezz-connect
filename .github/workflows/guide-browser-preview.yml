@@ -117,7 +117,7 @@ jobs:
                 ['page title present', result.title.trim().length > 0],
                 ['guide content rendered', result.bodyText.trim().length > 500],
                 ['home network planner controls detected', !guidePath.includes('/home-network-planner/') || result.homePlanner],
-      ['upload calculator controls detected', !guidePath.includes('/upload-speed-explained/') || result.uploadCalculator],
+                ['upload calculator controls detected', !guidePath.includes('/upload-speed-explained/') || result.uploadCalculator],
                 ['no horizontal overflow', result.scrollWidth <= result.viewportWidth + 1],
                 ['no uncaught browser errors', errors.length === 0],
               ];
