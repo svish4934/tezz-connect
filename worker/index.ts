@@ -96,7 +96,7 @@ const app: ExportedHandler<Env> = {
 
     if (url.pathname === "/robots.txt") {
       if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method not allowed", { status: 405, headers: { ...noStore, "Allow": "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" } })
-      const body = "User-agent: *\nAllow: /\n\nSitemap: https://tezzconnect.online/sitemap.xml\n"
+      const body = "User-agent: *\nAllow: /\n\nSitemap: https://tezzconnect.online/sitemap.xml\nSitemap: https://tezzconnect.online/blog/sitemap.xml\n"
       return new Response(request.method === "HEAD" ? null : body, {
         status: 200,
         headers: { ...noStore, "Content-Type": "text/plain; charset=utf-8" },
@@ -468,7 +468,30 @@ const app: ExportedHandler<Env> = {
       })
     }
 
-    const response = await env.ASSETS.fetch(request)
+    // Keep real application routes working while allowing unknown paths to
+    // receive an actual 404 from the static-assets router. With
+    // not_found_handling="404-page", client-side routes must explicitly fetch
+    // the SPA entry point instead of relying on a global index.html fallback.
+    const appShellPaths = new Set([
+      "/",
+      "/about",
+      "/internet-doctor",
+      "/tools",
+      "/global-network",
+      "/history",
+      "/report",
+    ])
+    const normalizedPath = url.pathname.replace(/\/+$/, "") || "/"
+    const localizedAppMatch = normalizedPath.match(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\/.*)?$/)
+    const localizedAppPath = localizedAppMatch
+      ? (localizedAppMatch[2] ?? "/").replace(/\/+$/, "") || "/"
+      : null
+    const isAppShellRoute = appShellPaths.has(normalizedPath) ||
+      (localizedAppPath !== null && appShellPaths.has(localizedAppPath))
+    const assetRequest = isAppShellRoute && (request.method === "GET" || request.method === "HEAD")
+      ? new Request(new URL("/index.html", url.origin), request)
+      : request
+    const response = await env.ASSETS.fetch(assetRequest)
 
     // History and report contain browser-local, user-specific results. Keep
     // these utility views out of search indexes while allowing link discovery.
