@@ -2845,3 +2845,44 @@ footer a{color:#b7c6d8}
 .edge-map-location-error{color:#ffb4b4!important}
 .edge-map-footer .doctor-run-test{border-radius:11px;min-height:42px;padding:10px 16px;font-weight:700}
 @media(max-width:640px){.edge-map-gps-button{min-height:46px;font-size:13px}.edge-map-details>div{padding:11px}.edge-map-location-value{font-size:13px!important}}
+
+
+/* Accessible site-wide search dialog */
+.tezz-main .tezz-header-actions .tezz-header-search {
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  gap:7px!important;min-height:36px!important;padding:0 11px!important;
+  border:1px solid #2a536d!important;border-radius:10px!important;
+  background:#10243a!important;color:#67e8f9!important;cursor:pointer!important;
+}
+.tezz-search-label{font-size:12px;font-weight:700}
+.tezz-search-backdrop{
+  position:fixed;inset:0;z-index:10050;display:flex;align-items:flex-start;justify-content:center;
+  padding: min(12vh,90px) 16px 24px;background:rgba(3,10,22,.72);backdrop-filter:blur(7px);
+}
+.tezz-search-dialog{
+  width:min(100%,620px);max-height:min(78vh,720px);overflow:auto;padding:22px;
+  border:1px solid #d7e4f1;border-radius:20px;background:#fff;color:#14263d;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+.tezz-search-dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.tezz-search-dialog-heading h2{margin:5px 0 0;font-size:23px;line-height:1.2;color:#14263d}
+.tezz-search-close{width:36px;height:36px;border:1px solid #dbe5ef;border-radius:10px;background:#f5f8fc;color:#243b55;font-size:24px;cursor:pointer}
+.tezz-search-input-wrap{display:flex;align-items:center;gap:11px;min-height:52px;padding:0 14px;border:1px solid #a9c8e5;border-radius:12px;background:#f8fbff;color:#1766b4}
+.tezz-search-input-wrap:focus-within{outline:3px solid rgba(22,120,237,.16);border-color:#1678ed}
+.tezz-search-input-wrap input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#14263d;font:inherit;font-size:15px}
+.tezz-search-results{display:grid;gap:7px;margin-top:15px}
+.tezz-search-results>a{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 13px;border:1px solid #e5edf5;border-radius:11px;color:#14263d;text-decoration:none;background:#fff}
+.tezz-search-results>a:hover,.tezz-search-results>a:focus-visible{border-color:#9dc7ed;background:#f2f8ff;outline:0}
+.tezz-search-results>a span{display:grid;gap:3px}
+.tezz-search-results>a strong{font-size:14px}
+.tezz-search-results>a small{font-size:11px;color:#647990}
+.tezz-search-results>a b{color:#1678ed;font-size:18px}
+.tezz-search-empty{margin:0;padding:20px 10px;text-align:center;color:#61748a;font-size:13px}
+.tezz-search-hint{margin:14px 0 0;color:#718197;font-size:11px}
+@media(max-width:760px){
+  .tezz-main .tezz-header-actions .tezz-header-search{flex:0 0 36px!important;width:36px!important;height:36px!important;padding:0!important}
+  .tezz-search-label{display:none}
+  .tezz-search-backdrop{padding:12vh 10px 16px}
+  .tezz-search-dialog{padding:17px;border-radius:16px;max-height:82vh}
+  .tezz-search-dialog-heading h2{font-size:20px}
+}
