@@ -60,7 +60,6 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           import { chromium } from 'playwright';
-          import fs from 'node:fs/promises';
 
           const browser = await chromium.launch({ headless: true });
           const cases = [
