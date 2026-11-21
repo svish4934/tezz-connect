@@ -65,7 +65,7 @@ await check('Arabic locale bundle and RTL metadata', '/locales/ar/common.json', 
 })
 
 for (const [name, path, expected, title, canonical, description] of [
-  ['Home crawler SEO fallback', '/', 'Test your internet speed with TEZZ CONNECT.', 'Free Internet Speed Test | Download & Upload | TEZZ CONNECT', 'https://tezzconnect.online/', 'Test download and upload speed, browser-based latency and response variation. Use Internet Doctor, DNS lookup and Wi-Fi tools to investigate connection issues.'],
+  ['Home crawler SEO fallback', '/', 'Free Internet Speed Test', 'Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT', 'https://tezzconnect.online/', 'Check your internet speed for free. Measure download and upload throughput, browser-based response time and variation, then get clear guidance for your connection.'],
   ['About crawler SEO fallback', '/about', 'Understand your connection.', 'About TEZZ CONNECT | Internet Performance Tools', 'https://tezzconnect.online/about'],
   ['Internet Doctor crawler SEO fallback', '/internet-doctor', 'Find out why your internet feels slow or unstable.', 'Internet Doctor: Fix Slow Internet | TEZZ CONNECT', 'https://tezzconnect.online/internet-doctor'],
   ['Network tools crawler SEO fallback', '/tools', 'Practical network tools to understand your connection.', 'Free Network Tools & Diagnostics | TEZZ CONNECT', 'https://tezzconnect.online/tools'],
