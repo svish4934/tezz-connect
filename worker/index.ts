@@ -719,7 +719,7 @@ const app: ExportedHandler<Env> = {
             ? "https://tezzconnect.online" + path
             : "https://tezzconnect.online/" + language + path
           return '<link rel="alternate" hreflang="' + language + '" href="' + href + '" />'
-        }).join("\\n") + '\\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
+        }).join("\n") + '\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
         // Give every localized route its own language-aware WebPage entity.
         // The existing Organization, WebSite and WebApplication entities remain
         // the site-wide source of truth in the base document.
