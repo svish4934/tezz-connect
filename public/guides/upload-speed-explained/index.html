@@ -72,7 +72,7 @@
 <div class="upload-result" aria-live="polite" aria-atomic="true"><div><strong>Estimated transfer time</strong><output id="upload-time-result" for="upload-file-size upload-speed">About 8 min 20 sec</output></div><p id="upload-time-detail">A 500 MB file at 10 Mbps, using an illustrative 80% of the stated rate.</p></div>
 <small class="upload-caveat">Teaching estimate, not a live test or guarantee. The calculation converts megabytes to megabits (1 MB = 8 megabits) and assumes 80% of the entered rate is usable for the transfer. Real results vary with protocol overhead, server limits, Wi-Fi, network congestion and other activity.</small>
 </section>
-<aside class="note"><h2>A note about the TEZZ CONNECT test</h2><p>For its upload measurement, TEZZ CONNECT sends a 25 MB test payload to its own endpoint. The result depends on your device, browser, network and route. It is a useful measurement of that test—not a guarantee of upload speed to every app or website.</p></aside>
+<aside class="note"><h2>A note about the TEZZ CONNECT test</h2><p>TEZZ CONNECT uses a calibration upload before measuring upload throughput. It first sends a 1 MB calibration payload, then selects a measured payload of 2 MB, 5 MB or 10 MB based on the calibration result.</p><p>The test performs multiple measured uploads and calculates the reported result from those samples. Upload timing is measured in the browser and confirmed by the TEZZ CONNECT server. Each measured upload request is limited to a maximum payload of 10 MB.</p><p>The result reflects performance between your device, browser, network and the TEZZ CONNECT test endpoint. It is a useful measurement under those test conditions, not a guarantee of upload speed to every app, cloud service or website.</p></aside>
 <div class="tool-card"><h2>Check your upload speed</h2><p>Run the TEZZ CONNECT browser test and compare upload and download results.</p><a href="/#tezz-speed-test">Open the free speed test →</a></div>
 <section class="article-section" aria-labelledby="upload-deeper-title">
 <h2 id="upload-deeper-title">Why upload speed matters more than many people expect</h2>
@@ -124,6 +124,14 @@
 <p>Devices share the available upstream capacity. A large file transfer or cloud backup can use much of it and leave less room for calls or other interactive tasks. Router queueing can also increase delay when the link is busy.</p>
 <h3>Can a VPN reduce upload speed?</h3>
 <p>It can. A VPN adds an extra route and encryption work, and its server may have limited capacity or be far away. For a fair comparison, test with the VPN off and on using the same device and test method, if your work or privacy requirements allow it.</p>
+<h3>Does upload speed affect AI video generation?</h3>
+<p>It can, depending on how you use the AI tool. Uploading source videos, images and other large files requires upstream bandwidth. Sending text prompts usually uses very little data. Downloading the generated video uses download bandwidth instead. The AI platform's processing time and server capacity also affect how quickly the result is ready.</p>
+<h3>Why does my video call freeze even when download speed is high?</h3>
+<p>A video call sends your camera and microphone data as well as receiving other participants' video. A weak or unstable upload connection, high latency, jitter, packet loss or competing background uploads can affect call quality even when download speed is good. Check both upload performance and connection stability.</p>
+<h3>Does upload speed affect cloud backups?</h3>
+<p>Yes. Your device must send photos, videos and files to the cloud. Higher sustained upload capacity can reduce transfer time, but the cloud provider's limits, file size, Wi-Fi quality, network congestion and other uploads also affect the result.</p>
+<h3>What upload speed do I need for live streaming?</h3>
+<p>The required upload speed depends on the streaming platform, video resolution, frame rate and encoding bitrate. Your connection should have additional headroom above the stream bitrate so normal fluctuations and other network activity do not interrupt the stream. Check the platform's current recommendations before choosing a plan.</p>
 </section>
 
 <section class="article-section" aria-labelledby="upload-workflow-title">
