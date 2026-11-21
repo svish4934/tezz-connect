@@ -1,0 +1,126 @@
+name: Knowledge Hub guide browser preview
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "public/guides/**"
+      - ".github/workflows/guide-browser-preview.yml"
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: guide-browser-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  browser-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout proposed changes
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: Install project dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build site
+        run: npm run build
+
+      - name: Install isolated browser-test dependency
+        run: |
+          npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Start local Worker with preview bindings only
+        run: |
+          set -euo pipefail
+          npx wrangler dev --local --ip 127.0.0.1 --port 8787 --show-interactive-dev-session=false > worker-preview.log 2>&1 &
+          echo $! > worker-preview.pid
+          for attempt in $(seq 1 45); do
+            if curl --silent --fail http://127.0.0.1:8787/ >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat worker-preview.log
+          echo "Local Worker did not become ready"
+          exit 1
+
+      - name: Test guide on desktop and mobile
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs/promises';
+
+          const browser = await chromium.launch({ headless: true });
+          const cases = [
+            { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+            { name: 'mobile', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
+          ];
+          let failed = false;
+
+          try {
+            for (const test of cases) {
+              const page = await browser.newPage({ viewport: test.viewport, isMobile: !!test.isMobile, hasTouch: !!test.hasTouch });
+              const errors = [];
+              page.on('pageerror', error => errors.push(error.message));
+              const response = await page.goto('http://127.0.0.1:8787/guides/upload-speed-explained/', { waitUntil: 'networkidle' });
+              await page.screenshot({ path: `guide-preview-${test.name}.png`, fullPage: true });
+
+              const result = await page.evaluate(() => ({
+                title: document.title,
+                h1Count: document.querySelectorAll('h1').length,
+                bodyText: document.body.innerText,
+                viewportWidth: document.documentElement.clientWidth,
+                scrollWidth: document.documentElement.scrollWidth,
+                calculator: !!document.querySelector('#upload-file-size') && !!document.querySelector('#upload-speed') && !!document.querySelector('#upload-time-result'),
+                knowledgeCheck: !!document.querySelector('.knowledge-check'),
+              }));
+
+              const checks = [
+                ['HTTP 200', response?.status() === 200],
+                ['exactly one H1', result.h1Count === 1],
+                ['page title present', result.title.trim().length > 0],
+                ['upload methodology present', /calibration|measured payload/i.test(result.bodyText)],
+                ['AI video FAQ present', /AI video generation/i.test(result.bodyText)],
+                ['calculator preserved', result.calculator],
+                ['knowledge check preserved', result.knowledgeCheck],
+                ['no horizontal overflow', result.scrollWidth <= result.viewportWidth + 1],
+                ['no uncaught browser errors', errors.length === 0],
+              ];
+
+              for (const [label, ok] of checks) {
+                console.log(`${test.name}: ${ok ? 'PASS' : 'FAIL'} — ${label}`);
+                if (!ok) failed = true;
+              }
+              if (errors.length) console.error(errors);
+              await page.close();
+            }
+          } finally {
+            await browser.close();
+          }
+
+          if (failed) process.exit(1);
+          NODE
+
+      - name: Upload desktop and mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: guide-browser-preview-${{ github.event.pull_request.number }}
+          path: |
+            guide-preview-desktop.png
+            guide-preview-mobile.png
+            worker-preview.log
+          if-no-files-found: warn
+          retention-days: 7
