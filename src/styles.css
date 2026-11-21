@@ -2886,3 +2886,36 @@ footer a{color:#b7c6d8}
   .tezz-search-dialog{padding:17px;border-radius:16px;max-height:82vh}
   .tezz-search-dialog-heading h2{font-size:20px}
 }
+
+
+/* English homepage editorial sections: clear explanations, accessible cards and direct answers. */
+.homepage-editorial{display:grid;gap:18px;margin:24px 0 30px;color:#17324b}
+.homepage-editorial>section{min-width:0;padding:clamp(19px,2.6vw,28px);border:1px solid #dce7f0;border-radius:18px;background:linear-gradient(145deg,#fff,#f7fafd);box-shadow:0 8px 24px rgba(15,35,55,.045)}
+.homepage-section-heading{max-width:790px;margin-bottom:18px}
+.homepage-section-heading h2,.homepage-method h2{margin:7px 0 8px;color:#142b45;font-size:clamp(21px,2.4vw,28px);line-height:1.2;letter-spacing:-.55px}
+.homepage-section-heading>p,.homepage-method>p{margin:0;color:#60748a;font-size:13px;line-height:1.75}
+.homepage-measurement-grid,.homepage-causes-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.homepage-measurement-grid article,.homepage-causes-grid article{min-width:0;padding:16px;border:1px solid #e0eaf2;border-radius:13px;background:#fff}
+.homepage-measurement-number{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#e7f5fa;color:#087f91;font:700 11px ui-monospace,monospace}
+.homepage-measurement-grid h3,.homepage-causes-grid h3,.homepage-faq-list h3{margin:12px 0 6px;color:#18344d;font-size:14px;line-height:1.4}
+.homepage-measurement-grid p,.homepage-causes-grid p,.homepage-faq-list p{margin:0;color:#60748a;font-size:12px;line-height:1.7}
+.homepage-causes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.homepage-causes-grid article{padding:18px}
+.homepage-causes-grid h3{margin-top:0}
+.homepage-link-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.homepage-link-grid a{display:flex;min-width:0;flex-direction:column;gap:8px;padding:16px;border:1px solid #dce8f1;border-radius:13px;background:#fff;color:#18344d;text-decoration:none;transition:border-color .16s,transform .16s,box-shadow .16s}
+.homepage-link-grid a:hover{border-color:#9bc9dc;transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,35,55,.07)}
+.homepage-link-grid strong{font-size:14px}
+.homepage-link-grid span{flex:1;color:#60748a;font-size:12px;line-height:1.65}
+.homepage-link-grid b{color:#087f91;font-size:11px}
+.homepage-method{border-color:#cfe4e6!important;background:linear-gradient(145deg,#f4fbfc,#fff)!important}
+.homepage-method .section-kicker{color:#087f91}
+.homepage-method>p{margin:10px 0}
+.homepage-method>a{display:inline-block;margin-top:5px;color:#087f91;font-size:12px;font-weight:750;text-decoration:none}
+.homepage-method>a:hover{text-decoration:underline}
+.homepage-faq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.homepage-faq-list article{padding:16px;border:1px solid #e0eaf2;border-radius:12px;background:#fff}
+.homepage-faq-list h3{margin-top:0}
+.homepage-editorial a:focus-visible{outline:3px solid #1678ed;outline-offset:3px}
+@media(max-width:900px){.homepage-measurement-grid,.homepage-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.homepage-editorial{gap:12px;margin:18px 0 24px}.homepage-editorial>section{padding:18px 14px;border-radius:15px}.homepage-measurement-grid,.homepage-causes-grid,.homepage-link-grid,.homepage-faq-list{grid-template-columns:1fr}.homepage-measurement-grid article,.homepage-causes-grid article,.homepage-link-grid a,.homepage-faq-list article{padding:14px}.homepage-section-heading{margin-bottom:14px}.homepage-section-heading>p,.homepage-method>p{font-size:12px}}

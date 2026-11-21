@@ -40,6 +40,8 @@ jobs:
         run: npm run test:locales
       - name: Validate sitemap and Knowledge Hub SEO
         run: npm run test:seo-guides
+      - name: Validate English homepage SEO and content parity
+        run: npm run test:seo-homepage
       - name: Build application
         run: npm run build
       - name: Verify live localized crawler preview
