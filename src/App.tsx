@@ -1225,7 +1225,11 @@ function App() {
                 </div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?speedText(language, 'TEST IN PROGRESS'):speedText(language, 'START SPEED TEST')}</button>
-              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} MB sent · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} MB received</strong>:null}</div>}
+              {state==='running'&&<div className="tezz-live-progress" role="status" aria-live="polite">
+                <div className="tezz-progress-topline"><span className="tezz-progress-phase">{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span></div>
+                <div className="tezz-progress-track" aria-hidden="true"><span style={{width:`${Math.max(0,Math.min(100,progress))}%`}}/></div>
+                <div className="tezz-progress-detail">{testPhase.toLowerCase().includes('upload')? `${(uploadBytes/1_000_000).toFixed(1)} MB sent · ${uploadLiveSpeed.toFixed(1)} Mbps`:testPhase.toLowerCase().includes('download')?`${(downloadBytes/1_000_000).toFixed(1)} MB received`:speedText(language,'Preparing measurement…')}</div>
+              </div>}
               {state==='error'&&<div className="tezz-live-progress error-note" role="alert">{testError || 'The test could not complete. Please try again.'}</div>}
           <section className="tezz-stat-grid">
             <div className="tezz-stat cyan"><ArrowDown/><span>{speedText(language, 'Download')}</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
