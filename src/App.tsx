@@ -505,6 +505,59 @@ function App() {
     if (activeTab === 'Global Network' && !benchmarkLoaded && !benchmarkLoading) void refreshBenchmarkRegions()
   }, [activeTab, benchmarkLoaded, benchmarkLoading])
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchPages, setSearchPages] = useState<Array<{ title: string; url: string; keywords: string }>>([
+    { title: 'Free Internet Speed Test', url: '/', keywords: 'speed test download upload ping latency' },
+    { title: 'Internet Doctor', url: '/internet-doctor', keywords: 'troubleshoot slow internet connection problems' },
+    { title: 'Network Tools', url: '/tools', keywords: 'public ip dns lookup wifi tools' },
+    { title: 'Global Network', url: '/global-network', keywords: 'network map benchmarks' },
+    { title: 'Test History', url: '/history', keywords: 'saved results history' },
+    { title: 'Performance Report', url: '/report', keywords: 'report results performance' },
+    { title: 'Internet Knowledge Hub', url: '/guides/', keywords: 'guides learn internet knowledge hub' },
+    { title: 'Blog', url: '/blog/', keywords: 'articles tips blog' },
+  ])
+  const searchResults = useMemo(() => {
+    const terms = searchQuery.trim().toLowerCase().split(/\s+/).filter(Boolean)
+    if (!terms.length) return searchPages.slice(0, 8)
+    return searchPages.map(page => ({ ...page, score: terms.reduce((score, term) => score + ((page.title + ' ' + page.keywords + ' ' + page.url).toLowerCase().includes(term) ? 1 : 0), 0) }))
+      .filter(page => page.score > 0).sort((a, b) => b.score - a.score || a.title.localeCompare(b.title)).slice(0, 10)
+  }, [searchPages, searchQuery])
+
+  useEffect(() => {
+    if (!searchOpen) return
+    let cancelled = false
+    const loadSearchIndex = async () => {
+      try {
+        const response = await fetch('/sitemap.xml', { cache: 'no-cache' })
+        if (!response.ok) return
+        const xml = new DOMParser().parseFromString(await response.text(), 'application/xml')
+        const urls = Array.from(xml.querySelectorAll('url > loc')).map(node => node.textContent?.trim() || '').filter(Boolean)
+        const entries = urls.map(url => {
+          const path = new URL(url, window.location.origin).pathname
+          const cleanPath = path.replace(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(?=\/)/, '/')
+          const slug = cleanPath.split('/').filter(Boolean).pop() || 'home'
+          const title = slug === 'home' ? 'Free Internet Speed Test' : slug.replace(/[-_]+/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase())
+          return { title, url: cleanPath, keywords: cleanPath.replace(/[\/-]+/g, ' ') }
+        }).filter((page, index, all) => all.findIndex(item => item.url === page.url) === index)
+        if (!cancelled && entries.length) setSearchPages(current => {
+          const merged = [...current, ...entries]
+          return merged.filter((page, index) => merged.findIndex(item => item.url === page.url) === index)
+        })
+      } catch { /* Keep built-in search destinations available if the sitemap is unavailable. */ }
+    }
+    void loadSearchIndex()
+    return () => { cancelled = true }
+  }, [searchOpen])
+
+  useEffect(() => {
+    if (!searchOpen) return
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSearchOpen(false)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [searchOpen])
 
   function navigateTo(tab: string) {
     setMobileMenuOpen(false)
@@ -1119,8 +1172,18 @@ function App() {
             </details>
             <a href="/blog/">Blog</a>
           </nav>
-          <div className="tezz-header-actions"><label className="tezz-language-picker"><Globe2 size={15}/><span className="sr-only">{copy[8]}</span><select aria-label={copy[8]} value={language} onChange={event => changeLanguage(event.target.value as UiLanguage)}>{UI_LANGUAGES.map(item => <option key={item.code} value={item.code}>{item.native}</option>)}</select></label><a className="tezz-header-search" aria-label="Explore network tools" title="Explore network tools" href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}><Search size={18}/></a><button className="tezz-menu" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕' : '☰'}</button></div>
+          <div className="tezz-header-actions"><label className="tezz-language-picker"><Globe2 size={15}/><span className="sr-only">{copy[8]}</span><select aria-label={copy[8]} value={language} onChange={event => changeLanguage(event.target.value as UiLanguage)}>{UI_LANGUAGES.map(item => <option key={item.code} value={item.code}>{item.native}</option>)}</select></label><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" title="Search TEZZ CONNECT" aria-haspopup="dialog" aria-expanded={searchOpen} onClick={() => { setSearchOpen(true); setSearchQuery('') }}><Search size={18}/><span className="tezz-search-label">Search</span></button><button className="tezz-menu" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕' : '☰'}</button></div>
         </header>
+        {searchOpen && <div className="tezz-search-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSearchOpen(false) }}>
+          <section className="tezz-search-dialog" role="dialog" aria-modal="true" aria-labelledby="tezz-search-title">
+            <div className="tezz-search-dialog-heading"><div><span className="section-kicker">TEZZ CONNECT</span><h2 id="tezz-search-title">Search the website</h2></div><button type="button" className="tezz-search-close" onClick={() => setSearchOpen(false)} aria-label="Close search">×</button></div>
+            <label className="tezz-search-input-wrap"><Search size={19}/><input autoFocus type="search" value={searchQuery} onChange={event => setSearchQuery(event.target.value)} placeholder="Search tools, guides and articles…" aria-label="Search tools, guides and articles"/></label>
+            <div className="tezz-search-results" aria-live="polite">
+              {searchResults.length ? searchResults.map(page => <a href={page.url} key={page.url} onClick={() => setSearchOpen(false)}><span><strong>{page.title}</strong><small>{page.url.startsWith('/guides/') ? 'Knowledge Hub guide' : page.url.startsWith('/blog/') ? 'Blog article' : 'TEZZ CONNECT page'}</small></span><b aria-hidden="true">→</b></a>) : <p className="tezz-search-empty">No matching pages found. Try a different keyword.</p>}
+            </div>
+            <p className="tezz-search-hint">Search includes website tools, Knowledge Hub guides and Blog pages.</p>
+          </section>
+        </div>}
         {mobileMenuOpen && <nav className="tezz-mobile-nav" id="tezz-mobile-nav" aria-label="Mobile navigation">
           <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}>{copy[0]}</a>
           <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
