@@ -10,6 +10,7 @@ on:
     branches: [main]
     paths:
       - "public/guides/**"
+      - ".github/workflows/guide-browser-preview.yml"
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
