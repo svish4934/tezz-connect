@@ -73,6 +73,9 @@ jobs:
               test "$H1_COUNT" = "1" || { echo "Expected one H1 on /$path; found $H1_COUNT"; exit 1; }
               grep -Eqi '<title>[^<]+</title>' "$file" || { echo "Missing title on /$path"; exit 1; }
               grep -Eqi '<meta name="description" content="[^"]+"' "$file" || { echo "Missing description on /$path"; exit 1; }
+              grep -Fq '"@type":"WebPage"' "$file" || { echo "Localized WebPage schema missing on /$path"; exit 1; }
+              grep -Fq '"inLanguage":"'$locale'"' "$file" || { echo "Incorrect WebPage schema language on /$path"; exit 1; }
+              grep -Fq '"url":"'$canonical'"' "$file" || { echo "Incorrect WebPage schema URL on /$path"; exit 1; }
               if grep -Eqi '<meta[^>]+name="robots"[^>]+content="noindex' "$file"; then echo "Unexpected noindex on /$path"; exit 1; fi
               if [ "$locale" = "ar" ]; then grep -Fqi '<html lang="ar" dir="rtl"' "$file" || { echo "Arabic response is not RTL"; exit 1; }; fi
               grep -Fqi "href=\"/$locale/about\"" "$file" || { echo "Localized About navigation missing on /$path"; exit 1; }
