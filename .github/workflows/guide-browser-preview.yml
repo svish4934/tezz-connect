@@ -92,7 +92,7 @@ jobs:
               const page = await browser.newPage({ viewport: test.viewport, isMobile: !!test.isMobile, hasTouch: !!test.hasTouch });
               const errors = [];
               page.on('pageerror', error => errors.push(error.message));
-              const response = await page.goto('http://127.0.0.1:8787${guidePath}', { waitUntil: 'networkidle' });
+              const response = await page.goto(`http://127.0.0.1:8787${guidePath}`, { waitUntil: 'networkidle' });
               await page.screenshot({ path: `guide-preview-${test.name}.png`, fullPage: true });
 
               const result = await page.evaluate(() => ({
