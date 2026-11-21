@@ -10,6 +10,7 @@ on:
     branches: [main]
     paths:
       - "public/guides/**"
+      - ".github/workflows/guide-browser-preview.yml"
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
@@ -36,32 +37,42 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           set -euo pipefail
-          GUIDE_FILE=$(git diff --name-only "$BASE_SHA"...HEAD -- 'public/guides/*/index.html' | head -n 1)
-          if [ -z "$GUIDE_FILE" ]; then
-            echo "No changed guide index.html was found in this pull request."
-            exit 1
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA"...HEAD)
+          GUIDE_FILE=$(printf '%s\n' "$CHANGED_FILES" | grep -E '^public/guides/[^/]+/index\.html$' | head -n 1 || true)
+          if [ -n "$GUIDE_FILE" ]; then
+            GUIDE_PATH="/$(dirname "${GUIDE_FILE#public/}")/"
+          elif printf '%s\n' "$CHANGED_FILES" | grep -qx 'public/guides/index.html'; then
+            GUIDE_PATH="/guides/"
+          else
+            echo "No Knowledge Hub page requires browser preview; skipping."
+            echo "path=" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-          GUIDE_PATH="/$(dirname "${GUIDE_FILE#public/}")/"
           echo "path=$GUIDE_PATH" >> "$GITHUB_OUTPUT"
           echo "Browser preview target: $GUIDE_PATH"
 
       - name: Set up Node
+        if: steps.guide.outputs.path != ''
         uses: actions/setup-node@v4
         with:
           node-version: 22.12.0
 
       - name: Install project dependencies
+        if: steps.guide.outputs.path != ''
         run: npm install --no-audit --no-fund
 
       - name: Build site
+        if: steps.guide.outputs.path != ''
         run: npm run build
 
       - name: Install isolated browser-test dependency
+        if: steps.guide.outputs.path != ''
         run: |
           npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
           npx playwright install --with-deps chromium
 
       - name: Start local Worker with preview bindings only
+        if: steps.guide.outputs.path != ''
         run: |
           set -euo pipefail
           npx wrangler dev --local --ip 127.0.0.1 --port 8787 --show-interactive-dev-session=false > worker-preview.log 2>&1 &
@@ -77,6 +88,7 @@ jobs:
           exit 1
 
       - name: Test guide on desktop and mobile
+        if: steps.guide.outputs.path != ''
         env:
           GUIDE_PATH: ${{ steps.guide.outputs.path }}
         run: |
@@ -149,7 +161,7 @@ jobs:
           NODE
 
       - name: Upload desktop and mobile screenshots
-        if: always()
+        if: always() && steps.guide.outputs.path != ''
         uses: actions/upload-artifact@v4
         with:
           name: guide-browser-preview-${{ github.run_id }}
