@@ -752,6 +752,9 @@ const app: ExportedHandler<Env> = {
           }
           const label = (key: string, fallback: string) =>
             typeof localeData[key] === "string" ? String(localeData[key]) : fallback
+          const pageTitles = localeMeta.pageTitles ?? {}
+          const doctorLabel = pageTitles["Internet Doctor"] ?? "Internet Doctor"
+          const aboutLabel = pageTitles.About ?? "About TEZZ CONNECT"
           const escapeHtml = (value: string) => value
             .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;").replace(/'/g, "&#39;")
@@ -761,9 +764,9 @@ const app: ExportedHandler<Env> = {
             '</p></header><section><h2>' + escapeHtml(label("common.speed_test", "Speed test")) +
             '</h2><p>' + escapeHtml(description) + '</p><nav><a href="/' + locale + '/">' +
             escapeHtml(label("common.home", "Home")) + '</a> · <a href="/' + locale +
-            '/internet-doctor">' + escapeHtml(label("common.about", "Internet Doctor")) +
+            '/internet-doctor">' + escapeHtml(doctorLabel) +
             '</a> · <a href="/guides/">' + escapeHtml(label("common.hub", "Knowledge Hub")) +
-            '</a> · <a href="/about">' + escapeHtml(label("common.about", "About")) +
+            '</a> · <a href="/about">' + escapeHtml(aboutLabel) +
             '</a></nav></section></main>'
           const crawlerHtml = new HTMLRewriter()
             .on("head", { element(element) {
