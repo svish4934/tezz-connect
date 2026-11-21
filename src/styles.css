@@ -3164,3 +3164,14 @@ footer a{color:#b7c6d8}
   .tezz-health-badge,.tezz-health-card .tezz-signal-bars{grid-column:1!important;grid-row:auto!important;justify-self:start!important}
 }
 
+
+/* Keep supporting tools outside the tightly scoped homepage hero. */
+.homepage-hero-support{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;width:100%;margin:0 0 24px}
+.homepage-hero-support .tezz-health-card{width:100%;max-width:none;min-height:0}
+.homepage-hero-support .tezz-feature-grid{grid-template-columns:repeat(4,minmax(0,1fr));width:100%;margin:0;gap:12px}
+@media(max-width:760px){
+  .homepage-hero-support{gap:12px;margin-bottom:20px}
+  .homepage-hero-support .tezz-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .homepage-hero-support .tezz-feature-grid button{min-height:82px;padding:12px 10px 12px 48px}
+  .homepage-hero-support .tezz-feature-grid button>svg{left:10px;top:19px;width:26px;height:26px}
+}
