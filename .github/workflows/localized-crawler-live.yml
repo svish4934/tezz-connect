@@ -1,0 +1,92 @@
+name: Localized crawler live preview verification
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+    paths:
+      - "worker/index.ts"
+      - "public/locales/**"
+      - "public/sitemap.xml"
+      - ".github/workflows/localized-crawler-live.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live-preview:
+    if: github.event.pull_request.number == 219 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the current Cloudflare preview deployment
+        env:
+          PREVIEW_URL: https://seo-localized-crawlable-html-fallbacks-tezz-connect.svish4934.workers.dev
+        run: |
+          set -euo pipefail
+          READY=0
+          for attempt in $(seq 1 60); do
+            CODE="$(curl --silent --output /dev/null --write-out '%{http_code}' --max-time 15 -A 'Googlebot' "$PREVIEW_URL/hi/" || true)"
+            if [ "$CODE" = "200" ]; then
+              READY=1
+              break
+            fi
+            echo "Preview not ready yet (HTTP $CODE), attempt $attempt/60"
+            sleep 5
+          done
+          test "$READY" -eq 1 || { echo "Cloudflare preview did not become available"; exit 1; }
+
+      - name: Verify all localized crawler responses
+        env:
+          PREVIEW_URL: https://seo-localized-crawlable-html-fallbacks-tezz-connect.svish4934.workers.dev
+        run: |
+          set -euo pipefail
+          locales=(hi mr bn zh-CN pt-BR es fr ar)
+          routes=("" "about" "internet-doctor" "tools" "global-network")
+          for locale in "${locales[@]}"; do
+            for route in "${routes[@]}"; do
+              if [ -z "$route" ]; then
+                path="$locale/"
+                canonical="https://tezzconnect.online/$locale/"
+              else
+                path="$locale/$route"
+                canonical="https://tezzconnect.online/$locale/$route"
+              fi
+              file="$(mktemp)"
+              curl --fail --silent --show-error --max-time 30 -A 'Googlebot' "$PREVIEW_URL/$path" -o "$file"
+              grep -Fqi "<html lang=\"$locale\"" "$file" || { echo "Missing lang=$locale on /$path"; exit 1; }
+              grep -Fqi "href=\"$canonical\"" "$file" || { echo "Incorrect/missing canonical on /$path"; exit 1; }
+              grep -Fqi "hreflang=\"$locale\"" "$file" || { echo "Missing self hreflang on /$path"; exit 1; }
+              grep -Fqi 'hreflang="x-default"' "$file" || { echo "Missing x-default on /$path"; exit 1; }
+              grep -Fq 'id="seo-fallback"' "$file" || { echo "Crawler fallback missing on /$path"; exit 1; }
+              H1_COUNT="$(grep -Eoi '<h1([[:space:]>])' "$file" | wc -l | tr -d ' ')"
+              test "$H1_COUNT" = "1" || { echo "Expected one H1 on /$path; found $H1_COUNT"; exit 1; }
+              grep -Eqi '<title>[^<]+</title>' "$file" || { echo "Missing title on /$path"; exit 1; }
+              grep -Eqi '<meta name="description" content="[^"]+"' "$file" || { echo "Missing description on /$path"; exit 1; }
+              if grep -Eqi '<meta[^>]+name="robots"[^>]+content="noindex' "$file"; then
+                echo "Unexpected noindex on public route /$path"
+                exit 1
+              fi
+              if [ "$locale" = "ar" ]; then
+                grep -Fqi '<html lang="ar" dir="rtl"' "$file" || { echo "Arabic response is not RTL"; exit 1; }
+              fi
+              grep -Fqi "href=\"/$locale/about\"" "$file" || { echo "Localized About navigation missing on /$path"; exit 1; }
+              rm -f "$file"
+              echo "PASS crawler /$path"
+            done
+          done
+
+      - name: Verify browser and HEAD responses
+        env:
+          PREVIEW_URL: https://seo-localized-crawlable-html-fallbacks-tezz-connect.svish4934.workers.dev
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --max-time 30 -A 'Mozilla/5.0' "$PREVIEW_URL/ar/about" -o browser.html
+          grep -Fq 'id="root"' browser.html
+          if grep -Fq 'id="seo-fallback"' browser.html; then
+            echo "Crawler-only fallback leaked into normal browser response"
+            exit 1
+          fi
+          HEADERS="$(curl --silent --show-error --head --max-time 30 -A 'Googlebot' "$PREVIEW_URL/hi/" | tr '[:upper:]' '[:lower:]')"
+          echo "$HEADERS" | grep -q '^http/.* 200'
+          echo "$HEADERS" | grep -q '^cache-control:.*no-store'
+          echo "PASS normal browser and crawler HEAD response"
