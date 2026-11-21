@@ -1210,7 +1210,7 @@ function App() {
                 <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
                 <div className="tezz-digital-caption">{state === 'running' ? speedText(language, 'Live measurement in progress') : result ? speedText(language, 'Latest download measurement') : speedText(language, 'Your connection speed, measured live')}</div>
                 <div className="tezz-meter-scale" aria-hidden="true"><div className="tezz-meter-scale-track"><span className="tezz-meter-scale-sweep"/></div><div className="tezz-meter-scale-caption"><span>CONNECTION THROUGHPUT</span><span>{state === 'running' ? 'LIVE' : result ? 'RECORDED' : 'READY'}</span></div></div>
-                <div className="tezz-throughput-chart" role="img" aria-label="Live throughput trace">
+                <div className={`tezz-throughput-chart ${state === 'running' ? 'is-live' : 'is-idle'}`} role="img" aria-label="Live throughput trace">
                   <svg viewBox="0 0 320 52" preserveAspectRatio="none" role="img" aria-hidden="true">
                     <path className="tezz-chart-grid" d="M0 12H320 M0 26H320 M0 40H320"/>
                     {speedTrace.length > 1 && <polyline className="tezz-chart-line" points={speedTrace.map((value, index) => {
@@ -1219,6 +1219,7 @@ function App() {
                       const y = 46 - (value / max) * 38
                       return `${x.toFixed(1)},${y.toFixed(1)}`
                     }).join(' ')}/>}
+                    {speedTrace.length <= 1 && <polyline className="tezz-chart-idle-line" points="0,28 20,28 34,26 48,29 63,27 78,28 93,25 108,29 123,27 138,28 153,25 168,29 183,27 198,28 213,25 228,29 243,27 258,28 273,25 288,29 304,27 320,28"/>}
                     {speedTrace.length === 1 && <circle className="tezz-chart-point" cx="160" cy="26" r="3"/>}
                   </svg>
                 </div>
