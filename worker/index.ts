@@ -488,8 +488,11 @@ const app: ExportedHandler<Env> = {
       : null
     const isAppShellRoute = appShellPaths.has(normalizedPath) ||
       (localizedAppPath !== null && appShellPaths.has(localizedAppPath))
+    // Fetch the root asset for known SPA routes. Requesting /index.html can
+    // trigger the assets layer canonical redirect back to /, re-entering this
+    // Worker and creating a redirect loop.
     const assetRequest = isAppShellRoute && (request.method === "GET" || request.method === "HEAD")
-      ? new Request(new URL("/index.html", url.origin), request)
+      ? new Request(new URL("/", url.origin), request)
       : request
     const response = await env.ASSETS.fetch(assetRequest)
 
