@@ -761,13 +761,12 @@ const app: ExportedHandler<Env> = {
           const heading = title.replace(/\s*[|–-]\s*TEZZ CONNECT\s*$/i, "")
           const fallback = '<main id="seo-fallback"><header><p>TEZZ CONNECT</p><h1>' +
             escapeHtml(heading) + '</h1><p>' + escapeHtml(description) +
-            '</p></header><section><h2>' + escapeHtml(label("common.speed_test", "Speed test")) +
-            '</h2><p>' + escapeHtml(description) + '</p><nav><a href="/' + locale + '/">' +
+            '</p></header><nav aria-label="Primary"><a href="/' + locale + '/">' +
             escapeHtml(label("common.home", "Home")) + '</a> · <a href="/' + locale +
             '/internet-doctor">' + escapeHtml(doctorLabel) +
             '</a> · <a href="/guides/">' + escapeHtml(label("common.hub", "Knowledge Hub")) +
             '</a> · <a href="/' + locale + '/about">' + escapeHtml(aboutLabel) +
-            '</a></nav></section></main>'
+            '</a></nav></main>'
           const crawlerHtml = new HTMLRewriter()
             .on("head", { element(element) {
               element.append('<meta name="robots" content="index,follow"><style>' +
