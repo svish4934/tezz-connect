@@ -719,13 +719,33 @@ const app: ExportedHandler<Env> = {
             ? "https://tezzconnect.online" + path
             : "https://tezzconnect.online/" + language + path
           return '<link rel="alternate" hreflang="' + language + '" href="' + href + '" />'
-        }).join("\n") + '\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
+        }).join("\\n") + '\\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
+        // Give every localized route its own language-aware WebPage entity.
+        // The existing Organization, WebSite and WebApplication entities remain
+        // the site-wide source of truth in the base document.
+        const pageSchema = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": canonical + "#webpage",
+          "url": canonical,
+          "name": title,
+          "description": description,
+          "inLanguage": locale,
+          "isPartOf": { "@id": "https://tezzconnect.online/#website" },
+          "publisher": { "@id": "https://tezzconnect.online/#organization" },
+        }
+        const pageSchemaHtml = '<script type="application/ld+json">' +
+          JSON.stringify(pageSchema).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026") +
+          '</script>'
         const localizedResponse = new HTMLRewriter()
           .on("html", { element(element) {
             element.setAttribute("lang", locale)
             if (locale === "ar") element.setAttribute("dir", "rtl")
           } })
-          .on("head", { element(element) { element.append(alternates, { html: true }) } })
+          .on("head", { element(element) {
+            element.append(alternates, { html: true })
+            element.append(pageSchemaHtml, { html: true })
+          } })
           .on("title", { element(element) { element.setInnerContent(title) } })
           .on('meta[name="description"]', { element(element) { element.setAttribute("content", description) } })
           .on('link[rel="canonical"]', { element(element) { element.setAttribute("href", canonical) } })
