@@ -2919,3 +2919,122 @@ footer a{color:#b7c6d8}
 .homepage-editorial a:focus-visible{outline:3px solid #1678ed;outline-offset:3px}
 @media(max-width:900px){.homepage-measurement-grid,.homepage-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.homepage-editorial{gap:12px;margin:18px 0 24px}.homepage-editorial>section{padding:18px 14px;border-radius:15px}.homepage-measurement-grid,.homepage-causes-grid,.homepage-link-grid,.homepage-faq-list{grid-template-columns:1fr}.homepage-measurement-grid article,.homepage-causes-grid article,.homepage-link-grid a,.homepage-faq-list article{padding:14px}.homepage-section-heading{margin-bottom:14px}.homepage-section-heading>p,.homepage-method>p{font-size:12px}}
+
+/* Signature live speed meter: make the real measurement the hero's visual anchor. */
+.tezz-hero{
+  grid-template-columns:minmax(220px,.82fr) minmax(390px,1.5fr) minmax(190px,.7fr)!important;
+  gap:clamp(16px,2vw,30px)!important;
+  min-height:480px!important;
+  padding:38px clamp(22px,2.8vw,42px) 58px!important;
+}
+.tezz-digital-wrap{
+  width:100%!important;
+  max-width:720px!important;
+  min-height:420px!important;
+  padding:0!important;
+  gap:18px!important;
+}
+.signature-live-meter{
+  width:100%!important;
+  max-width:650px!important;
+  min-height:390px!important;
+  padding:27px clamp(18px,2.6vw,34px) 24px!important;
+  border:1px solid rgba(87,190,220,.38)!important;
+  border-radius:26px!important;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(16,112,157,.24),transparent 52%),
+    linear-gradient(155deg,#0d2036 0%,#081727 58%,#091a2c 100%)!important;
+  box-shadow:0 24px 58px rgba(3,18,35,.28),0 0 0 1px rgba(255,255,255,.035) inset,0 0 48px rgba(14,165,233,.11)!important;
+  isolation:isolate!important;
+}
+.signature-live-meter::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:0!important;
+  top:63px!important;
+  left:50%!important;
+  width:min(68%,310px)!important;
+  aspect-ratio:1!important;
+  height:auto!important;
+  transform:translateX(-50%)!important;
+  border:1px solid rgba(74,222,240,.25)!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle,rgba(34,211,238,.09),transparent 68%)!important;
+  box-shadow:0 0 36px rgba(34,211,238,.10),inset 0 0 32px rgba(34,211,238,.055)!important;
+  pointer-events:none!important;
+}
+.signature-live-meter::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:0!important;
+  top:43px!important;
+  left:50%!important;
+  width:min(78%,356px)!important;
+  aspect-ratio:1!important;
+  height:auto!important;
+  transform:translateX(-50%)!important;
+  border:1px dashed rgba(103,232,249,.16)!important;
+  border-radius:50%!important;
+  background:none!important;
+  pointer-events:none!important;
+  animation:tezzSignatureOrbit 48s linear infinite!important;
+}
+.signature-live-meter .tezz-meter-topline{z-index:2!important}
+.signature-live-meter .tezz-digital-reading{
+  z-index:2!important;
+  min-height:145px!important;
+  margin:48px 0 0!important;
+  gap:12px!important;
+}
+.signature-live-meter .tezz-digital-reading strong{
+  font-size:clamp(92px,8.4vw,138px)!important;
+  letter-spacing:-.085em!important;
+  text-shadow:0 0 34px rgba(34,211,238,.24)!important;
+}
+.signature-live-meter .tezz-digital-reading span{font-size:clamp(16px,1.8vw,21px)!important}
+.signature-live-meter .tezz-digital-caption{z-index:2!important;font-size:12px!important}
+.signature-live-meter .tezz-meter-scale{z-index:2!important;max-width:560px!important;margin-top:27px!important}
+.signature-live-meter .tezz-throughput-chart{z-index:2!important;width:min(100%,560px)!important;height:56px!important;margin-top:15px!important}
+.signature-live-meter .tezz-throughput-chart svg{width:100%!important;height:100%!important}
+.tezz-digital-wrap .tezz-digital-start{
+  min-width:min(100%,310px)!important;
+  min-height:58px!important;
+  font-size:14px!important;
+  letter-spacing:.8px!important;
+  box-shadow:0 12px 30px rgba(14,165,233,.28),0 0 22px rgba(34,211,238,.13)!important;
+}
+.tezz-health-card{
+  opacity:.94!important;
+  transform:scale(.96)!important;
+  transform-origin:center!important;
+}
+@keyframes tezzSignatureOrbit{to{transform:translateX(-50%) rotate(360deg)}}
+@media(min-width:761px) and (max-width:1100px){
+  .tezz-hero{grid-template-columns:minmax(175px,.78fr) minmax(300px,1.35fr) minmax(160px,.7fr)!important;gap:13px!important;padding:30px 18px 48px!important;min-height:420px!important}
+  .tezz-digital-wrap{min-height:370px!important}
+  .signature-live-meter{min-height:340px!important;padding:22px 15px!important}
+  .signature-live-meter::before{top:59px!important;width:min(70%,260px)!important}
+  .signature-live-meter::after{top:43px!important;width:min(82%,300px)!important}
+  .signature-live-meter .tezz-digital-reading{margin-top:45px!important;min-height:120px!important}
+  .signature-live-meter .tezz-digital-reading strong{font-size:clamp(76px,8vw,106px)!important}
+  .signature-live-meter .tezz-meter-scale{margin-top:18px!important}
+  .tezz-health-card{padding:15px 12px!important;transform:none!important}
+}
+@media(max-width:760px){
+  .tezz-hero{gap:15px!important;padding:22px 13px 38px!important}
+  .tezz-digital-wrap{min-height:0!important;max-width:100%!important;gap:14px!important}
+  .signature-live-meter{width:100%!important;max-width:100%!important;min-height:320px!important;padding:20px 14px 17px!important;border-radius:21px!important}
+  .signature-live-meter::before{top:54px!important;width:min(70%,250px)!important}
+  .signature-live-meter::after{top:38px!important;width:min(82%,290px)!important}
+  .signature-live-meter .tezz-digital-reading{min-height:100px!important;margin:35px 0 0!important}
+  .signature-live-meter .tezz-digital-reading strong{font-size:clamp(68px,17vw,92px)!important;letter-spacing:-.08em!important}
+  .signature-live-meter .tezz-meter-scale{margin-top:18px!important}
+  .signature-live-meter .tezz-throughput-chart{height:48px!important;margin-top:12px!important}
+  .tezz-health-card{transform:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .signature-live-meter::after{animation:none!important}
+}
+
