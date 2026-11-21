@@ -758,7 +758,7 @@ const app: ExportedHandler<Env> = {
           const escapeHtml = (value: string) => value
             .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;").replace(/'/g, "&#39;")
-          const heading = title.replace(/\\s*[|–-]\\s*TEZZ CONNECT\\s*$/i, "")
+          const heading = title.replace(/\s*[|–-]\s*TEZZ CONNECT\s*$/i, "")
           const fallback = '<main id="seo-fallback"><header><p>TEZZ CONNECT</p><h1>' +
             escapeHtml(heading) + '</h1><p>' + escapeHtml(description) +
             '</p></header><section><h2>' + escapeHtml(label("common.speed_test", "Speed test")) +
