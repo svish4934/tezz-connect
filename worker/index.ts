@@ -481,10 +481,10 @@ const app: ExportedHandler<Env> = {
       "/history",
       "/report",
     ])
-    const normalizedPath = url.pathname.replace(/\\/+$/, "") || "/"
-    const localizedAppMatch = normalizedPath.match(/^\\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\\/.*)?$/)
+    const normalizedPath = url.pathname.replace(/\/+$/, "") || "/"
+    const localizedAppMatch = normalizedPath.match(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\/.*)?$/)
     const localizedAppPath = localizedAppMatch
-      ? (localizedAppMatch[2] ?? "/").replace(/\\/+$/, "") || "/"
+      ? (localizedAppMatch[2] ?? "/").replace(/\/+$/, "") || "/"
       : null
     const isAppShellRoute = appShellPaths.has(normalizedPath) ||
       (localizedAppPath !== null && appShellPaths.has(localizedAppPath))
