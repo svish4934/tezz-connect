@@ -28,7 +28,7 @@ for (const question of questions) {
 }
 assert.match(app, /Wi-Fi Troubleshooting/, 'Homepage must not imply that the browser reads Wi-Fi radio signal strength')
 assert.match(app, /language === 'en'/, 'English-only editorial copy must not overwrite other localized homepages')
-assert.match(worker, /browser HTTP request-and-response timing/, 'Crawler copy must explain the actual latency method')
+assert.match(worker, /HTTP request-and-response timing to the TEZZ CONNECT edge/, 'Crawler copy must explain the actual latency method')
 assert.match(worker, /Explore the Internet Knowledge Hub/, 'Crawler copy should link to the separate Knowledge Hub')
 assert.match(worker, /Visit the Blog/, 'Crawler copy should retain the separate Blog link')
 
