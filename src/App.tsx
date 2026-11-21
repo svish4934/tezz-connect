@@ -1243,6 +1243,7 @@ function App() {
             <div className="tezz-stat red"><Activity/><span>{speedText(language, 'HTTP variation')}</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
           </section>
             </div>
+          </section>
             <div className="homepage-hero-support">
               <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>{speedText(language, 'Internet Connection Health Check')}</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, HTTP latency and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
           <section className="tezz-feature-grid">
@@ -1250,7 +1251,6 @@ function App() {
             <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>{speedText(language, 'Latency Test')}</strong><span>{speedText(language, 'Check browser response time')}</span><b>›</b></button>
             <button onClick={()=>navigateTo('Network')}><Wifi/><strong>{language === 'en' ? 'Wi-Fi Troubleshooting' : speedText(language, 'Wi-Fi Test')}</strong><span>{language === 'en' ? 'Explore common Wi-Fi problems' : speedText(language, 'Test your Wi-Fi performance')}</span><b>›</b></button>
             <button onClick={()=>navigateTo('History')}><Grid2X2/><strong>{speedText(language, 'More Tools')}</strong><span>{speedText(language, 'Explore all network tools')}</span><b>›</b></button>
-          </section>
           </section>
             </div>
           <section className="benchmark-consent-panel" aria-label="Global benchmark sharing">
