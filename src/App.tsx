@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import NetworkEdgeMap from './NetworkEdgeMap'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2,
-  History, Monitor, HeartPulse, Stethoscope, ArrowLeftRight, Grid2X2, Search,
+  History, Monitor, Stethoscope, ArrowLeftRight, Grid2X2, Search,
   ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
 
@@ -1203,24 +1203,14 @@ function App() {
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
           <section className={`tezz-hero ${state === 'running' ? 'is-testing' : ''}`}>
-            <div className="tezz-hero-copy">
-              <span className="tezz-pill">{speedText(language, 'INTERNET SPEED TEST')}</span>
-              <h1>{speedText(language, 'Free Internet ')}<em>{speedText(language, 'Speed Test')}</em></h1>
-              {language === 'en' ? <>
-                <p>See how your internet connection performs. Measure download and upload speeds, check how quickly our test endpoint responds, and understand how consistent the results are.</p>
-                <ul><li><CheckCircle2 size={17}/> Download and upload throughput</li><li><CheckCircle2 size={17}/> Browser-based HTTP response time and variation</li><li><CheckCircle2 size={17}/> Clear guidance for everyday browsing, calls and gaming</li><li><CheckCircle2 size={17}/> Free to use · no account needed</li></ul>
-              </> : <>
-                <p>{speedText(language, 'Check download, upload, HTTP latency and response variation in seconds.')}</p>
-                <ul><li><CheckCircle2 size={17}/> {speedText(language, 'Sustained streaming download · client-timed, server-confirmed upload')}</li><li><CheckCircle2 size={17}/> {speedText(language, 'HTTP latency, response variation & stability')}</li><li><CheckCircle2 size={17}/> {speedText(language, 'Gaming & streaming readiness')}</li><li><CheckCircle2 size={17}/> {speedText(language, 'Free, instant results')}</li></ul>
-              </>}
-            </div>
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
-              <div className="tezz-digital-meter" aria-live="polite">
+              <span className="tezz-meter-heading">{speedText(language, 'INTERNET SPEED TEST')}</span>
+              <div className="tezz-digital-meter signature-live-meter" aria-live="polite">
                 <div className="tezz-meter-topline"><span className="tezz-digital-label">{state === 'running' && testPhase.toLowerCase().includes('upload') ? speedText(language, 'UPLOAD') : state === 'running' && testPhase.toLowerCase().includes('download') ? speedText(language, 'DOWNLOAD') : speedText(language, 'DOWNLOAD SPEED')}</span><span className={`tezz-meter-status ${state === 'running' ? 'active' : result ? 'complete' : ''}`}><i/>{state === 'running' ? speedText(language, 'TESTING') : result ? speedText(language, 'MEASURED') : speedText(language, 'READY')}</span></div>
                 <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
                 <div className="tezz-digital-caption">{state === 'running' ? speedText(language, 'Live measurement in progress') : result ? speedText(language, 'Latest download measurement') : speedText(language, 'Your connection speed, measured live')}</div>
                 <div className="tezz-meter-scale" aria-hidden="true"><div className="tezz-meter-scale-track"><span className="tezz-meter-scale-sweep"/></div><div className="tezz-meter-scale-caption"><span>CONNECTION THROUGHPUT</span><span>{state === 'running' ? 'LIVE' : result ? 'RECORDED' : 'READY'}</span></div></div>
-                <div className="tezz-throughput-chart" role="img" aria-label="Live throughput trace">
+                <div className={`tezz-throughput-chart ${state === 'running' ? 'is-live' : 'is-idle'}`} role="img" aria-label="Live throughput trace">
                   <svg viewBox="0 0 320 52" preserveAspectRatio="none" role="img" aria-hidden="true">
                     <path className="tezz-chart-grid" d="M0 12H320 M0 26H320 M0 40H320"/>
                     {speedTrace.length > 1 && <polyline className="tezz-chart-line" points={speedTrace.map((value, index) => {
@@ -1229,17 +1219,56 @@ function App() {
                       const y = 46 - (value / max) * 38
                       return `${x.toFixed(1)},${y.toFixed(1)}`
                     }).join(' ')}/>}
+                    {speedTrace.length <= 1 && <polyline className="tezz-chart-idle-line" points="0,28 20,28 34,26 48,29 63,27 78,28 93,25 108,29 123,27 138,28 153,25 168,29 183,27 198,28 213,25 228,29 243,27 258,28 273,25 288,29 304,27 320,28"/>}
                     {speedTrace.length === 1 && <circle className="tezz-chart-point" cx="160" cy="26" r="3"/>}
                   </svg>
                 </div>
               </div>
               <button className={`tezz-digital-start ${state==='running'?'testing':''}`} onClick={runTest} disabled={state==='running'}><Zap size={19} fill="currentColor"/>{state==='running'?speedText(language, 'TEST IN PROGRESS'):speedText(language, 'START SPEED TEST')}</button>
-              {state==='running'&&<div className="tezz-live-progress"><span>{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span>{testPhase.includes('upload')?<strong>{(uploadBytes/1_000_000).toFixed(1)} MB sent · {uploadLiveSpeed.toFixed(1)} Mbps</strong>:testPhase.includes('download')?<strong>{(downloadBytes/1_000_000).toFixed(1)} MB received</strong>:null}</div>}
+              {state==='running'&&<div className="tezz-live-progress" role="status" aria-live="polite">
+                <div className="tezz-progress-topline"><span className="tezz-progress-phase">{testPhase}</span><span className="tezz-progress-value">{Math.round(progress)}%</span></div>
+                <div className="tezz-progress-track" aria-hidden="true"><span style={{width:`${Math.max(0,Math.min(100,progress))}%`}}/></div>
+                <div className="tezz-progress-detail">{testPhase.toLowerCase().includes('upload')? `${(uploadBytes/1_000_000).toFixed(1)} MB sent · ${uploadLiveSpeed.toFixed(1)} Mbps`:testPhase.toLowerCase().includes('download')?`${(downloadBytes/1_000_000).toFixed(1)} MB received`:speedText(language,'Preparing measurement…')}</div>
+              </div>}
               {state==='error'&&<div className="tezz-live-progress error-note" role="alert">{testError || 'The test could not complete. Please try again.'}</div>}
-            </div>
-            <div className="tezz-health-card"><div className="tezz-health-title"><HeartPulse size={27}/><strong>{speedText(language, 'Internet Connection Health Check')}</strong></div><span className={`tezz-health-badge ${result?'':'pending'}`}>{result?quality:'Ready to test'}</span><p>{result?'Your internet speed and connection quality have been measured. Review your download, upload, latency and stability results for browsing, streaming, gaming and video calls.':'Run a free internet speed test to check download speed, upload speed, HTTP latency and connection quality for everyday browsing, streaming and online gaming.'}</p><div className="tezz-signal-bars"><i/><i/><i/><i/></div></div>
-            <div className="tezz-wave" aria-hidden="true"><svg viewBox="0 0 1000 500" preserveAspectRatio="none"><defs><linearGradient id="tezz-signal-blue"><stop stopColor="#58b8ff" stopOpacity=".02"/><stop offset=".5" stopColor="#1686ed" stopOpacity=".8"/><stop offset="1" stopColor="#65d9ee" stopOpacity=".05"/></linearGradient><linearGradient id="tezz-signal-cyan"><stop stopColor="#64d8e8" stopOpacity=".02"/><stop offset=".55" stopColor="#36b8df" stopOpacity=".7"/><stop offset="1" stopColor="#1686ed" stopOpacity=".04"/></linearGradient></defs><path className="signal-wave signal-wave-back" d="M-30 78 C90 18 170 142 300 78 S510 18 640 78 S850 142 1030 72"/><path className="signal-wave signal-wave-mid" d="M-30 145 C100 82 185 210 320 145 S530 82 665 145 S875 210 1030 138"/><path className="signal-wave signal-wave-front" d="M-30 215 C100 150 195 278 330 212 S540 150 680 215 S880 280 1030 208"/><path className="signal-wave signal-wave-back" d="M-30 285 C100 220 195 350 330 284 S540 220 680 285 S880 350 1030 278"/><path className="signal-wave signal-wave-mid" d="M-30 355 C100 292 195 420 330 354 S540 292 680 355 S880 420 1030 348"/><path className="signal-wave signal-wave-front" d="M-30 425 C100 362 195 490 330 424 S540 362 680 425 S880 490 1030 418"/></svg></div>
+          <section className="tezz-stat-grid">
+            <div className="tezz-stat cyan"><ArrowDown/><span>{speedText(language, 'Download')}</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
+            <div className="tezz-stat violet"><ArrowUp/><span>{speedText(language, 'Upload')}</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
+            <div className="tezz-stat green"><ArrowLeftRight/><span>{speedText(language, 'HTTP latency')}</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
+            <div className="tezz-stat red"><Activity/><span>{speedText(language, 'HTTP variation')}</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
           </section>
+            </div>
+          </section>
+            <section className="homepage-hero-intro" aria-labelledby="homepage-hero-title">
+              <div className="homepage-hero-intro-copy">
+                <span className="section-kicker">{speedText(language, 'INTERNET SPEED TEST')}</span>
+                <h1 id="homepage-hero-title">{speedText(language, 'Free Internet ')}<em>{speedText(language, 'Speed Test')}</em></h1>
+                {language === 'en'
+                  ? <p>See how your internet connection performs. Measure download and upload speeds, check how quickly our test endpoint responds, and understand how consistent the results are.</p>
+                  : <p>{speedText(language, 'Check download, upload, HTTP latency and response variation in seconds.')}</p>}
+              </div>
+              <ul className="homepage-hero-benefits">
+                {language === 'en' ? <>
+                  <li><CheckCircle2 size={17}/> Download and upload throughput</li>
+                  <li><CheckCircle2 size={17}/> Browser-based HTTP response time and variation</li>
+                  <li><CheckCircle2 size={17}/> Clear guidance for everyday browsing, calls and gaming</li>
+                  <li><CheckCircle2 size={17}/> Free to use · no account needed</li>
+                </> : <>
+                  <li><CheckCircle2 size={17}/> {speedText(language, 'Sustained streaming download · client-timed, server-confirmed upload')}</li>
+                  <li><CheckCircle2 size={17}/> {speedText(language, 'HTTP latency, response variation & stability')}</li>
+                  <li><CheckCircle2 size={17}/> {speedText(language, 'Gaming & streaming readiness')}</li>
+                  <li><CheckCircle2 size={17}/> {speedText(language, 'Free, instant results')}</li>
+                </>}
+              </ul>
+            </section>
+            <div className="homepage-hero-support">
+          <section className="tezz-feature-grid">
+            <button onClick={()=>navigateTo('Internet Doctor')}><Stethoscope/><strong>{speedText(language, 'Internet Doctor')}</strong><span>{speedText(language, 'Find and fix internet problems')}</span><b>›</b></button>
+            <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>{speedText(language, 'Latency Test')}</strong><span>{speedText(language, 'Check browser response time')}</span><b>›</b></button>
+            <button onClick={()=>navigateTo('Network')}><Wifi/><strong>{language === 'en' ? 'Wi-Fi Troubleshooting' : speedText(language, 'Wi-Fi Test')}</strong><span>{language === 'en' ? 'Explore common Wi-Fi problems' : speedText(language, 'Test your Wi-Fi performance')}</span><b>›</b></button>
+            <button onClick={()=>navigateTo('History')}><Grid2X2/><strong>{speedText(language, 'More Tools')}</strong><span>{speedText(language, 'Explore all network tools')}</span><b>›</b></button>
+          </section>
+            </div>
           <section className="benchmark-consent-panel" aria-label="Global benchmark sharing">
             <div>
               <div className="section-kicker">{speedText(language, 'HELP BUILD A BETTER INTERNET PICTURE')}</div>
@@ -1256,18 +1285,6 @@ function App() {
               </label>
               <div className="benchmark-consent-status" role="status">{benchmarkStatus || (benchmarkConsent ? 'Opt-in is enabled.' : 'Benchmark sharing is off by default.')}</div>
             </div>
-          </section>
-          <section className="tezz-stat-grid">
-            <div className="tezz-stat cyan"><ArrowDown/><span>{speedText(language, 'Download')}</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
-            <div className="tezz-stat violet"><ArrowUp/><span>{speedText(language, 'Upload')}</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
-            <div className="tezz-stat green"><ArrowLeftRight/><span>{speedText(language, 'HTTP latency')}</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
-            <div className="tezz-stat red"><Activity/><span>{speedText(language, 'HTTP variation')}</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
-          </section>
-          <section className="tezz-feature-grid">
-            <button onClick={()=>navigateTo('Internet Doctor')}><Stethoscope/><strong>{speedText(language, 'Internet Doctor')}</strong><span>{speedText(language, 'Find and fix internet problems')}</span><b>›</b></button>
-            <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>{speedText(language, 'Latency Test')}</strong><span>{speedText(language, 'Check browser response time')}</span><b>›</b></button>
-            <button onClick={()=>navigateTo('Network')}><Wifi/><strong>{language === 'en' ? 'Wi-Fi Troubleshooting' : speedText(language, 'Wi-Fi Test')}</strong><span>{language === 'en' ? 'Explore common Wi-Fi problems' : speedText(language, 'Test your Wi-Fi performance')}</span><b>›</b></button>
-            <button onClick={()=>navigateTo('History')}><Grid2X2/><strong>{speedText(language, 'More Tools')}</strong><span>{speedText(language, 'Explore all network tools')}</span><b>›</b></button>
           </section>
           {language === 'en' && <div className="homepage-editorial">
             <section className="homepage-explainer" aria-labelledby="homepage-results-title">

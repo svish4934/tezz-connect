@@ -2919,3 +2919,580 @@ footer a{color:#b7c6d8}
 .homepage-editorial a:focus-visible{outline:3px solid #1678ed;outline-offset:3px}
 @media(max-width:900px){.homepage-measurement-grid,.homepage-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.homepage-editorial{gap:12px;margin:18px 0 24px}.homepage-editorial>section{padding:18px 14px;border-radius:15px}.homepage-measurement-grid,.homepage-causes-grid,.homepage-link-grid,.homepage-faq-list{grid-template-columns:1fr}.homepage-measurement-grid article,.homepage-causes-grid article,.homepage-link-grid a,.homepage-faq-list article{padding:14px}.homepage-section-heading{margin-bottom:14px}.homepage-section-heading>p,.homepage-method>p{font-size:12px}}
+
+/* Signature live speed meter: make the real measurement the hero's visual anchor. */
+.tezz-hero{
+  grid-template-columns:minmax(220px,.82fr) minmax(390px,1.5fr) minmax(190px,.7fr)!important;
+  gap:clamp(16px,2vw,30px)!important;
+  min-height:480px!important;
+  padding:38px clamp(22px,2.8vw,42px) 58px!important;
+}
+.tezz-digital-wrap{
+  width:100%!important;
+  max-width:720px!important;
+  min-height:420px!important;
+  padding:0!important;
+  gap:18px!important;
+}
+.signature-live-meter{
+  width:100%!important;
+  max-width:650px!important;
+  min-height:390px!important;
+  padding:27px clamp(18px,2.6vw,34px) 24px!important;
+  border:1px solid rgba(87,190,220,.38)!important;
+  border-radius:26px!important;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(16,112,157,.24),transparent 52%),
+    linear-gradient(155deg,#0d2036 0%,#081727 58%,#091a2c 100%)!important;
+  box-shadow:0 24px 58px rgba(3,18,35,.28),0 0 0 1px rgba(255,255,255,.035) inset,0 0 48px rgba(14,165,233,.11)!important;
+  isolation:isolate!important;
+}
+.signature-live-meter::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:0!important;
+  top:63px!important;
+  left:50%!important;
+  width:min(68%,310px)!important;
+  aspect-ratio:1!important;
+  height:auto!important;
+  transform:translateX(-50%)!important;
+  border:1px solid rgba(74,222,240,.25)!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle,rgba(34,211,238,.09),transparent 68%)!important;
+  box-shadow:0 0 36px rgba(34,211,238,.10),inset 0 0 32px rgba(34,211,238,.055)!important;
+  pointer-events:none!important;
+}
+.signature-live-meter::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:0!important;
+  top:43px!important;
+  left:50%!important;
+  width:min(78%,356px)!important;
+  aspect-ratio:1!important;
+  height:auto!important;
+  transform:translateX(-50%)!important;
+  border:1px dashed rgba(103,232,249,.16)!important;
+  border-radius:50%!important;
+  background:none!important;
+  pointer-events:none!important;
+  animation:tezzSignatureOrbit 48s linear infinite!important;
+}
+.signature-live-meter .tezz-meter-topline{z-index:2!important}
+.signature-live-meter .tezz-digital-reading{
+  z-index:2!important;
+  min-height:145px!important;
+  margin:48px 0 0!important;
+  gap:12px!important;
+}
+.signature-live-meter .tezz-digital-reading strong{
+  font-size:clamp(92px,8.4vw,138px)!important;
+  letter-spacing:-.085em!important;
+  text-shadow:0 0 34px rgba(34,211,238,.24)!important;
+}
+.signature-live-meter .tezz-digital-reading span{font-size:clamp(16px,1.8vw,21px)!important}
+.signature-live-meter .tezz-digital-caption{z-index:2!important;font-size:12px!important}
+.signature-live-meter .tezz-meter-scale{z-index:2!important;max-width:560px!important;margin-top:27px!important}
+.signature-live-meter .tezz-throughput-chart{z-index:2!important;width:min(100%,560px)!important;height:56px!important;margin-top:15px!important}
+.signature-live-meter .tezz-throughput-chart svg{width:100%!important;height:100%!important}
+.tezz-digital-wrap .tezz-digital-start{
+  min-width:min(100%,310px)!important;
+  min-height:58px!important;
+  font-size:14px!important;
+  letter-spacing:.8px!important;
+  box-shadow:0 12px 30px rgba(14,165,233,.28),0 0 22px rgba(34,211,238,.13)!important;
+}
+.tezz-health-card{
+  opacity:.94!important;
+  transform:scale(.96)!important;
+  transform-origin:center!important;
+}
+@keyframes tezzSignatureOrbit{to{transform:translateX(-50%) rotate(360deg)}}
+@media(min-width:761px) and (max-width:1100px){
+  .tezz-hero{grid-template-columns:minmax(175px,.78fr) minmax(300px,1.35fr) minmax(160px,.7fr)!important;gap:13px!important;padding:30px 18px 48px!important;min-height:420px!important}
+  .tezz-digital-wrap{min-height:370px!important}
+  .signature-live-meter{min-height:340px!important;padding:22px 15px!important}
+  .signature-live-meter::before{top:59px!important;width:min(70%,260px)!important}
+  .signature-live-meter::after{top:43px!important;width:min(82%,300px)!important}
+  .signature-live-meter .tezz-digital-reading{margin-top:45px!important;min-height:120px!important}
+  .signature-live-meter .tezz-digital-reading strong{font-size:clamp(76px,8vw,106px)!important}
+  .signature-live-meter .tezz-meter-scale{margin-top:18px!important}
+  .tezz-health-card{padding:15px 12px!important;transform:none!important}
+}
+@media(max-width:760px){
+  .tezz-hero{gap:15px!important;padding:22px 13px 38px!important}
+  .tezz-digital-wrap{min-height:0!important;max-width:100%!important;gap:14px!important}
+  .signature-live-meter{width:100%!important;max-width:100%!important;min-height:320px!important;padding:20px 14px 17px!important;border-radius:21px!important}
+  .signature-live-meter::before{top:54px!important;width:min(70%,250px)!important}
+  .signature-live-meter::after{top:38px!important;width:min(82%,290px)!important}
+  .signature-live-meter .tezz-digital-reading{min-height:100px!important;margin:35px 0 0!important}
+  .signature-live-meter .tezz-digital-reading strong{font-size:clamp(68px,17vw,92px)!important;letter-spacing:-.08em!important}
+  .signature-live-meter .tezz-meter-scale{margin-top:18px!important}
+  .signature-live-meter .tezz-throughput-chart{height:48px!important;margin-top:12px!important}
+  .tezz-health-card{transform:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .signature-live-meter::after{animation:none!important}
+}
+
+/* Hero composition v2: place the live results and connection health beside the signature meter. */
+.tezz-hero{
+  display:grid!important;
+  grid-template-columns:minmax(205px,.72fr) minmax(0,1.9fr)!important;
+  grid-template-areas:"copy meter" "tools tools"!important;
+  align-items:center!important;
+  column-gap:clamp(22px,2.5vw,38px)!important;
+  row-gap:20px!important;
+  padding:36px clamp(22px,3vw,44px) 32px!important;
+  min-height:0!important;
+}
+.tezz-hero-copy{grid-area:copy!important;min-width:0!important}
+.tezz-digital-wrap{
+  grid-area:meter!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:0!important;
+  gap:14px!important;
+  padding:0!important;
+}
+.signature-live-meter{width:100%!important;max-width:none!important;min-height:340px!important}
+.tezz-digital-wrap .tezz-digital-start{align-self:center!important}
+.tezz-stat-grid{
+  display:grid!important;
+  width:100%!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+  margin:0!important;
+}
+.tezz-stat{
+  min-width:0!important;
+  min-height:76px!important;
+  padding:12px 10px!important;
+  border-radius:13px!important;
+  display:grid!important;
+  grid-template-columns:25px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  align-items:center!important;
+  column-gap:8px!important;
+}
+.tezz-stat>svg{grid-row:1/3!important;width:23px!important;height:23px!important}
+.tezz-stat>span{font-size:10px!important;line-height:1.2!important}
+.tezz-stat>strong{font-size:clamp(12px,1.15vw,15px)!important;white-space:nowrap!important}
+.tezz-health-card{
+  width:100%!important;
+  min-height:0!important;
+  padding:13px 16px!important;
+  display:grid!important;
+  grid-template-columns:minmax(180px,1fr) auto!important;
+  align-items:center!important;
+  column-gap:14px!important;
+  row-gap:4px!important;
+  transform:none!important;
+}
+.tezz-health-title{grid-column:1!important;min-width:0!important}
+.tezz-health-badge{grid-column:2!important;grid-row:1!important;margin:0!important;justify-self:end!important}
+.tezz-health-card p{grid-column:1/-1!important;margin:0!important;max-width:none!important;font-size:11px!important;line-height:1.5!important}
+.tezz-health-card .tezz-signal-bars{grid-column:2!important;grid-row:2!important;justify-self:end!important}
+.tezz-hero>.tezz-feature-grid{
+  grid-area:tools!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  width:100%!important;
+  gap:12px!important;
+  margin:0!important;
+}
+.tezz-hero>.tezz-feature-grid button{min-width:0!important;min-height:82px!important;padding:13px 14px 13px 56px!important}
+.tezz-hero>.tezz-feature-grid button>svg{left:13px!important;top:19px!important;width:29px!important;height:29px!important}
+.tezz-wave{pointer-events:none!important}
+@media(min-width:761px) and (max-width:1100px){
+  .tezz-hero{grid-template-columns:minmax(175px,.65fr) minmax(0,1.7fr)!important;gap:16px!important;padding:28px 18px 24px!important}
+  .signature-live-meter{min-height:315px!important}
+  .tezz-stat-grid{gap:7px!important}
+  .tezz-stat{grid-template-columns:20px minmax(0,1fr)!important;column-gap:5px!important;padding:10px 7px!important}
+  .tezz-stat>svg{width:19px!important;height:19px!important}
+  .tezz-health-card{padding:11px 12px!important}
+  .tezz-hero>.tezz-feature-grid{gap:8px!important}
+  .tezz-hero>.tezz-feature-grid button{padding-left:47px!important}
+  .tezz-hero>.tezz-feature-grid button>svg{left:10px!important;width:25px!important}
+}
+@media(max-width:760px){
+  .tezz-hero{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:15px!important;
+    padding:22px 13px 26px!important;
+  }
+  .tezz-hero-copy{width:100%!important;text-align:left!important}
+  .tezz-hero-copy h1{max-width:100%!important;font-size:clamp(25px,7vw,34px)!important;line-height:1.08!important}
+  .tezz-hero-copy p{max-width:100%!important;font-size:13px!important;line-height:1.55!important}
+  .tezz-hero-copy ul{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px 10px!important}
+  .tezz-hero-copy ul li{font-size:10px!important;line-height:1.35!important}
+  .tezz-digital-wrap{width:100%!important;gap:12px!important}
+  .signature-live-meter{min-height:300px!important;padding:19px 13px 16px!important}
+  .signature-live-meter .tezz-digital-reading{margin-top:31px!important}
+  .signature-live-meter .tezz-digital-reading strong{font-size:clamp(68px,18vw,94px)!important}
+  .tezz-digital-wrap .tezz-digital-start{width:min(100%,320px)!important;min-height:54px!important}
+  .tezz-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .tezz-stat{min-height:69px!important;padding:10px!important}
+  .tezz-stat>strong{font-size:14px!important}
+  .tezz-health-card{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    padding:13px!important;
+    gap:7px 10px!important;
+  }
+  .tezz-health-title strong{font-size:13px!important}
+  .tezz-health-badge{font-size:11px!important}
+  .tezz-health-card p{font-size:11px!important;line-height:1.5!important}
+  .tezz-hero>.tezz-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .tezz-hero>.tezz-feature-grid button{min-height:82px!important;padding:12px 10px 12px 48px!important}
+  .tezz-hero>.tezz-feature-grid button>svg{left:10px!important;top:19px!important;width:26px!important;height:26px!important}
+}
+@media(max-width:380px){
+  .tezz-hero-copy ul{grid-template-columns:1fr!important}
+  .signature-live-meter{min-height:280px!important}
+  .tezz-health-card{grid-template-columns:1fr!important}
+  .tezz-health-badge,.tezz-health-card .tezz-signal-bars{grid-column:1!important;grid-row:auto!important;justify-self:start!important}
+}
+
+
+/* Keep supporting tools outside the tightly scoped homepage hero. */
+.homepage-hero-support{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;width:100%;margin:0 0 24px}
+.homepage-hero-support .tezz-health-card{width:100%;max-width:none;min-height:0}
+.homepage-hero-support .tezz-feature-grid{grid-template-columns:repeat(4,minmax(0,1fr));width:100%;margin:0;gap:12px}
+@media(max-width:760px){
+  .homepage-hero-support{gap:12px;margin-bottom:20px}
+  .homepage-hero-support .tezz-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .homepage-hero-support .tezz-feature-grid button{min-height:82px;padding:12px 10px 12px 48px}
+  .homepage-hero-support .tezz-feature-grid button>svg{left:10px;top:19px;width:26px;height:26px}
+}
+
+/* Centered homepage hero: keep the live meter as the sole hero focal point. */
+.tezz-hero{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  width:100%!important;
+  padding:clamp(20px,3vw,34px)!important;
+  min-height:0!important;
+}
+.tezz-hero .tezz-digital-wrap{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:900px!important;
+  min-height:0!important;
+  gap:14px!important;
+  margin:0 auto!important;
+}
+.tezz-meter-heading{
+  display:block!important;
+  width:100%!important;
+  color:#d8f7ff!important;
+  font-size:clamp(13px,1.5vw,17px)!important;
+  font-weight:800!important;
+  letter-spacing:.2em!important;
+  line-height:1.3!important;
+  text-align:center!important;
+}
+.tezz-hero .signature-live-meter{
+  width:100%!important;
+  max-width:820px!important;
+  min-height:340px!important;
+}
+.tezz-hero .tezz-digital-wrap .tezz-digital-start{align-self:center!important}
+.tezz-hero .tezz-stat-grid{
+  width:100%!important;
+  max-width:820px!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+.homepage-hero-intro{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  align-items:center;
+  gap:clamp(18px,3vw,36px);
+  width:100%;
+  margin:0 0 14px;
+  padding:clamp(20px,3vw,30px);
+  border:1px solid #dce7f0;
+  border-radius:18px;
+  background:linear-gradient(145deg,#fff,#f5f9fd);
+  box-shadow:0 8px 24px rgba(15,35,55,.045);
+  color:#17324b;
+}
+.homepage-hero-intro-copy{min-width:0}
+.homepage-hero-intro-copy h1{
+  margin:7px 0 10px;
+  color:#142b45;
+  font-size:clamp(25px,3vw,36px);
+  line-height:1.12;
+  letter-spacing:-.8px;
+}
+.homepage-hero-intro-copy h1 em{color:#087f91;font-style:normal}
+.homepage-hero-intro-copy p{max-width:680px;margin:0;color:#60748a;font-size:13px;line-height:1.75}
+.homepage-hero-benefits{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.homepage-hero-benefits li{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  min-width:0;
+  padding:12px;
+  border:1px solid #e0eaf2;
+  border-radius:12px;
+  background:#fff;
+  color:#40566c;
+  font-size:12px;
+  line-height:1.5;
+}
+.homepage-hero-benefits li svg{flex:0 0 17px;color:#078eaa;margin-top:1px}
+.homepage-hero-support .tezz-health-card{display:none!important}
+@media(max-width:760px){
+  .tezz-hero{padding:17px 12px 22px!important}
+  .tezz-hero .tezz-digital-wrap{gap:12px!important}
+  .tezz-meter-heading{font-size:13px!important;letter-spacing:.16em!important}
+  .tezz-hero .signature-live-meter{min-height:300px!important}
+  .tezz-hero .tezz-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .homepage-hero-intro{grid-template-columns:minmax(0,1fr);gap:16px;margin-bottom:12px;padding:19px 15px;border-radius:15px}
+  .homepage-hero-intro-copy h1{font-size:clamp(25px,7vw,32px)}
+  .homepage-hero-benefits{grid-template-columns:1fr 1fr;gap:8px}
+  .homepage-hero-benefits li{padding:10px;font-size:11px}
+}
+@media(max-width:380px){
+  .homepage-hero-benefits{grid-template-columns:1fr}
+}
+
+/* Living meter motion: quiet ambient signal when idle, responsive energy during a test. */
+.signature-live-meter{overflow:hidden!important}
+.signature-live-meter::before{
+  animation:tezzRadarBreathe 5.5s ease-in-out infinite!important;
+}
+.signature-live-meter::after{
+  animation:tezzSignatureOrbit 30s linear infinite!important;
+}
+.signature-live-meter .tezz-digital-reading strong{
+  animation:tezzReadingGlow 4.5s ease-in-out infinite;
+}
+.signature-live-meter .tezz-meter-status i{
+  animation:tezzStatusBlink 2.2s ease-in-out infinite;
+}
+.signature-live-meter .tezz-throughput-chart.is-idle .tezz-chart-idle-line{
+  fill:none;
+  stroke:#22d3ee;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:18 7;
+  filter:drop-shadow(0 0 5px rgba(34,211,238,.75));
+  animation:tezzIdleSignalFlow 5s linear infinite,tezzIdleSignalPulse 3.8s ease-in-out infinite;
+}
+.signature-live-meter .tezz-throughput-chart.is-live .tezz-chart-line{
+  stroke-dasharray:520;
+  animation:tezzLiveTrace 1.8s ease-out both;
+}
+.signature-live-meter .tezz-throughput-chart.is-live .tezz-chart-grid{
+  animation:tezzGridDrift 2.8s linear infinite;
+}
+.signature-live-meter .tezz-meter-scale-track{
+  box-shadow:inset 0 1px 5px rgba(0,0,0,.4),0 0 12px rgba(34,211,238,.08);
+}
+.tezz-hero:not(.is-testing) .tezz-digital-start:not(:disabled){
+  animation:tezzButtonBreath 4.8s ease-in-out infinite;
+}
+.tezz-hero.is-testing .signature-live-meter::before{
+  animation:tezzRadarBreathe 1.8s ease-in-out infinite!important;
+  border-color:rgba(103,232,249,.5)!important;
+  box-shadow:0 0 44px rgba(34,211,238,.2),inset 0 0 38px rgba(34,211,238,.12)!important;
+}
+.tezz-hero.is-testing .signature-live-meter::after{
+  animation:tezzSignatureOrbit 8s linear infinite!important;
+  border-color:rgba(103,232,249,.35)!important;
+}
+.tezz-hero.is-testing .tezz-meter-status i{
+  animation:tezzStatusBlink .75s ease-in-out infinite!important;
+}
+.tezz-stat{
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important;
+}
+.tezz-stat:hover{
+  transform:translateY(-3px)!important;
+  border-color:rgba(34,211,238,.55)!important;
+  box-shadow:0 13px 28px rgba(15,35,55,.13),0 0 16px rgba(34,211,238,.08)!important;
+}
+@keyframes tezzRadarBreathe{
+  0%,100%{opacity:.48;scale:.96}
+  50%{opacity:1;scale:1.035}
+}
+@keyframes tezzReadingGlow{
+  0%,100%{text-shadow:0 0 24px rgba(34,211,238,.18)}
+  50%{text-shadow:0 0 38px rgba(34,211,238,.42),0 0 64px rgba(14,165,233,.16)}
+}
+@keyframes tezzStatusBlink{
+  0%,100%{opacity:.45;box-shadow:0 0 0 0 rgba(34,211,238,0)}
+  50%{opacity:1;box-shadow:0 0 0 5px rgba(34,211,238,.11)}
+}
+@keyframes tezzIdleSignalFlow{to{stroke-dashoffset:-100}}
+@keyframes tezzIdleSignalPulse{0%,100%{opacity:.48}50%{opacity:1}}
+@keyframes tezzLiveTrace{from{stroke-dashoffset:520;opacity:.4}to{stroke-dashoffset:0;opacity:1}}
+@keyframes tezzGridDrift{to{transform:translateX(-8px)}}
+@keyframes tezzButtonBreath{0%,100%{box-shadow:0 12px 30px rgba(14,165,233,.24),0 0 18px rgba(34,211,238,.08)}50%{box-shadow:0 14px 34px rgba(14,165,233,.38),0 0 28px rgba(34,211,238,.2)}}
+@media(prefers-reduced-motion:reduce){
+  .signature-live-meter::before,.signature-live-meter::after,
+  .signature-live-meter .tezz-digital-reading strong,
+  .signature-live-meter .tezz-meter-status i,
+  .signature-live-meter .tezz-throughput-chart *,
+  .tezz-hero .tezz-digital-start,.tezz-stat{
+    animation:none!important;transition:none!important
+  }
+}
+
+/* Lighter homepage hero shell with a contrasting deep-blue measurement display. */
+.tezz-hero{
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(125,211,252,.42),transparent 58%),
+    linear-gradient(145deg,#e8f5ff 0%,#d9ebfa 52%,#cfe4f5 100%)!important;
+  border:1px solid #c4dced!important;
+  box-shadow:0 16px 36px rgba(30,76,112,.12)!important;
+}
+.tezz-hero .tezz-meter-heading{
+  color:#16466a!important;
+  text-shadow:none!important;
+}
+.tezz-hero .signature-live-meter{
+  background:
+    radial-gradient(ellipse at 50% 40%,rgba(22,126,166,.24),transparent 56%),
+    linear-gradient(155deg,#102d49 0%,#0b2239 58%,#0b1d32 100%)!important;
+  border-color:rgba(78,169,204,.5)!important;
+  box-shadow:0 18px 42px rgba(13,47,76,.22),inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+.tezz-hero .tezz-stat-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.tezz-hero .tezz-stat{
+  background:linear-gradient(145deg,#ffffff 0%,#edf7ff 100%)!important;
+  border:1px solid #c8dfee!important;
+  color:#087f9c!important;
+  box-shadow:0 5px 15px rgba(28,75,110,.08),inset 0 1px 0 rgba(255,255,255,.9)!important;
+  border-radius:14px!important;
+}
+.tezz-hero .tezz-stat>span{color:#5b7185!important}
+.tezz-hero .tezz-stat>strong{color:#18364e!important}
+.tezz-hero .tezz-stat.cyan{border-color:#b9e3f0!important}
+.tezz-hero .tezz-stat.violet{border-color:#d7c8f3!important;color:#7952b6!important}
+.tezz-hero .tezz-stat.green{border-color:#bde8d7!important;color:#138b70!important}
+.tezz-hero .tezz-stat.red{border-color:#f2d4bf!important;color:#c77b36!important}
+.tezz-hero .tezz-stat.cyan>svg{color:#168caf!important}
+.tezz-hero .tezz-stat.violet>svg{color:#8860bd!important}
+.tezz-hero .tezz-stat.green>svg{color:#159b7c!important}
+.tezz-hero .tezz-stat.red>svg{color:#d58a43!important}
+@media(max-width:760px){
+  .tezz-hero{padding:17px 12px 20px!important}
+  .tezz-hero .tezz-stat-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    max-width:100%!important;
+  }
+  .tezz-hero .tezz-stat{
+    min-height:76px!important;
+    padding:11px 12px!important;
+    grid-template-columns:25px minmax(0,1fr)!important;
+    column-gap:8px!important;
+    border-radius:13px!important;
+  }
+  .tezz-hero .tezz-stat>svg{width:21px!important;height:21px!important}
+  .tezz-hero .tezz-stat>span{font-size:11px!important}
+  .tezz-hero .tezz-stat>strong{font-size:14px!important}
+}
+
+/* Compact, readable live-test progress panel; stays clear of the result cards. */
+.tezz-hero .tezz-live-progress{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:7px!important;
+  width:min(100%,520px)!important;
+  max-width:520px!important;
+  min-height:0!important;
+  margin:8px auto 0!important;
+  padding:10px 14px!important;
+  border:1px solid rgba(108,190,222,.28)!important;
+  border-radius:10px!important;
+  background:rgba(8,31,52,.72)!important;
+  color:#d9f3fb!important;
+  text-align:left!important;
+  box-shadow:0 5px 14px rgba(4,23,40,.1)!important;
+  font-family:inherit!important;
+  font-size:11px!important;
+  line-height:1.35!important;
+}
+.tezz-progress-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-width:0;
+}
+.tezz-progress-phase{
+  color:#e2f6fc!important;
+  font-size:11px!important;
+  font-weight:650!important;
+  letter-spacing:.01em;
+}
+.tezz-progress-value{
+  flex:0 0 auto;
+  color:#8cecff!important;
+  font:700 11px 'DM Mono',monospace!important;
+}
+.tezz-progress-track{
+  display:block;
+  width:100%;
+  height:4px;
+  overflow:hidden;
+  border-radius:99px;
+  background:rgba(159,205,224,.18);
+}
+.tezz-progress-track span{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#22c7e8,#66e5f5);
+  box-shadow:0 0 9px rgba(34,211,238,.48);
+  transition:width .25s ease;
+}
+.tezz-progress-detail{
+  min-height:13px;
+  color:#b9d2e1!important;
+  font:10px 'DM Mono',monospace!important;
+  text-align:left!important;
+}
+@media(max-width:760px){
+  .tezz-hero .tezz-live-progress{
+    width:100%!important;
+    max-width:520px!important;
+    margin:8px auto 0!important;
+    padding:9px 12px!important;
+    gap:6px!important;
+  }
+  .tezz-progress-phase{font-size:10px!important}
+  .tezz-progress-detail{font-size:9px!important}
+}
