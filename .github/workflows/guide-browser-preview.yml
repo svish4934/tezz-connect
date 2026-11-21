@@ -1,6 +1,11 @@
 name: Knowledge Hub guide browser preview
 
 on:
+  push:
+    branches:
+      - "content/**"
+    paths:
+      - "public/guides/**"
   pull_request:
     branches: [main]
     paths:
@@ -11,7 +16,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: guide-browser-preview-${{ github.event.pull_request.number }}
+  group: guide-browser-preview-${{ github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -28,7 +33,7 @@ jobs:
       - name: Detect changed guide
         id: guide
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           set -euo pipefail
           GUIDE_FILE=$(git diff --name-only "$BASE_SHA"...HEAD -- 'public/guides/*/index.html' | head -n 1)
@@ -147,7 +152,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: guide-browser-preview-${{ github.event.pull_request.number }}
+          name: guide-browser-preview-${{ github.event.pull_request.number || github.ref_name }}
           path: |
             guide-preview-desktop.png
             guide-preview-mobile.png
