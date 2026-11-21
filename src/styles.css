@@ -3422,3 +3422,77 @@ footer a{color:#b7c6d8}
   .tezz-hero .tezz-stat>span{font-size:11px!important}
   .tezz-hero .tezz-stat>strong{font-size:14px!important}
 }
+
+/* Compact, readable live-test progress panel; stays clear of the result cards. */
+.tezz-hero .tezz-live-progress{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:7px!important;
+  width:min(100%,520px)!important;
+  max-width:520px!important;
+  min-height:0!important;
+  margin:8px auto 0!important;
+  padding:10px 14px!important;
+  border:1px solid rgba(108,190,222,.28)!important;
+  border-radius:10px!important;
+  background:rgba(8,31,52,.72)!important;
+  color:#d9f3fb!important;
+  text-align:left!important;
+  box-shadow:0 5px 14px rgba(4,23,40,.1)!important;
+  font-family:inherit!important;
+  font-size:11px!important;
+  line-height:1.35!important;
+}
+.tezz-progress-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-width:0;
+}
+.tezz-progress-phase{
+  color:#e2f6fc!important;
+  font-size:11px!important;
+  font-weight:650!important;
+  letter-spacing:.01em;
+}
+.tezz-progress-value{
+  flex:0 0 auto;
+  color:#8cecff!important;
+  font:700 11px 'DM Mono',monospace!important;
+}
+.tezz-progress-track{
+  display:block;
+  width:100%;
+  height:4px;
+  overflow:hidden;
+  border-radius:99px;
+  background:rgba(159,205,224,.18);
+}
+.tezz-progress-track span{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#22c7e8,#66e5f5);
+  box-shadow:0 0 9px rgba(34,211,238,.48);
+  transition:width .25s ease;
+}
+.tezz-progress-detail{
+  min-height:13px;
+  color:#b9d2e1!important;
+  font:10px 'DM Mono',monospace!important;
+  text-align:left!important;
+}
+@media(max-width:760px){
+  .tezz-hero .tezz-live-progress{
+    width:100%!important;
+    max-width:520px!important;
+    margin:8px auto 0!important;
+    padding:9px 12px!important;
+    gap:6px!important;
+  }
+  .tezz-progress-phase{font-size:10px!important}
+  .tezz-progress-detail{font-size:9px!important}
+}
