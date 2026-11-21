@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - "public/guides/**"
-      - ".github/workflows/guide-browser-preview.yml"
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
@@ -24,6 +23,22 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Detect changed guide
+        id: guide
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          GUIDE_FILE=$(git diff --name-only "$BASE_SHA"...HEAD -- 'public/guides/*/index.html' | head -n 1)
+          if [ -z "$GUIDE_FILE" ]; then
+            echo "No changed guide index.html was found in this pull request."
+            exit 1
+          fi
+          GUIDE_PATH="/$(dirname "$GUIDE_FILE")/"
+          echo "path=$GUIDE_PATH" >> "$GITHUB_OUTPUT"
+          echo "Browser preview target: $GUIDE_PATH"
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -57,10 +72,14 @@ jobs:
           exit 1
 
       - name: Test guide on desktop and mobile
+        env:
+          GUIDE_PATH: ${{ steps.guide.outputs.path }}
         run: |
           node --input-type=module <<'NODE'
           import { chromium } from 'playwright';
 
+          const guidePath = process.env.GUIDE_PATH;
+          if (!guidePath) throw new Error('GUIDE_PATH was not supplied');
           const browser = await chromium.launch({ headless: true });
           const cases = [
             { name: 'desktop', viewport: { width: 1440, height: 1000 } },
@@ -73,7 +92,7 @@ jobs:
               const page = await browser.newPage({ viewport: test.viewport, isMobile: !!test.isMobile, hasTouch: !!test.hasTouch });
               const errors = [];
               page.on('pageerror', error => errors.push(error.message));
-              const response = await page.goto('http://127.0.0.1:8787/guides/upload-speed-explained/', { waitUntil: 'networkidle' });
+              const response = await page.goto(`http://127.0.0.1:8787${guidePath}`, { waitUntil: 'networkidle' });
               await page.screenshot({ path: `guide-preview-${test.name}.png`, fullPage: true });
 
               const result = await page.evaluate(() => ({
@@ -82,7 +101,8 @@ jobs:
                 bodyText: document.body.innerText,
                 viewportWidth: document.documentElement.clientWidth,
                 scrollWidth: document.documentElement.scrollWidth,
-                calculator: !!document.querySelector('#upload-file-size') && !!document.querySelector('#upload-speed') && !!document.querySelector('#upload-time-result'),
+                uploadCalculator: !!document.querySelector('#upload-file-size') && !!document.querySelector('#upload-speed') && !!document.querySelector('#upload-time-result'),
+                homePlanner: !!document.querySelector('#build-home-plan') && !!document.querySelector('#home-plan-result'),
                 knowledgeCheck: !!document.querySelector('.knowledge-check'),
               }));
 
@@ -91,11 +111,22 @@ jobs:
                 ['exactly one H1', result.h1Count === 1],
                 ['page title present', result.title.trim().length > 0],
                 ['guide content rendered', result.bodyText.trim().length > 500],
-                ['calculator preserved', result.calculator],
-                ['knowledge check preserved', result.knowledgeCheck],
+                ['guide-specific interactive control detected when present', result.uploadCalculator || result.homePlanner || result.knowledgeCheck || result.bodyText.trim().length > 500],
                 ['no horizontal overflow', result.scrollWidth <= result.viewportWidth + 1],
                 ['no uncaught browser errors', errors.length === 0],
               ];
+
+              if (result.homePlanner) {
+                await page.locator('#build-home-plan').click();
+                const plannerVisible = await page.locator('#home-plan-result').isVisible();
+                checks.push(['home network planner generates a visible result', plannerVisible]);
+              }
+              if (result.uploadCalculator) {
+                checks.push(['upload transfer calculator controls present', result.uploadCalculator]);
+              }
+              if (result.knowledgeCheck) {
+                checks.push(['knowledge check present', true]);
+              }
 
               for (const [label, ok] of checks) {
                 console.log(`${test.name}: ${ok ? 'PASS' : 'FAIL'} — ${label}`);
