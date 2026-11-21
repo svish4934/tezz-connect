@@ -470,7 +470,7 @@ const app: ExportedHandler<Env> = {
 
     // Keep real application routes working while allowing unknown paths to
     // receive an actual 404 from the static-assets router. With
-    // not_found_handling="404-page", client-side routes must explicitly fetch
+    // not_found_handling="none", client-side routes must explicitly fetch
     // the SPA entry point instead of relying on a global index.html fallback.
     const appShellPaths = new Set([
       "/",
