@@ -720,12 +720,32 @@ const app: ExportedHandler<Env> = {
             : "https://tezzconnect.online/" + language + path
           return '<link rel="alternate" hreflang="' + language + '" href="' + href + '" />'
         }).join("\n") + '\n<link rel="alternate" hreflang="x-default" href="https://tezzconnect.online' + routePath + '" />'
+        // Give every localized route its own language-aware WebPage entity.
+        // The existing Organization, WebSite and WebApplication entities remain
+        // the site-wide source of truth in the base document.
+        const pageSchema = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": canonical + "#webpage",
+          "url": canonical,
+          "name": title,
+          "description": description,
+          "inLanguage": locale,
+          "isPartOf": { "@id": "https://tezzconnect.online/#website" },
+          "publisher": { "@id": "https://tezzconnect.online/#organization" },
+        }
+        const pageSchemaHtml = '<script type="application/ld+json">' +
+          JSON.stringify(pageSchema).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026") +
+          '</script>'
         const localizedResponse = new HTMLRewriter()
           .on("html", { element(element) {
             element.setAttribute("lang", locale)
             if (locale === "ar") element.setAttribute("dir", "rtl")
           } })
-          .on("head", { element(element) { element.append(alternates, { html: true }) } })
+          .on("head", { element(element) {
+            element.append(alternates, { html: true })
+            element.append(pageSchemaHtml, { html: true })
+          } })
           .on("title", { element(element) { element.setInnerContent(title) } })
           .on('meta[name="description"]', { element(element) { element.setAttribute("content", description) } })
           .on('link[rel="canonical"]', { element(element) { element.setAttribute("href", canonical) } })
@@ -735,10 +755,65 @@ const app: ExportedHandler<Env> = {
           .on('meta[name="twitter:title"]', { element(element) { element.setAttribute("content", title) } })
           .on('meta[name="twitter:description"]', { element(element) { element.setAttribute("content", description) } })
           .transform(response)
+
+        // Provide meaningful initial HTML to crawlers and link-preview agents.
+        // The React app remains unchanged for normal visitors; this fallback is
+        // appended only to crawler responses and uses the locale bundle's own
+        // translated labels and page metadata.
+        const userAgent = request.headers.get("User-Agent") ?? ""
+        const isCrawler = /Googlebot|Bingbot|DuckDuckBot|Baiduspider|YandexBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|OpenSEO|SEO.?crawler|crawler|spider|HeadlessChrome|Lighthouse|PageSpeed/i.test(userAgent)
+        if (isCrawler && (request.method === "GET" || request.method === "HEAD")) {
+          let localeData: Record<string, unknown> = {}
+          try {
+            const localeResponse = await env.ASSETS.fetch(new Request(new URL("/locales/" + locale + "/common.json", url.origin)))
+            if (localeResponse.ok) localeData = await localeResponse.json() as Record<string, unknown>
+          } catch {
+            // The translated metadata above remains available if a bundle cannot be read.
+          }
+          const label = (key: string, fallback: string) =>
+            typeof localeData[key] === "string" ? String(localeData[key]) : fallback
+          const pageTitles = localeMeta.pageTitles ?? {}
+          const doctorLabel = pageTitles["Internet Doctor"] ?? "Internet Doctor"
+          const aboutLabel = pageTitles.About ?? "About TEZZ CONNECT"
+          const escapeHtml = (value: string) => value
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;").replace(/'/g, "&#39;")
+          const heading = title.replace(/\s*[|–-]\s*TEZZ CONNECT\s*$/i, "")
+          const fallback = '<main id="seo-fallback"><header><p>TEZZ CONNECT</p><h1>' +
+            escapeHtml(heading) + '</h1><p>' + escapeHtml(description) +
+            '</p></header><nav aria-label="Primary"><a href="/' + locale + '/">' +
+            escapeHtml(label("common.home", "Home")) + '</a> · <a href="/' + locale +
+            '/internet-doctor">' + escapeHtml(doctorLabel) +
+            '</a> · <a href="/guides/">' + escapeHtml(label("common.hub", "Knowledge Hub")) +
+            '</a> · <a href="/' + locale + '/about">' + escapeHtml(aboutLabel) +
+            '</a></nav></main>'
+          const crawlerHtml = new HTMLRewriter()
+            .on("head", { element(element) {
+              element.append('<meta name="robots" content="index,follow"><style>' +
+                'body{font-family:system-ui,sans-serif;background:#090f1f;color:#edf3ff;margin:0}' +
+                '#seo-fallback{max-width:960px;margin:0 auto;padding:48px 20px;line-height:1.7}' +
+                '#seo-fallback header,#seo-fallback section{padding:24px;margin:18px 0;border:1px solid #26364b;border-radius:14px;background:#101c2d}' +
+                '#seo-fallback h1{font-size:clamp(28px,4vw,46px);line-height:1.15}' +
+                '#seo-fallback p{color:#b8c7d9}#seo-fallback a{color:#70d8d3;text-decoration:none}' +
+                '</style>', { html: true })
+            } })
+            .on("#root", { element(element) { element.append(fallback, { html: true }) } })
+            .transform(localizedResponse)
+          const headers = new Headers(crawlerHtml.headers)
+          headers.set("Cache-Control", "no-store")
+          headers.set("X-Content-Type-Options", "nosniff")
+          return new Response(request.method === "HEAD" ? null : crawlerHtml.body, {
+            status: crawlerHtml.status,
+            statusText: crawlerHtml.statusText,
+            headers,
+          })
+        }
+        const headers = new Headers(localizedResponse.headers)
+        headers.set("Cache-Control", "no-store")
         return new Response(localizedResponse.body, {
           status: localizedResponse.status,
           statusText: localizedResponse.statusText,
-          headers: localizedResponse.headers,
+          headers,
         })
       }
     }
