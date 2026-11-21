@@ -766,7 +766,7 @@ const app: ExportedHandler<Env> = {
             escapeHtml(label("common.home", "Home")) + '</a> · <a href="/' + locale +
             '/internet-doctor">' + escapeHtml(doctorLabel) +
             '</a> · <a href="/guides/">' + escapeHtml(label("common.hub", "Knowledge Hub")) +
-            '</a> · <a href="/about">' + escapeHtml(aboutLabel) +
+            '</a> · <a href="/' + locale + '/about">' + escapeHtml(aboutLabel) +
             '</a></nav></section></main>'
           const crawlerHtml = new HTMLRewriter()
             .on("head", { element(element) {
