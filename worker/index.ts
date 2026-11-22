@@ -531,7 +531,7 @@ const app: ExportedHandler<Env> = {
     // the React app shell, preventing the old SEO fallback flash.
     const seoPages: Record<string, { title: string; description: string; canonical: string; fallback: string }> = {
       "/": {
-        title: "Internet Speed Test & Internet Doctor | TEZZ CONNECT",
+        title: "Free Internet Speed Test & Internet Doctor | TEZZ CONNECT",
         description: "Test download, upload, browser-based response time and connection stability. Use Internet Doctor to investigate DNS and network issues.",
         canonical: "https://tezzconnect.online/",
         fallback: `<main id="seo-fallback">
