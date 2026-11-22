@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Preparing the internet for post-quantum cryptography</title>
+<desc id="desc">A secure connection links a browser and server through a transition from traditional public-key cryptography to post-quantum algorithms.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10243a"/><stop offset="1" stop-color="#0b5878"/></linearGradient>
+<linearGradient id="cyan" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#29b6c8"/><stop offset="1" stop-color="#8ce8df"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1200" height="675" rx="28" fill="url(#bg)"/>
+<g opacity=".13" stroke="#9de8ef" stroke-width="1"><path d="M0 110H1200M0 220H1200M0 330H1200M0 440H1200M0 550H1200"/><path d="M150 0V675M300 0V675M450 0V675M600 0V675M750 0V675M900 0V675M1050 0V675"/></g>
+<text x="78" y="92" fill="#8ce8df" font-family="Arial,sans-serif" font-size="21" font-weight="700" letter-spacing="4">TEZZ CONNECT · INTERNET SECURITY</text>
+<text x="78" y="158" fill="#fff" font-family="Arial,sans-serif" font-size="46" font-weight="700">Preparing for the</text>
+<text x="78" y="211" fill="#fff" font-family="Arial,sans-serif" font-size="46" font-weight="700">post-quantum era</text>
+<g transform="translate(100 290)">
+<rect width="250" height="190" rx="22" fill="#173b57" stroke="#4b7c97" stroke-width="2"/>
+<rect x="70" y="34" width="110" height="78" rx="8" fill="#dff7f5"/>
+<path d="M55 126H195L178 145H72Z" fill="#8dc9d4"/>
+<path d="M91 78l20 20 47-48" fill="none" stroke="#087eae" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="125" y="169" text-anchor="middle" fill="#e7f7fa" font-family="Arial,sans-serif" font-size="18" font-weight="700">BROWSER / APP</text>
+</g>
+<g transform="translate(850 290)">
+<rect width="250" height="190" rx="22" fill="#173b57" stroke="#4b7c97" stroke-width="2"/>
+<rect x="66" y="28" width="118" height="28" rx="5" fill="#8dc9d4"/><rect x="66" y="68" width="118" height="28" rx="5" fill="#8dc9d4"/><rect x="66" y="108" width="118" height="28" rx="5" fill="#8dc9d4"/>
+<circle cx="83" cy="42" r="5" fill="#087eae"/><circle cx="83" cy="82" r="5" fill="#087eae"/><circle cx="83" cy="122" r="5" fill="#087eae"/>
+<text x="125" y="169" text-anchor="middle" fill="#e7f7fa" font-family="Arial,sans-serif" font-size="18" font-weight="700">SERVER / SERVICE</text>
+</g>
+<g stroke="url(#cyan)" stroke-width="5" fill="none" filter="url(#glow)"><path d="M350 386H850" stroke-dasharray="14 12"/><path d="M590 358l35 28-35 28"/></g>
+<g transform="translate(465 285)">
+<rect width="270" height="200" rx="24" fill="#0d2e48" stroke="#2cb9c7" stroke-width="2"/>
+<path d="M135 35l55 22v44c0 40-23 65-55 83-32-18-55-43-55-83V57Z" fill="#1a7f99" stroke="#9cece3" stroke-width="3"/>
+<path d="M106 100l20 20 41-44" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="135" y="170" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="17" font-weight="700">CRYPTOGRAPHY</text>
+</g>
+<g transform="translate(385 525)">
+<rect width="430" height="64" rx="32" fill="#e6f7f6"/>
+<text x="215" y="40" text-anchor="middle" fill="#123b52" font-family="Arial,sans-serif" font-size="20" font-weight="700">Classical + post-quantum transition</text>
+</g>
+<text x="78" y="632" fill="#b9d5e2" font-family="Arial,sans-serif" font-size="16">Original TEZZ CONNECT illustration · Conceptual diagram, not a protocol specification</text>
+</svg>
