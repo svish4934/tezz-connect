@@ -531,8 +531,8 @@ const app: ExportedHandler<Env> = {
     // the React app shell, preventing the old SEO fallback flash.
     const seoPages: Record<string, { title: string; description: string; canonical: string; fallback: string }> = {
       "/": {
-        title: "Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT",
-        description: "Check your internet speed for free. Measure download and upload throughput, browser-based response time and variation, then get clear guidance for your connection.",
+        title: "Free Internet Speed Test & Internet Doctor | TEZZ CONNECT",
+        description: "Test download, upload, browser-based response time and connection stability. Use Internet Doctor to investigate DNS and network issues.",
         canonical: "https://tezzconnect.online/",
         fallback: `<main id="seo-fallback">
           <header><p>FREE INTERNET SPEED TEST</p><h1>Free Internet Speed Test</h1><p>Check how your internet connection performs. Measure download and upload speeds, review browser-based response time and variation, and get clear guidance on what your results mean.</p></header>
