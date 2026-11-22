@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/blog/blog.css"><script defer src="/blog/blog-data.js"></script><script defer src="/blog/blog.js"></script>
+<link rel="canonical" href="https://tezzconnect.online/blog/ipv6-explained-internet-transition/"><meta name="robots" content="index,follow,max-image-preview:large">
+<title>IPv6 Explained: Why the Internet Is Moving Beyond IPv4 | TEZZ CONNECT</title>
+<meta name="description" content="Learn why IPv4 addresses became scarce, how IPv6 works, why both protocols coexist, and what CGNAT, dual-stack, NAT64 and 464XLAT mean for internet users in India.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="TEZZ CONNECT Blog">
+<meta property="og:title" content="IPv6 Explained: Why the Internet Is Moving Beyond IPv4">
+<meta property="og:description" content="A practical, India-aware guide to IPv4 scarcity, 128-bit IPv6 addresses, network transition methods and what home users should check.">
+<meta property="og:url" content="https://tezzconnect.online/blog/ipv6-explained-internet-transition/">
+<meta property="og:image" content="https://tezzconnect.online/blog/images/ipv6-internet-transition-hero.svg"><meta property="og:image:alt" content="Original diagram comparing IPv4 and IPv6 address spaces and showing networks communicating during the transition">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="IPv6 Explained: Why the Internet Is Moving Beyond IPv4"><meta name="twitter:description" content="Understand IPv4 scarcity, IPv6, dual-stack networks, CGNAT and the transition technologies used by internet providers."><meta name="twitter:image" content="https://tezzconnect.online/blog/images/ipv6-internet-transition-hero.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"IPv6 Explained: Why the Internet Is Moving Beyond IPv4","description":"An original, practical guide to IPv4 address scarcity, IPv6 addressing, coexistence, CGNAT, NAT64, 464XLAT and what internet users should know.","image":"https://tezzconnect.online/blog/images/ipv6-internet-transition-hero.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://tezzconnect.online/blog/ipv6-explained-internet-transition/"},"url":"https://tezzconnect.online/blog/ipv6-explained-internet-transition/","author":{"@type":"Person","name":"Suraj Vishwakarma","url":"https://tezzconnect.online/blog/author/suraj-vishwakarma/"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"articleSection":"Internet Technology & Updates","inLanguage":"en","datePublished":"2026-11-22","dateModified":"2026-11-22"}</script>
+</head>
+<body class="tc-blog" data-blog-page="article" data-article="ipv6-explained-internet-transition">
+<header class="tb-header"><a class="tb-brand" href="/blog/"><strong>TEZZ <span>CONNECT</span></strong><i></i><b>Blog</b></a><nav aria-label="Blog navigation"><a href="/">Home</a><a href="/blog/#topics">Categories</a><a href="/blog/#articles">All Articles</a></nav><form id="tb-search" role="search"><label class="sr" for="tb-q">Search Blog articles</label><input id="tb-q" type="search" placeholder="Search Blog articles…"><button aria-label="Search">⌕</button></form></header>
+<main class="tb-article">
+<p class="tb-crumb"><a href="/blog/">Blog</a> / <a href="/blog/category/internet-technology-updates/">Internet Technology &amp; Updates</a> / IPv6 Explained</p>
+<span class="tb-kicker">THE TEZZ CONNECT FUTURE INTERNET SERIES · ARTICLE 3</span>
+<h1>IPv6 Explained: Why the Internet Is Moving Beyond IPv4</h1>
+<p class="tb-deck">Every phone, laptop, smart TV and server needs a way to be identified on an IP network. The original internet addressing system was never designed for billions of always-connected devices. IPv6 gives networks a much larger address space—but the change is happening gradually, alongside IPv4.</p>
+<p class="tb-byline">By <a href="/blog/author/suraj-vishwakarma/">Suraj Vishwakarma</a> · Published by <a href="/blog/about/">TEZZ CONNECT</a> · Published 22 November 2026 · Updated 22 November 2026</p>
+<figure class="tb-article-image"><img src="/blog/images/ipv6-internet-transition-hero.svg" alt="Original TEZZ CONNECT diagram showing the smaller IPv4 address space and much larger IPv6 address space, with both protocols communicating during the transition" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>Original TEZZ CONNECT illustration. IPv4 and IPv6 coexist across the internet; there is no single global cutover switch.</figcaption></figure>
+<article class="tb-article-body">
+<p>When a phone opens a website, sends a message or streams a video, data is divided into packets and routed across networks. Those packets need source and destination addresses so routers know where to send them. That is the job of the Internet Protocol, usually shortened to IP.</p>
+<p>For decades, most internet traffic has relied on Internet Protocol version 4 (IPv4). It helped the internet grow from a small research network into a global system. But IPv4 uses a 32-bit address field, which provides about 4.29 billion possible bit patterns before accounting for reserved and special-purpose ranges. That address pool could not provide a unique public address for every device as the internet expanded.</p>
+<p>Internet Protocol version 6 (IPv6) was designed to address that limitation. It uses 128-bit addresses, creating an enormously larger address space. Yet IPv6 has not simply replaced IPv4. Both protocols are still in use, and networks use several transition techniques to keep older services reachable while moving forward. This guide explains what that means in practical terms, including the Indian internet context. Data and standards references were checked on 22 November 2026.</p>
+
+<section><h2>1. What is an IP address?</h2>
+<p>An IP address is a network-layer identifier used to deliver packets between devices and networks. It is not the same as a website name such as tezzconnect.online. The Domain Name System (DNS) helps translate names into IP addresses so people do not have to remember long numeric or hexadecimal strings.</p>
+<p>In a typical home network, your router may have a public-facing address or share one with other customers through the internet provider's network. Your phone, laptop and television also use local addresses inside the home network. The exact arrangement depends on whether the connection uses IPv4, IPv6 or both.</p>
+<p>An IP address is not a perfect identity card for a person. Addresses can be shared, reassigned, translated or changed. A public IP address can provide clues about a network or approximate location, but it does not reliably identify a household member or an exact street address.</p></section>
+
+<section><h2>2. Why did IPv4 run short?</h2>
+<p>IPv4 addresses contain 32 bits. In theory, that creates 2<sup>32</sup>, or 4,294,967,296, possible values. The number sounds large, but the global internet now connects phones, computers, servers, televisions, cameras, vehicles, sensors and cloud infrastructure. Some address ranges are reserved for private networks, multicast, loopback and other special purposes, so not every possible value is available as a public address.</p>
+<p>The central pool of unallocated IPv4 addresses held by IANA was depleted in February 2011, when the final blocks were distributed to the five Regional Internet Registries. That did not mean every IPv4 address disappeared or that existing websites stopped working. Regional registries continued managing their remaining pools under community policies; addresses can also be transferred, recovered and reused.</p>
+<p>To stretch the available supply, networks adopted techniques such as Network Address Translation (NAT). A home router can let many devices use private IPv4 addresses while sharing one public IPv4 address. Internet providers can go further with Carrier-Grade NAT (CGNAT), where multiple customers share a pool of public IPv4 addresses. These techniques helped IPv4 continue working, but they add complexity and do not remove the underlying address scarcity.</p></section>
+
+<section><h2>3. What makes IPv6 different?</h2>
+<p>IPv6 uses a 128-bit address. That means 2<sup>128</sup> possible values—an address space so large that it is not useful to think of it as a simple count of devices that will all receive a permanent public address. Networks allocate address blocks and prefixes according to routing and operational policy.</p>
+<p>IPv6 addresses are written in hexadecimal groups separated by colons. A simplified example is <code>2001:db8:1234:1::25</code>. The <code>2001:db8::/32</code> block is reserved for documentation, so this example is illustrative and is not a real public destination. IPv6 notation allows leading zeroes within a group to be omitted and consecutive all-zero groups to be compressed once using a double colon.</p>
+<p>IPv6 also changes several aspects of network operation. It has a redesigned base header, supports address autoconfiguration, uses multicast rather than IPv4-style broadcast, and was designed to make large-scale address allocation and routing more manageable. These are protocol design differences, not a promise that every IPv6 connection will be faster or automatically safer.</p>
+<p>One important point: IPv6 does not mean every device is exposed directly to the public internet. Networks still use firewalls and access controls. A globally routable address is not the same thing as an open service. Correct firewall configuration remains essential.</p></section>
+
+<section><h2>4. IPv4 vs IPv6 at a glance</h2>
+<table><thead><tr><th>Feature</th><th>IPv4</th><th>IPv6</th></tr></thead><tbody>
+<tr><td>Address length</td><td>32 bits</td><td>128 bits</td></tr>
+<tr><td>Typical notation</td><td>Decimal numbers separated by dots, e.g. 192.0.2.10</td><td>Hexadecimal groups separated by colons, e.g. 2001:db8::10</td></tr>
+<tr><td>Address capacity</td><td>About 4.29 billion possible values before reserved ranges</td><td>2<sup>128</sup> possible values</td></tr>
+<tr><td>Broadcast</td><td>Supports broadcast on applicable IPv4 networks</td><td>No broadcast; multicast is used for group delivery</td></tr>
+<tr><td>Address configuration</td><td>Manual or DHCP are common</td><td>Manual, DHCPv6 and Stateless Address Autoconfiguration (SLAAC) are supported</td></tr>
+<tr><td>Network coexistence</td><td>Still widely deployed</td><td>Often deployed alongside IPv4 or through translation</td></tr>
+</tbody></table>
+<p>Neither column is a universal speed score. Throughput, latency and reliability depend on the access network, routing, congestion, peering, server location, device software and many other factors. IPv6 can improve network design and reduce dependence on scarce IPv4 addresses, but simply enabling it does not guarantee a faster speed-test result.</p></section>
+
+<section><h2>5. Why hasn't IPv6 replaced IPv4 already?</h2>
+<p>The internet is not operated by one company that can schedule a worldwide upgrade. Millions of networks are run by internet service providers, mobile operators, businesses, universities, cloud providers, governments and home users. Each has equipment, applications, contracts and customers that must continue to work during a transition.</p>
+<p>IPv4 and IPv6 are different protocols. An IPv4-only server cannot automatically understand an IPv6 packet, and an IPv6-only server cannot automatically understand an IPv4 packet. Routers and endpoints need a compatible path. Organisations also have to update monitoring, security policies, DNS records, application code, firewalls, load balancers and support processes.</p>
+<p>That is why a long coexistence period is normal. Some networks use dual-stack, where devices and services can communicate using both protocols. Others use IPv6-only access with translation for reaching IPv4-only destinations. Some legacy services remain IPv4-only. The mix varies by country, provider, device and destination.</p></section>
+
+<section><h2>6. Dual-stack, NAT64 and 464XLAT: how networks bridge the gap</h2>
+<p><strong>Dual-stack</strong> means a device or network runs IPv4 and IPv6 at the same time. A website may publish both an IPv4 address record (A) and an IPv6 address record (AAAA). A compatible client can use the available path according to its operating system, DNS results and network conditions. Dual-stack is a common way to introduce IPv6 without abandoning IPv4 immediately.</p>
+<p><strong>NAT64 with DNS64</strong> can help an IPv6-only client reach an IPv4-only server. DNS64 synthesises an IPv6 address for an IPv4 destination, and the NAT64 gateway translates packets between the two protocol families. This is useful for networks that want to operate mainly or entirely with IPv6 while older IPv4 services remain online.</p>
+<p><strong>464XLAT</strong> is another transition architecture used in some operator and enterprise networks. A customer-side translator (CLAT) handles IPv4 traffic from a device or local network and maps it onto IPv6. A provider-side translator (PLAT), commonly based on NAT64, provides access to IPv4 destinations. The exact design and compatibility depend on the network and application.</p>
+<p>These mechanisms are not magic tunnels that make every old application work perfectly. Applications that embed literal IPv4 addresses, use unusual protocols or assume a particular network behaviour may need extra handling. Network engineers test these cases before moving customers to IPv6-only access.</p></section>
+
+<section><h2>7. What is CGNAT, and is it the same as IPv6?</h2>
+<p>CGNAT stands for Carrier-Grade Network Address Translation. It allows an internet provider to share a smaller pool of public IPv4 addresses among many customers. Your home router may receive a private or shared address from the provider, while the provider performs another translation before traffic reaches the public IPv4 internet.</p>
+<p>CGNAT is an IPv4 address-conservation technique. IPv6 is a separate internet protocol with a much larger address space. They are often discussed together because IPv6 deployment can reduce the need for providers to keep expanding shared IPv4 translation systems, but CGNAT is not itself IPv6.</p>
+<p>One practical effect of CGNAT is that unsolicited inbound IPv4 connections to a home connection may not reach your router. This can affect self-hosted services, some remote-access arrangements, gaming or port-forwarding use cases. The impact depends on the provider's network and available options. IPv6 can offer a different connectivity model, but firewall rules and provider policies still determine what is reachable.</p>
+<p>If you need inbound access, ask your provider whether your connection uses CGNAT, whether a public IPv4 address is available, and what IPv6 prefix delegation and firewall controls are supported. Do not assume that paying for a faster broadband plan automatically removes CGNAT.</p></section>
+
+<section><h2>8. IPv6 adoption in India: a real-world snapshot</h2>
+<p>India is a useful example of how IPv6 can grow quickly through large mobile networks while the wider internet remains mixed. APNIC Labs publishes measurements of IPv6 capability and preference based on observed user traffic. In the APNIC data viewed on 20 November 2026, India was at approximately <strong>77.45% IPv6-capable</strong> and <strong>74.49% IPv6-preferred</strong>.</p>
+<p>These figures need careful interpretation. “IPv6-capable” and “IPv6-preferred” are measurement categories, not the percentage of Indian websites that support IPv6, the percentage of households with IPv6 routers, or a census of every internet user. APNIC's August 2026 overview described India's IPv6 capability as around 79% in early 2026 and noted that mobile-network deployment has been a major driver. Fixed-line and enterprise deployment remain important areas for broader progress.</p>
+<p>For an everyday user, the practical question is not whether India has a high national percentage. It is whether your particular ISP, mobile operator, router, device and destination support IPv6 correctly. Two people in the same city can have different results because they use different providers, access technologies or equipment.</p></section>
+
+<section><h2>9. Does IPv6 make the internet faster or more secure?</h2>
+<p><strong>Not automatically.</strong> IPv6 can simplify some network designs and may provide a more direct path in certain situations. It can also avoid some forms of IPv4 address sharing. But the protocol version alone does not determine speed. A poorly routed IPv6 path can be slower than IPv4, and a well-engineered IPv4 path can perform very well.</p>
+<p>Security also depends on implementation. IPv6 includes support for IPsec in its standards architecture, but that does not mean all IPv6 traffic is encrypted by default. Websites still need HTTPS, devices need updates, and network operators need sensible filtering and monitoring. An IPv6 firewall should be configured deliberately; do not assume the router's IPv4 rules automatically cover IPv6 in the way you expect.</p>
+<p>For speed testing, compare results under the same conditions and avoid changing several variables at once. If you suspect an IPv6 routing issue, a useful diagnostic is to compare access to the same destination over IPv4 and IPv6 where your device and provider allow it. A single speed test cannot identify every routing or DNS issue.</p></section>
+
+<section><h2>10. What should home internet users check?</h2>
+<p>You do not need to become a network engineer to understand whether your connection supports IPv6. Start with a few practical checks:</p>
+<ul>
+<li><strong>Ask your ISP:</strong> Does the broadband or mobile service provide native IPv6? Is it dual-stack or IPv6-only with translation?</li>
+<li><strong>Check the router:</strong> Look for IPv6 support, firmware updates and prefix-delegation settings. The exact menu differs by model and provider.</li>
+<li><strong>Check the device:</strong> Current operating systems generally support IPv6, but local settings, VPN software, older applications or managed networks can affect availability.</li>
+<li><strong>Use a reputable IPv6 test:</strong> A test can show whether your current connection reaches the test service over IPv6. It does not certify every website or application you use.</li>
+<li><strong>Keep the firewall enabled:</strong> Do not disable IPv6 filtering or expose device services just to make a connectivity test pass.</li>
+</ul>
+<p>If IPv6 is unavailable, your internet can still work normally over IPv4. Do not manually enter random IPv6 addresses or change advanced router settings unless you understand the provider's configuration. If something breaks after enabling IPv6, restore the known working configuration and contact the ISP or router vendor.</p></section>
+
+<section><h2>11. What comes next for IPv6?</h2>
+<p>The transition is likely to remain uneven. Mobile networks, large cloud platforms and content providers can deploy IPv6 at scale, while older enterprise systems, embedded equipment and small websites may take longer. IPv4 will remain in service for years because the installed base is enormous and many applications still depend on it.</p>
+<p>More networks may move toward IPv6-first or IPv6-only designs where translation is available for older IPv4 destinations. This can reduce operational dependence on scarce IPv4 addresses, but it makes careful testing of DNS, application compatibility, monitoring and support more important.</p>
+<p>For India, sustaining progress means extending good deployment beyond mobile access into fixed broadband, enterprise networks, hosting, public services and the wider content ecosystem. National capability measurements are encouraging, but the quality of the transition is also about reliable routing, secure configuration and working applications—not just a percentage.</p></section>
+
+<section><h2>12. The practical takeaway</h2>
+<p>IPv4 is not switched off, and IPv6 is not a new broadband speed tier. IPv4's limited address space pushed the internet toward sharing and translation techniques. IPv6 provides a vastly larger address space and is now widely deployed, but both protocols must coexist while networks, services and devices are upgraded.</p>
+<p>For home users, the best approach is simple: keep your router and devices updated, ask your provider what IPv6 support it offers, and do not change settings without a reason. For businesses and network operators, the work is broader: inventory systems, test applications, secure both protocol families and plan a gradual transition.</p>
+<p>The internet is moving beyond IPv4, but it is doing so one network and one service at a time.</p></section>
+
+<section><h2>Frequently asked questions</h2>
+<h3>What is the main difference between IPv4 and IPv6?</h3><p>IPv4 uses 32-bit addresses, while IPv6 uses 128-bit addresses. IPv6 was designed to provide a much larger address space and support continued internet growth.</p>
+<h3>Has IPv4 completely run out?</h3><p>The global IANA pool of unallocated IPv4 addresses was depleted in February 2011. Regional registries and organisations still manage, transfer and reuse IPv4 addresses, so IPv4 continues to work across the internet.</p>
+<h3>Will IPv6 make my internet faster?</h3><p>Not necessarily. Speed depends on routing, congestion, peering, the ISP, device and destination server. IPv6 can improve some network paths, but it is not a guaranteed speed upgrade.</p>
+<h3>Do I need a new router for IPv6?</h3><p>Only if your current router lacks the required IPv6 support or cannot be updated or configured by your provider. Check the router model and ISP compatibility before replacing equipment.</p>
+<h3>What is the difference between IPv6 and CGNAT?</h3><p>IPv6 is an internet protocol with 128-bit addresses. CGNAT is a technique providers use to share public IPv4 addresses among customers. They solve different problems and can exist in the same provider network.</p>
+<h3>What are dual-stack, NAT64 and 464XLAT?</h3><p>Dual-stack runs IPv4 and IPv6 together. NAT64 translates between IPv6 clients and IPv4 servers, often with DNS64. 464XLAT combines customer-side and provider-side translation to support IPv4 applications across IPv6 networks.</p>
+<h3>Does IPv6 mean every device is exposed to the internet?</h3><p>No. IPv6 addressing does not remove the need for firewalls. A device having a globally routable address does not mean its services are open to unsolicited connections.</p>
+<h3>Is IPv6 widely used in India?</h3><p>Yes, APNIC measurements show a high level of IPv6 capability in India, with mobile networks contributing substantially. However, support still varies by provider, access type, device and website.</p>
+</section>
+
+<section class="tb-sources"><h2>Sources &amp; further reading</h2><ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8200.html" target="_blank" rel="noopener noreferrer">IETF — RFC 8200: Internet Protocol, Version 6 (IPv6) Specification</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4291.html" target="_blank" rel="noopener noreferrer">IETF — RFC 4291: IP Version 6 Addressing Architecture</a></li>
+<li><a href="https://www.apnic.net/manage-ip/ipv4-exhaustion/ipv4-exhaustion-and-address-transfers/" target="_blank" rel="noopener noreferrer">APNIC — IPv4 exhaustion and address transfers</a></li>
+<li><a href="https://www.apnic.net/manage-ip/ipv4-exhaustion/" target="_blank" rel="noopener noreferrer">APNIC — IPv4 exhaustion: current allocation policies</a></li>
+<li><a href="https://stats.labs.apnic.net/ipv6/in" target="_blank" rel="noopener noreferrer">APNIC Labs — IPv6 capability metrics for India</a></li>
+<li><a href="https://blog.apnic.net/2026/08/17/indias-internet-ecosystem-in-2026-growth-resilience-and-the-road-ahead/" target="_blank" rel="noopener noreferrer">APNIC Blog — India's Internet ecosystem in 2026: Growth, resilience, and the road ahead</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc6146.html" target="_blank" rel="noopener noreferrer">IETF — RFC 6146: Stateful NAT64</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc6877.html" target="_blank" rel="noopener noreferrer">IETF — RFC 6877: 464XLAT</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8683.html" target="_blank" rel="noopener noreferrer">IETF — RFC 8683: Additional Deployment Guidelines for NAT64/464XLAT</a></li>
+</ul><p><strong>Editorial note:</strong> Adoption figures are snapshots from APNIC's measurement system and can change over time. They describe observed IPv6 capability and preference, not a census of websites or households. Protocol references and deployment details may be updated as standards and operational guidance evolve. This article is educational information, not an ISP performance guarantee or a network security audit.</p></section>
+
+<section class="tb-sources tb-related-reading"><h2>Related reading</h2><ul>
+<li><a href="/blog/future-internet-2030-beyond/">The Future of the Internet: How the World Will Connect in 2030 and Beyond</a></li>
+<li><a href="/blog/post-quantum-cryptography-internet/">Post-Quantum Cryptography: How the Internet Is Preparing for Quantum Computers</a></li>
+<li><a href="/blog/5g-vs-4g-speed-coverage-differences/">5G vs 4G: Speed, Coverage and Everyday Differences</a></li>
+</ul></section>
+</article>
+<p><a href="/blog/">← Back to TEZZ CONNECT Blog</a></p></main>
+<footer class="tb-footer"><div><a class="tb-brand" href="/blog/"><strong>TEZZ <span>CONNECT</span></strong><b>Blog</b></a><p>Practical internet education, troubleshooting and technology explanations.</p></div><div><strong>Browse</strong><a href="/blog/">Blog Home</a><a href="/blog/#topics">Categories</a><a href="/blog/#articles">All Articles</a></div><div><strong>Editorial</strong><a href="/blog/about/">About the Blog</a><a href="/blog/editorial-policy/">Editorial Policy</a><a href="/blog/disclaimer/">Disclaimer</a></div></footer>
+</body></html>
