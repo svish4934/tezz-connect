@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
 <title id="title">IPv4 to IPv6: the internet address transition</title>
 <desc id="desc">An original illustration comparing IPv4's 32-bit address space with IPv6's 128-bit address space, with both protocols connecting through a transition network.</desc>
 <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10243a"/><stop offset="1" stop-color="#0b5878"/></linearGradient><linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#29b6c8"/><stop offset="1" stop-color="#8ce8df"/></linearGradient></defs>
