@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">IPv4 to IPv6: the internet address transition</title>
+<desc id="desc">An original illustration comparing IPv4's 32-bit address space with IPv6's 128-bit address space, with both protocols connecting through a transition network.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10243a"/><stop offset="1" stop-color="#0b5878"/></linearGradient><linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#29b6c8"/><stop offset="1" stop-color="#8ce8df"/></linearGradient></defs>
+<rect width="1200" height="675" rx="28" fill="url(#bg)"/>
+<g opacity=".12" stroke="#9de8ef"><path d="M0 110H1200M0 220H1200M0 330H1200M0 440H1200M0 550H1200"/><path d="M150 0V675M300 0V675M450 0V675M600 0V675M750 0V675M900 0V675M1050 0V675"/></g>
+<text x="78" y="90" fill="#8ce8df" font-family="Arial,sans-serif" font-size="21" font-weight="700" letter-spacing="4">TEZZ CONNECT · INTERNET EXPLAINED</text>
+<text x="78" y="155" fill="#fff" font-family="Arial,sans-serif" font-size="47" font-weight="700">The internet needs</text>
+<text x="78" y="210" fill="#fff" font-family="Arial,sans-serif" font-size="47" font-weight="700">more room to connect</text>
+<g transform="translate(88 278)">
+<rect width="370" height="220" rx="22" fill="#173b57" stroke="#4b7c97" stroke-width="2"/>
+<text x="185" y="52" text-anchor="middle" fill="#cfe9f1" font-family="Arial,sans-serif" font-size="20" font-weight="700">IPv4</text>
+<text x="185" y="104" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="39" font-weight="700">32 bits</text>
+<text x="185" y="144" text-anchor="middle" fill="#9fc5d6" font-family="Arial,sans-serif" font-size="18">About 4.29 billion values</text>
+<g transform="translate(75 174)" fill="#45c3d0"><rect width="50" height="15" rx="4"/><rect x="58" width="50" height="15" rx="4"/><rect x="116" width="50" height="15" rx="4"/><rect x="174" width="50" height="15" rx="4"/></g>
+</g>
+<g transform="translate(742 278)">
+<rect width="370" height="220" rx="22" fill="#173b57" stroke="#2cb9c7" stroke-width="2"/>
+<text x="185" y="52" text-anchor="middle" fill="#cfe9f1" font-family="Arial,sans-serif" font-size="20" font-weight="700">IPv6</text>
+<text x="185" y="104" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="39" font-weight="700">128 bits</text>
+<text x="185" y="144" text-anchor="middle" fill="#9fc5d6" font-family="Arial,sans-serif" font-size="18">2¹²⁸ possible values</text>
+<g transform="translate(45 174)" fill="#45c3d0"><rect width="34" height="15" rx="4"/><rect x="39" width="34" height="15" rx="4"/><rect x="78" width="34" height="15" rx="4"/><rect x="117" width="34" height="15" rx="4"/><rect x="156" width="34" height="15" rx="4"/><rect x="195" width="34" height="15" rx="4"/><rect x="234" width="34" height="15" rx="4"/></g>
+</g>
+<g stroke="url(#a)" stroke-width="5" fill="none"><path d="M458 388H742" stroke-dasharray="12 11"/><path d="M600 363l28 25-28 25"/></g>
+<g transform="translate(482 310)"><rect width="236" height="150" rx="20" fill="#0d2e48" stroke="#8ce8df" stroke-width="2"/><circle cx="118" cy="52" r="28" fill="#167f98"/><path d="M118 32v40M98 52h40" stroke="#fff" stroke-width="5" stroke-linecap="round"/><text x="118" y="111" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="16" font-weight="700">COEXISTENCE</text><text x="118" y="132" text-anchor="middle" fill="#b9d5e2" font-family="Arial,sans-serif" font-size="12">Dual-stack · Translation</text></g>
+<rect x="340" y="545" width="520" height="58" rx="29" fill="#e6f7f6"/><text x="600" y="582" text-anchor="middle" fill="#123b52" font-family="Arial,sans-serif" font-size="20" font-weight="700">IPv4 and IPv6 work side by side</text>
+<text x="78" y="642" fill="#b9d5e2" font-family="Arial,sans-serif" font-size="16">Original TEZZ CONNECT illustration · Conceptual diagram, not a network map</text>
+</svg>
