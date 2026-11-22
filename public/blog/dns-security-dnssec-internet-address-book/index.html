@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/blog/blog.css"><script defer src="/blog/blog-data.js"></script><script defer src="/blog/blog.js"></script>
+<link rel="canonical" href="https://tezzconnect.online/blog/dns-security-dnssec-internet-address-book/"><meta name="robots" content="index,follow,max-image-preview:large">
+<title>DNS Security Explained: How DNSSEC Protects the Internet's Address Book | TEZZ CONNECT</title>
+<meta name="description" content="Learn how DNSSEC verifies DNS answers, how the chain of trust works, and why it is different from encrypted DNS, HTTPS and other online security tools.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="TEZZ CONNECT Blog">
+<meta property="og:title" content="DNS Security Explained: How DNSSEC Protects the Internet's Address Book">
+<meta property="og:description" content="A practical guide to DNSSEC signatures, trust chains, validation, limitations and what the October 2026 root-key rollover showed about internet resilience.">
+<meta property="og:url" content="https://tezzconnect.online/blog/dns-security-dnssec-internet-address-book/">
+<meta property="og:image" content="https://tezzconnect.online/blog/images/dnssec-internet-address-book-hero.svg"><meta property="og:image:alt" content="Original illustration showing a DNS lookup moving through a cryptographic chain of trust from the root to a domain">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DNS Security Explained: How DNSSEC Protects the Internet's Address Book"><meta name="twitter:description" content="Understand DNSSEC, signed DNS records, resolver validation and why DNSSEC is not the same as encrypted DNS."><meta name="twitter:image" content="https://tezzconnect.online/blog/images/dnssec-internet-address-book-hero.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DNS Security Explained: How DNSSEC Protects the Internet's Address Book","description":"An original, practical guide to DNSSEC, the cryptographic chain of trust, DNS record signatures, resolver validation, limitations and encrypted DNS differences.","image":"https://tezzconnect.online/blog/images/dnssec-internet-address-book-hero.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://tezzconnect.online/blog/dns-security-dnssec-internet-address-book/"},"url":"https://tezzconnect.online/blog/dns-security-dnssec-internet-address-book/","author":{"@type":"Person","name":"Suraj Vishwakarma","url":"https://tezzconnect.online/blog/author/suraj-vishwakarma/"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"articleSection":"Internet Technology & Updates","inLanguage":"en","datePublished":"2026-11-22","dateModified":"2026-11-22"}</script>
+</head>
+<body class="tc-blog" data-blog-page="article" data-article="dns-security-dnssec-internet-address-book">
+<header class="tb-header"><a class="tb-brand" href="/blog/"><strong>TEZZ <span>CONNECT</span></strong><i></i><b>Blog</b></a><nav aria-label="Blog navigation"><a href="/">Home</a><a href="/blog/#topics">Categories</a><a href="/blog/#articles">All Articles</a></nav><form id="tb-search" role="search"><label class="sr" for="tb-q">Search Blog articles</label><input id="tb-q" type="search" placeholder="Search Blog articles…"><button aria-label="Search">⌕</button></form></header>
+<main class="tb-article">
+<p class="tb-crumb"><a href="/blog/">Blog</a> / <a href="/blog/category/internet-technology-updates/">Internet Technology &amp; Updates</a> / DNS Security</p>
+<span class="tb-kicker">THE TEZZ CONNECT FUTURE INTERNET SERIES · ARTICLE 4</span>
+<h1>DNS Security: How DNSSEC Helps Protect the Internet's Address Book</h1>
+<p class="tb-deck">Typing a website name feels simple. Behind the scenes, the Domain Name System finds the network address that helps your device reach it. But how can a resolver know that a DNS answer is genuine and has not been altered? DNS Security Extensions—DNSSEC—add a way to verify the authenticity and integrity of DNS data. They do not encrypt your DNS queries, and they do not make every website safe. Here is what the technology actually protects.</p>
+<p class="tb-byline">By <a href="/blog/author/suraj-vishwakarma/">Suraj Vishwakarma</a> · Published by <a href="/blog/about/">TEZZ CONNECT</a> · Published 22 November 2026 · Updated 22 November 2026</p>
+<figure class="tb-article-image"><img src="/blog/images/dnssec-internet-address-book-hero.svg" alt="Original TEZZ CONNECT illustration showing a DNS query checked through signed root, top-level domain and website records" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>Original TEZZ CONNECT illustration. DNSSEC lets a validating resolver check signatures and follow a chain of trust to the DNS answer.</figcaption></figure>
+<article class="tb-article-body">
+<p>Imagine looking up a business in a phone book. You find the name, follow the listed number and make a call. The phone book is useful only if the entry is authentic. If someone secretly replaces the number, you could reach the wrong person even though you searched for the correct name.</p>
+<p>The Domain Name System (DNS) performs a similar directory function for the internet. It helps translate human-readable names such as tezzconnect.online into records containing IP addresses and other information. A DNS resolver retrieves those records so a device can connect to the right service. If a forged or altered answer is accepted, a user can be directed somewhere they did not intend to go.</p>
+<p>DNSSEC adds cryptographic signatures that allow a validating resolver to check whether DNS data is authentic and has remained intact. The core standards are defined by the IETF, and DNSSEC is recognised as a best current practice for DNS data origin authentication. This guide explains the protection, the limits and the difference between DNSSEC and encrypted DNS. Standards and operational references were checked on 22 November 2026.</p>
+
+<section><h2>1. What problem is DNSSEC designed to solve?</h2>
+<p>DNS was built to be distributed and scalable. A resolver can ask other DNS servers for information, follow referrals and cache answers to make future lookups faster. Traditional DNS, however, did not originally include a general cryptographic method for a resolver to verify that the data it received was authorised by the owner of the relevant DNS zone.</p>
+<p>That gap matters because DNS answers influence where applications connect. An attacker who can successfully inject or manipulate a DNS response may try to send a user to an unintended IP address. DNS cache poisoning is one example of this class of threat. Modern resolvers use measures such as source-port randomisation, transaction-ID checks and transport protections, but DNSSEC addresses a different question: can the resolver cryptographically verify the origin and integrity of the DNS data?</p>
+<p>DNSSEC does not stop every way a device can be redirected. Malware on a device, a compromised website, a malicious browser extension, a changed hosts file or an attacker controlling the authoritative domain account can create problems outside the protection DNSSEC provides. It is one layer in a broader security system, not a complete defence.</p></section>
+
+<section><h2>2. What exactly does DNSSEC add?</h2>
+<p>DNSSEC extends DNS with public-key cryptography and additional record types. A zone owner signs DNS data using a private key. The corresponding public key is published in DNS, and a validating resolver can use it to check digital signatures on the records it receives.</p>
+<p>The important security properties are:</p>
+<ul>
+<li><strong>Data origin authentication:</strong> a validator can check that signed data was authorised by the holder of the relevant zone-signing key, with the chain of trust linking that key to a trusted starting point.</li>
+<li><strong>Data integrity:</strong> a validator can detect whether signed DNS data has been changed after it was signed.</li>
+<li><strong>Authenticated denial of existence:</strong> signed proof records can help a validator verify that a requested name or record type genuinely does not exist in a signed zone.</li>
+</ul>
+<p>DNSSEC does not make the DNS answer secret. DNS records are generally still readable by parties who can observe the DNS exchange. The signatures establish authenticity and integrity; they do not provide confidentiality.</p></section>
+
+<section><h2>3. How the DNSSEC chain of trust works</h2>
+<p>A DNS name is organised in a hierarchy. At the top is the DNS root, below it are top-level domains such as .com or .in, and below those are individual registered domains and their subdomains. DNSSEC uses that hierarchy to connect a domain's signing key to a trust anchor that a resolver already trusts.</p>
+<ol>
+<li><strong>The root trust anchor:</strong> a validating resolver starts with a configured trust anchor for the DNS root. The root zone is signed, and its signatures can be checked using the trusted key material.</li>
+<li><strong>The parent points to the child:</strong> a parent zone publishes a Delegation Signer (DS) record that identifies the child's DNSSEC key. The DS record is itself protected by the parent's signatures.</li>
+<li><strong>The child publishes its keys:</strong> the child zone publishes DNSKEY records. The resolver checks that the relevant key matches the DS information from the parent.</li>
+<li><strong>The zone signs its records:</strong> signatures called RRSIG records cover DNS record sets. The validator checks the signatures, their validity periods and the relevant key relationships.</li>
+<li><strong>The answer is accepted or rejected:</strong> if the chain and signatures validate, the resolver can treat the signed data as authentic. If validation fails, a validating resolver normally treats the answer as a failure rather than silently trusting potentially altered data.</li>
+</ol>
+<p>This is a chain of cryptographic checks, not a chain of website certificates. DNSSEC and HTTPS certificates serve different purposes. DNSSEC validates DNS data; HTTPS uses TLS to protect the connection to a website and authenticate the server under the web PKI.</p></section>
+
+<section><h2>4. DNSKEY, DS and RRSIG: the records in plain English</h2>
+<p>DNSSEC introduces several record types. Three are especially useful to understand:</p>
+<table><thead><tr><th>Record</th><th>What it does</th><th>Simple way to think about it</th></tr></thead><tbody>
+<tr><td><strong>DNSKEY</strong></td><td>Publishes a zone's public signing key material.</td><td>The public key a validator can use to check signatures.</td></tr>
+<tr><td><strong>DS</strong></td><td>Links a child zone's key to its parent zone using a digest.</td><td>The parent's authenticated reference to the child's key.</td></tr>
+<tr><td><strong>RRSIG</strong></td><td>Contains a digital signature covering a DNS record set.</td><td>The cryptographic seal checked against the published key.</td></tr>
+</tbody></table>
+<p>Other records help complete the system. NSEC and NSEC3 provide authenticated denial-of-existence proofs. A validator may also use parameters and key tags to identify the right keys and algorithms. The exact record set depends on the zone's signing configuration.</p>
+<p>Operators often distinguish a Key Signing Key (KSK) from a Zone Signing Key (ZSK). This is a key-management arrangement, not a requirement that every DNSSEC deployment use exactly the same operational design. The keys have different roles in signing and validating the zone's DNSKEY and other record sets.</p></section>
+
+<section><h2>5. DNSSEC is not the same as encrypted DNS</h2>
+<p>This is one of the most common points of confusion. DNSSEC and encrypted DNS can work together, but they solve different problems.</p>
+<table><thead><tr><th>Technology</th><th>Main purpose</th><th>What it does not automatically provide</th></tr></thead><tbody>
+<tr><td><strong>DNSSEC</strong></td><td>Authenticates DNS data and detects tampering with signed records.</td><td>It does not encrypt DNS queries or hide the names being looked up.</td></tr>
+<tr><td><strong>DNS over HTTPS (DoH)</strong></td><td>Encrypts the connection between a client and a DNS resolver using HTTPS.</td><td>It does not, by itself, prove that every DNS answer is authentic through the DNSSEC chain.</td></tr>
+<tr><td><strong>DNS over TLS (DoT)</strong></td><td>Encrypts DNS transport between a client and a resolver using TLS.</td><td>It does not replace DNSSEC data-origin validation.</td></tr>
+<tr><td><strong>HTTPS / TLS</strong></td><td>Protects the web connection and authenticates the website endpoint under the web certificate system.</td><td>It does not independently guarantee that the DNS lookup was authentic.</td></tr>
+</tbody></table>
+<p>Think of the distinction this way: DNSSEC checks whether the directory entry is authentic. DoH and DoT protect the conversation with the directory service from being read or altered in transit. HTTPS protects the later connection to the website. These protections can complement one another.</p>
+<p>Encrypted DNS also changes who can observe DNS requests. The resolver still receives the queries, and the resolver's privacy policy and jurisdiction matter. Encryption is not the same as anonymity.</p></section>
+
+<section><h2>6. What happens when DNSSEC validation fails?</h2>
+<p>If a signed zone has an expired signature, a missing or incorrect DS record, a broken key rollover or another configuration error, a validating resolver may reject the response. To the user, that can look like a website is unavailable even when the web server itself is healthy.</p>
+<p>This is an important operational trade-off. DNSSEC can prevent acceptance of forged data, but a misconfigured signed zone can also make legitimate data fail validation. That is why DNS operators need monitoring, reliable time synchronisation, tested key-rollover procedures, correct parent-child DS information and a clear incident plan.</p>
+<p>Not every DNS failure is a DNSSEC failure. A domain may have expired, its authoritative servers may be unreachable, a record may be missing, or a resolver may have an ordinary connectivity problem. Diagnosis should check the full DNS path rather than assuming the presence of DNSSEC is the cause.</p></section>
+
+<section><h2>7. Does DNSSEC stop phishing, malware or fake websites?</h2>
+<p>No. DNSSEC helps a resolver verify that signed DNS data is authentic. It does not decide whether a domain owner is honest, whether a website's content is safe, or whether a page is trying to trick a visitor into sharing a password.</p>
+<p>A criminal can register a look-alike domain and configure it correctly with DNSSEC. The DNS data for that domain can be authentic even though the site is malicious. Similarly, DNSSEC does not scan downloads, remove malware, block deceptive adverts or replace browser security warnings.</p>
+<p>It can make certain DNS redirection attacks harder when the relevant zones are correctly signed and the user's resolver performs validation. But phishing protection still needs careful URL checking, multi-factor authentication, safe browsing controls, software updates and user awareness.</p></section>
+
+<section><h2>8. What did the 2026 root-key rollover show?</h2>
+<p>The DNS root is a critical part of the global DNSSEC trust chain. Its Key Signing Key (KSK) is used in the root zone's DNSSEC signing process. Like other cryptographic keys, root keys must be managed and eventually replaced through a carefully coordinated process.</p>
+<p>IANA's published schedule records that KSK-2024 began signing the root zone on 11 October 2026, replacing KSK-2017 for that role. Resolvers that validate DNSSEC need to maintain the appropriate trust anchor so they can continue checking the root zone. The follow-on revocation and removal milestones for the older key are scheduled for January and March 2027.</p>
+<p>APNIC's analysis of the October 2026 rollover estimated that the global DNSSEC validation rate moved from 39.7% before the rollover to 40.6% afterwards. It also estimated that the number of users behind validating resolvers increased by about 45.8 million. India accounted for an estimated net increase of roughly 45.4 million validating users in that analysis. These are measurement-based estimates, not a census of every person or a measure of how many Indian domains are signed. The event is a useful example of why global trust-anchor maintenance and operational monitoring matter.</p>
+<p>The broader lesson is that DNSSEC is not a one-time switch. It depends on correct key management across a distributed ecosystem of registries, registrars, authoritative DNS operators, resolver providers and software maintainers.</p></section>
+
+<section><h2>9. How can a domain owner deploy DNSSEC?</h2>
+<p>For a website or domain owner, DNSSEC deployment is normally performed through the registrar and authoritative DNS provider. The exact process varies, but a careful rollout generally includes:</p>
+<ul>
+<li><strong>Check provider support:</strong> confirm that the authoritative DNS service supports DNSSEC signing and provides the required DS information.</li>
+<li><strong>Understand key management:</strong> know who operates the signing keys, how rollovers are handled and how the service monitors signature expiry.</li>
+<li><strong>Publish the DS record correctly:</strong> the parent-zone DS data must match the child zone's DNSKEY material. A mismatch can break validation.</li>
+<li><strong>Test before and after activation:</strong> use more than one independent DNSSEC validation checker and query the domain through validating resolvers.</li>
+<li><strong>Monitor continuously:</strong> watch for expired signatures, broken delegations, algorithm changes and failed key rollovers.</li>
+<li><strong>Prepare a recovery procedure:</strong> document who can correct or remove a bad DS record if the zone becomes unreachable to validating resolvers.</li>
+</ul>
+<p>Do not copy a DS record from a tutorial or another domain. It is specific to the domain's actual DNSSEC keys and configuration. If a DNS provider manages signing automatically, understand how it communicates DS changes to the registrar before changing providers.</p></section>
+
+<section><h2>10. What should everyday internet users do?</h2>
+<p>Most home users do not need to configure DNSSEC manually. The recursive resolver—often operated by an ISP, mobile provider, company or public DNS service—does the validation work. A few sensible habits still help:</p>
+<ul>
+<li>Keep your router, operating system and browser updated.</li>
+<li>Use a trusted DNS resolver and review its privacy and security practices.</li>
+<li>Do not assume a DNSSEC-valid domain is safe; check the domain name and use HTTPS.</li>
+<li>If one website suddenly fails, try another network or resolver only as a diagnostic—not as a reason to ignore a security warning.</li>
+<li>Do not disable DNSSEC validation globally to make a single broken domain load. Report the issue to the site or resolver operator.</li>
+</ul>
+<p>If you manage a business network, ask your DNS provider whether validation is enabled, how failures are logged and how incidents are escalated. For organisations that operate authoritative DNS, signing and key rollover should be part of routine change management rather than an undocumented one-off task.</p></section>
+
+<section><h2>11. Where DNS security is heading</h2>
+<p>DNS security will continue to evolve as operators improve automation, monitoring and cryptographic agility. DNSSEC itself has to accommodate algorithm changes, key rotation and increasingly complex service architectures. Large providers can automate much of this work, but automation still needs good observability and safe recovery paths.</p>
+<p>Encrypted DNS adoption is another important part of the picture. DoH and DoT can reduce exposure of DNS queries on the path between a device and its resolver, while DNSSEC provides authenticity checks for signed data. Neither makes the other unnecessary. A well-designed network considers both the integrity of DNS answers and the privacy of DNS transport.</p>
+<p>For future networks, including mobile, satellite, cloud and edge systems, DNS remains a foundational dependency. When a service cannot resolve a name reliably, users may experience what looks like an application outage. Resilient DNS therefore depends on accurate data, trustworthy validation, secure transport, redundant infrastructure and operators who can respond quickly when something breaks.</p></section>
+
+<section><h2>12. The practical takeaway</h2>
+<p>DNS is the internet's distributed naming system. DNSSEC adds cryptographic signatures and a chain of trust so validating resolvers can check that signed DNS data is authentic and has not been altered. It is a meaningful security layer, but it does not encrypt queries, guarantee a website is legitimate, or replace HTTPS and other protections.</p>
+<p>For most users, the right approach is to keep devices updated and use a resolver with sound security and privacy practices. For domain owners and network operators, DNSSEC requires correct signing, parent-child delegation, monitoring and careful key management.</p>
+<p>The internet's address book needs both accurate entries and a way to verify them. DNSSEC provides that verification—one signed zone and one trusted link at a time.</p></section>
+
+<section><h2>Frequently asked questions</h2>
+<h3>What is DNSSEC in simple terms?</h3><p>DNSSEC is a set of DNS extensions that uses digital signatures so validating resolvers can check the authenticity and integrity of DNS records.</p>
+<h3>Does DNSSEC encrypt DNS traffic?</h3><p>No. DNSSEC authenticates signed DNS data but does not encrypt queries. DoH and DoT encrypt the connection between a client and its DNS resolver.</p>
+<h3>Does DNSSEC prevent phishing?</h3><p>Not by itself. A malicious website can use a validly registered and DNSSEC-signed domain. DNSSEC helps protect against certain forged DNS answers, not deceptive website content or look-alike names.</p>
+<h3>What is the DNSSEC chain of trust?</h3><p>It is the sequence of cryptographic links from a resolver's trusted root key through parent and child zones to the signatures on the requested DNS data.</p>
+<h3>What are DNSKEY, DS and RRSIG records?</h3><p>DNSKEY publishes public key material, DS links a child zone's key to its parent, and RRSIG contains signatures over DNS record sets.</p>
+<h3>Can DNSSEC make a website unavailable?</h3><p>A broken DNSSEC configuration can cause validating resolvers to reject otherwise legitimate DNS data. Expired signatures or incorrect DS records are examples of operational errors that can interrupt access.</p>
+<h3>Is DNSSEC the same as HTTPS?</h3><p>No. DNSSEC authenticates DNS data. HTTPS uses TLS to protect the connection to a website and authenticate the server under the web certificate system.</p>
+<h3>Do I need to enable DNSSEC on my home router?</h3><p>Usually not. DNSSEC validation is commonly performed by the recursive resolver used by your device or network. Router features vary, so check your provider's guidance before changing settings.</p>
+<h3>Is DNSSEC widely used in India?</h3><p>DNSSEC validation is measured across Indian users and networks, but validation rates are not the same as the share of Indian domains that are signed. APNIC's October 2026 analysis estimated a notable increase in users behind validating resolvers during the root-key rollover.</p>
+</section>
+
+<section class="tb-sources"><h2>Sources &amp; further reading</h2><ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9364.html" target="_blank" rel="noopener noreferrer">IETF — RFC 9364: DNS Security Extensions (DNSSEC), Best Current Practice</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4033.html" target="_blank" rel="noopener noreferrer">IETF — RFC 4033: DNS Security Introduction and Requirements</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4034.html" target="_blank" rel="noopener noreferrer">IETF — RFC 4034: Resource Records for the DNS Security Extensions</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4035.html" target="_blank" rel="noopener noreferrer">IETF — RFC 4035: Protocol Modifications for the DNS Security Extensions</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc6781.html" target="_blank" rel="noopener noreferrer">IETF — RFC 6781: DNSSEC Operational Practices, Version 2</a></li>
+<li><a href="https://www.iana.org/dnssec/files" target="_blank" rel="noopener noreferrer">IANA — DNSSEC Trust Anchors and Root Key Rollovers</a></li>
+<li><a href="https://blog.apnic.net/2026/10/21/rolling-the-root-key-what-happened/" target="_blank" rel="noopener noreferrer">APNIC Blog — Rolling the root key: What happened? (21 October 2026)</a></li>
+<li><a href="https://stats.dnssec-tools.org/" target="_blank" rel="noopener noreferrer">DNSSEC-Tools — DNSSEC and DANE deployment statistics</a></li>
+</ul><p><strong>Editorial note:</strong> The October 2026 validation figures are APNIC measurement-based estimates and should not be interpreted as a census or as the percentage of domains signed with DNSSEC. DNSSEC deployment and validation are different measures. Protocol explanations are based on published IETF standards and IANA operational information. This article is educational and is not a security audit or a guarantee that a domain or website is safe.</p></section>
+
+<section class="tb-sources tb-related-reading"><h2>Related reading</h2><ul>
+<li><a href="/blog/future-internet-2030-beyond/">The Future of the Internet: How the World Will Connect in 2030 and Beyond</a></li>
+<li><a href="/blog/post-quantum-cryptography-internet/">Post-Quantum Cryptography: How the Internet Is Preparing for Quantum Computers</a></li>
+<li><a href="/blog/ipv6-explained-internet-transition/">IPv6 Explained: Why the Internet Is Moving Beyond IPv4</a></li>
+</ul></section>
+</article>
+<p><a href="/blog/">← Back to TEZZ CONNECT Blog</a></p></main>
+<footer class="tb-footer"><div><a class="tb-brand" href="/blog/"><strong>TEZZ <span>CONNECT</span></strong><b>Blog</b></a><p>Practical internet education, troubleshooting and technology explanations.</p></div><div><strong>Browse</strong><a href="/blog/">Blog Home</a><a href="/blog/#topics">Categories</a><a href="/blog/#articles">All Articles</a></div><div><strong>Editorial</strong><a href="/blog/about/">About the Blog</a><a href="/blog/editorial-policy/">Editorial Policy</a><a href="/blog/disclaimer/">Disclaimer</a></div></footer>
+</body></html>
