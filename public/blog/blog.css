@@ -63,3 +63,11 @@ body.tc-blog[data-blog-page="category"] #tb-articles .tb-status{padding-top:7px;
 }
 @media(max-width:380px){body.tc-blog[data-blog-page="category"] #tb-articles .tb-card{grid-template-columns:34% minmax(0,1fr)}body.tc-blog[data-blog-page="category"] #tb-articles .tb-card-copy p{display:none}}
 @media(prefers-reduced-motion:reduce){body.tc-blog[data-blog-page="category"] *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Author profile hero */
+body.tc-blog .tb-author-hero{display:flex;flex-direction:column;align-items:center;gap:14px;margin:28px 0 30px;text-align:center}
+body.tc-blog .tb-author-portrait{display:block;width:160px;height:160px;max-width:42vw;aspect-ratio:1;object-fit:cover;object-position:center;border-radius:50%;border:4px solid #fff;box-shadow:0 5px 22px rgba(15,35,55,.16)}
+body.tc-blog .tb-author-heading{min-width:0}
+body.tc-blog .tb-author-heading .tb-kicker{display:block;margin:0 0 8px}
+body.tc-blog .tb-author-heading h1{margin:0;font-size:clamp(32px,7vw,48px);line-height:1.1;letter-spacing:-1.2px;overflow-wrap:anywhere}
+@media(max-width:650px){body.tc-blog .tb-author-hero{gap:12px;margin:22px 0 25px}body.tc-blog .tb-author-portrait{width:144px;height:144px}body.tc-blog .tb-author-heading h1{font-size:clamp(30px,8vw,38px)}}
