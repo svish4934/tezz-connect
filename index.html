@@ -193,8 +193,44 @@
         manage.style.cssText = 'position:fixed;z-index:9998;left:8px;bottom:8px;padding:6px 9px;border:1px solid #47617f;border-radius:999px;background:rgba(10,25,48,.94);color:#f4f7ff;font:11px system-ui;cursor:pointer;box-shadow:0 3px 12px #0003';
         manage.onclick = function(){ render(true); };
         document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(manage); });
-        if (current && current.necessary === true) loadScripts(current);
-        else document.addEventListener('DOMContentLoaded', function(){ render(true); });
+        // Resolve Cloudflare country before selecting the consent interface or loading AdSense.
+        // A failed lookup is treated as unknown and remains fail-closed.
+        fetch('/locale-country', { cache: 'no-store', credentials: 'same-origin' })
+          .then(function(response) {
+            if (!response.ok) throw new Error('Country lookup failed');
+            return response.json();
+          })
+          .then(function(data) {
+            var country = typeof data.country === 'string' ? data.country.toUpperCase() : '';
+            if (!/^[A-Z]{2}$/.test(country)) throw new Error('Invalid country code');
+            regionResolved = true;
+            isRegulatedRegion = REGULATED_COUNTRIES.has(country);
+            installAdsTag(isRegulatedRegion, false);
+            if (isRegulatedRegion) {
+              // Google Privacy & Messaging owns the European consent UI and Google signals.
+              render(false);
+              manage.textContent = '◉ Privacy settings';
+              manage.setAttribute('aria-label', 'Open Google privacy and consent settings');
+              manage.onclick = function() {
+                window.googlefc = window.googlefc || {};
+                window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+                if (typeof window.googlefc.showRevocationMessage === 'function') {
+                  window.googlefc.callbackQueue.push(window.googlefc.showRevocationMessage);
+                }
+              };
+              return;
+            }
+            if (current && current.necessary === true) loadScripts(current);
+            else document.addEventListener('DOMContentLoaded', function(){ render(true); });
+          })
+          .catch(function() {
+            // Unknown region: do not let a generic local choice grant Google consent.
+            regionResolved = true;
+            isRegulatedRegion = true;
+            installAdsTag(false, true);
+            render(false);
+            manage.style.display = 'none';
+          });
       })();
     </script>
   </head>
