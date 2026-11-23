@@ -131,7 +131,13 @@
         function save(prefs) {
           prefs = { necessary: true, analytics: !!prefs.analytics, ads: !!prefs.ads, updatedAt: new Date().toISOString() };
           try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (_) {}
-          current = prefs; loadScripts(prefs); render(false);
+          var withdrawingAds = !!(current && current.ads) && !prefs.ads;
+          current = prefs;
+          loadScripts(prefs);
+          render(false);
+          // Reload after ad-consent withdrawal so an already-loaded AdSense
+          // runtime is torn down and the next page load honours the saved opt-out.
+          if (withdrawingAds) window.location.reload();
         }
         function render(show) {
           var old = document.getElementById('tezz-cookie-panel');
