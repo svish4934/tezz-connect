@@ -42,7 +42,7 @@ function collectHtmlFiles(directory) {
 }
 
 const publicHtmlFiles = collectHtmlFiles('public');
-const analyticsPattern = /https:\/\/www\\.googletagmanager\\.com\/gtag\/js|G-SL6RDF7GHX/;
+const analyticsPattern = /https:\/\/www\.googletagmanager\.com\/gtag\/js|G-SL6RDF7GHX/;
 const analyticsBypassFiles = publicHtmlFiles
   .filter(fileUrl => analyticsPattern.test(fs.readFileSync(fileUrl, 'utf8')))
   .map(fileUrl => fileUrl.pathname);
