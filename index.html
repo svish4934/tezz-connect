@@ -224,8 +224,14 @@
               manage.setAttribute('aria-label', 'Open Google privacy and consent settings');
               manage.onclick = function() {
                 window.googlefc = window.googlefc || {};
+                // CONSENT_API_READY is a one-time readiness event. If it has already
+                // fired, call the available API now instead of queueing a callback
+                // that will never run.
+                if (typeof window.googlefc.showRevocationMessage === 'function') {
+                  window.googlefc.showRevocationMessage();
+                  return;
+                }
                 window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
-                // Queue the call even if the CMP API is still loading; Google runs it when ready.
                 window.googlefc.callbackQueue.push({
                   'CONSENT_API_READY': function() {
                     if (typeof window.googlefc.showRevocationMessage === 'function') {
