@@ -41,8 +41,8 @@ jobs:
           if (consentDefault < 0 || pauseBeforeTag < 0 || cmpCallback < 0 || adsTagInstall < 0 || !(consentDefault < pauseBeforeTag && pauseBeforeTag < cmpCallback && cmpCallback < adsTagInstall)) {
             throw new Error('Consent defaults, paused AdSense requests and CMP callback must be initialized before the initial AdSense tag.');
           }
-          if (resumeOnConsent < adsTagInstall) {
-            throw new Error('AdSense requests may only resume after the consent-based gate is initialized.');
+          if (resumeOnConsent < 0 || !html.includes('decisionReady && purposeOneAllowed ? 0 : 1')) {
+            throw new Error('AdSense requests must resume only through the explicit regional/local consent gates.');
           }
           if (html.split(adsUrl).length !== 2) {
             throw new Error('Expected exactly one initial TEZZ AdSense tag.');
