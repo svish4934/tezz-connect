@@ -94,7 +94,7 @@ const plans = {
 'one-device':{title:'Isolate the device before changing the network',summary:'When other devices work normally, the affected phone, laptop or its settings are the best place to start.',steps:[
 ['Move the affected device near the router','Test in the same room. If it improves, the device may be struggling with signal strength or its wireless adapter.'],
 ['Reconnect to the Wi-Fi network','Check that airplane mode is off, then disconnect and reconnect to the correct network. Confirm you are using the intended Wi-Fi band if your router separates them.'],
-['Compare another app or website','If only one app is affected, check that app's service status and settings. If all apps are affected, continue with device network settings.'],
+['Compare another app or website','If only one app is affected, check the service status and settings for that app. If all apps are affected, continue with device network settings.'],
 ['Update and restart the device','Install normal operating-system and Wi-Fi driver updates, then restart. Avoid deleting saved network settings unless you know the password and configuration.']
 ],caution:'If this device is managed by an employer or school, check with its IT administrator before changing security, VPN or network settings.'},
 'weak-room':{title:'Investigate signal coverage and obstacles',summary:'A problem limited to one room often points to the wireless path between the router and that location.',steps:[
@@ -125,7 +125,7 @@ const plans = {
 ['Confirm the network name and password','Check the exact Wi-Fi name (SSID), password and whether the network is hidden. Watch for similar names or guest networks.'],
 ['Check supported Wi-Fi bands','Some devices support 2.4 GHz only. If your router uses a combined network name, check its compatibility guidance or try the 2.4 GHz network if available.'],
 ['Check security compatibility','Older devices may not support newer Wi-Fi security modes. Check the device and router manuals before changing security settings; do not leave the network open.'],
-['Restart and update the device','Restart the device and install manufacturer updates. If it still cannot connect, check the router's device limit or access-control settings.']
+['Restart and update the device','Restart the device and install manufacturer updates. If it still cannot connect, check the device limit or access-control settings on the router.']
 ],caution:'Do not disable Wi-Fi security or share your password publicly to make a device connect. For business or managed networks, ask the network administrator.'}
 };
 const select=document.getElementById('trouble-symptom');
