@@ -30,7 +30,13 @@ async function makePage(country) {
     status: 200, contentType: 'application/javascript', body: 'window.__mockAnalyticsLoaded = true;'
   }));
   const pageErrors = [];
+  const consoleErrors = [];
+  const failedRequests = [];
   page.on('pageerror', error => pageErrors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') consoleErrors.push(message.text()); });
+  page.on('requestfailed', request => failedRequests.push({ url: request.url(), error: request.failure()?.errorText }));
+  const countryRequests = [];
+  page.on('request', request => { if (request.url().includes('locale-country')) countryRequests.push(request.url()); });
   const countryResponses = [];
   page.on('response', response => {
     if (response.url().includes('/locale-country')) countryResponses.push({ status: response.status(), url: response.url() });
@@ -39,7 +45,7 @@ async function makePage(country) {
   try {
     await page.waitForFunction(() => window.adsbygoogle && typeof window.adsbygoogle.pauseAdRequests === 'number', { timeout: 10000 });
   } catch (error) {
-    throw new Error(`Consent initialization did not complete for ${country}. URL=${page.url()} countryResponses=${JSON.stringify(countryResponses)} pageErrors=${JSON.stringify(pageErrors)} adsTag=${await page.locator('#tezz-ads').count()} body=${(await page.locator('body').innerText()).slice(0, 300)}; ${error.message}`);
+    throw new Error(`Consent initialization did not complete for ${country}. URL=${page.url()} countryRequests=${JSON.stringify(countryRequests)} countryResponses=${JSON.stringify(countryResponses)} pageErrors=${JSON.stringify(pageErrors)} consoleErrors=${JSON.stringify(consoleErrors)} failedRequests=${JSON.stringify(failedRequests)} adsTag=${await page.locator('#tezz-ads').count()} body=${(await page.locator('body').innerText()).slice(0, 300)}; ${error.message}`);
   }
   return { context, page };
 }
