@@ -93,6 +93,7 @@ jobs:
           GUIDE_PATH: ${{ steps.guide.outputs.path }}
         run: |
           node --input-type=module <<'NODE'
+          import fs from 'node:fs';
           import { chromium } from 'playwright';
 
           const guidePath = process.env.GUIDE_PATH;
@@ -103,6 +104,7 @@ jobs:
             { name: 'mobile', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
           ];
           let failed = false;
+          const report = [];
 
           try {
             for (const test of cases) {
@@ -146,6 +148,8 @@ jobs:
                 checks.push(['knowledge check present', true]);
               }
 
+              report.push({ device: test.name, guidePath, result: { title: result.title, h1Count: result.h1Count, bodyTextLength: result.bodyText.trim().length, viewportWidth: result.viewportWidth, scrollWidth: result.scrollWidth, errors }, checks: checks.map(([label, ok]) => ({ label, passed: ok })) });
+
               for (const [label, ok] of checks) {
                 console.log(`${test.name}: ${ok ? 'PASS' : 'FAIL'} — ${label}`);
                 if (!ok) failed = true;
@@ -157,6 +161,7 @@ jobs:
             await browser.close();
           }
 
+          fs.writeFileSync('guide-browser-report.json', JSON.stringify(report, null, 2));
           if (failed) process.exit(1);
           NODE
 
@@ -169,5 +174,6 @@ jobs:
             guide-preview-desktop.png
             guide-preview-mobile.png
             worker-preview.log
+            guide-browser-report.json
           if-no-files-found: warn
           retention-days: 7

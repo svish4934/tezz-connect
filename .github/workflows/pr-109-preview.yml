@@ -12,8 +12,8 @@ permissions:
 
 jobs:
   preview-smoke:
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/seo/pr-109-rebased-20261113') || (github.event_name == 'pull_request' && (github.event.pull_request.number == 113 || github.event.pull_request.number == 114 || github.event.pull_request.number == 133 || github.event.pull_request.number == 157) && github.event.pull_request.head.repo.full_name == github.repository)
-    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/seo/pr-109-rebased-20261113') || (github.event_name == 'pull_request' && (github.event.pull_request.number == 113 || github.event.pull_request.number == 114 || github.event.pull_request.number == 133 || github.event.pull_request.number == 157 || github.event.pull_request.number == 268) && github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v4
@@ -27,6 +27,34 @@ jobs:
         run: npm install
       - name: Build preview assets
         run: npm run build
+      - name: Verify consent and AdSense initialization order
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const html = readFileSync('index.html', 'utf8');
+          const consentDefault = html.indexOf("gtag('consent', 'default'");
+          const pauseBeforeTag = html.indexOf('window.adsbygoogle.pauseAdRequests = 1;');
+          const cmpCallback = html.indexOf("'CONSENT_API_READY': function() {");
+          const adsTagInstall = html.indexOf('<script async id="tezz-ads" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
+          const adsUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
+          const resumeOnConsent = html.indexOf('window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;');
+          if (consentDefault < 0 || pauseBeforeTag < 0 || cmpCallback < 0 || adsTagInstall < 0 || !(consentDefault < pauseBeforeTag && pauseBeforeTag < cmpCallback && cmpCallback < adsTagInstall)) {
+            throw new Error('Consent defaults, paused AdSense requests and CMP callback must be initialized before the initial AdSense tag.');
+          }
+          if (resumeOnConsent < 0 || !html.includes('decisionReady && purposeOneAllowed ? 0 : 1')) {
+            throw new Error('AdSense requests must resume only through the explicit regional/local consent gates.');
+          }
+          if (html.split(adsUrl).length !== 2) {
+            throw new Error('Expected exactly one initial TEZZ AdSense tag.');
+          }
+          if (!html.includes("if (prefs.analytics && !document.getElementById('tezz-ga'))")) {
+            throw new Error('Analytics script must remain gated by analytics preference.');
+          }
+          if (html.includes("if (prefs.ads && !document.getElementById('tezz-ads'))")) {
+            throw new Error('Unexpected duplicate conditional AdSense injection remains.');
+          }
+          console.log('Consent defaults, paused AdSense requests, single tag, and analytics gating verified.');
+          NODE
       - name: Start isolated local Worker for smoke tests
         id: preview
         run: |
@@ -48,6 +76,14 @@ jobs:
             exit 1
           fi
           echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+      - name: Install isolated Playwright browser test
+        run: |
+          npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify regional consent behaviour in Chromium
+        env:
+          PREVIEW_URL: ${{ steps.preview.outputs.url }}
+        run: node scripts/test-consent-browser.mjs
       - name: Verify crawler HTML, metadata and utility noindex
         env:
           PREVIEW_URL: ${{ steps.preview.outputs.url }}

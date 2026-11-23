@@ -93,7 +93,7 @@
     </script>
     <meta name="description" content="Check your internet speed for free. Measure download and upload throughput, browser-based response time and variation, then get clear guidance for your connection." />
     <title>Free Internet Speed Test – Download, Upload & Response Time | TEZZ CONNECT</title>
-    <!-- Optional analytics and advertising load only after an affirmative choice. -->
+    <!-- Consent defaults and the CMP callback are prepared before the AdSense tag loads. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -102,11 +102,47 @@
         ad_user_data: 'denied', ad_personalization: 'denied',
         functionality_storage: 'granted', security_storage: 'granted'
       });
+      window.adsbygoogle = window.adsbygoogle || [];
+      window.adsbygoogle.pauseAdRequests = 1;
+      window.googlefc = window.googlefc || {};
+      window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+      var regionReadyResolve;
+      var regionReady = new Promise(function(resolve) { regionReadyResolve = resolve; });
+      var isRegulatedRegion = false;
+      window.googlefc.callbackQueue.push({
+        'CONSENT_API_READY': function() {
+          regionReady.then(function() {
+            if (!isRegulatedRegion || typeof window.__tcfapi !== 'function') return;
+            window.__tcfapi('addEventListener', 2.2, function(tcData, success) {
+              if (!success || !tcData) {
+                window.adsbygoogle.pauseAdRequests = 1;
+                return;
+              }
+              var decisionReady = tcData.eventStatus === 'tcloaded' ||
+                tcData.eventStatus === 'useractioncomplete';
+              var purposeOneAllowed = !!(tcData.purpose && tcData.purpose.consents &&
+                tcData.purpose.consents[1] === true);
+              window.adsbygoogle.pauseAdRequests = decisionReady && purposeOneAllowed ? 0 : 1;
+            });
+          });
+        }
+      });
       (function () {
         var KEY = 'tezz_cookie_consent_v1';
         var current = null;
+        var regionResolved = false;
+        var REGULATED_COUNTRIES = new Set([
+          'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE',
+          'IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE',
+          'GB','CH'
+        ]);
         try { current = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (_) {}
         function loadScripts(prefs) {
+          // European choices come only from Google's CMP; never translate the site's generic checkbox into Google signals.
+          if (!regionResolved || isRegulatedRegion) return;
+          // Resume ad requests only after the visitor has explicitly allowed advertising.
+          window.adsbygoogle = window.adsbygoogle || [];
+          window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;
           gtag('consent', 'update', {
             analytics_storage: prefs.analytics ? 'granted' : 'denied',
             ad_storage: prefs.ads ? 'granted' : 'denied',
@@ -121,17 +157,18 @@
             ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX';
             document.head.appendChild(ga);
           }
-          if (prefs.ads && !document.getElementById('tezz-ads')) {
-            var ads = document.createElement('script');
-            ads.id = 'tezz-ads'; ads.async = true; ads.crossOrigin = 'anonymous';
-            ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
-            document.head.appendChild(ads);
-          }
+          // The AdSense tag is installed at page startup (after consent defaults).
+          // Keep this function responsible only for updating consent signals and analytics.
         }
         function save(prefs) {
           prefs = { necessary: true, analytics: !!prefs.analytics, ads: !!prefs.ads, updatedAt: new Date().toISOString() };
           try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (_) {}
-          current = prefs; loadScripts(prefs); render(false);
+          var withdrawingAds = !!(current && current.ads) && !prefs.ads;
+          current = prefs;
+          loadScripts(prefs);
+          render(false);
+          // Reload to tear down an AdSense runtime after advertising consent is withdrawn.
+          if (withdrawingAds) window.location.reload();
         }
         function render(show) {
           var old = document.getElementById('tezz-cookie-panel');
@@ -166,10 +203,53 @@
         manage.style.cssText = 'position:fixed;z-index:9998;left:8px;bottom:8px;padding:6px 9px;border:1px solid #47617f;border-radius:999px;background:rgba(10,25,48,.94);color:#f4f7ff;font:11px system-ui;cursor:pointer;box-shadow:0 3px 12px #0003';
         manage.onclick = function(){ render(true); };
         document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(manage); });
-        if (current && current.necessary === true) loadScripts(current);
-        else document.addEventListener('DOMContentLoaded', function(){ render(true); });
+        // Resolve Cloudflare country before selecting the consent interface or loading AdSense.
+        // A failed lookup is treated as unknown and remains fail-closed.
+        fetch('/locale-country', { cache: 'no-store', credentials: 'same-origin' })
+          .then(function(response) {
+            if (!response.ok) throw new Error('Country lookup failed');
+            return response.json();
+          })
+          .then(function(data) {
+            var country = typeof data.country === 'string' ? data.country.toUpperCase() : '';
+            if (!/^[A-Z]{2}$/.test(country)) throw new Error('Invalid country code');
+            regionResolved = true;
+            isRegulatedRegion = REGULATED_COUNTRIES.has(country);
+            regionReadyResolve();
+            if (isRegulatedRegion) {
+              // Google's CMP owns European consent; the pre-registered TCF listener
+              // becomes active once both the CMP API and country lookup are ready.
+              render(false);
+              manage.textContent = '◉ Privacy settings';
+              manage.setAttribute('aria-label', 'Open Google privacy and consent settings');
+              manage.onclick = function() {
+                window.googlefc = window.googlefc || {};
+                window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+                // Queue the call even if the CMP API is still loading; Google runs it when ready.
+                window.googlefc.callbackQueue.push({
+                  'CONSENT_API_READY': function() {
+                    if (typeof window.googlefc.showRevocationMessage === 'function') {
+                      window.googlefc.showRevocationMessage();
+                    }
+                  }
+                });
+              };
+              return;
+            }
+            if (current && current.necessary === true) loadScripts(current);
+            else document.addEventListener('DOMContentLoaded', function(){ render(true); });
+          })
+          .catch(function() {
+            // Unknown region: do not let a generic local choice grant Google consent.
+            regionResolved = true;
+            isRegulatedRegion = true;
+            regionReadyResolve();
+            render(false);
+            manage.style.display = 'none';
+          });
       })();
     </script>
+    <script async id="tezz-ads" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886"></script>
   </head>
   <body>
     <div id="root"></div>
