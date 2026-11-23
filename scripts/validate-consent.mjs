@@ -29,4 +29,23 @@ assert.notEqual(reject, -1, 'Reject optional action must save both optional cate
 for (const signal of ['analytics_storage', 'ad_storage', 'ad_user_data', 'ad_personalization']) {
   assert.ok(html.includes(signal + ": 'denied'"), signal + ' must default to denied');
 }
+
+function collectHtmlFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    const fullPath = new URL(`../public/${directory === 'public' ? '' : directory + '/'}${entry.name}`, import.meta.url);
+    if (entry.isDirectory()) {
+      const relative = directory === 'public' ? entry.name : `${directory}/${entry.name}`;
+      return collectHtmlFiles(relative);
+    }
+    return entry.isFile() && entry.name.endsWith('.html') ? [fullPath] : [];
+  });
+}
+
+const publicHtmlFiles = collectHtmlFiles('public');
+const analyticsPattern = /https:\/\/www\\.googletagmanager\\.com\/gtag\/js|G-SL6RDF7GHX/;
+const analyticsBypassFiles = publicHtmlFiles
+  .filter(fileUrl => analyticsPattern.test(fs.readFileSync(fileUrl, 'utf8')))
+  .map(fileUrl => fileUrl.pathname);
+assert.deepEqual(analyticsBypassFiles, [], 'Static public HTML must not load Google Analytics outside the shared consent gate');
+
 console.log('Consent source checks passed. These checks do not verify live network requests, browser storage, or regional CMP behaviour.');
