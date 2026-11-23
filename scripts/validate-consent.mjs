@@ -32,7 +32,7 @@ assert.notEqual(installAfterCountry, -1, 'Known country must be resolved before 
 assert.notEqual(failClosedInstall, -1, 'Failed country lookup must use the fail-closed AdSense path');
 assert.equal(html.split(adsUrl).length - 1, 1, 'AdSense loader URL must appear exactly once');
 assert.notEqual(regulatedGuard, -1, 'Local preferences must not update Google signals in regulated regions');
-assert.ok(html.includes('window.googlefc.callbackQueue.push(function() {'), 'European privacy settings must queue the CMP revocation action until its API is ready');
+assert.ok(html.includes("'CONSENT_API_READY': function() {"), 'European privacy settings must wait for Google CMP consent API readiness');
 assert.ok(html.includes('window.googlefc.showRevocationMessage();'), 'European privacy settings must call the documented Google CMP revocation method');
 assert.ok(loadScripts < regulatedGuard && regulatedGuard < analyticsGate, 'Regional guard must run before local Google consent updates and analytics loading');
 assert.notEqual(save, -1, 'Consent save function must exist');
