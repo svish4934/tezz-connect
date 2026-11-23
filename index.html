@@ -102,6 +102,15 @@
         ad_user_data: 'denied', ad_personalization: 'denied',
         functionality_storage: 'granted', security_storage: 'granted'
       });
+      // Install the AdSense tag on the top-level page so Google's
+      // Privacy & messaging CMP can detect it and show regional consent.
+      // Consent defaults above remain denied until the visitor makes a choice.
+      var adsTag = document.createElement('script');
+      adsTag.id = 'tezz-ads';
+      adsTag.async = true;
+      adsTag.crossOrigin = 'anonymous';
+      adsTag.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
+      document.head.appendChild(adsTag);
       (function () {
         var KEY = 'tezz_cookie_consent_v1';
         var current = null;
@@ -121,12 +130,8 @@
             ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX';
             document.head.appendChild(ga);
           }
-          if (prefs.ads && !document.getElementById('tezz-ads')) {
-            var ads = document.createElement('script');
-            ads.id = 'tezz-ads'; ads.async = true; ads.crossOrigin = 'anonymous';
-            ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
-            document.head.appendChild(ads);
-          }
+          // The AdSense tag is installed at page startup (after consent defaults).
+          // Keep this function responsible only for updating consent signals and analytics.
         }
         function save(prefs) {
           prefs = { necessary: true, analytics: !!prefs.analytics, ads: !!prefs.ads, updatedAt: new Date().toISOString() };
