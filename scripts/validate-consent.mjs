@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import path from 'node:path';
 
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const defaults = html.indexOf("gtag('consent', 'default'");
@@ -32,20 +33,18 @@ for (const signal of ['analytics_storage', 'ad_storage', 'ad_user_data', 'ad_per
 
 function collectHtmlFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
-    const fullPath = new URL(`../public/${directory === 'public' ? '' : directory + '/'}${entry.name}`, import.meta.url);
-    if (entry.isDirectory()) {
-      const relative = directory === 'public' ? entry.name : `${directory}/${entry.name}`;
-      return collectHtmlFiles(relative);
-    }
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) return collectHtmlFiles(fullPath);
     return entry.isFile() && entry.name.endsWith('.html') ? [fullPath] : [];
   });
 }
 
-const publicHtmlFiles = collectHtmlFiles('public');
+const publicHtmlFiles = collectHtmlFiles(path.resolve('public'));
+
 const analyticsPattern = /https:\/\/www\.googletagmanager\.com\/gtag\/js|G-SL6RDF7GHX/;
 const analyticsBypassFiles = publicHtmlFiles
   .filter(fileUrl => analyticsPattern.test(fs.readFileSync(fileUrl, 'utf8')))
-  .map(fileUrl => fileUrl.pathname);
+  .map(filePath => filePath);
 assert.deepEqual(analyticsBypassFiles, [], 'Static public HTML must not load Google Analytics outside the shared consent gate');
 
 console.log('Consent source checks passed. These checks do not verify live network requests, browser storage, or regional CMP behaviour.');
