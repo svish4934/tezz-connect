@@ -102,31 +102,11 @@
         ad_user_data: 'denied', ad_personalization: 'denied',
         functionality_storage: 'granted', security_storage: 'granted'
       });
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.pauseAdRequests = 1;
+      // Google’s AdSense tag can load without globally pausing ad requests.
+      // Google’s certified CMP/TCF signals govern EEA, UK and Swiss ad eligibility;
+      // Consent Mode signals below communicate the visitor’s choices elsewhere.
       window.googlefc = window.googlefc || {};
       window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
-      var regionReadyResolve;
-      var regionReady = new Promise(function(resolve) { regionReadyResolve = resolve; });
-      var isRegulatedRegion = false;
-      window.googlefc.callbackQueue.push({
-        'CONSENT_API_READY': function() {
-          regionReady.then(function() {
-            if (!isRegulatedRegion || typeof window.__tcfapi !== 'function') return;
-            window.__tcfapi('addEventListener', 2.2, function(tcData, success) {
-              if (!success || !tcData) {
-                window.adsbygoogle.pauseAdRequests = 1;
-                return;
-              }
-              var decisionReady = tcData.eventStatus === 'tcloaded' ||
-                tcData.eventStatus === 'useractioncomplete';
-              var purposeOneAllowed = !!(tcData.purpose && tcData.purpose.consents &&
-                tcData.purpose.consents[1] === true);
-              window.adsbygoogle.pauseAdRequests = decisionReady && purposeOneAllowed ? 0 : 1;
-            });
-          });
-        }
-      });
       (function () {
         var KEY = 'tezz_cookie_consent_v1';
         var current = null;
@@ -140,9 +120,6 @@
         function loadScripts(prefs) {
           // European choices come only from Google's CMP; never translate the site's generic checkbox into Google signals.
           if (!regionResolved || isRegulatedRegion) return;
-          // Resume ad requests only after the visitor has explicitly allowed advertising.
-          window.adsbygoogle = window.adsbygoogle || [];
-          window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;
           gtag('consent', 'update', {
             analytics_storage: prefs.analytics ? 'granted' : 'denied',
             ad_storage: prefs.ads ? 'granted' : 'denied',
@@ -215,7 +192,6 @@
             if (!/^[A-Z]{2}$/.test(country)) throw new Error('Invalid country code');
             regionResolved = true;
             isRegulatedRegion = REGULATED_COUNTRIES.has(country);
-            regionReadyResolve();
             if (isRegulatedRegion) {
               // Google's CMP owns European consent; the pre-registered TCF listener
               // becomes active once both the CMP API and country lookup are ready.
@@ -243,7 +219,6 @@
             // Unknown region: do not let a generic local choice grant Google consent.
             regionResolved = true;
             isRegulatedRegion = true;
-            regionReadyResolve();
             render(false);
             manage.style.display = 'none';
           });
