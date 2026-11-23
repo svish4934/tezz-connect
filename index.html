@@ -102,9 +102,10 @@
         ad_user_data: 'denied', ad_personalization: 'denied',
         functionality_storage: 'granted', security_storage: 'granted'
       });
-      // Install the AdSense tag on the top-level page so Google's
-      // Privacy & messaging CMP can detect it and show regional consent.
-      // Consent defaults above remain denied until the visitor makes a choice.
+      // Queue AdSense and pause requests before the tag can initialize or request ads.
+      // Google's Privacy & messaging CMP can still detect the top-level AdSense tag.
+      window.adsbygoogle = window.adsbygoogle || [];
+      window.adsbygoogle.pauseAdRequests = 1;
       var adsTag = document.createElement('script');
       adsTag.id = 'tezz-ads';
       adsTag.async = true;
@@ -116,6 +117,9 @@
         var current = null;
         try { current = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (_) {}
         function loadScripts(prefs) {
+          // Resume ad requests only after the visitor has explicitly allowed advertising.
+          window.adsbygoogle = window.adsbygoogle || [];
+          window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;
           gtag('consent', 'update', {
             analytics_storage: prefs.analytics ? 'granted' : 'denied',
             ad_storage: prefs.ads ? 'granted' : 'denied',
