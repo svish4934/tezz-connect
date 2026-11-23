@@ -107,6 +107,30 @@
       // Consent Mode signals below communicate the visitor’s choices elsewhere.
       window.googlefc = window.googlefc || {};
       window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+      // Temporary diagnostics: record CMP readiness without collecting consent strings,
+      // personal data, or changing consent/ad-request behaviour.
+      window.googlefc.callbackQueue.push({
+        'CONSENT_API_READY': function() {
+          console.info('[TEZZ CMP] Google consent API ready');
+          console.info('[TEZZ CMP] TCF API type:', typeof window.__tcfapi);
+          if (typeof window.__tcfapi !== 'function') return;
+          window.__tcfapi('addEventListener', 2.2, function(tcData, success) {
+            console.info('[TEZZ CMP] TCF event:', {
+              success: !!success,
+              eventStatus: tcData && tcData.eventStatus || null,
+              cmpStatus: tcData && tcData.cmpStatus || null,
+              gdprApplies: tcData && typeof tcData.gdprApplies === 'boolean' ? tcData.gdprApplies : null,
+              tcStringPresent: !!(tcData && tcData.tcString)
+            });
+          });
+        }
+      });
+      window.addEventListener('error', function(event) {
+        var source = event && event.target && event.target.src;
+        if (typeof source === 'string' && /fundingchoices|funding-choices|googlesyndication|googlefc/i.test(source)) {
+          console.warn('[TEZZ CMP] Google script failed to load:', source);
+        }
+      }, true);
       (function () {
         var KEY = 'tezz_cookie_consent_v1';
         var current = null;
@@ -204,6 +228,7 @@
                 // Queue the call even if the CMP API is still loading; Google runs it when ready.
                 window.googlefc.callbackQueue.push({
                   'CONSENT_API_READY': function() {
+                    console.info('[TEZZ CMP] Privacy settings clicked; revocation API type:', typeof window.googlefc.showRevocationMessage);
                     if (typeof window.googlefc.showRevocationMessage === 'function') {
                       window.googlefc.showRevocationMessage();
                     }
