@@ -27,6 +27,27 @@ jobs:
         run: npm install
       - name: Build preview assets
         run: npm run build
+      - name: Verify consent and AdSense initialization order
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const html = readFileSync('index.html', 'utf8');
+          const consentDefault = html.indexOf("gtag('consent', 'default'");
+          const adsTagInstall = html.indexOf("adsTag.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js");
+          if (consentDefault < 0 || adsTagInstall < 0 || consentDefault > adsTagInstall) {
+            throw new Error('AdSense tag must be installed after default denied consent signals.');
+          }
+          if ((html.match(/adsTag\\.id = 'tezz-ads'/g) || []).length !== 1) {
+            throw new Error('Expected exactly one TEZZ AdSense tag installation.');
+          }
+          if (!html.includes("if (prefs.analytics && !document.getElementById('tezz-ga'))")) {
+            throw new Error('Analytics script must remain gated by analytics preference.');
+          }
+          if (/if\\s*\\(prefs\\.ads\\s*&&[^\\n]*tezz-ads/.test(html)) {
+            throw new Error('Unexpected duplicate conditional AdSense injection remains.');
+          }
+          console.log('Consent defaults, single AdSense tag, and analytics gating verified.');
+          NODE
       - name: Start isolated local Worker for smoke tests
         id: preview
         run: |
