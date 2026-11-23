@@ -102,20 +102,31 @@
         ad_user_data: 'denied', ad_personalization: 'denied',
         functionality_storage: 'granted', security_storage: 'granted'
       });
-      // Queue AdSense and pause requests before the tag can initialize or request ads.
-      // Google's Privacy & messaging CMP can still detect the top-level AdSense tag.
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.pauseAdRequests = 1;
-      var adsTag = document.createElement('script');
-      adsTag.id = 'tezz-ads';
-      adsTag.async = true;
-      adsTag.crossOrigin = 'anonymous';
-      adsTag.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
-      document.head.appendChild(adsTag);
       (function () {
         var KEY = 'tezz_cookie_consent_v1';
         var current = null;
+        var regionResolved = false;
+        var isRegulatedRegion = false;
+        var REGULATED_COUNTRIES = new Set([
+          'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE',
+          'IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE',
+          'GB','CH'
+        ]);
         try { current = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (_) {}
+        function installAdsTag(regulated, unknown) {
+          if (document.getElementById('tezz-ads')) return;
+          window.adsbygoogle = window.adsbygoogle || [];
+          // Outside regulated regions, keep requests paused until the site's opt-in.
+          // In EEA/UK/CH, let Google's certified CMP and its TCF string govern AdSense.
+          // If region detection fails, fail closed and keep requests paused.
+          if (!regulated || unknown) window.adsbygoogle.pauseAdRequests = 1;
+          var adsTag = document.createElement('script');
+          adsTag.id = 'tezz-ads';
+          adsTag.async = true;
+          adsTag.crossOrigin = 'anonymous';
+          adsTag.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
+          document.head.appendChild(adsTag);
+        }
         function loadScripts(prefs) {
           // Resume ad requests only after the visitor has explicitly allowed advertising.
           window.adsbygoogle = window.adsbygoogle || [];
