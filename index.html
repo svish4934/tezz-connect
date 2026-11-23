@@ -108,6 +108,7 @@
       window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
       var regionReadyResolve;
       var regionReady = new Promise(function(resolve) { regionReadyResolve = resolve; });
+      var isRegulatedRegion = false;
       window.googlefc.callbackQueue.push({
         'CONSENT_API_READY': function() {
           regionReady.then(function() {
@@ -130,7 +131,6 @@
         var KEY = 'tezz_cookie_consent_v1';
         var current = null;
         var regionResolved = false;
-        var isRegulatedRegion = false;
         var REGULATED_COUNTRIES = new Set([
           'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE',
           'IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE',
