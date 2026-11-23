@@ -74,6 +74,14 @@ jobs:
             exit 1
           fi
           echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+      - name: Install isolated Playwright browser test
+        run: |
+          npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify regional consent behaviour in Chromium
+        env:
+          PREVIEW_URL: ${{ steps.preview.outputs.url }}
+        run: node scripts/test-consent-browser.mjs
       - name: Verify crawler HTML, metadata and utility noindex
         env:
           PREVIEW_URL: ${{ steps.preview.outputs.url }}
