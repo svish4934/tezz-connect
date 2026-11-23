@@ -5,7 +5,7 @@ const baseURL = process.env.PREVIEW_URL || 'http://127.0.0.1:8787';
 const browser = await chromium.launch({ headless: true });
 
 async function makePage(country) {
-  const context = await browser.newContext();
+  const context = await browser.newContext({ userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36' });
   await context.addInitScript(() => {
     window.__tcfListener = null;
     window.__emitTcData = (tcData, success = true) => {
@@ -110,7 +110,7 @@ try {
 
   // Unknown country: fail closed and do not expose the site's local consent UI.
   {
-    const context = await browser.newContext();
+    const context = await browser.newContext({ userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36' });
     const page = await context.newPage();
     await page.route('**/locale-country', route => route.fulfill({
       status: 200, contentType: 'application/json', body: JSON.stringify({ country: '??' })
