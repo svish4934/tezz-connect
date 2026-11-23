@@ -215,9 +215,11 @@
                 window.googlefc = window.googlefc || {};
                 window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
                 // Queue the call even if the CMP API is still loading; Google runs it when ready.
-                window.googlefc.callbackQueue.push(function() {
-                  if (typeof window.googlefc.showRevocationMessage === 'function') {
-                    window.googlefc.showRevocationMessage();
+                window.googlefc.callbackQueue.push({
+                  'CONSENT_API_READY': function() {
+                    if (typeof window.googlefc.showRevocationMessage === 'function') {
+                      window.googlefc.showRevocationMessage();
+                    }
                   }
                 });
               };
