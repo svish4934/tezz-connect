@@ -33,9 +33,14 @@ jobs:
           import { readFileSync } from 'node:fs';
           const html = readFileSync('index.html', 'utf8');
           const consentDefault = html.indexOf("gtag('consent', 'default'");
+          const pauseBeforeTag = html.indexOf('window.adsbygoogle.pauseAdRequests = 1;');
           const adsTagInstall = html.indexOf("adsTag.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js");
-          if (consentDefault < 0 || adsTagInstall < 0 || consentDefault > adsTagInstall) {
-            throw new Error('AdSense tag must be installed after default denied consent signals.');
+          const resumeOnConsent = html.indexOf('window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;');
+          if (consentDefault < 0 || pauseBeforeTag < 0 || adsTagInstall < 0 || !(consentDefault < pauseBeforeTag && pauseBeforeTag < adsTagInstall)) {
+            throw new Error('Consent defaults and paused AdSense requests must be set before the AdSense tag.');
+          }
+          if (resumeOnConsent < adsTagInstall) {
+            throw new Error('AdSense requests may only resume after the consent-based gate is initialized.');
           }
           if (html.split("adsTag.id = 'tezz-ads'").length !== 2) {
             throw new Error('Expected exactly one TEZZ AdSense tag installation.');
@@ -46,7 +51,7 @@ jobs:
           if (html.includes("if (prefs.ads && !document.getElementById('tezz-ads'))")) {
             throw new Error('Unexpected duplicate conditional AdSense injection remains.');
           }
-          console.log('Consent defaults, single AdSense tag, and analytics gating verified.');
+          console.log('Consent defaults, paused AdSense requests, single tag, and analytics gating verified.');
           NODE
       - name: Start isolated local Worker for smoke tests
         id: preview
