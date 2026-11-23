@@ -34,16 +34,18 @@ jobs:
           const html = readFileSync('index.html', 'utf8');
           const consentDefault = html.indexOf("gtag('consent', 'default'");
           const pauseBeforeTag = html.indexOf('window.adsbygoogle.pauseAdRequests = 1;');
-          const adsTagInstall = html.indexOf("adsTag.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js");
+          const cmpCallback = html.indexOf("'CONSENT_API_READY': function() {");
+          const adsTagInstall = html.indexOf('<script async id="tezz-ads" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
+          const adsUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
           const resumeOnConsent = html.indexOf('window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;');
-          if (consentDefault < 0 || pauseBeforeTag < 0 || adsTagInstall < 0 || !(consentDefault < pauseBeforeTag && pauseBeforeTag < adsTagInstall)) {
-            throw new Error('Consent defaults and paused AdSense requests must be set before the AdSense tag.');
+          if (consentDefault < 0 || pauseBeforeTag < 0 || cmpCallback < 0 || adsTagInstall < 0 || !(consentDefault < pauseBeforeTag && pauseBeforeTag < cmpCallback && cmpCallback < adsTagInstall)) {
+            throw new Error('Consent defaults, paused AdSense requests and CMP callback must be initialized before the initial AdSense tag.');
           }
           if (resumeOnConsent < adsTagInstall) {
             throw new Error('AdSense requests may only resume after the consent-based gate is initialized.');
           }
-          if (html.split("adsTag.id = 'tezz-ads'").length !== 2) {
-            throw new Error('Expected exactly one TEZZ AdSense tag installation.');
+          if (html.split(adsUrl).length !== 2) {
+            throw new Error('Expected exactly one initial TEZZ AdSense tag.');
           }
           if (!html.includes("if (prefs.analytics && !document.getElementById('tezz-ga'))")) {
             throw new Error('Analytics script must remain gated by analytics preference.');
