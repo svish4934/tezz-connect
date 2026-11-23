@@ -18,7 +18,7 @@ async function makePage(country) {
     };
   });
   const page = await context.newPage();
-  await page.route('**/locale-country', route => route.fulfill({
+  await page.route('**/locale-country**', route => route.fulfill({
     status: 200,
     contentType: 'application/json',
     body: JSON.stringify({ country })
@@ -29,8 +29,18 @@ async function makePage(country) {
   await page.route('https://www.googletagmanager.com/**', route => route.fulfill({
     status: 200, contentType: 'application/javascript', body: 'window.__mockAnalyticsLoaded = true;'
   }));
+  const pageErrors = [];
+  page.on('pageerror', error => pageErrors.push(error.message));
+  const countryResponses = [];
+  page.on('response', response => {
+    if (response.url().includes('/locale-country')) countryResponses.push({ status: response.status(), url: response.url() });
+  });
   await page.goto(baseURL + '/', { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => window.adsbygoogle && typeof window.adsbygoogle.pauseAdRequests === 'number');
+  try {
+    await page.waitForFunction(() => window.adsbygoogle && typeof window.adsbygoogle.pauseAdRequests === 'number', { timeout: 10000 });
+  } catch (error) {
+    throw new Error(`Consent initialization did not complete for ${country}. URL=${page.url()} countryResponses=${JSON.stringify(countryResponses)} pageErrors=${JSON.stringify(pageErrors)} adsTag=${await page.locator('#tezz-ads').count()} body=${(await page.locator('body').innerText()).slice(0, 300)}; ${error.message}`);
+  }
   return { context, page };
 }
 
