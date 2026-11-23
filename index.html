@@ -116,10 +116,11 @@
         function installAdsTag(regulated, unknown) {
           if (document.getElementById('tezz-ads')) return;
           window.adsbygoogle = window.adsbygoogle || [];
-          // Outside regulated regions, keep requests paused until the site's opt-in.
-          // In EEA/UK/CH, let Google's certified CMP and its TCF string govern AdSense.
+          // Hold all ad requests until the applicable consent source has made its decision.
+          // In EEA/UK/CH, the Google CMP's TCF Purpose 1 decision controls resumption.
+          // Outside those regions, the site's explicit advertising opt-in controls resumption.
           // If region detection fails, fail closed and keep requests paused.
-          if (!regulated || unknown) window.adsbygoogle.pauseAdRequests = 1;
+          window.adsbygoogle.pauseAdRequests = 1;
           var adsTag = document.createElement('script');
           adsTag.id = 'tezz-ads';
           adsTag.async = true;
@@ -208,6 +209,26 @@
             installAdsTag(isRegulatedRegion, false);
             if (isRegulatedRegion) {
               // Google Privacy & Messaging owns the European consent UI and Google signals.
+              // Keep AdSense requests paused until a completed TCF decision grants Purpose 1.
+              // The listener also handles later withdrawal and re-consent.
+              window.googlefc = window.googlefc || {};
+              window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+              window.googlefc.callbackQueue.push({
+                'CONSENT_API_READY': function() {
+                  if (typeof window.__tcfapi !== 'function') return;
+                  window.__tcfapi('addEventListener', 2.2, function(tcData, success) {
+                    if (!success || !tcData) {
+                      window.adsbygoogle.pauseAdRequests = 1;
+                      return;
+                    }
+                    var decisionReady = tcData.eventStatus === 'tcloaded' ||
+                      tcData.eventStatus === 'useractioncomplete';
+                    var purposeOneAllowed = !!(tcData.purpose && tcData.purpose.consents &&
+                      tcData.purpose.consents[1] === true);
+                    window.adsbygoogle.pauseAdRequests = decisionReady && purposeOneAllowed ? 0 : 1;
+                  });
+                }
+              });
               render(false);
               manage.textContent = '◉ Privacy settings';
               manage.setAttribute('aria-label', 'Open Google privacy and consent settings');
