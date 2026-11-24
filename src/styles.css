@@ -3736,3 +3736,22 @@ html body .tezz-main .content:not(.dark-panel) .benchmark-consent-panel .section
 }
 .home-content>.homepage-hero-intro .section-kicker,
 .home-content>.homepage-hero-intro .eyebrow{color:#18181B!important}
+
+
+/* Final contrast pass: readable text on light cards and dark footer surfaces. */
+html body .tezz-main footer>span:nth-child(2) a,
+html body .tezz-main footer .footer-language-links a{color:#F4F4F5!important}
+html body .tezz-main .latency-history-count,
+html body .tezz-main .knowledge-hub-all,
+html body .tezz-main .starter-wifi-advice a{color:#18181B!important}
+html body .tezz-main .doctor-heading p,
+html body .tezz-main .doctor-status p,
+html body .tezz-main .doctor-finding p,
+html body .tezz-main .network-detail span,
+html body .tezz-main .services-heading p,
+html body .tezz-main .report-heading p,
+html body .tezz-main .report-summary span,
+html body .tezz-main .live-test-caption,
+html body .tezz-main .tezz-live-progress,
+html body .tezz-main .metric div:nth-child(2)>span,
+html body .tezz-main .metric small{color:#F4F4F5!important}
