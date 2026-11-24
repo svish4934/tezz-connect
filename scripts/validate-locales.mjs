@@ -1,152 +1,19 @@
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
-import { resolve, relative, sep } from 'node:path';
-
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 const root = process.cwd();
-const manifestPath = resolve(root, 'public/locales/manifest.json');
-const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-const fail = message => {
-  console.error(`Locale validation failed: ${message}`);
-  process.exitCode = 1;
-};
-
+const manifest = JSON.parse(readFileSync(resolve(root, 'public/locales/manifest.json'), 'utf8'));
+const runtime = readFileSync(resolve(root, 'public/language.js'), 'utf8');
+const app = readFileSync(resolve(root, 'src/App.tsx'), 'utf8');
+const sitemap = readFileSync(resolve(root, 'public/sitemap.xml'), 'utf8');
+const worker = readFileSync(resolve(root, 'worker/index.ts'), 'utf8');
+const fail = message => { console.error(`English-only validation failed: ${message}`); process.exitCode = 1; };
 if (manifest.version !== 1) fail('unsupported manifest version');
-if (!Array.isArray(manifest.locales) || manifest.locales.length === 0) fail('locales must be a non-empty array');
-
-const codes = new Set();
-for (const locale of manifest.locales || []) {
-  if (!locale || typeof locale.code !== 'string') {
-    fail('every locale needs a BCP 47 code');
-    continue;
-  }
-  if (codes.has(locale.code)) fail(`duplicate locale code: ${locale.code}`);
-  codes.add(locale.code);
-
-  try {
-    const parsed = new Intl.Locale(locale.code);
-    if (parsed.toString() !== locale.code) fail(`use canonical BCP 47 casing for ${locale.code}`);
-  } catch {
-    fail(`invalid BCP 47 locale code: ${locale.code}`);
-  }
-
-  if (!locale.nativeName || typeof locale.nativeName !== 'string') fail(`${locale.code}: nativeName is required`);
-  if (!['ltr', 'rtl'].includes(locale.direction)) fail(`${locale.code}: direction must be ltr or rtl`);
-  if (locale.status === 'published' && !['complete', 'starter'].includes(locale.coverage)) {
-    fail(`${locale.code}: published locale needs a coverage marker`);
-  }
-
-  if (locale.bundle) {
-    if (typeof locale.bundle !== 'string' || !locale.bundle.startsWith('/locales/') || locale.bundle.includes('..')) {
-      fail(`${locale.code}: bundle must be a safe /locales/ asset path`);
-      continue;
-    }
-    const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
-    const rel = relative(resolve(root, 'public'), bundlePath);
-    if (rel.startsWith('..') || rel.split(sep).includes('..')) {
-      fail(`${locale.code}: bundle path escapes public assets`);
-      continue;
-    }
-    if (!existsSync(bundlePath)) {
-      fail(`${locale.code}: missing bundle file ${locale.bundle}`);
-      continue;
-    }
-    try {
-      const bundle = JSON.parse(readFileSync(bundlePath, 'utf8'));
-      if (!bundle || typeof bundle !== 'object' || Array.isArray(bundle)) fail(`${locale.code}: bundle must be a JSON object`);
-      for (const [key, value] of Object.entries(bundle)) {
-        if (key !== '_meta' && typeof value !== 'string') fail(`${locale.code}: translation for "${key}" must be a string`);
-      }
-    } catch (error) {
-      fail(`${locale.code}: invalid JSON bundle (${error.message})`);
-    }
-  }
-}
-
-// Scan every Knowledge Hub guide (HTML and JavaScript), including inline scripts,
-// so dynamically rendered labels cannot silently fall back to English.
-const guideRoot = resolve(root, 'public/guides');
-const sourceFiles = [];
-function collectSources(directory) {
-  if (!existsSync(directory)) return;
-  for (const entry of readdirSync(directory, { withFileTypes: true })) {
-    const path = resolve(directory, entry.name);
-    if (entry.isDirectory()) collectSources(path);
-    else if (/\\.(?:html?|js|mjs|ts|tsx)$/.test(entry.name)) sourceFiles.push(path);
-  }
-}
-collectSources(guideRoot);
-
-const referencedKeys = new Set();
-const dynamicKeys = new Set();
-for (const sourcePath of sourceFiles) {
-  const source = readFileSync(sourcePath, 'utf8');
-  for (const match of source.matchAll(/data-i18n(?:-[\\w-]+)?=["']([^"']+)["']/g)) referencedKeys.add(match[1]);
-  // Covers t('key'), window.TEZZLanguage.t('key'), and equivalent literal calls.
-  for (const match of source.matchAll(/(?:\\b|\\.)t\\(\\s*["']([^"']+)["']\\s*\\)/g)) {
-    referencedKeys.add(match[1]);
-    dynamicKeys.add(match[1]);
-  }
-}
-
-// The English fallback dictionary is the source of truth for dynamically requested keys.
-const runtimePath = resolve(root, 'public/language.js');
-if (!existsSync(runtimePath)) {
-  fail('missing public/language.js English fallback runtime');
-} else {
-  const runtime = readFileSync(runtimePath, 'utf8');
-  const fallbackKeys = new Set([...runtime.matchAll(/^\\s*'([^']+)'\\s*:/gm)].map(match => match[1]));
-  const missingFallbacks = [...dynamicKeys].filter(key => !fallbackKeys.has(key));
-  if (missingFallbacks.length) fail(`English runtime fallback missing dynamic keys: ${missingFallbacks.join(', ')}`);
-}
-
-for (const locale of manifest.locales || []) {
-  if (locale.status !== 'published' || locale.coverage !== 'complete' || !locale.bundle || locale.code === 'en') continue;
-  const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
-  if (!existsSync(bundlePath)) continue;
-  try {
-    const bundle = JSON.parse(readFileSync(bundlePath, 'utf8'));
-    const missing = [...referencedKeys].filter(key => typeof bundle[key] !== 'string' || !bundle[key].trim());
-    if (missing.length) fail(`${locale.code}: missing guide translation keys: ${missing.join(', ')}`);
-  } catch {
-    // The bundle parser above reports malformed JSON with the locale-specific path.
-  }
-}
-
-
- // Validate the global SPA locale registry, core UI coverage and localized SEO metadata.
-const priorityLocales = ['zh-CN', 'pt-BR', 'es', 'fr', 'ar'];
-const requiredCoreKeys = ['INTERNET SPEED TEST', 'START SPEED TEST', 'Internet Connection Health Check', 'Latency Test', 'Wi-Fi Test', 'TEZZ INTERNET DOCTOR', 'Internet Knowledge Hub', 'Global Network', 'Test History', 'Performance Report', 'common.choose_language'];
-const appPath = resolve(root, 'src/App.tsx');
-if (existsSync(appPath)) {
-  const appSource = readFileSync(appPath, 'utf8');
-  for (const code of ['en', 'hi', 'mr', 'bn', ...priorityLocales]) {
-    if (!appSource.includes(`"code":"${code}"`)) fail(`main application language picker is missing ${code}`);
-  }
-} else fail('missing src/App.tsx language integration');
-
-for (const code of priorityLocales) {
-  const locale = (manifest.locales || []).find(item => item.code === code);
-  if (!locale || locale.direction !== (code === 'ar' ? 'rtl' : 'ltr')) fail(`${code}: manifest direction is incorrect`);
-  if (!locale?.bundle) continue;
-  const bundlePath = resolve(root, 'public', locale.bundle.slice(1));
-  if (!existsSync(bundlePath)) continue;
-  try {
-    const bundle = JSON.parse(readFileSync(bundlePath, 'utf8'));
-    const missing = requiredCoreKeys.filter(key => typeof bundle[key] !== 'string' || !bundle[key].trim());
-    if (missing.length) fail(`${code}: missing required core UI translations: ${missing.join(', ')}`);
-    for (const route of ['Overview', 'Internet Doctor', 'Network', 'Global Network', 'History', 'Report', 'About']) {
-      if (typeof bundle._meta?.pageTitles?.[route] !== 'string' || typeof bundle._meta?.pageDescriptions?.[route] !== 'string') {
-        fail(`${code}: missing localized SEO title/description for ${route}`);
-      }
-    }
-  } catch (error) {
-    fail(`${code}: could not validate global locale bundle (${error.message})`);
-  }
-}
-
-if (!codes.has(manifest.defaultLocale)) fail('defaultLocale must exist in locales');
-if (!codes.has(manifest.fallbackLocale)) fail('fallbackLocale must exist in locales');
-if (!manifest.locales.some(locale => locale.code === 'en' && locale.status === 'published')) {
-  fail('English must remain a published fallback');
-}
-
-if (!process.exitCode) console.log(`Locale manifest valid: ${manifest.locales.length} locale(s), default ${manifest.defaultLocale}.`);
+if (manifest.defaultLocale !== 'en' || manifest.fallbackLocale !== 'en') fail('English must be default and fallback');
+if (!Array.isArray(manifest.locales) || manifest.locales.length !== 1 || manifest.locales[0]?.code !== 'en' || manifest.locales[0]?.status !== 'published') fail('English must be the only published locale');
+if (!runtime.includes("let languages = [{ code: 'en'") || !runtime.includes("const requested = 'en'")) fail('runtime must remain English-only');
+if (!app.includes("useState<UiLanguage>('en')") || app.includes('tezz-language-picker') || app.includes('Available languages')) fail('React app must be English-only with no language selector');
+if (!app.includes("const LOCALE_CODES: UiLanguage[] = ['en']")) fail('React SEO alternate language list must contain English only');
+if (!worker.includes('legacyLocaleRoute')) fail('legacy locale routes must redirect to English');
+if (/<xhtml:link[^>]*hreflang=/.test(sitemap)) fail('sitemap must not advertise alternate languages');
+if (/<loc>https:\/\/tezzconnect\.online\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\/|<)/.test(sitemap)) fail('sitemap must contain English URLs only');
+if (!process.exitCode) console.log('English-only website configuration valid.');
