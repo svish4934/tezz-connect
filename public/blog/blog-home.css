@@ -172,3 +172,24 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 @media(prefers-reduced-motion:reduce) {
   body.tc-blog-home *,body.tc-blog-home *:before,body.tc-blog-home *:after {scroll-behavior:auto!important;transition:none!important}
 }
+
+
+/* TEZZ CONNECT shared pastel brand palette */
+:root{--tb-navy:#1E293B;--tb-blue:#6878d8;--tb-cyan:#86EFAC;--tb-ink:#1E293B;--tb-muted:#64748B;--tb-line:#dbe2ea;--tb-cream:#FAF8F5;--tb-mist:#EEF2F6;--tb-periwinkle:#A5B4FC;--tb-matcha:#86EFAC;--tb-peach:#FDA4AF;--tb-lilac:#DDD6FE}
+.tc-blog{background:var(--tb-cream)!important;color:var(--tb-ink)!important}
+.tb-header{background:var(--tb-cream)!important;border-color:var(--tb-line)!important}
+.tb-brand,.tb-brand strong,.tb-brand b,.tb-hero h1,.tb-feature h2,.tb-section h2,.tb-card-copy h3,.tb-listing h1,.tb-article h1{color:var(--tb-navy)!important}
+.tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small{color:#6878d8!important}
+.tb-hero{background:linear-gradient(120deg,var(--tb-mist),var(--tb-cream) 62%,#fff)!important;border-color:var(--tb-line)!important}
+.tb-hero h1 em{color:#6878d8!important}
+.tb-router-art{background:radial-gradient(circle,var(--tb-lilac),var(--tb-mist) 65%,transparent 72%)!important;color:var(--tb-navy)!important}
+.tb-feature,.tb-card,.tb-category,.tb-note,.tb-draft{background:var(--tb-cream)!important;border-color:var(--tb-line)!important}
+.tb-feature-art,.tb-card-art{background:linear-gradient(135deg,var(--tb-periwinkle),var(--tb-lilac))!important;color:var(--tb-deep,#1E293B)!important}
+.tb-button{background:var(--tb-periwinkle)!important;color:var(--tb-navy)!important}
+.tb-light{background:var(--tb-mist)!important;color:var(--tb-navy)!important;border-color:var(--tb-line)!important}
+.tb-status{background:var(--tb-lilac)!important;color:var(--tb-navy)!important}
+.tb-footer{background:var(--tb-navy)!important;color:var(--tb-cream)!important}
+.tb-footer p,.tb-footer>div>a:not(.tb-brand){color:#dbe2ea!important}
+.tb-header nav a{color:#475569!important}
+.tb-header form,.tb-header input{background:var(--tb-mist)!important;border-color:var(--tb-line)!important}
+.tb-header button{background:var(--tb-lilac)!important;color:var(--tb-navy)!important}
