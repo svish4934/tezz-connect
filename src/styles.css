@@ -4952,3 +4952,211 @@ button[title*="Cookie settings" i] *,
     will-change:auto!important;
   }
 }
+
+
+/* TEZZ CONNECT — Dopamine Sunset light palette
+   Color-only theme override. Existing layout, spacing, typography scale,
+   markup, text and speed-test behavior are intentionally untouched. */
+:root{
+  color-scheme:light;
+  --tezz-bg:#FAFAFA;
+  --tezz-surface:#FFFFFF;
+  --tezz-surface-secondary:#F4F4F5;
+  --tezz-border:#E4E4E7;
+  --tezz-red:#EF4444;
+  --tezz-red-hover:#DC2626;
+  --tezz-peach:#FF9E7D;
+  --tezz-yellow:#FACC15;
+  --tezz-charcoal:#18181B;
+  --tezz-slate:#52525B;
+  --tezz-white:#FFFFFF;
+  --tezz-sunset:linear-gradient(90deg,#FACC15 0%,#FF9E7D 52%,#EF4444 100%);
+  --tezz-warm:#FFF7ED;
+  color:var(--tezz-charcoal)!important;
+  background:var(--tezz-bg)!important;
+}
+html,body,#root,.app-shell,.main,.content,.home-content{
+  background:#FAFAFA!important;color:#18181B!important;
+}
+body{background-image:none!important}
+h1,h2,h3,h4,h5,h6,strong{color:#18181B}
+p,label,small,.section-kicker,.eyebrow,.tezz-muted{color:#52525B}
+a,.tezz-link,.history-heading button{color:#EF4444}
+a:hover,.tezz-link:hover,.history-heading button:hover{color:#DC2626}
+
+/* Header and navigation */
+.tezz-header,.topbar,.navbar,.tezz-nav{
+  background:rgba(255,255,255,.94)!important;
+  border-color:#E4E4E7!important;color:#18181B!important;
+}
+.tezz-header *,.topbar *,.navbar *,.tezz-nav *{
+  color:#18181B!important;
+}
+.desktop-nav .nav-item.active,.tezz-nav a.active{
+  color:#EF4444!important;background:transparent!important;border-color:transparent!important;
+}
+.desktop-nav .nav-item.active::after,.tezz-nav a.active::after,
+.tezz-header a.active::after{
+  content:""!important;background:#EF4444!important;
+  width:5px!important;height:5px!important;border-radius:50%!important;
+}
+.search-button:hover,.tezz-search-button:hover,.topbar button:hover{
+  background:#FACC15!important;color:#18181B!important;
+}
+
+/* Page and section surfaces */
+.tezz-hero,.tezz-card,.tezz-panel,.tezz-section,.tezz-stat,
+.tezz-info-card,.tezz-tool-card,.tezz-feature-card,.tezz-result-card,
+.tezz-content-card,.test-panel,.info-card,.history-strip,.metric,
+.lower-grid,.services-panel,.usage-insights-panel,.report-panel,
+.home-knowledge-hub,.performance-report-card,.performance-report-section{
+  background:#FFFFFF!important;color:#18181B!important;
+  border-color:#E4E4E7!important;
+}
+.tezz-card-secondary,.tezz-stat-secondary,.tezz-feature-secondary{
+  background:#F4F4F5!important;
+}
+
+/* Speed meter, readout and gauge */
+.signature-live-meter,.tezz-digital-meter{
+  background:#FFFFFF!important;border-color:#E4E4E7!important;color:#18181B!important;
+}
+.tezz-digital-reading strong,.tezz-digital-reading span,
+.tezz-digital-label,.tezz-meter-status{
+  color:#18181B!important;-webkit-text-fill-color:#18181B!important;
+}
+.tezz-digital-caption,.tezz-meter-scale-caption{color:#52525B!important}
+.tezz-gauge-track,.tezz-meter-track{stroke:#E4E4E7!important}
+.tezz-gauge-arc,.tezz-gauge-progress,.tezz-meter-arc{
+  stroke:#FF9E7D!important;
+}
+.tezz-meter-scale-track,.tezz-progress-track,.tezz-throughput-track{
+  background:#F4F4F5!important;border-color:#E4E4E7!important;
+}
+.tezz-meter-scale-sweep,.tezz-meter-scale-fill,.tezz-progress-fill,
+.tezz-throughput-fill{
+  background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
+}
+
+/* Live graph */
+.tezz-chart-line,.tezz-chart-point{
+  stroke:#EF4444!important;fill:none!important;
+}
+.tezz-chart-point{fill:#EF4444!important}
+.tezz-chart-idle-line{stroke:#FF9E7D!important}
+.tezz-chart-grid{stroke:#E4E4E7!important}
+.tezz-throughput-chart{
+  background:linear-gradient(180deg,rgba(239,68,68,.08),rgba(239,68,68,0))!important;
+}
+
+/* Primary actions */
+.tezz-digital-start,.tezz-start-button,.tezz-run-button,.run-button,
+.doctor-run-test,.social-check-button,.report-copy{
+  background:#EF4444!important;border-color:#EF4444!important;color:#FFFFFF!important;
+}
+.tezz-digital-start *,.tezz-start-button *,.tezz-run-button *,
+.run-button *,.doctor-run-test *,.social-check-button *,.report-copy *{
+  color:#FFFFFF!important;
+}
+.tezz-digital-start:hover,.tezz-start-button:hover,.tezz-run-button:hover,
+.run-button:hover,.doctor-run-test:hover,.social-check-button:hover,
+.report-copy:hover{
+  background:#DC2626!important;border-color:#DC2626!important;color:#FFFFFF!important;
+}
+
+/* Live test progress/status */
+.tezz-live-progress,.tezz-test-progress,.tezz-progress-panel,
+.tezz-status-box,.test-progress,.progress-panel{
+  background:#FFF7ED!important;border:1.5px solid #FF9E7D!important;
+  color:#18181B!important;
+}
+.tezz-live-progress *,.tezz-test-progress *,.tezz-progress-panel *,
+.tezz-status-box *,.test-progress *,.progress-panel *{
+  color:#18181B!important;
+}
+
+/* Metric card accents */
+.tezz-stat.cyan .tezz-stat-icon,.metric-icon.cyan{
+  background:rgba(239,68,68,.12)!important;color:#EF4444!important;
+}
+.tezz-stat.violet .tezz-stat-icon,.metric-icon.violet{
+  background:rgba(255,158,125,.20)!important;color:#FF9E7D!important;
+}
+.tezz-stat.green .tezz-stat-icon,.tezz-stat.red .tezz-stat-icon,
+.metric-icon.mint,.metric-icon.amber{
+  background:rgba(250,204,21,.28)!important;color:#18181B!important;
+}
+.tezz-stat.cyan>strong,.metric-download strong{color:#EF4444!important}
+.tezz-stat.violet>strong,.metric-upload strong{color:#FF9E7D!important}
+.tezz-stat.green>strong,.tezz-stat.red>strong,
+.metric-latency strong,.metric-variation strong{color:#18181B!important}
+.tezz-stat>span,.metric div:nth-child(2)>span{color:#52525B!important}
+
+/* Feature, Knowledge Hub and result-explanation cards */
+.card-icon,.tezz-feature-icon,.tezz-card-icon,.tezz-tool-icon,
+.tezz-info-icon,.knowledge-hub-icon,.usage-insight-icon{
+  background:#FFF7ED!important;border-color:#E4E4E7!important;color:#EF4444!important;
+}
+.card-icon.health,.usage-insight-icon.calls,.knowledge-hub-icon.wifi{
+  background:rgba(255,158,125,.20)!important;color:#FF9E7D!important;
+}
+.usage-insight-icon.gaming,.knowledge-hub-icon.signal{
+  background:rgba(250,204,21,.28)!important;color:#18181B!important;
+}
+.knowledge-hub-card,.usage-insight-card,.service-tile{
+  background:#FFFFFF!important;border-color:#E4E4E7!important;color:#18181B!important;
+}
+.tezz-badge,.tezz-pill,.tezz-tag{
+  background:#FFF7ED!important;border-color:#FF9E7D!important;color:#18181B!important;
+}
+
+/* Other legacy dashboard components */
+.sidebar,.privacy-card,.profile,.orbit-core,.network-row,.panel-foot,
+.history-item,.performance-report-trend>div,.doctor-disclaimer{
+  background:#FFFFFF!important;color:#18181B!important;border-color:#E4E4E7!important;
+}
+.nav-item,.breadcrumb,.topbar-right,.top-icon,.profile span,
+.privacy-card span,.network-note,.network-row span,.panel-foot,
+.history-index,.empty-history{color:#52525B!important}
+.brand,.brand-light,.privacy-card strong,.profile strong,
+.network-row strong,.history-item strong{color:#18181B!important}
+.brand-mark{
+  background:linear-gradient(135deg,#FACC15,#FF9E7D,#EF4444)!important;
+  color:#18181B!important;box-shadow:none!important;
+}
+.live-dot,.pulse-dot{background:#EF4444!important;box-shadow:none!important}
+.health-score strong,.health-bar span{
+  color:#18181B!important;background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
+}
+input,select,textarea{
+  background:#FFFFFF!important;color:#18181B!important;border-color:#E4E4E7!important;
+}
+input::placeholder,textarea::placeholder{color:#52525B!important}
+
+/* Cookie privacy pill */
+.fc-privacy-button,#fc-privacy-button,.fc-privacy-button button,
+button[aria-label*="Cookie settings" i],button[title*="Cookie settings" i],
+[data-testid*="cookie-settings" i]{
+  background:#FFFFFF!important;color:#18181B!important;
+  border:1.5px solid #E4E4E7!important;
+  box-shadow:0 4px 14px rgba(24,24,27,.10)!important;
+}
+.fc-privacy-button *,#fc-privacy-button *,
+button[aria-label*="Cookie settings" i] *,
+button[title*="Cookie settings" i] *,
+[data-testid*="cookie-settings" i] *{color:#18181B!important}
+
+/* Warm footer and sunset baseline */
+footer,.tezz-site-footer,.tezz-footer,.site-footer{
+  position:relative;background:#FFF7ED!important;color:#52525B!important;
+  border-top:1.5px solid #FF9E7D!important;
+}
+.tezz-footer-main,.tezz-footer-bottom{
+  background:transparent!important;color:#52525B!important;
+}
+.tezz-site-footer a,.tezz-footer a,.site-footer a,
+.tezz-footer-links a{color:#EF4444!important}
+.tezz-site-footer strong,.tezz-footer strong{color:#18181B!important}
+.tezz-footer-gradient{
+  background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
+}
