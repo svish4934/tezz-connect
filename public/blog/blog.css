@@ -103,4 +103,4 @@ body.tc-blog[data-blog-page="category"] .tb-listing .tb-crumb,.tb-brand strong s
 /* Blog copy stays charcoal on light surfaces; yellow is reserved for visual accents. */
 .tb-crumb,body.tc-blog[data-blog-page="category"] .tb-listing .tb-crumb{color:#18181B!important}
 .tb-footer p,.tb-footer>div>a:not(.tb-brand){color:#F4F4F5!important}
-.tb-router-art span{color:#FACC15!important}
+.tb-router-art span{color:#18181B!important}
