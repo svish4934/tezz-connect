@@ -3687,3 +3687,67 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
   .tezz-main .tezz-mobile-nav>a,
   .tezz-main .tezz-mobile-nav-group>summary{color:#18181B!important}
 }
+
+
+/* Final mobile dropdown polish: centred panel, consistent light links and full-width search. */
+@media (max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-mobile-nav{
+    box-sizing:border-box!important;
+    left:50%!important;right:auto!important;
+    transform:translateX(-50%)!important;
+    width:min(520px,calc(100vw - 24px))!important;
+    padding:12px!important;
+    gap:5px!important;
+    background:rgba(255,255,255,.98)!important;
+    color:#18181B!important;
+    border:1.5px solid #E4E4E7!important;
+    border-radius:18px!important;
+    box-shadow:0 12px 32px rgba(24,24,27,.10)!important;
+  }
+  .tezz-main .tezz-mobile-nav>a,
+  .tezz-main .tezz-mobile-nav-group>summary{
+    box-sizing:border-box!important;
+    width:100%!important;min-height:46px!important;
+    padding:0 14px!important;
+    display:flex!important;align-items:center!important;
+    justify-content:flex-start!important;
+    background:transparent!important;
+    color:#18181B!important;
+    border:0!important;border-radius:11px!important;
+    font:600 13px/1.35 'Plus Jakarta Sans',sans-serif!important;
+    text-align:left!important;text-decoration:none!important;
+  }
+  .tezz-main .tezz-mobile-nav>a:hover,
+  .tezz-main .tezz-mobile-nav>a.selected,
+  .tezz-main .tezz-mobile-nav-group>summary:hover,
+  .tezz-main .tezz-mobile-nav-group[open]>summary{
+    background:#FFF7ED!important;color:#18181B!important;
+  }
+  .tezz-main .tezz-mobile-nav .tezz-mobile-nav-submenu{
+    display:grid!important;gap:2px!important;
+    padding:3px 0 5px 12px!important;
+  }
+  .tezz-main .tezz-mobile-nav .tezz-mobile-nav-submenu a{
+    min-height:42px!important;padding:0 12px!important;
+    color:#52525B!important;
+    font:500 12px/1.35 'Plus Jakarta Sans',sans-serif!important;
+  }
+  .tezz-main .tezz-mobile-controls{
+    display:flex!important;justify-content:stretch!important;
+    width:100%!important;box-sizing:border-box!important;
+    margin:6px 0 0!important;padding:10px 0 0!important;
+    border-top:1px solid #E4E4E7!important;
+  }
+  .tezz-main .tezz-mobile-controls .tezz-header-search{
+    display:inline-flex!important;align-items:center!important;
+    justify-content:center!important;width:100%!important;
+    min-height:46px!important;min-width:0!important;
+    flex:1 1 auto!important;
+    background:#fff!important;color:#18181B!important;
+    border:1.5px solid #18181B!important;border-radius:9999px!important;
+    font:700 13px 'Plus Jakarta Sans',sans-serif!important;
+  }
+  .tezz-main .tezz-mobile-controls .tezz-header-search:hover{
+    background:#FACC15!important;color:#18181B!important;
+  }
+}
