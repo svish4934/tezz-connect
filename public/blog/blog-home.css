@@ -193,3 +193,7 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 .tb-header nav a{color:#1E293B!important}
 .tb-header form,.tb-header input{background:var(--tb-mist)!important;border-color:var(--tb-line)!important}
 .tb-header button{background:var(--tb-lilac)!important;color:var(--tb-navy)!important}
+
+
+/* Readability pass: use Deep Slate for accent text on light Blog surfaces. */
+.tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small,.tb-hero h1 em{color:#1E293B!important}
