@@ -172,3 +172,91 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 @media(prefers-reduced-motion:reduce) {
   body.tc-blog-home *,body.tc-blog-home *:before,body.tc-blog-home *:after {scroll-behavior:auto!important;transition:none!important}
 }
+
+
+/* Blog homepage — exact Dopamine Sunset palette, color-only. */
+body.tc-blog-home{
+  --tb-navy:#18181B!important;
+  --tb-blue:#EF4444!important;
+  --tb-cyan:#FF9E7D!important;
+  --tb-ink:#18181B!important;
+  --tb-muted:#52525B!important;
+  --tb-line:#E4E4E7!important;
+  background:#FAFAFA!important;color:#18181B!important;
+}
+body.tc-blog-home .tb-header{
+  background:rgba(255,255,255,.94)!important;
+  border:1.5px solid #E4E4E7!important;
+}
+body.tc-blog-home .tb-brand,
+body.tc-blog-home .tb-brand strong,
+body.tc-blog-home .tb-header nav a,
+body.tc-blog-home .tb-section h2,
+body.tc-blog-home .tb-category b,
+body.tc-blog-home .tb-feature h2,
+body.tc-blog-home .tb-card-copy h3,
+body.tc-blog-home .tb-note strong{color:#18181B!important}
+body.tc-blog-home .tb-brand strong span,
+body.tc-blog-home .tb-brand b,
+body.tc-blog-home .tb-header nav a:hover,
+body.tc-blog-home .tb-feature a,
+body.tc-blog-home .tb-status{color:#EF4444!important}
+body.tc-blog-home .tb-header form,
+body.tc-blog-home .tb-category,
+body.tc-blog-home .tb-card,
+body.tc-blog-home .tb-feature{
+  background:#FFFFFF!important;border-color:#E4E4E7!important;
+}
+body.tc-blog-home .tb-header button{background:#F4F4F5!important;color:#18181B!important}
+body.tc-blog-home .tb-header button:hover{background:#FACC15!important;color:#18181B!important}
+body.tc-blog-home .tb-hero{
+  background:linear-gradient(112deg,#FFFFFF 0%,#FFF7ED 55%,#FFFFFF 100%)!important;
+  border-color:#E4E4E7!important;
+}
+body.tc-blog-home .tb-hero:after{
+  border-color:rgba(239,68,68,.16)!important;
+  box-shadow:0 0 0 32px rgba(255,158,125,.07),0 0 0 68px rgba(250,204,21,.055),0 0 0 108px rgba(239,68,68,.025)!important;
+}
+body.tc-blog-home .tb-kicker{color:#52525B!important}
+body.tc-blog-home .tb-hero h1,
+body.tc-blog-home .tb-hero h1 em{color:#18181B!important}
+body.tc-blog-home .tb-hero p,
+body.tc-blog-home .tb-feature p,
+body.tc-blog-home .tb-category small,
+body.tc-blog-home .tb-card-copy p,
+body.tc-blog-home .tb-note p{color:#52525B!important}
+body.tc-blog-home .tb-button{
+  background:#EF4444!important;border-color:#EF4444!important;color:#FFFFFF!important;
+}
+body.tc-blog-home .tb-button:hover{background:#DC2626!important;color:#FFFFFF!important}
+body.tc-blog-home .tb-button.tb-light{
+  background:#FFFFFF!important;border:1px solid #E4E4E7!important;color:#18181B!important;
+}
+body.tc-blog-home .tb-button.tb-light:hover{background:#FACC15!important;border-color:#FACC15!important}
+body.tc-blog-home .tb-router-art{
+  background:radial-gradient(circle at 50% 42%,#FFF7ED 0,#FFFFFF 52%,rgba(255,247,237,.18) 72%)!important;
+  border-color:#E4E4E7!important;color:#18181B!important;
+}
+body.tc-blog-home .tb-router-art span{color:#FF9E7D!important}
+body.tc-blog-home .tb-feature-art{
+  background:linear-gradient(135deg,#FFF7ED 0%,#FF9E7D 55%,#FACC15 100%)!important;
+  color:#18181B!important;
+}
+body.tc-blog-home .tb-feature-art:after{
+  border-color:rgba(24,24,27,.15)!important;
+  box-shadow:0 0 0 24px rgba(239,68,68,.045),0 0 0 50px rgba(250,204,21,.07)!important;
+}
+body.tc-blog-home .tb-category:hover,
+body.tc-blog-home .tb-card:hover{border-color:#FF9E7D!important}
+body.tc-blog-home .tb-note{background:#FFF7ED!important;border-color:#E4E4E7!important}
+body.tc-blog-home .tb-footer{
+  background:#FFF7ED!important;color:#52525B!important;border-top:1.5px solid #FF9E7D!important;
+}
+body.tc-blog-home .tb-footer p,
+body.tc-blog-home .tb-footer>div>a:not(.tb-brand){color:#52525B!important}
+body.tc-blog-home .tb-footer>div>strong{color:#18181B!important}
+body.tc-blog-home .tb-footer a{color:#EF4444!important}
+body.tc-blog-home .tb-footer:after{
+  content:"";display:block;grid-column:1/-1;height:5px;
+  background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444);
+}
