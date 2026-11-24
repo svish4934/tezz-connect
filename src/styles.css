@@ -3669,3 +3669,42 @@ html,body,#root{background:var(--tezz-cloud);color:var(--tezz-ink)}body{backgrou
  .home-content .signature-live-meter{min-height:270px!important}
  .home-content .tezz-hero{padding:14px 12px 16px!important}
 }
+
+
+/* Accessibility correction: yellow is an accent, never default paragraph copy on pale surfaces. */
+.global-benchmarks-heading p,.global-baseline-intro,.global-baseline-foot,.global-benchmark-disclaimer,
+.global-benchmark-region-title span,.global-benchmark-metrics span,.global-benchmark-metrics small,
+.global-benchmark-empty,.global-benchmark-empty span,.global-baseline-grid span,.global-baseline-grid small,
+.home-content .benchmark-consent-panel p,
+.doctor-heading p,.doctor-status p,.doctor-finding p,.doctor-evidence,.doctor-disclaimer,
+.knowledge-hub-heading p,.knowledge-hub-card-copy small,
+.starter-tools-heading p,.starter-tool-card>p,.starter-result-caption,.starter-privacy-note,
+.starter-dns-output,.starter-dns-answer span,
+.tezz-search-results>a small,.tezz-search-hint,
+html body .content .doctor-panel p,html body .content .doctor-panel small,
+html body .content .doctor-panel li,
+html body .content .global-baseline-card p,html body .content .global-baseline-card small,
+html body .content .global-benchmark-region p,html body .content .global-benchmark-region small,
+html body .content .global-benchmark-metrics span,html body .content .global-benchmark-metrics small,
+html body .content .global-benchmark-empty,
+html body .content .network-intel-panel p,html body .content .network-intel-panel small,
+html body .content .network-intel-panel .network-detail span,
+html body .content .network-intel-panel .network-capabilities span,
+html body .content .history-strip p,html body .content .history-strip small,
+html body .content .report-panel p,html body .content .report-panel small,
+html body .content .services-panel p,html body .content .services-panel small,
+html body .content .starter-tools-stack p,html body .content .starter-tools-stack small,
+html body .content .homepage-faq p,
+html body .content .benchmark-consent-panel p,
+html body .content .tezz-search-dialog small,html body .content .tezz-search-hint,
+html body .content .tezz-social-panel .services-heading p,
+html body .content .tezz-social-panel .service-note {
+ color:#18181B!important;
+}
+html body .tezz-main footer p,html body .tezz-main footer small,
+html body .tezz-main footer a:not(:hover),html body .tezz-main .site-footer,
+html body .tezz-main .footer-note{color:#18181B!important}
+.doctor-panel .section-kicker,.starter-tools-heading .section-kicker,
+.starter-tool-card>.section-kicker{color:#EF4444!important}
+.doctor-symbol,.tezz-health-title svg,.edge-map-live i,.edge-map-dot.real{color:#FACC15!important}
+.tezz-hero .tezz-stat>span,.tezz-hero .tezz-stat>strong{color:#18181B!important}
