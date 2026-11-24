@@ -46,6 +46,96 @@ jobs:
         run: npm run test:consent
       - name: Build application
         run: npm run build
+      - name: Install isolated browser-test dependency
+        if: github.event_name == 'pull_request'
+        run: |
+          npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Start Vite production preview
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          npm run preview -- --host 127.0.0.1 --port 4173 > homepage-vite.log 2>&1 &
+          echo $! > homepage-vite.pid
+          for attempt in $(seq 1 45); do
+            if curl --silent --fail http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat homepage-vite.log
+          echo "Vite preview did not become ready"
+          exit 1
+      - name: Verify homepage on desktop and mobile
+        if: github.event_name == 'pull_request'
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({ headless: true });
+          const cases = [
+            { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+            { name: 'mobile', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
+          ];
+          const report = [];
+          let failed = false;
+          try {
+            for (const test of cases) {
+              const page = await browser.newPage({ viewport: test.viewport, isMobile: !!test.isMobile, hasTouch: !!test.hasTouch });
+              const errors = [];
+              page.on('pageerror', error => errors.push(error.message));
+              const response = await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
+              await page.screenshot({ path: `homepage-preview-${test.name}.png`, fullPage: true });
+              const result = await page.evaluate(() => ({
+                title: document.title,
+                h1Count: document.querySelectorAll('h1').length,
+                speedTest: !!document.querySelector('#tezz-speed-test'),
+                startButton: [...document.querySelectorAll('button')].some(button => /START SPEED TEST/i.test(button.innerText)),
+                knowledgeHub: !!document.querySelector('.home-knowledge-hub'),
+                blogLink: !!document.querySelector('.homepage-blog-promo a[href="/blog/"]'),
+                faq: !!document.querySelector('.homepage-faq'),
+                benchmarkConsent: !!document.querySelector('.benchmark-consent-panel'),
+                featureCount: document.querySelectorAll('.tezz-feature-grid > button').length,
+                viewportWidth: document.documentElement.clientWidth,
+                scrollWidth: document.documentElement.scrollWidth,
+              }));
+              const checks = [
+                ['HTTP 200', response?.status() === 200],
+                ['one page H1', result.h1Count === 1],
+                ['speed-test meter', result.speedTest],
+                ['start speed-test control', result.startButton],
+                ['Knowledge Hub', result.knowledgeHub],
+                ['separate Blog link', result.blogLink],
+                ['FAQ', result.faq],
+                ['optional benchmark consent', result.benchmarkConsent],
+                ['three feature highlights', result.featureCount === 3],
+                ['no horizontal overflow', result.scrollWidth <= result.viewportWidth + 1],
+                ['no uncaught browser errors', errors.length === 0],
+              ];
+              for (const [label, passed] of checks) {
+                console.log(`${test.name}: ${passed ? 'PASS' : 'FAIL'} — ${label}`);
+                if (!passed) failed = true;
+              }
+              report.push({ device: test.name, result, errors, checks: checks.map(([label, passed]) => ({ label, passed })) });
+              await page.close();
+            }
+          } finally {
+            await browser.close();
+          }
+          fs.writeFileSync('homepage-browser-report.json', JSON.stringify(report, null, 2));
+          if (failed) process.exit(1);
+          NODE
+      - name: Upload homepage desktop and mobile preview
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-browser-preview-${{ github.run_id }}
+          path: |
+            homepage-preview-desktop.png
+            homepage-preview-mobile.png
+            homepage-browser-report.json
+            homepage-vite.log
+          if-no-files-found: warn
+          retention-days: 7
       - name: Verify live localized crawler preview
         if: github.event_name == 'pull_request' && github.event.pull_request.number == 219 && github.event.pull_request.head.repo.full_name == github.repository
         env:
