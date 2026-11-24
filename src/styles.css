@@ -3825,3 +3825,39 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
   .tezz-main .tezz-header-actions .tezz-menu{display:none!important}
   .tezz-main .tezz-mobile-nav{display:none!important}
 }
+
+
+/* Android desktop-site Search control: restore the light outlined pill and keep it inside the header. */
+@media (min-width:768px) and (max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-header{
+    grid-template-columns:minmax(112px,.85fr) minmax(0,3.4fr) minmax(82px,.7fr)!important;
+    column-gap:7px!important;
+    overflow:visible!important;
+  }
+  .tezz-main .tezz-header-actions{
+    min-width:0!important;width:100%!important;
+    justify-self:end!important;overflow:visible!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-header-search{
+    display:inline-flex!important;
+    box-sizing:border-box!important;
+    align-items:center!important;justify-content:center!important;
+    width:auto!important;min-width:76px!important;max-width:88px!important;
+    min-height:34px!important;height:34px!important;
+    padding:6px 10px!important;margin:0!important;
+    border:1.5px solid #18181B!important;
+    border-radius:9999px!important;
+    background:rgba(255,255,255,.75)!important;
+    color:#18181B!important;
+    box-shadow:none!important;
+    font:700 9px/1 'Plus Jakarta Sans',sans-serif!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-header-search svg{
+    width:12px!important;height:12px!important;flex:0 0 auto!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-header-search:hover{
+    background:#FACC15!important;color:#18181B!important;
+  }
+}
