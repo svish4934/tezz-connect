@@ -3751,3 +3751,36 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
     background:#FACC15!important;color:#18181B!important;
   }
 }
+
+
+/* Desktop navigation visibility: restore the full horizontal menu on desktop viewports. */
+@media (min-width:1101px){
+  .tezz-main .tezz-header{
+    display:grid!important;
+    grid-template-columns:minmax(170px,1fr) auto minmax(150px,1fr)!important;
+    align-items:center!important;
+    column-gap:18px!important;
+  }
+  .tezz-main .tezz-logo{grid-column:1;justify-self:start}
+  .tezz-main .tezz-nav{
+    grid-column:2!important;
+    display:flex!important;visibility:visible!important;opacity:1!important;
+    position:static!important;justify-self:center!important;
+    align-items:center!important;justify-content:center!important;
+    flex:0 1 auto!important;min-width:0!important;
+  }
+  .tezz-main .tezz-nav>a,
+  .tezz-main .tezz-nav>details{display:inline-flex!important;visibility:visible!important}
+  .tezz-main .tezz-header-actions{
+    grid-column:3;justify-self:end;margin-left:0!important;
+  }
+  .tezz-main .tezz-header-actions .tezz-menu{display:none!important}
+}
+/* Medium desktop/laptop: keep navigation visible when there is enough horizontal room. */
+@media (min-width:768px) and (max-width:1100px) and (hover:hover) and (pointer:fine){
+  .tezz-main .tezz-nav{
+    display:flex!important;visibility:visible!important;opacity:1!important;
+    position:static!important;justify-content:center!important;
+  }
+  .tezz-main .tezz-header-actions .tezz-menu{display:none!important}
+}
