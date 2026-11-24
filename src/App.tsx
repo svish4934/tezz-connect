@@ -418,8 +418,8 @@ function App() {
   const [testError, setTestError] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(null)
-  const [benchmarkConsent, setBenchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
-  const [benchmarkStatus, setBenchmarkStatus] = useState('')
+  const [benchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
+  const [, setBenchmarkStatus] = useState('')
   type BenchmarkRegion = { country_code: string; region_code: string; sample_count: number; download_avg_mbps: number | null; upload_avg_mbps: number | null; latency_avg_ms: number | null; jitter_avg_ms: number | null }
   const [benchmarkRegions, setBenchmarkRegions] = useState<BenchmarkRegion[]>([])
   const [benchmarkLoading, setBenchmarkLoading] = useState(false)
@@ -1233,6 +1233,17 @@ function App() {
               <article><span className="homepage-measurement-number">03</span><h3>HTTP response time</h3><p>How long a browser request takes to receive a response from TEZZ CONNECT. It is a browser-based measurement, not an ICMP ping.</p></article>
               <article><span className="homepage-measurement-number">04</span><h3>Response variation</h3><p>How much successive HTTP response-time samples differ during the test. It is not a packet-loss measurement.</p></article>
             </div>
+            <section className="homepage-quick-faq" aria-labelledby="homepage-faq-title">
+              <div className="homepage-section-heading"><span className="section-kicker">QUICK ANSWERS</span><h2 id="homepage-faq-title">Internet speed test questions, answered</h2></div>
+              <div className="homepage-quick-faq-list">
+                <details><summary>What does an internet speed test measure?</summary><p>It estimates download and upload throughput and measures browser HTTP response time to the TEZZ CONNECT test endpoint.</p></details>
+                <details><summary>Why is my internet slow when the speed test looks good?</summary><p>A test to one endpoint cannot represent every app or website. Wi-Fi interference, device limits, congestion and the route to a service can affect performance.</p></details>
+                <details><summary>What is the difference between download and upload speed?</summary><p>Download is data received by your device. Upload is data sent from your device to the test endpoint.</p></details>
+                <details><summary>Is TEZZ CONNECT latency the same as a traditional ping test?</summary><p>No. It uses browser HTTP request-and-response timing to the TEZZ CONNECT edge, not ICMP ping packets.</p></details>
+                <details><summary>Can an internet speed test measure my Wi-Fi signal strength?</summary><p>No. Standard browser APIs do not expose your router's Wi-Fi radio signal strength to a webpage.</p></details>
+                <details><summary>Why do I get different results each time I test?</summary><p>Results are snapshots and can change with Wi-Fi conditions, device activity, network congestion, routing and endpoint conditions.</p></details>
+              </div>
+            </section>
           </section>}
           </>}
           {activeTab === 'About' && <section className="about-page">
