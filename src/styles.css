@@ -3560,3 +3560,5 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
 @media(min-width:768px) and (max-width:1050px){.tezz-header{gap:8px!important;padding-inline:12px!important}.tezz-nav{gap:2px!important}.tezz-nav>a,.tezz-nav>details>summary{padding-inline:5px!important;font-size:10px!important}.tezz-logo-word{font-size:16px!important}.tezz-header-actions{gap:5px!important}.tezz-language-pill,.tezz-header-actions .tezz-header-search{padding-inline:10px!important}}
 
 @media(max-width:767px){.tezz-mobile-nav{position:fixed!important;top:82px!important;left:12px!important;right:12px!important;width:auto!important;max-height:calc(100vh - 96px)!important;overflow-y:auto!important}}
+
+/* Preview verification trigger: no visual or runtime change. */
