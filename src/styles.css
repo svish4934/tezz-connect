@@ -4307,3 +4307,126 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
 .tezz-main .tezz-hero .signature-live-meter .tezz-chart-idle-line{
   stroke-dasharray:none!important;
 }
+
+
+/* TEZZ CONNECT live meter: final sunset UI pass.
+   Visual CSS only. Existing React markup, SVG data points, IDs, attributes,
+   measurement state, event handlers and progress calculations are unchanged. */
+.tezz-main .tezz-hero{
+  background:#FAFAFA!important;
+  background-image:none!important;
+  border:1.5px solid #FFE4D6!important;
+  box-shadow:0 10px 28px rgba(24,24,27,.045)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter{
+  background:#FFFFFF!important;
+  background-image:none!important;
+  border:1.5px solid #E4E4E7!important;
+  border-radius:24px!important;
+  box-shadow:0 8px 24px rgba(24,24,27,.055)!important;
+  color:#18181B!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before{
+  background:repeating-conic-gradient(from -132deg,
+    #A1A1AA 0deg 1.2deg,transparent 1.2deg 7deg,
+    #A1A1AA 7deg 8.2deg,transparent 8.2deg 14deg)!important;
+  -webkit-mask:radial-gradient(circle,transparent 59%,#000 60% 66%,transparent 67%)!important;
+  mask:radial-gradient(circle,transparent 59%,#000 60% 66%,transparent 67%)!important;
+  opacity:1!important;
+  animation:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::after{
+  /* SVG ring gives the arc a real 15px stroke and rounded ends. */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 280'%3E%3Cdefs%3E%3ClinearGradient id='sunset' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FACC15'/%3E%3Cstop offset='.52' stop-color='%23FF9E7D'/%3E%3Cstop offset='1' stop-color='%23EF4444'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='140' cy='140' r='100' fill='none' stroke='%23F4F4F5' stroke-width='15'/%3E%3Ccircle cx='140' cy='140' r='100' fill='none' stroke='url(%23sunset)' stroke-width='15' stroke-linecap='round' stroke-dasharray='440 628' transform='rotate(-132 140 140)'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:100% 100%!important;
+  -webkit-mask:none!important;
+  mask:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  animation:none!important;
+  opacity:1!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong{
+  color:#18181B!important;
+  -webkit-text-fill-color:#18181B!important;
+  font-family:'Space Mono',monospace!important;
+  font-variant-numeric:tabular-nums lining-nums!important;
+  font-feature-settings:'tnum' 1,'lnum' 1!important;
+  letter-spacing:-.075em!important;
+  text-shadow:none!important;
+  animation:none!important;
+}
+.tezz-main .tezz-hero .tezz-live-progress{
+  background:#FFF7ED!important;
+  border:1.5px solid #FF9E7D!important;
+  border-radius:14px!important;
+  color:#18181B!important;
+  box-shadow:0 5px 14px rgba(239,68,68,.07)!important;
+}
+.tezz-main .tezz-hero .tezz-progress-phase,
+.tezz-main .tezz-hero .tezz-progress-detail{
+  color:#18181B!important;
+}
+.tezz-main .tezz-hero .tezz-progress-value{
+  color:#EF4444!important;
+}
+.tezz-main .tezz-hero .tezz-progress-track{
+  height:7px!important;
+  background:#F4F4F5!important;
+  border:1px solid #E4E4E7!important;
+}
+.tezz-main .tezz-hero .tezz-progress-track span{
+  background:linear-gradient(90deg,#FACC15 0%,#FF9E7D 52%,#EF4444 100%)!important;
+  box-shadow:0 0 8px rgba(239,68,68,.2)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart{
+  background:linear-gradient(180deg,rgba(239,68,68,.08) 0%,rgba(255,158,125,.035) 55%,transparent 100%)!important;
+  border-radius:8px!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-grid{
+  stroke:rgba(24,24,27,.10)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-line,
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-idle-line{
+  stroke:#EF4444!important;
+  stroke-width:3!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  filter:drop-shadow(0 1px 2px rgba(239,68,68,.18))!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-idle-line{
+  stroke:#EF4444!important;
+  stroke-dasharray:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-point{
+  fill:#EF4444!important;
+  stroke:#FFFFFF!important;
+}
+.tezz-main .tezz-hero .tezz-stat{
+  background:#FFFFFF!important;
+  border:1.5px solid #E4E4E7!important;
+  border-radius:18px!important;
+  color:#18181B!important;
+  box-shadow:0 5px 18px rgba(24,24,27,.035)!important;
+}
+.tezz-main .tezz-hero .tezz-stat.cyan>svg{
+  color:#EF4444!important;
+  background:rgba(239,68,68,.11)!important;
+}
+.tezz-main .tezz-hero .tezz-stat.cyan>strong{color:#EF4444!important}
+.tezz-main .tezz-hero .tezz-stat.violet>svg{
+  color:#FF9E7D!important;
+  background:rgba(255,158,125,.18)!important;
+}
+.tezz-main .tezz-hero .tezz-stat.violet>strong{color:#FF9E7D!important}
+.tezz-main .tezz-hero .tezz-stat.green>svg,
+.tezz-main .tezz-hero .tezz-stat.red>svg{
+  color:#18181B!important;
+  background:rgba(250,204,21,.32)!important;
+}
+.tezz-main .tezz-hero .tezz-stat.green>strong,
+.tezz-main .tezz-hero .tezz-stat.red>strong{color:#18181B!important}
+.tezz-main .tezz-hero .tezz-stat>span{color:#52525B!important}
+.tezz-main .tezz-hero .tezz-stat>strong{font-family:'Space Mono',monospace!important}
