@@ -3496,3 +3496,25 @@ footer a{color:#b7c6d8}
   .tezz-progress-phase{font-size:10px!important}
   .tezz-progress-detail{font-size:9px!important}
 }
+
+/* Balanced homepage: keep the speed test dominant and give secondary destinations a clear, compact hierarchy. */
+.homepage-quick-explainer{margin:20px 0 24px!important;padding:22px!important;border:1px solid #dce7f0;border-radius:18px;background:linear-gradient(145deg,#fff,#f7fafd);color:#17324b}
+.homepage-quick-explainer .homepage-measurement-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.homepage-quick-explainer .homepage-method{margin-top:16px;padding:17px 18px;border-radius:13px}
+.homepage-blog-promo{display:flex;align-items:center;justify-content:space-between;gap:22px;margin:18px 0 20px;padding:22px 24px;border:1px solid #dce7f0;border-radius:17px;background:linear-gradient(115deg,#f5fbfd,#fff);color:#17324b}
+.homepage-blog-promo-copy{max-width:680px}
+.homepage-blog-promo h2{margin:6px 0;color:#142b45;font-size:clamp(19px,2.2vw,25px);line-height:1.25}
+.homepage-blog-promo p{margin:0;color:#60748a;font-size:13px;line-height:1.65}
+.homepage-blog-promo-link{flex-shrink:0;display:inline-flex;align-items:center;gap:10px;padding:11px 15px;border-radius:10px;background:#102a40;color:#fff;text-decoration:none;font-size:12px;font-weight:750}
+.homepage-blog-promo-link:hover{background:#087f91}
+.homepage-blog-promo-link:focus-visible{outline:3px solid #1678ed;outline-offset:3px}
+.homepage-hero-support .tezz-feature-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.homepage-hero-support .tezz-feature-grid button:empty{display:none}
+@media(max-width:760px){
+ .homepage-quick-explainer{margin:14px 0 18px!important;padding:17px 14px!important}
+ .homepage-quick-explainer .homepage-measurement-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .homepage-blog-promo{align-items:flex-start;flex-direction:column;gap:14px;margin:14px 0;padding:18px}
+ .homepage-blog-promo-link{width:100%;justify-content:center}
+ .homepage-hero-support .tezz-feature-grid{grid-template-columns:1fr}
+}
+@media(max-width:420px){.homepage-quick-explainer .homepage-measurement-grid{grid-template-columns:1fr}}
