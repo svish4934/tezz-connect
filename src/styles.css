@@ -3715,3 +3715,24 @@ html body .tezz-main footer>span:first-child{color:#18181B!important}
 html body .tezz-main footer .footer-dot{color:#FACC15!important}
 html body .tezz-main footer>span:nth-child(2) a,
 html body .tezz-main footer .footer-language-links a{color:#EF4444!important}
+
+
+/* Keep small section labels readable on the light page surfaces. */
+html body .tezz-main .content:not(.dark-panel) .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .eyebrow,
+html body .tezz-main .content:not(.dark-panel) .workspace-label,
+html body .tezz-main .content:not(.dark-panel) .doctor-panel .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .network-intel-panel .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .home-knowledge-hub .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .starter-tools-stack .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .global-baseline-card .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .global-benchmark-region .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .history-strip .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .report-panel .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .services-panel .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .homepage-faq .section-kicker,
+html body .tezz-main .content:not(.dark-panel) .benchmark-consent-panel .section-kicker{
+ color:#18181B!important;
+}
+.home-content>.homepage-hero-intro .section-kicker,
+.home-content>.homepage-hero-intro .eyebrow{color:#18181B!important}
