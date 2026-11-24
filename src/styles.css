@@ -4714,3 +4714,42 @@ button[title*="Cookie settings" i] *,
 .tezz-main .tezz-hero .tezz-stat.red>.tezz-stat-icon{
   color:#18181B!important;background:rgba(250,204,21,.32)!important;
 }
+
+
+/* Screenshot follow-up: keep the dial clear and center the throughput visuals. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-caption{
+  display:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale{
+  display:block!important;
+  width:82%!important;
+  max-width:560px!important;
+  margin:24px auto 0!important;
+  align-self:center!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale-track{
+  width:100%!important;
+  margin-inline:auto!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale-caption{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  width:100%!important;
+  text-align:left!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart{
+  display:block!important;
+  width:82%!important;
+  max-width:560px!important;
+  margin:12px auto 0!important;
+  align-self:center!important;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale,
+  .tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart{
+    width:82%!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
