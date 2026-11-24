@@ -1126,7 +1126,7 @@ function App() {
             </details>
             <a href="/blog/">Blog</a>
           </nav>
-          <div className="tezz-header-actions"><span className="tezz-language-pill" aria-label="Website language: English">English</span><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" title="Search TEZZ CONNECT" aria-haspopup="dialog" aria-expanded={searchOpen} onClick={() => { setSearchOpen(true); setSearchQuery('') }}><Search size={18}/><span className="tezz-search-label">Search</span></button><button className="tezz-menu" type="button" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}><span aria-hidden="true" className="tezz-hamburger-lines"><i/><i/></span></button></div>
+          <div className="tezz-header-actions"><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" title="Search TEZZ CONNECT" aria-haspopup="dialog" aria-expanded={searchOpen} onClick={() => { setSearchOpen(true); setSearchQuery('') }}><Search size={18}/><span className="tezz-search-label">Search</span></button><button className="tezz-menu" type="button" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}><span aria-hidden="true" className="tezz-hamburger-lines"><i/><i/></span></button></div>
         </header>
         {searchOpen && <div className="tezz-search-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSearchOpen(false) }}>
           <section className="tezz-search-dialog" role="dialog" aria-modal="true" aria-labelledby="tezz-search-title">
@@ -1153,7 +1153,7 @@ function App() {
             </div>
           </details>
           <a href="/blog/">Blog</a>
-          <div className="tezz-mobile-controls"><span className="tezz-language-pill" aria-label="Website language: English">English</span><button type="button" className="tezz-header-search" onClick={() => { setSearchOpen(true); setSearchQuery(''); setMobileMenuOpen(false) }}><Search size={17}/> Search</button></div>
+          <div className="tezz-mobile-controls"><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" onClick={() => { setSearchOpen(true); setSearchQuery(''); setMobileMenuOpen(false) }}><Search size={17}/> Search</button></div>
         </nav>}
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
