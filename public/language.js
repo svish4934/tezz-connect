@@ -3,18 +3,7 @@
   const KEY = 'tezz-connect-language';
   // The manifest is the single source of truth for enabled locales.
   // Add a locale there when its reviewed translation bundle is ready.
-  let languages = [
-    { code: 'en', name: 'English', nativeName: 'English', direction: 'ltr' },
-    { code: 'hi', name: 'हिन्दी', nativeName: 'हिन्दी', direction: 'ltr' },
-    { code: 'mr', name: 'मराठी', nativeName: 'मराठी', direction: 'ltr' },
-    { code: 'bn', name: 'বাংলা', nativeName: 'বাংলা', direction: 'ltr' },
-    { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文', direction: 'ltr', bundle: '/locales/zh-CN/common.json' },
-    { code: 'pt-BR', name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)', direction: 'ltr', bundle: '/locales/pt-BR/common.json' },
-    { code: 'es', name: 'Spanish', nativeName: 'Español', direction: 'ltr', bundle: '/locales/es/common.json' },
-    { code: 'fr', name: 'French', nativeName: 'Français', direction: 'ltr', bundle: '/locales/fr/common.json' },
-    { code: 'ar', name: 'Arabic', nativeName: 'العربية', direction: 'rtl', bundle: '/locales/ar/common.json' }
-  ];
-  let supported = new Set(languages.map(item => item.code));
+  let languages = [{ code: 'en', name: 'English', nativeName: 'English', direction: 'ltr' }];  let supported = new Set(languages.map(item => item.code));
   let directions = new Map(languages.map(item => [item.code, item.direction || 'ltr']));
   const copy = {
     hi: {
@@ -680,7 +669,8 @@
       if (node.nodeValue !== replacement) node.nodeValue = replacement;
     });
   }
-  function addPicker() {
+  function addPicker() { return; // English-only site: hide language picker.
+
     const host = document.querySelector('.head-inner');
     if (!host || host.querySelector('[data-tezz-language-picker]')) return;
     const label = document.createElement('label');
@@ -707,7 +697,7 @@
     host.append(label);
   }
   async function setLanguage(next) {
-    const requested = supported.has(next) ? next : 'en';
+    const requested = 'en';
     if (requested !== 'en' && !localeBundles[requested]) {
       const locale = languages.find(item => item.code === requested);
       if (!locale || !locale.bundle) {
@@ -767,26 +757,11 @@
     }
   }
   async function init() {
-    await loadLocaleManifest();
-    const savedLanguage = readLanguage();
     language = 'en';
-    if (savedLanguage !== 'en') await setLanguage(savedLanguage);
-    else {
-      try {
-        const response = await fetch('/locale-country', { credentials: 'same-origin', cache: 'no-store' });
-        if (response.ok) {
-          const { country } = await response.json();
-          const countryLocale = country === 'CN' ? 'zh-CN' : country === 'BR' ? 'pt-BR' :
-            ['ES','MX','AR','BO','CL','CO','CR','CU','DO','EC','SV','GT','HN','NI','PA','PY','PE','PR','UY','VE'].includes(country) ? 'es' :
-            country === 'FR' ? 'fr' : ['DZ','BH','KM','DJ','EG','IQ','JO','KW','LB','LY','MR','MA','OM','PS','QA','SA','SO','SD','SY','TN','AE','YE'].includes(country) ? 'ar' : 'en';
-          if (countryLocale !== 'en') await setLanguage(countryLocale);
-        }
-      } catch { /* Country detection is optional; English remains the fallback. */ }
-    }
-    document.documentElement.lang = language;
-    document.documentElement.dir = directions.get(language) || 'ltr';
+    try { localStorage.setItem(KEY, 'en'); } catch {}
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
     applyLocalizedMetadata();
-    addPicker();
     translateText(document.body);
     applyKeyedTranslations(document.body);
     const observer = new MutationObserver(records => {
@@ -807,9 +782,6 @@
       }
     });
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
-    window.addEventListener('storage', event => {
-      if (event.key === KEY) setLanguage(event.newValue || 'en');
-    });
   }
   // Publish the helper synchronously so inline guide scripts can translate
   // their first render before DOMContentLoaded and the manifest fetch finish.
