@@ -1126,7 +1126,7 @@ function App() {
             </details>
             <a href="/blog/">Blog</a>
           </nav>
-          <div className="tezz-header-actions"><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" title="Search TEZZ CONNECT" aria-haspopup="dialog" aria-expanded={searchOpen} onClick={() => { setSearchOpen(true); setSearchQuery('') }}><Search size={18}/><span className="tezz-search-label">Search</span></button><button className="tezz-menu" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? '✕' : '☰'}</button></div>
+          <div className="tezz-header-actions"><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" title="Search TEZZ CONNECT" aria-haspopup="dialog" aria-expanded={searchOpen} onClick={() => { setSearchOpen(true); setSearchQuery('') }}><Search size={18}/><span className="tezz-search-label">Search</span></button><button className="tezz-menu" type="button" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} title={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="tezz-mobile-nav" onClick={() => setMobileMenuOpen(open => !open)}><span aria-hidden="true" className="tezz-hamburger-lines"><i/><i/></span></button></div>
         </header>
         {searchOpen && <div className="tezz-search-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSearchOpen(false) }}>
           <section className="tezz-search-dialog" role="dialog" aria-modal="true" aria-labelledby="tezz-search-title">
@@ -1153,6 +1153,7 @@ function App() {
             </div>
           </details>
           <a href="/blog/">Blog</a>
+          <div className="tezz-mobile-controls"><button type="button" className="tezz-header-search" aria-label="Search TEZZ CONNECT" onClick={() => { setSearchOpen(true); setSearchQuery(''); setMobileMenuOpen(false) }}><Search size={17}/> Search</button></div>
         </nav>}
         <div className={`content ${activeTab === "Overview" ? "home-content" : ""}`}>
           {activeTab === 'Overview' && <>
@@ -1571,7 +1572,14 @@ function App() {
               </a>
             </div>
           </section>
-          <footer><span>© 2026 TEZZ CONNECT <span className="footer-dot">•</span> Proudly built in India 🇮🇳</span><span><a href="/guides/">GUIDES</a> <span className="footer-dot">•</span> <a href="/privacy-policy/">PRIVACY</a> <span className="footer-dot">•</span> <a href="/terms-of-use/">TERMS</a> <span className="footer-dot">•</span> <a href="/cookie-policy/">COOKIES</a> <span className="footer-dot">•</span> <a href="/affiliate-disclosure/">AFFILIATE DISCLOSURE</a></span></footer>
+          <footer className="tezz-site-footer">
+            <div className="tezz-footer-main">
+              <div className="tezz-footer-brand"><a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a><p>Fast, clear insights into your internet connection.</p><small>Made in India</small></div>
+              <div className="tezz-footer-links"><div><strong>Explore</strong><a href="/">Home</a><a href="/#tezz-speed-test">Free Speed Test</a><a href="/internet-doctor">Internet Doctor</a><a href="/tools">Network Tools</a></div><div><strong>Discover</strong><a href="/global-network">Global Network</a><a href="/blog/">Blog</a><a href="/guides/">Guides</a><a href="/about">About</a></div><div><strong>Legal</strong><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-use/">Terms of Use</a><a href="/cookie-policy/">Cookie Policy</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a></div></div>
+            </div>
+            <div className="tezz-footer-bottom"><span>© 2026 TEZZCONNECT. All rights reserved.</span><span className="tezz-systems-status"><i/> Systems Operational</span></div>
+            <div className="tezz-footer-gradient" aria-hidden="true"/>
+          </footer>
         </div>
       </main>
     </div>
