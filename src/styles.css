@@ -3585,3 +3585,19 @@ a{ text-underline-offset:3px }
 .homepage-link-grid a span {
   color:#1E293B!important;
 }
+
+
+/* Final homepage readability guard: override legacy component-specific pastel text rules. */
+.home-content .tezz-social-panel .services-heading p,
+.home-content .tezz-social-panel .services-note,
+.home-content .tezz-social-panel .service-tile p,
+.home-content .tezz-social-panel .service-tile small,
+.home-content .benchmark-consent-panel p,
+.home-content .benchmark-consent-panel .benchmark-consent-note,
+.home-content .benchmark-consent-panel .benchmark-consent-status,
+.home-content .home-knowledge-hub p,
+.home-content .home-knowledge-hub .knowledge-hub-card p,
+.home-content .homepage-editorial p,
+.home-content .homepage-editorial small {
+  color:#1E293B!important;
+}
