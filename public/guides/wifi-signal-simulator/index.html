@@ -6,27 +6,27 @@
 <meta property="og:url" content="https://tezzconnect.online/guides/wifi-signal-simulator/"><meta property="og:type" content="article"><meta property="og:title" content="Wi-Fi Signal Simulator | TEZZ CONNECT"><meta property="og:description" content="Move a virtual router around a home floor plan and explore how distance, a simplified obstacle setting and Wi-Fi bands can affect an example signal score.">
 <link rel="stylesheet" href="/guides/guides.css">
 <style>
-.simulator{margin:24px 0;padding:clamp(14px,3vw,25px);border:1px solid #d7e5ee;border-radius:20px;background:linear-gradient(145deg,#f1f8fb,#fff 72%);color:#20384e}
-.simulator h2{margin:5px 0 8px;font-size:clamp(21px,3vw,28px)}.sim-intro{max-width:760px;color:#5c7185;line-height:1.65}
+.simulator{margin:24px 0;padding:clamp(14px,3vw,25px);border:1px solid #DDD6FE;border-radius:20px;background:linear-gradient(145deg,#EEF2F6,#FAF8F5 72%);color:#1E293B}
+.simulator h2{margin:5px 0 8px;font-size:clamp(21px,3vw,28px)}.sim-intro{max-width:760px;color:#1E293B;line-height:1.65}
 .sim-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,.75fr);gap:16px;margin-top:18px}
-.map-panel,.control-panel,.signal-result{min-width:0;padding:15px;border:1px solid #dce7ef;border-radius:15px;background:#fff}
-.map-heading{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.map-heading strong{font-size:13px}.map-heading span{font-size:10px;color:#64798c}
+.map-panel,.control-panel,.signal-result{min-width:0;padding:15px;border:1px solid #EEF2F6;border-radius:15px;background:#FAF8F5}
+.map-heading{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.map-heading strong{font-size:13px}.map-heading span{font-size:10px;color:#86EFAC}
 .home-map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;aspect-ratio:1.25}
-.map-cell{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;border:1px solid #d8e2e9;border-radius:7px;background:#f0f4f7;color:#314a5d;font-size:10px;font-weight:700;cursor:pointer;transition:background .15s}
-.map-cell:focus-visible{outline:3px solid #f0b84b;outline-offset:2px;z-index:2}
-.map-cell .cell-label{position:absolute;left:3px;bottom:3px;font-size:8px;font-weight:600;color:#52687b}
-.map-cell.router{outline:2px solid #087c69;outline-offset:-3px}.map-cell.device{box-shadow:inset 0 0 0 2px #2867b8}
+.map-cell{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;border:1px solid #DDD6FE;border-radius:7px;background:#EEF2F6;color:#1E293B;font-size:10px;font-weight:700;cursor:pointer;transition:background .15s}
+.map-cell:focus-visible{outline:3px solid #FDA4AF;outline-offset:2px;z-index:2}
+.map-cell .cell-label{position:absolute;left:3px;bottom:3px;font-size:8px;font-weight:600;color:#1E293B}
+.map-cell.router{outline:2px solid #1E293B;outline-offset:-3px}.map-cell.device{box-shadow:inset 0 0 0 2px #1E293B}
 .map-cell .marker{font-size:20px;line-height:1}
-.map-cell .strength{position:absolute;right:4px;top:3px;font-size:8px;color:#40576a}
-.map-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;color:#64798c;font-size:10px}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:middle}
-.map-help{margin:10px 0 0;color:#64798c;font-size:11px;line-height:1.5}
+.map-cell .strength{position:absolute;right:4px;top:3px;font-size:8px;color:#1E293B}
+.map-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;color:#86EFAC;font-size:10px}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.map-help{margin:10px 0 0;color:#86EFAC;font-size:11px;line-height:1.5}
 .control-panel{display:grid;align-content:start;gap:13px}.control-panel h3{margin:0;font-size:15px}
-.control{display:grid;gap:6px}.control label{font-size:12px;font-weight:750}.control select{width:100%;min-height:42px;padding:8px 10px;border:1px solid #bdcbd6;border-radius:8px;background:#fff;color:#20384e;font:inherit;font-size:13px}
-.control select:focus-visible{outline:3px solid #5b9de8;outline-offset:2px}
-.control small{color:#6b7f91;font-size:10px;line-height:1.45}
-.signal-result{margin-top:14px}.signal-result-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.signal-result strong{font-size:18px}.signal-score{font-size:24px;font-weight:850;font-variant-numeric:tabular-nums}.meter{height:10px;margin:10px 0;border-radius:20px;background:#e7edf2;overflow:hidden}.meter span{display:block;height:100%;width:0;border-radius:20px;transition:width .2s}
-.signal-result p{margin:7px 0;color:#526a7f;font-size:12px;line-height:1.6}.signal-result small{color:#748697;font-size:10px;line-height:1.5}
-.sim-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.sim-actions button{min-height:40px;padding:9px 13px;border:1px solid #176f8d;border-radius:9px;background:#126f8d;color:white;font:inherit;font-size:12px;font-weight:750;cursor:pointer}.sim-actions button.secondary{background:white;color:#176f8d}.sim-actions button:focus-visible{outline:3px solid #f0b84b;outline-offset:3px}
+.control{display:grid;gap:6px}.control label{font-size:12px;font-weight:750}.control select{width:100%;min-height:42px;padding:8px 10px;border:1px solid #A5B4FC;border-radius:8px;background:#FAF8F5;color:#1E293B;font:inherit;font-size:13px}
+.control select:focus-visible{outline:3px solid #A5B4FC;outline-offset:2px}
+.control small{color:#86EFAC;font-size:10px;line-height:1.45}
+.signal-result{margin-top:14px}.signal-result-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.signal-result strong{font-size:18px}.signal-score{font-size:24px;font-weight:850;font-variant-numeric:tabular-nums}.meter{height:10px;margin:10px 0;border-radius:20px;background:#EEF2F6;overflow:hidden}.meter span{display:block;height:100%;width:0;border-radius:20px;transition:width .2s}
+.signal-result p{margin:7px 0;color:#1E293B;font-size:12px;line-height:1.6}.signal-result small{color:#86EFAC;font-size:10px;line-height:1.5}
+.sim-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.sim-actions button{min-height:40px;padding:9px 13px;border:1px solid #1E293B;border-radius:9px;background:#1E293B;color:#FAF8F5;font:inherit;font-size:12px;font-weight:750;cursor:pointer}.sim-actions button.secondary{background:#FAF8F5;color:#1E293B}.sim-actions button:focus-visible{outline:3px solid #FDA4AF;outline-offset:3px}
 @media(max-width:720px){.sim-layout{grid-template-columns:1fr}.home-map{aspect-ratio:1.3}.map-cell .cell-label{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.map-cell,.meter span{transition:none}}
 </style>  <!-- Analytics is omitted until this page uses the shared consent-aware loader. -->
@@ -40,7 +40,7 @@
 <main class="wrap" id="main-content"><div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / Wi-Fi signal simulator</div>
 <header class="hero"><div class="eyebrow">INTERACTIVE WI-FI LEARNING TOOL</div><h1>Explore your home Wi-Fi coverage</h1><p class="lede">Move a virtual router, choose the Wi-Fi band and adjust the typical obstacle level. Watch the example floor plan respond—and learn why distance and obstacles can affect a connection.</p><p class="meta">TEZZ CONNECT · Browser-based learning simulator</p></header>
 <section class="simulator" aria-labelledby="sim-title"><div class="eyebrow">TRY DIFFERENT HOME SETUPS</div><h2 id="sim-title">Build a simple signal map</h2><p class="sim-intro">Choose a router location, then tap any room on the map to place your device. Change the band and typical obstacle level to explore the trade-offs.</p>
-<div class="sim-layout"><div class="map-panel"><div class="map-heading"><strong>Example home floor plan</strong><span>Tap a tile to move your device</span></div><div class="home-map" id="signal-map" role="group" aria-label="Five by five example home floor plan"></div><div class="map-legend"><span><i class="legend-dot" style="background:#15977b"></i>Stronger example signal</span><span><i class="legend-dot" style="background:#d9a23c"></i>Moderate</span><span><i class="legend-dot" style="background:#c87563"></i>Weaker</span><span>📡 Router</span><span>📱 Device</span></div><p class="map-help">Each square represents an illustrative area, not a measured room or real signal reading. Select any square to move the device marker.</p></div>
+<div class="sim-layout"><div class="map-panel"><div class="map-heading"><strong>Example home floor plan</strong><span>Tap a tile to move your device</span></div><div class="home-map" id="signal-map" role="group" aria-label="Five by five example home floor plan"></div><div class="map-legend"><span><i class="legend-dot" style="background:#1E293B"></i>Stronger example signal</span><span><i class="legend-dot" style="background:#FDA4AF"></i>Moderate</span><span><i class="legend-dot" style="background:#FDA4AF"></i>Weaker</span><span>📡 Router</span><span>📱 Device</span></div><p class="map-help">Each square represents an illustrative area, not a measured room or real signal reading. Select any square to move the device marker.</p></div>
 <div class="control-panel"><h3>Change the setup</h3>
 <div class="control"><label for="router-position">Router position</label><select id="router-position"><option value="12">Centre of home</option><option value="2">Top middle</option><option value="10">Left middle</option><option value="14">Right middle</option><option value="22">Bottom middle</option><option value="0">Top-left corner</option></select><small>A central, open position often gives devices more even coverage.</small></div>
 <div class="control"><label for="wifi-band">Wi-Fi band</label><select id="wifi-band"><option value="24">2.4 GHz</option><option value="5" selected>5 GHz</option><option value="6">6 GHz</option></select><small>Higher-frequency bands can offer more capacity, but often have less reach through obstacles. Actual performance depends on equipment and local conditions.</small></div>
