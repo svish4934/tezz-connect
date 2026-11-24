@@ -3755,3 +3755,8 @@ html body .tezz-main .live-test-caption,
 html body .tezz-main .tezz-live-progress,
 html body .tezz-main .metric div:nth-child(2)>span,
 html body .tezz-main .metric small{color:#F4F4F5!important}
+
+
+/* Footer sits on the light homepage canvas: keep all footer links high-contrast. */
+html body .tezz-main footer>span:nth-child(2) a,
+html body .tezz-main footer .footer-language-links a{color:#18181B!important}
