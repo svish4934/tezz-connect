@@ -49,3 +49,8 @@ assert.match(app, /home-knowledge-hub[\s\S]*href="\/guides\//, 'Homepage should 
 assert.match(app, /benchmark-consent-panel/, 'Optional benchmark consent must remain available')
 assert.match(app, /tezz-feature-grid/, 'Homepage feature highlights must remain available')
 console.log('Balanced homepage section, destination and consent checks passed.')
+
+assert.match(app, /\{activeTab === 'Overview' && <>[\s\S]*home-knowledge-hub[\s\S]*homepage-blog-promo[\s\S]*homepage-faq[\s\S]*benchmark-consent-panel[\s\S]*<\\/>\}/, 'Hub, Blog, FAQ and benchmark panel must be scoped to the homepage')
+assert.equal((app.match(/<button onClick=\{\(\)=>navigateTo\('Network'\)\}/g) || []).length >= 2, true, 'Homepage should retain network tool navigation')
+assert.doesNotMatch(app, /homepage-causes-grid|homepage-next-steps/, 'Removed duplicate homepage sections should not return')
+console.log('Homepage-only scope and simplified-section regression checks passed.')
