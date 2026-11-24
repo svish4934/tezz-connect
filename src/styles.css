@@ -3627,3 +3627,45 @@ html,body,#root{background:var(--tezz-cloud);color:var(--tezz-ink)}body{backgrou
 .test-panel,.info-card,.history-strip,.doctor-panel,.network-intel-panel,.services-panel,.report-panel{background:var(--tezz-cloud)!important;border:1px solid var(--tezz-mist)!important;box-shadow:0 8px 28px rgba(24,24,27,.055)!important}.metric,.doctor-status,.doctor-finding,.network-primary,.network-detail,.network-capabilities>div,.service-tile,.service-logo,.report-summary>div{background:var(--tezz-mist)!important;border-color:var(--tezz-mist)!important}
 .gauge-halo{background:conic-gradient(from 220deg,var(--tezz-yellow) 0deg 112deg,var(--tezz-cherry) 230deg,var(--tezz-peach) 280deg,transparent 280deg)!important;border:0!important;box-shadow:0 10px 28px rgba(239,68,68,.12)!important}.gauge-halo::before{background:linear-gradient(145deg,rgba(250,204,21,.18),rgba(255,158,125,.08) 50%,transparent)!important;box-shadow:none!important}.gauge-inner{background:var(--tezz-cloud)!important;border:5px solid var(--tezz-cloud)!important;color:var(--tezz-ink)!important}.gauge-label,.gauge-unit{color:var(--tezz-ink)!important}.run-button{background:var(--tezz-cherry)!important;color:#FAFAFA!important;box-shadow:0 6px 18px rgba(239,68,68,.18)!important;border-radius:999px!important}.progress-track{background:var(--tezz-mist)!important}.progress-track span{background:var(--tezz-cherry)!important}.metric-icon.cyan,.metric-icon.violet,.metric-icon.mint,.metric-icon.amber{background:#FAFAFA!important;color:var(--tezz-cherry)!important}.metric-icon.amber{color:var(--tezz-peach)!important}.health-score strong,.report-summary strong{color:var(--tezz-cherry)!important}.health-bar{background:var(--tezz-mist)!important}.health-bar span{background:linear-gradient(90deg,var(--tezz-yellow),var(--tezz-cherry))!important}
 .tezz-feature-grid button,.knowledge-hub-card,.homepage-blog-promo,.homepage-faq article{background:var(--tezz-cloud)!important;border-color:var(--tezz-mist)!important}.tezz-feature-grid button svg,.knowledge-hub-icon{color:var(--tezz-cherry)!important}.home-content .welcome{min-height:112px;padding:0 0 18px}.home-content .welcome-orbit{display:none!important}.home-content .welcome h1{font-size:clamp(28px,3.4vw,40px);letter-spacing:-1.6px;margin:8px 0}.home-content .welcome p{color:var(--tezz-ink)!important;font-size:13px}.home-content .tezz-feature-grid{gap:9px;margin:12px 0 16px}.home-content .tezz-feature-grid button{min-height:76px;padding:13px 15px;border-radius:12px}.home-content .homepage-editorial{display:none!important}.home-content .test-panel{padding:20px 22px 15px}.home-content .speed-layout{padding-top:18px;padding-bottom:14px}.home-content .panel-foot{border-color:var(--tezz-mist)}.home-content .knowledge-hub-heading p,.home-content .knowledge-hub-card-copy small,.home-content .homepage-blog-promo p,.home-content .homepage-faq p,.home-content .benchmark-consent-panel p{color:var(--tezz-ink)!important}.home-content .knowledge-hub-all,.home-content .homepage-blog-promo-link{color:var(--tezz-cherry)!important}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--tezz-cherry)!important;outline-offset:3px}@media(max-width:720px){.home-content .welcome{min-height:0;padding-bottom:14px}.home-content .welcome h1{font-size:30px}.home-content .test-panel{padding:17px 13px 12px}.home-content .speed-layout{gap:17px;padding:17px 0}.home-content .tezz-feature-grid button{min-height:68px}}
+
+
+/* Minimal speed-test landing page and Dopamine Sunset meter polish */
+.home-content .tezz-social-panel,
+.home-content .usage-insights-panel,
+.home-content .homepage-quick-explainer,
+.home-content .homepage-editorial:not(.homepage-quick-explainer){display:none!important}
+.home-content .homepage-hero-intro{grid-template-columns:minmax(0,1fr)!important;max-width:900px;margin:0 auto 12px!important;padding:12px 4px!important;border:0!important;background:transparent!important;box-shadow:none!important}
+.home-content .homepage-hero-intro-copy h1{font-size:clamp(24px,2.8vw,32px)!important;margin:4px 0 6px!important}
+.home-content .homepage-hero-intro-copy p{font-size:12px!important;line-height:1.55!important;max-width:760px!important}
+.home-content .homepage-hero-benefits{display:none!important}
+.home-content .homepage-hero-support{margin:0 auto 14px!important;max-width:900px!important}
+.home-content .tezz-feature-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important}
+.home-content .tezz-feature-grid button{min-height:68px!important;padding:12px 14px!important;background:#FAFAFA!important;border:1px solid #F4F4F5!important;box-shadow:0 3px 12px rgba(24,24,27,.04)!important}
+.home-content .tezz-feature-grid button>svg{color:#EF4444!important}
+.home-content .tezz-feature-grid button strong{color:#18181B!important}
+.home-content .tezz-feature-grid button span{color:#18181B!important}
+.home-content .signature-live-meter{background:linear-gradient(145deg,#18181B 0%,#27272A 55%,#18181B 100%)!important;border:1px solid rgba(250,204,21,.62)!important;box-shadow:0 16px 38px rgba(24,24,27,.18),inset 0 1px 0 rgba(250,250,250,.08)!important}
+.home-content .signature-live-meter .tezz-digital-label{color:#FACC15!important}
+.home-content .signature-live-meter .tezz-meter-status{color:#FAFAFA!important}
+.home-content .signature-live-meter .tezz-digital-reading strong{color:#FAFAFA!important;text-shadow:0 0 24px rgba(250,204,21,.22)!important}
+.home-content .signature-live-meter .tezz-digital-reading span{color:#FF9E7D!important}
+.home-content .signature-live-meter .tezz-digital-caption{color:#F4F4F5!important}
+.home-content .signature-live-meter .tezz-meter-scale-track{border:1px solid rgba(250,204,21,.35)!important;background:rgba(250,250,250,.08)!important}
+.home-content .signature-live-meter .tezz-meter-scale-sweep{background:linear-gradient(90deg,#FACC15,#EF4444,#FF9E7D)!important}
+.home-content .signature-live-meter .tezz-throughput-chart .tezz-chart-grid{stroke:rgba(250,250,250,.13)!important}
+.home-content .signature-live-meter .tezz-throughput-chart .tezz-chart-line{stroke:#FF9E7D!important;filter:drop-shadow(0 0 4px rgba(255,158,125,.55))}
+.home-content .signature-live-meter .tezz-throughput-chart .tezz-chart-idle-line{stroke:#FACC15!important}
+.home-content .tezz-hero .tezz-stat.cyan>svg{color:#EF4444!important}
+.home-content .tezz-hero .tezz-stat.violet>svg{color:#FF9E7D!important}
+.home-content .tezz-hero .tezz-stat.green>svg{color:#FACC15!important}
+.home-content .tezz-hero .tezz-stat.red>svg{color:#EF4444!important}
+.home-content .tezz-digital-start{background:linear-gradient(100deg,#FACC15 0%,#FF9E7D 52%,#EF4444 100%)!important;color:#18181B!important;border:0!important;box-shadow:0 8px 20px rgba(239,68,68,.18)!important}
+.home-content .home-knowledge-hub,.home-content .homepage-blog-promo,.home-content .homepage-faq,.home-content .benchmark-consent-panel{margin-top:14px!important}
+@media(max-width:720px){
+ .home-content .homepage-hero-intro{padding:6px 2px 10px!important}
+ .home-content .homepage-hero-support{margin-bottom:10px!important}
+ .home-content .tezz-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .home-content .tezz-feature-grid button:last-child{grid-column:1/-1}
+ .home-content .signature-live-meter{min-height:270px!important}
+ .home-content .tezz-hero{padding:14px 12px 16px!important}
+}
