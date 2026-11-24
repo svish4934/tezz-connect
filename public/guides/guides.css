@@ -101,3 +101,13 @@ body{background:linear-gradient(135deg,var(--wash),var(--cream) 58%,#FAFAFA)!imp
 .crumb,.meta,.hero .eyebrow,.eyebrow,.guide-row small,.guide-visual figcaption,.related-guide-card span,.knowledge-check legend,.wifi-lab-legend,.wifi-range-labels,.hub-filter-status,.tool-card p,.tool-card a,.hub-hero h1 span,.topic-kicker,.topic-link,.text-link{color:#18181B!important}
 
 :root{color-scheme:light;--ink:#18181B;--muted:#18181B;--blue:#EF4444;--line:#F4F4F5;--wash:#FAFAFA}body{background:#FAFAFA;color:#18181B}.site-head{background:#18181B;color:#FAFAFA}.brand span,.hub-nav a:hover,.hub-nav a:focus-visible{color:#FACC15}.cta{background:#EF4444;color:#FAFAFA}.hero h1,.article h2,.article h3{font-family:"Plus Jakarta Sans",Inter,ui-sans-serif,system-ui,sans-serif}.hub-hero{background:linear-gradient(130deg,#F4F4F5,#FAFAFA 58%,#FFF7ED);border-color:#F4F4F5}.tool-card{background:#18181B;color:#FAFAFA}.tool-card p{color:#F4F4F5}.tool-card a{color:#FACC15}
+
+/* Yellow remains an accent on dark surfaces; explanatory copy on light surfaces uses charcoal. */
+.crumb,.meta,.guide-row small,.guide-visual figcaption,.related-guide-card span,
+.knowledge-check legend,.wifi-lab-legend,.wifi-range-labels,.hub-filter-status{color:#18181B!important}
+.article p,.article li,.article small,.article figcaption,.guide-card p,.guide-row small,
+.related-guide-card span,.guide-visual figcaption,.hub-filter-status{color:#18181B!important}
+.toc li a:after{color:#EF4444!important}
+.brand span{color:#FACC15!important}
+.site-head .hub-nav a:hover,.site-head .hub-nav a:focus-visible{color:#FACC15!important}
+.tool-card a,.wifi-lab-result>strong{color:#FACC15!important}
