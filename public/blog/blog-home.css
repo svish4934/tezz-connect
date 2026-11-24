@@ -199,3 +199,6 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 .tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small,.tb-hero h1 em{color:#18181B!important}
 
 body.tc-blog-home{--tb-navy:#18181B;--tb-blue:#EF4444;--tb-cyan:#FACC15;--tb-ink:#18181B;--tb-muted:#18181B;--tb-line:#F4F4F5;background:#FAFAFA}body.tc-blog-home .tb-hero{background:linear-gradient(112deg,#F4F4F5 0%,#FAFAFA 58%,#FFF7ED 100%);border-color:#F4F4F5}body.tc-blog-home .tb-hero h1 em{color:#EF4444}body.tc-blog-home .tb-button{background:#EF4444;color:#FAFAFA!important}body.tc-blog-home .tb-kicker{color:#EF4444}
+
+body.tc-blog-home .tb-crumb,body.tc-blog-home .tb-deck,body.tc-blog-home .tb-card-copy p{color:#18181B!important}
+body.tc-blog-home .tb-router-art span{color:#FACC15!important}
