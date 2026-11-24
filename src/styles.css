@@ -4121,3 +4121,150 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
   .tezz-hero .tezz-digital-wrap .tezz-digital-start,
   .tezz-hero .tezz-stat{transition:none!important}
 }
+
+
+/* Targeted visual polish: warm hero shell, stronger gauge contrast, and usable mobile navigation.
+   CSS-only overrides; no markup, ids, data attributes, or speed-test logic changed. */
+.tezz-main .tezz-hero{
+  background:#FAFAFA!important;
+  border:1.5px solid #FFDED3!important;
+  box-shadow:0 12px 30px rgba(24,24,27,.045)!important;
+}
+.tezz-main .tezz-hero .tezz-meter-heading{color:#18181B!important}
+.tezz-main .tezz-hero .signature-live-meter{
+  background:#FFFFFF!important;
+  border:1.5px solid #E4E4E7!important;
+  box-shadow:0 8px 24px rgba(24,24,27,.055)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before{
+  background:repeating-conic-gradient(from -132deg,
+    #A1A1AA 0deg 1.2deg,transparent 1.2deg 7deg,
+    #A1A1AA 7deg 8.2deg,transparent 8.2deg 14deg)!important;
+  -webkit-mask:radial-gradient(circle,transparent 61%,#000 62% 68%,transparent 69%)!important;
+  mask:radial-gradient(circle,transparent 61%,#000 62% 68%,transparent 69%)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::after{
+  background:conic-gradient(from 218deg,#FACC15 0deg,#FF9E7D 112deg,#EF4444 224deg,transparent 225deg 360deg)!important;
+  -webkit-mask:radial-gradient(circle,transparent 67%,#000 68% 76%,transparent 77%)!important;
+  mask:radial-gradient(circle,transparent 67%,#000 68% 76%,transparent 77%)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-line,
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-idle-line{
+  stroke:#EF4444!important;
+  stroke-width:3!important;
+  filter:drop-shadow(0 0 2px rgba(250,204,21,.9)) drop-shadow(0 0 3px rgba(239,68,68,.35))!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-chart-idle-line{
+  stroke:#FF9E7D!important;
+  stroke-dasharray:none!important;
+  filter:drop-shadow(0 0 2px rgba(250,204,21,.95)) drop-shadow(0 0 3px rgba(239,68,68,.45))!important;
+}
+
+/* The existing React hamburger and conditional mobile-nav already provide the toggle. */
+@media(max-width:767px){
+  .tezz-main .tezz-header{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    min-height:60px!important;
+    padding:7px 12px!important;
+    overflow:visible!important;
+    z-index:50!important;
+  }
+  .tezz-main .tezz-header>.tezz-logo{
+    display:flex!important;
+    flex:0 1 auto!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+  .tezz-main .tezz-header>.tezz-nav{display:none!important}
+  .tezz-main .tezz-header>.tezz-header-actions{
+    display:flex!important;
+    flex:0 0 auto!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:0!important;
+    margin:0!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-header-search{display:none!important}
+  .tezz-main .tezz-header-actions>.tezz-menu{
+    display:grid!important;
+    place-items:center!important;
+    width:44px!important;
+    min-width:44px!important;
+    height:44px!important;
+    min-height:44px!important;
+    padding:0!important;
+    border:1.5px solid #E4E4E7!important;
+    border-radius:13px!important;
+    background:#FFFFFF!important;
+    color:#18181B!important;
+    box-shadow:0 3px 10px rgba(24,24,27,.06)!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-menu .tezz-hamburger-lines{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:5px!important;
+    width:20px!important;
+    height:20px!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-menu .tezz-hamburger-lines i{
+    display:block!important;
+    width:20px!important;
+    height:2px!important;
+    border-radius:2px!important;
+    background:#18181B!important;
+  }
+  .tezz-main>.tezz-mobile-nav{
+    position:absolute!important;
+    top:calc(100% + 8px)!important;
+    right:12px!important;
+    left:12px!important;
+    z-index:60!important;
+    display:grid!important;
+    gap:3px!important;
+    max-height:min(70vh,560px)!important;
+    overflow-y:auto!important;
+    padding:12px!important;
+    border:1.5px solid #FFDED3!important;
+    border-radius:18px!important;
+    background:#FFFFFF!important;
+    box-shadow:0 18px 42px rgba(24,24,27,.16)!important;
+  }
+  .tezz-main>.tezz-mobile-nav>a,
+  .tezz-main>.tezz-mobile-nav>details>summary{
+    display:flex!important;
+    align-items:center!important;
+    min-height:44px!important;
+    padding:10px 12px!important;
+    border-radius:10px!important;
+    color:#18181B!important;
+    font:700 13px/1.35 'Plus Jakarta Sans',sans-serif!important;
+    text-decoration:none!important;
+  }
+  .tezz-main>.tezz-mobile-nav>a.selected{
+    background:#FFF7ED!important;
+    color:#EF4444!important;
+  }
+  .tezz-main>.tezz-mobile-nav .tezz-mobile-controls{
+    display:block!important;
+    padding-top:8px!important;
+    border-top:1px solid #E4E4E7!important;
+  }
+  .tezz-main>.tezz-mobile-nav .tezz-header-search{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-height:44px!important;
+    border:1.5px solid #18181B!important;
+    border-radius:999px!important;
+    background:#FFFFFF!important;
+    color:#18181B!important;
+    font:700 13px/1 'Plus Jakarta Sans',sans-serif!important;
+  }
+}
