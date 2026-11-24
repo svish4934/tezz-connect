@@ -4702,3 +4702,15 @@ button[title*="Cookie settings" i] *,
     column-gap:9px!important;
   }
 }
+
+/* Preserve the existing per-metric icon accent colors on the new badge wrappers. */
+.tezz-main .tezz-hero .tezz-stat.cyan>.tezz-stat-icon{
+  color:#EF4444!important;background:rgba(239,68,68,.11)!important;
+}
+.tezz-main .tezz-hero .tezz-stat.violet>.tezz-stat-icon{
+  color:#FF9E7D!important;background:rgba(255,158,125,.18)!important;
+}
+.tezz-main .tezz-hero .tezz-stat.green>.tezz-stat-icon,
+.tezz-main .tezz-hero .tezz-stat.red>.tezz-stat-icon{
+  color:#18181B!important;background:rgba(250,204,21,.32)!important;
+}
