@@ -30,32 +30,32 @@ The Blog contains 37 articles. The repository shows a material difference betwee
 
 Examples of extracted visible text (approximate counts; HTML tags, scripts and styles excluded):
 
-| Article | Approx. words | Source links found |
+| Article | Approx. words | External reference URLs* |
 |---|---:|---:|
-| The Internet in 2040, 2075 and 2125 | 3,993 | 13 |
-| Internet Resilience | 4,555 | 13 |
-| Greener Internet | 4,368 | 12 |
-| Matter and Thread | 3,711 | 13 |
-| Network Slicing | 4,275 | 11 |
-| 5G-Advanced | 3,445 | 11 |
-| AI-Native Networks | 3,087 | 11 |
-| DNS Security / DNSSEC | 3,030 | 8 |
-| IPv6 Explained | 2,890 | 9 |
-| Post-Quantum Cryptography | 2,602 | 7 |
-| ISP speed assessment | 538 | 3 |
-| Internet slow at night | 582 | 3 |
+| The Internet in 2040, 2075 and 2125 | 3,993 | 12 |
+| Internet Resilience | 4,555 | 12 |
+| Greener Internet | 4,368 | 11 |
+| Matter and Thread | 3,711 | 12 |
+| Network Slicing | 4,275 | 10 |
+| 5G-Advanced | 3,445 | 10 |
+| AI-Native Networks | 3,087 | 10 |
+| DNS Security / DNSSEC | 3,030 | 7 |
+| IPv6 Explained | 2,890 | 8 |
+| Post-Quantum Cryptography | 2,602 | 6 |
+| ISP speed assessment | 538 | 2 |
+| Internet slow at night | 582 | 2 |
 | VPN and internet speed | 557 | 1 |
 | Strong Wi-Fi, slow internet | 541 | 2 |
-| Video buffering | 535 | 2 |
+| Video buffering | 535 | 1 |
 | Different speed-test results | 527 | 1 |
 | Phone Wi-Fi slower than laptop | 486 | 2 |
-| Airplane mode | 530 | 2 |
-| Wi-Fi calling | 599 | 2 |
-| 4K streaming data use | 540 | 1 |
-| eSIM vs physical SIM | 585 | 2 |
+| Airplane mode | 530 | 3 |
+| Wi-Fi calling | 599 | 3 |
+| 4K streaming data use | 540 | 2 |
+| eSIM vs physical SIM | 585 | 3 |
 | Data roaming | 606 | 2 |
 
-These counts are diagnostics, not a word-count policy. A 500-word article can be useful; the concern is whether the article adds original value beyond a short generic checklist. The sampled short articles use similar patterns: brief introduction, generic section sequence, takeaway, sources and related links. Several have only one or two substantive external references.
+*External URL counts exclude TEZZ CONNECT URLs, Unsplash image URLs and the generic Schema.org structured-data context. These counts are diagnostics, not a word-count policy. A 500-word article can be useful; the concern is whether the article adds original value beyond a short generic checklist. The sampled short articles use similar patterns: brief introduction, generic section sequence, takeaway, sources and related links. Several have only one or two substantive external references.
 
 **Pages for first editorial review:**  
 - `/blog/check-isp-internet-speed/`
