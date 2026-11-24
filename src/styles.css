@@ -3708,3 +3708,10 @@ html body .tezz-main .footer-note{color:#18181B!important}
 .starter-tool-card>.section-kicker{color:#EF4444!important}
 .doctor-symbol,.tezz-health-title svg,.edge-map-live i,.edge-map-dot.real{color:#FACC15!important}
 .tezz-hero .tezz-stat>span,.tezz-hero .tezz-stat>strong{color:#18181B!important}
+
+
+/* Footer copyright is body text, not a yellow accent. */
+html body .tezz-main footer>span:first-child{color:#18181B!important}
+html body .tezz-main footer .footer-dot{color:#FACC15!important}
+html body .tezz-main footer>span:nth-child(2) a,
+html body .tezz-main footer .footer-language-links a{color:#EF4444!important}
