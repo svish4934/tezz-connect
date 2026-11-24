@@ -5349,3 +5349,154 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 [class*="footer"] [class*="gradient"]{
   background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
 }
+
+
+/* Network Tools page — replace the remaining legacy blue/green theme.
+   Palette-only overrides; preserve component structure, spacing and behavior. */
+.starter-tools-stack,
+.starter-tools-heading,
+.starter-tool-card,
+.latency-tool-card,
+.network-intel-panel,
+.network-intel-panel .doctor-heading,
+.network-intel-panel .network-capabilities>div,
+.latency-primary-result,
+.latency-metrics-grid>div,
+.stability-monitor-card,
+.stability-monitor-summary>div,
+.stability-chart-wrap,
+.network-capabilities>div,
+.starter-wifi-advice,
+.starter-dns-answer{
+  background:#FFFFFF!important;
+  color:#18181B!important;
+  border-color:#E4E4E7!important;
+  box-shadow:0 8px 24px rgba(24,24,27,.045)!important;
+}
+.starter-tool-card h3,
+.starter-tools-heading h3,
+.latency-tool-heading h3,
+.stability-monitor-heading h3,
+.network-intel-panel .doctor-heading h2,
+.network-intel-panel .network-capabilities strong,
+.latency-primary-result>strong,
+.latency-metrics-grid strong,
+.stability-monitor-summary strong,
+.starter-result-value,
+.starter-dns-answer strong{
+  color:#18181B!important;
+}
+.starter-tool-card>p,
+.starter-privacy-note,
+.starter-result-caption,
+.starter-dns-output,
+.starter-tools-heading p,
+.latency-tool-heading p,
+.latency-primary-result>span,
+.latency-primary-result p,
+.latency-metrics-grid span,
+.stability-monitor-summary span,
+.network-intel-panel .doctor-heading p,
+.network-intel-panel .network-capabilities span,
+.starter-dns-answer span{
+  color:#52525B!important;
+}
+.starter-tool-icon,
+.network-intel-panel .doctor-symbol,
+.network-intel-panel .network-symbol,
+.starter-tool-card .tool-icon{
+  background:#FFF7ED!important;
+  color:#EF4444!important;
+  border:1px solid #E4E4E7!important;
+}
+.starter-result-value,
+.starter-dns-form input,
+.starter-dns-form select,
+.starter-tool-card>select,
+.network-intel-panel input,
+.network-intel-panel select{
+  background:#FFFFFF!important;
+  color:#18181B!important;
+  border:1px solid #E4E4E7!important;
+}
+.starter-dns-form label,.starter-tool-card>label{
+  color:#52525B!important;
+}
+.starter-tool-card .doctor-run-test,
+.network-intel-panel .doctor-run-test,
+.latency-run-button,
+.starter-tools-stack button,
+.network-intel-panel button{
+  background:#EF4444!important;
+  border:1px solid #EF4444!important;
+  color:#FFFFFF!important;
+  box-shadow:0 7px 17px rgba(239,68,68,.16)!important;
+}
+.starter-tool-card .doctor-run-test *,
+.network-intel-panel .doctor-run-test *,
+.latency-run-button *,
+.starter-tools-stack button *,
+.network-intel-panel button *{
+  color:#FFFFFF!important;
+}
+.starter-tool-card .doctor-run-test:hover:not(:disabled),
+.network-intel-panel .doctor-run-test:hover:not(:disabled),
+.latency-run-button:hover:not(:disabled),
+.starter-tools-stack button:hover:not(:disabled),
+.network-intel-panel button:hover:not(:disabled){
+  background:#DC2626!important;border-color:#DC2626!important;
+}
+.starter-tool-card button:disabled,
+.network-intel-panel button:disabled,
+.latency-run-button:disabled{opacity:.58!important}
+.network-intel-panel .section-kicker,
+.starter-tool-card .section-kicker,
+.latency-tool-heading .section-kicker,
+.stability-monitor-heading .section-kicker{
+  color:#52525B!important;
+}
+.network-intel-panel .network-reachability,
+.network-intel-panel .network-status,
+.network-intel-panel .doctor-status{
+  background:#FFF7ED!important;
+  border-color:#FF9E7D!important;
+  color:#18181B!important;
+}
+.network-intel-panel .network-reachability strong,
+.network-intel-panel .network-status strong,
+.network-intel-panel .doctor-status strong{
+  color:#18181B!important;
+}
+.network-intel-panel .network-reachability .status-dot,
+.network-intel-panel .finding-dot,
+.latency-live-dot.running{
+  background:#EF4444!important;
+  box-shadow:0 0 0 5px rgba(239,68,68,.12)!important;
+}
+.latency-sample-track span{background:#E4E4E7!important}
+.latency-sample-track span.sample-done{background:#FF9E7D!important}
+.latency-sample-track span.sample-failed{background:#EF4444!important}
+.latency-stability-note{
+  background:#FFF7ED!important;border-color:#E4E4E7!important;color:#18181B!important;
+}
+.latency-stability-note strong{color:#18181B!important}
+.latency-stability-note p{color:#52525B!important}
+.latency-stability-note.low{border-left-color:#FACC15!important}
+.latency-stability-note.moderate{border-left-color:#FF9E7D!important}
+.latency-stability-note.high{border-left-color:#EF4444!important;background:#FFF7ED!important}
+.stability-chart-line{stroke:#EF4444!important}
+.stability-chart-point{fill:#FF9E7D!important}
+.stability-grid-line{stroke:#E4E4E7!important}
+.stability-chart-empty{background:#FFFFFF!important;color:#52525B!important}
+.stability-monitor-card .latency-live-dot{
+  background:#FACC15!important;
+  box-shadow:0 0 0 5px rgba(250,204,21,.18)!important;
+}
+.stability-monitor-card .latency-live-dot.running{
+  background:#EF4444!important;
+  box-shadow:0 0 0 5px rgba(239,68,68,.14)!important;
+}
+.network-intel-panel .doctor-disclaimer{
+  background:#FFFFFF!important;border-color:#E4E4E7!important;color:#52525B!important;
+}
+.network-intel-panel .doctor-disclaimer svg{color:#EF4444!important}
