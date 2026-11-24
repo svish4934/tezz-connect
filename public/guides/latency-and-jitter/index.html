@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Latency, Ping and Jitter Explained | TEZZ CONNECT</title><meta name="description" content="Understand internet latency, ping and jitter, why they affect gaming and video calls, and how to investigate high response times."><link rel="canonical" href="https://tezzconnect.online/guides/latency-and-jitter/">
 <meta property="og:url" content="https://tezzconnect.online/guides/latency-and-jitter/"><meta property="og:type" content="article"><meta property="og:title" content="Latency, Ping and Jitter Explained"><meta property="og:description" content="What is jitter in a speed test, and how is it different from latency or ping? Learn what response-time variation means for gaming, calls and browsing."><link rel="stylesheet" href="/guides/guides.css"><style>
-.latency-sim{margin:30px 0;padding:clamp(18px,3vw,26px);border:1px solid #d8e5ef;border-radius:18px;background:linear-gradient(135deg,#f1f8fc,#fff);box-shadow:0 10px 28px rgba(20,48,75,.045)}
+.latency-sim{margin:30px 0;padding:clamp(18px,3vw,26px);border:1px solid #F4F4F5;border-radius:18px;background:linear-gradient(135deg,#F4F4F5,#FAFAFA);box-shadow:0 10px 28px rgba(24, 24, 27,.045)}
 .latency-sim h2{margin:7px 0 9px;font-size:clamp(22px,4vw,29px);line-height:1.2}
-.latency-sim>p{color:#566c81;font-size:14px}
+.latency-sim>p{color:#18181B;font-size:14px}
 .latency-sim-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.9fr);gap:16px;margin-top:18px}
 .latency-sim-controls{display:grid;gap:10px}
-.latency-sim-control{padding:13px 14px;border:1px solid #dce7ef;border-radius:12px;background:#fff}
-.latency-sim-control label{display:flex;justify-content:space-between;gap:10px;color:#29445e;font-size:13px;font-weight:800}
-.latency-sim-control output{color:#147e91;white-space:nowrap}
+.latency-sim-control{padding:13px 14px;border:1px solid #F4F4F5;border-radius:12px;background:#FAFAFA}
+.latency-sim-control label{display:flex;justify-content:space-between;gap:10px;color:#18181B;font-size:13px;font-weight:800}
+.latency-sim-control output{color:#18181B;white-space:nowrap}
 .latency-sim-control input,.latency-sim-control select{display:block;width:100%;margin:11px 0 4px}
-.latency-sim-control input{accent-color:#167d9b}
-.latency-sim-control select{padding:9px;border:1px solid #cbd9e4;border-radius:8px;background:#fff;color:#203b52}
-.latency-sim-control small{color:#718397;font-size:11px}
-.latency-sim-result{padding:17px;border-radius:14px;background:#10283e;color:#fff}
-.latency-sim-result>span{color:#9edfe5;font-size:10px;font-weight:850;letter-spacing:.13em}
-.latency-sim-status{margin:9px 0 5px;color:#7ce2e6;font-size:20px;font-weight:850}
-.latency-sim-result p{color:#d1e1eb;font-size:12px;line-height:1.55}
-.latency-bars{display:flex;align-items:end;gap:7px;height:112px;margin:16px 0 8px;padding:9px 10px 0;border-bottom:1px solid #587084}
-.latency-bars span{flex:1;min-width:0;height:20%;border-radius:5px 5px 0 0;background:#66d2d5;transition:height .18s ease}
-.latency-bars span.is-lost{background:repeating-linear-gradient(135deg,#f0bd68 0 5px,#855d37 5px 10px)}
-.latency-bar-legend{display:flex;justify-content:space-between;gap:8px;color:#b8cfdd;font-size:10px}
-.latency-sim-note{margin:14px 0 0;padding:12px 14px;border-left:3px solid #d1a04a;border-radius:0 9px 9px 0;background:#fff8eb;color:#66512f!important;font-size:12px!important}
+.latency-sim-control input{accent-color:#18181B}
+.latency-sim-control select{padding:9px;border:1px solid #F4F4F5;border-radius:8px;background:#FAFAFA;color:#18181B}
+.latency-sim-control small{color:#FACC15;font-size:11px}
+.latency-sim-result{padding:17px;border-radius:14px;background:#18181B;color:#FAFAFA}
+.latency-sim-result>span{color:#EF4444;font-size:10px;font-weight:850;letter-spacing:.13em}
+.latency-sim-status{margin:9px 0 5px;color:#FACC15;font-size:20px;font-weight:850}
+.latency-sim-result p{color:#F4F4F5;font-size:12px;line-height:1.55}
+.latency-bars{display:flex;align-items:end;gap:7px;height:112px;margin:16px 0 8px;padding:9px 10px 0;border-bottom:1px solid #18181B}
+.latency-bars span{flex:1;min-width:0;height:20%;border-radius:5px 5px 0 0;background:#FACC15;transition:height .18s ease}
+.latency-bars span.is-lost{background:repeating-linear-gradient(135deg,#FF9E7D 0 5px,#18181B 5px 10px)}
+.latency-bar-legend{display:flex;justify-content:space-between;gap:8px;color:#EF4444;font-size:10px}
+.latency-sim-note{margin:14px 0 0;padding:12px 14px;border-left:3px solid #FF9E7D;border-radius:0 9px 9px 0;background:#FAFAFA;color:#18181B!important;font-size:12px!important}
 @media(max-width:640px){.latency-sim-grid{grid-template-columns:1fr}.latency-sim-result{order:-1}}
 @media(prefers-reduced-motion:reduce){.latency-bars span{transition:none}}
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Latency, Ping and Jitter Explained","description":"A practical guide to internet response time and variation.","author":{"@type":"Organization","name":"TEZZ CONNECT"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"mainEntityOfPage":"https://tezzconnect.online/guides/latency-and-jitter/","datePublished":"2026-11-06","dateModified":"2026-11-06"}</script>

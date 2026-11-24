@@ -33,3 +33,30 @@ assert.match(worker, /Explore the Internet Knowledge Hub/, 'Crawler copy should 
 assert.match(worker, /Visit the Blog/, 'Crawler copy should retain the separate Blog link')
 
 console.log('English homepage SEO, FAQ parity and measurement-accuracy checks passed.')
+
+const balancedHomepageSections = [
+  'homepage-quick-explainer',
+  'homepage-blog-promo',
+  'Internet Knowledge Hub',
+  'TEZZ CONNECT EDITORIAL',
+  'homepage-faq',
+]
+for (const marker of balancedHomepageSections) {
+  assert.ok(app.includes(marker), 'Balanced homepage is missing ' + marker)
+}
+assert.match(app, /homepage-blog-promo[\s\S]*href="\/blog\//, 'Homepage should link to the separate Blog')
+assert.match(app, /home-knowledge-hub[\s\S]*href="\/guides\//, 'Homepage should link to the separate Knowledge Hub')
+assert.match(app, /benchmark-consent-panel/, 'Optional benchmark consent must remain available')
+assert.match(app, /tezz-feature-grid/, 'Homepage feature highlights must remain available')
+console.log('Balanced homepage section, destination and consent checks passed.')
+
+assert.equal((app.match(/<button onClick=\{\(\)=>navigateTo\('Network'\)\}/g) || []).length >= 2, true, 'Homepage should retain network tool navigation')
+assert.doesNotMatch(app, /homepage-causes-grid|homepage-next-steps/, 'Removed duplicate homepage sections should not return')
+console.log('Homepage-only scope and simplified-section regression checks passed.')
+
+
+const hubPosition = app.indexOf('className="home-knowledge-hub"')
+const homepageGuardPosition = app.lastIndexOf("{activeTab === 'Overview' && <>", hubPosition)
+const homepageGuardEnd = app.indexOf("</>}", hubPosition)
+assert.ok(homepageGuardPosition >= 0 && homepageGuardEnd > hubPosition, 'Hub, Blog, FAQ and benchmark panel must be scoped to the homepage')
+assert.ok(homepageGuardEnd < app.indexOf('<footer>', hubPosition), 'Homepage sections must close before the shared footer')
