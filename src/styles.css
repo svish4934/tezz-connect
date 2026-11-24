@@ -3559,3 +3559,29 @@ button,input,select,textarea{accent-color:#A5B4FC}
 input,select,textarea{color:var(--tezz-deep)}
 footer{color:#1E293B!important;border-color:#DDD6FE!important}
 a{ text-underline-offset:3px }
+
+
+/* Homepage contrast pass: keep pastel palette for surfaces and accents, not small text on light backgrounds. */
+.tezz-feature-grid button span,
+.homepage-hero-support li,
+.homepage-editorial p,
+.homepage-editorial small,
+.homepage-editorial .section-kicker,
+.tezz-social-panel .services-heading p,
+.tezz-social-panel .service-tile p,
+.tezz-social-panel .service-tile small,
+.tezz-social-panel .services-note,
+.home-knowledge-hub p,
+.home-knowledge-hub small,
+.home-knowledge-hub .knowledge-hub-all,
+.home-knowledge-hub .section-kicker,
+.benchmark-consent-panel p,
+.benchmark-consent-panel .section-kicker,
+.benchmark-consent-panel label,
+.benchmark-consent-panel small,
+.benchmark-consent-panel .benchmark-consent-note,
+.homepage-faq p,
+.homepage-faq small,
+.homepage-link-grid a span {
+  color:#1E293B!important;
+}
