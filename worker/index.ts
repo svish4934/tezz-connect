@@ -481,6 +481,11 @@ const app: ExportedHandler<Env> = {
       "/history",
       "/report",
     ])
+    const legacyLocaleRoute = url.pathname.match(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\/.*)?$/)
+    if (legacyLocaleRoute && (request.method === "GET" || request.method === "HEAD")) {
+      const englishPath = legacyLocaleRoute[2] || "/"
+      return Response.redirect(new URL(englishPath + url.search, url.origin), 301)
+    }
     const normalizedPath = url.pathname.replace(/\/+$/, "") || "/"
     const localizedAppMatch = normalizedPath.match(/^\/(hi|mr|bn|zh-CN|pt-BR|es|fr|ar)(\/.*)?$/)
     const localizedAppPath = localizedAppMatch
