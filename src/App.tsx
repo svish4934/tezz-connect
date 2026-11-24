@@ -340,6 +340,5 @@ function App() {
   const [localeBundle, setLocaleBundle] = useState<Record<string, unknown>>({})
 
   const copy = UI_COPY[language] ?? UI_COPY.en
-  function changeLanguage(_next: UiLanguage) { return }
 
 export default App
