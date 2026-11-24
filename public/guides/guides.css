@@ -94,3 +94,7 @@ body{background:linear-gradient(135deg,var(--wash),var(--cream) 58%,#FAF8F5)!imp
 .topic-card:hover,.guide-card:hover{border-color:var(--periwinkle)!important}
 
 /* Palette lock: use only #FAF8F5 #EEF2F6 #A5B4FC #86EFAC #FDA4AF #DDD6FE #1E293B. */
+
+
+/* Readability pass: pastel accents remain for surfaces and borders; text on light surfaces uses Deep Slate. */
+.crumb,.meta,.hero .eyebrow,.eyebrow,.guide-row small,.guide-visual figcaption,.related-guide-card span,.knowledge-check legend,.wifi-lab-legend,.wifi-range-labels,.hub-filter-status,.tool-card p,.tool-card a,.hub-hero h1 span,.topic-kicker,.topic-link,.text-link{color:#1E293B!important}
