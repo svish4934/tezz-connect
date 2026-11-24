@@ -3499,7 +3499,6 @@ footer a{color:#b7c6d8}
 
 
 /* Dopamine Sunset: shared site chrome only (header, mobile menu and footer). */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
 :root{--tezz-sunset-cloud:#FAFAFA;--tezz-sunset-peach:#FFF7ED;--tezz-sunset-red:#EF4444;--tezz-sunset-sorbet:#FF9E7D;--tezz-sunset-yellow:#FACC15;--tezz-sunset-ink:#18181B;--tezz-sunset-muted:#52525B}
 html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!important}
 .tezz-main{font-family:'Plus Jakarta Sans',system-ui,sans-serif!important;background:var(--tezz-sunset-cloud)!important;color:var(--tezz-sunset-ink)!important;min-height:100vh;display:flex;flex-direction:column}
