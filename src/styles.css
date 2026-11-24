@@ -4582,3 +4582,123 @@ button[title*="Cookie settings" i] *,
     font-size:12px!important;
   }
 }
+
+
+/* PR #282 targeted follow-up: reserve a full-height dial area before throughput.
+   Metric icons use 36px badges. Existing palette and measurement logic are untouched. */
+.tezz-main .tezz-hero .signature-live-meter{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  height:auto!important;
+  min-height:240px!important;
+  gap:0!important;
+  overflow:visible!important;
+  position:relative!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before,
+.tezz-main .tezz-hero .signature-live-meter::after{
+  top:20px!important;
+  left:50%!important;
+  width:min(76%,240px)!important;
+  height:auto!important;
+  aspect-ratio:1!important;
+  transform:translateX(-50%)!important;
+  pointer-events:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-gauge-wrap{
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:240px!important;
+  flex:0 0 auto!important;
+  gap:8px!important;
+  isolation:isolate!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-topline,
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading,
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-caption{
+  position:relative!important;
+  z-index:1!important;
+  flex:0 0 auto!important;
+  margin:0!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+  min-height:122px!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale{
+  position:relative!important;
+  z-index:1!important;
+  width:min(100%,560px)!important;
+  max-width:560px!important;
+  height:auto!important;
+  margin:24px 0 0!important;
+  flex:0 0 auto!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart{
+  position:relative!important;
+  z-index:1!important;
+  width:min(100%,560px)!important;
+  height:48px!important;
+  margin:12px 0 0!important;
+  flex:0 0 auto!important;
+}
+.tezz-main .tezz-hero .tezz-stat{
+  display:grid!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
+  align-items:center!important;
+  column-gap:10px!important;
+}
+.tezz-main .tezz-hero .tezz-stat .tezz-stat-icon{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:36px!important;
+  height:36px!important;
+  border-radius:10px!important;
+  flex-shrink:0!important;
+  box-sizing:border-box!important;
+  grid-row:1 / span 2!important;
+}
+.tezz-main .tezz-hero .tezz-stat .tezz-stat-icon svg{
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  flex:0 0 18px!important;
+}
+.tezz-main .tezz-hero .tezz-stat>span,
+.tezz-main .tezz-hero .tezz-stat>strong{
+  min-width:0!important;
+  align-self:end!important;
+}
+.tezz-main .tezz-hero .tezz-stat>strong{
+  align-self:start!important;
+  font-family:'Space Mono',monospace!important;
+  font-variant-numeric:tabular-nums lining-nums!important;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-hero .signature-live-meter{
+    height:auto!important;
+    min-height:240px!important;
+  }
+  .tezz-main .tezz-hero .signature-live-meter::before,
+  .tezz-main .tezz-hero .signature-live-meter::after{
+    top:18px!important;
+    width:min(78%,220px)!important;
+  }
+  .tezz-main .tezz-hero .signature-live-meter .tezz-gauge-wrap{
+    min-height:240px!important;
+  }
+  .tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale{
+    margin-top:24px!important;
+  }
+  .tezz-main .tezz-hero .tezz-stat{
+    grid-template-columns:36px minmax(0,1fr)!important;
+    column-gap:9px!important;
+  }
+}
