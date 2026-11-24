@@ -1531,6 +1531,7 @@ function App() {
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
           </>}
+          {activeTab === 'Overview' && <>
           <section className="home-knowledge-hub" aria-labelledby="knowledge-hub-title">
             <div className="knowledge-hub-heading">
               <div>
@@ -1599,6 +1600,7 @@ function App() {
               <div className="benchmark-consent-status" role="status">{benchmarkStatus || (benchmarkConsent ? 'Opt-in is enabled.' : 'Benchmark sharing is off by default.')}</div>
             </div>
           </section>
+          </>}
           <footer><span>© 2026 TEZZ CONNECT <span className="footer-dot">•</span> Proudly built in India 🇮🇳</span><span><a href="/guides/">GUIDES</a> <span className="footer-dot">•</span> <a href="/privacy-policy/">PRIVACY</a> <span className="footer-dot">•</span> <a href="/terms-of-use/">TERMS</a> <span className="footer-dot">•</span> <a href="/cookie-policy/">COOKIES</a> <span className="footer-dot">•</span> <a href="/affiliate-disclosure/">AFFILIATE DISCLOSURE</a></span><nav aria-label="Available languages" className="footer-language-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 14px', marginTop: '10px' }}>{UI_LANGUAGES.map(item => <a key={item.code} href={localizedPath(item.code as UiLanguage, '/')}>{item.native}</a>)}</nav></footer>
         </div>
       </main>
