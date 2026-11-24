@@ -38,14 +38,18 @@ for (const [name, path] of appRoutes) {
 }
 
 
-for (const [name, path] of [
-  ['Simplified Chinese localized homepage route', '/zh-CN/'],
-  ['Brazilian Portuguese localized tools route', '/pt-BR/tools'],
-  ['Arabic localized homepage route', '/ar/'],
+for (const [name, path, destination] of [
+  ['Hindi legacy homepage redirect', '/hi/', '/'],
+  ['Marathi legacy homepage redirect', '/mr/', '/'],
+  ['Bengali legacy homepage redirect', '/bn/', '/'],
+  ['Chinese legacy homepage redirect', '/zh-CN/', '/'],
+  ['Portuguese legacy tools redirect', '/pt-BR/tools', '/tools'],
+  ['Spanish legacy homepage redirect', '/es/', '/'],
+  ['French legacy homepage redirect', '/fr/', '/'],
+  ['Arabic legacy homepage redirect', '/ar/', '/'],
 ]) {
-  await check(name, path, (r, body) =>
-    r.status === 200 && r.headers.get('content-type')?.includes('text/html') &&
-    body.includes('<div id="root"') && body.includes('/assets/'))
+  await check(name, path, r =>
+    r.status === 301 && r.headers.get('location') === new URL(destination, baseUrl).toString())
 }
 
 await check('Cloudflare country locale endpoint', '/locale-country', (r, body) => {
@@ -86,27 +90,6 @@ for (const [name, path, expected, title, canonical, description] of [
   }, { headers: { 'user-agent': 'Googlebot' } })
 }
 
-for (const [name, path, locale, title, canonical] of [
-  ['Hindi homepage crawler metadata', '/hi/', 'hi', 'मुफ़्त इंटरनेट स्पीड टेस्ट | TEZZ CONNECT', 'https://tezzconnect.online/hi/'],
-  ['Marathi about crawler metadata', '/mr/about', 'mr', 'TEZZ CONNECT विषयी', 'https://tezzconnect.online/mr/about'],
-  ['Bengali network tools crawler metadata', '/bn/tools', 'bn', 'নেটওয়ার্ক টুলস | TEZZ CONNECT', 'https://tezzconnect.online/bn/tools'],
-  ['Simplified Chinese homepage crawler metadata', '/zh-CN/', 'zh-CN', '免费网速测试 | TEZZ CONNECT', 'https://tezzconnect.online/zh-CN/'],
-  ['Brazilian Portuguese homepage crawler metadata', '/pt-BR/', 'pt-BR', 'Teste de velocidade grátis | TEZZ CONNECT', 'https://tezzconnect.online/pt-BR/'],
-  ['Spanish homepage crawler metadata', '/es/', 'es', 'Prueba de velocidad gratis | TEZZ CONNECT', 'https://tezzconnect.online/es/'],
-  ['French homepage crawler metadata', '/fr/', 'fr', 'Test de débit gratuit | TEZZ CONNECT', 'https://tezzconnect.online/fr/'],
-  ['Arabic homepage crawler metadata', '/ar/', 'ar', 'اختبار سرعة مجاني | TEZZ CONNECT', 'https://tezzconnect.online/ar/'],
-]) {
-  await check(name, path, (r, body) => {
-    const missing = []
-    if (r.status !== 200) missing.push(`status=${r.status}`)
-    if (!body.includes(`<html lang="${locale}"`)) missing.push('localized html lang missing')
-    if (!body.includes(`<title>${title}</title>`)) missing.push('localized title missing')
-    if (!body.includes(`href="${canonical}"`)) missing.push('localized canonical missing')
-    if (!body.includes(`hreflang="${locale}"`)) missing.push('localized hreflang missing')
-    if (!body.includes('hreflang="x-default"')) missing.push('x-default hreflang missing')
-    return missing.length ? missing.join(', ') : true
-  }, { headers: { 'user-agent': 'Googlebot' } })
-}
 
 for (const [name, path] of [
   ['Home browser fallback hidden', '/'],
