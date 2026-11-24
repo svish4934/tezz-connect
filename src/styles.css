@@ -5574,3 +5574,72 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
     box-sizing:border-box!important;
   }
 }
+
+
+/* Minimal homepage: keep the speed test primary and reduce secondary content noise. */
+@media(min-width:768px){
+  .tezz-main .homepage-hero-support .tezz-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+.tezz-main .homepage-quick-explainer{
+  margin:24px auto 0!important;
+  padding:24px!important;
+  border:1px solid #E4E4E7!important;
+  border-radius:22px!important;
+  background:#FFFFFF!important;
+  box-shadow:0 8px 24px rgba(24,24,27,.035)!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-section-heading{
+  margin-bottom:18px!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-section-heading h2{
+  color:#18181B!important;
+  margin-top:6px!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-section-heading p{
+  color:#52525B!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid article{
+  min-width:0!important;
+  padding:16px!important;
+  border:1px solid #E4E4E7!important;
+  border-radius:14px!important;
+  background:#FFFFFF!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-measurement-number{
+  display:inline-grid!important;
+  place-items:center!important;
+  width:32px!important;
+  height:32px!important;
+  border-radius:10px!important;
+  background:#FFF7ED!important;
+  color:#EF4444!important;
+  font-weight:700!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid h3{
+  color:#18181B!important;
+  margin:12px 0 6px!important;
+}
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid p{
+  color:#52525B!important;
+}
+@media(max-width:767px){
+  .tezz-main .homepage-quick-explainer{
+    margin-top:16px!important;
+    padding:17px!important;
+    border-radius:18px!important;
+  }
+  .tezz-main .homepage-quick-explainer .homepage-measurement-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+  }
+  .tezz-main .homepage-quick-explainer .homepage-measurement-grid article{
+    padding:12px!important;
+  }
+}
