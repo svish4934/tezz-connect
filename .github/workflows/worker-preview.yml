@@ -38,7 +38,7 @@ jobs:
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID repository secret"; exit 1; }
           output="$(npx wrangler preview --name "$PREVIEW_NAME" --json)"
           printf '%s\n' "$output"
-          preview_url="$(printf '%s\\n' "$output" | grep -Eo 'https://pr-[^"]+\\.workers\\.dev' | head -n 1)"
+          preview_url="$(printf '%s\\n' "$output" | grep -Eo 'https://pr-[^"]+[.]workers[.]dev' | head -n 1)"
           test -n "$preview_url" || { echo "Wrangler did not return a PR Preview URL"; exit 1; }
           echo "url=$preview_url" >> "$GITHUB_OUTPUT"
       - name: Comment Preview URL on pull request
