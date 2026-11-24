@@ -1,26 +1,26 @@
 /* TEZZ CONNECT Blog homepage refresh — scoped to the Blog landing page */
 body.tc-blog-home {
-  --tb-navy:#1E293B;
-  --tb-blue:#1E293B;
-  --tb-cyan:#86EFAC;
-  --tb-ink:#1E293B;
-  --tb-muted:#1E293B;
-  --tb-line:#EEF2F6;
-  background:#FAF8F5;
+  --tb-navy:#18181B;
+  --tb-blue:#18181B;
+  --tb-cyan:#FACC15;
+  --tb-ink:#18181B;
+  --tb-muted:#18181B;
+  --tb-line:#F4F4F5;
+  background:#FAFAFA;
 }
 body.tc-blog-home .tb-header {
   max-width:1200px;
   min-height:82px;
   padding:16px 30px;
   border:0;
-  background:#FAF8F5;
+  background:#FAFAFA;
 }
 body.tc-blog-home .tb-brand strong {font-size:21px;letter-spacing:-.8px}
-body.tc-blog-home .tb-header nav a {font-size:13px;font-weight:650;color:#1E293B}
+body.tc-blog-home .tb-header nav a {font-size:13px;font-weight:650;color:#18181B}
 body.tc-blog-home .tb-header nav a:hover {color:var(--tb-blue)}
-body.tc-blog-home .tb-header form {background:#FAF8F5;border-color:#EEF2F6;border-radius:999px}
+body.tc-blog-home .tb-header form {background:#FAFAFA;border-color:#F4F4F5;border-radius:999px}
 body.tc-blog-home .tb-header input {width:190px;padding:10px 14px;background:transparent}
-body.tc-blog-home .tb-header button {width:40px;background:#EEF2F6}
+body.tc-blog-home .tb-header button {width:40px;background:#F4F4F5}
 body.tc-blog-home main {max-width:1200px;padding:0 30px}
 body.tc-blog-home .tb-hero {
   position:relative;
@@ -29,10 +29,10 @@ body.tc-blog-home .tb-hero {
   margin:18px 0 34px;
   padding:54px 58px;
   overflow:hidden;
-  border:1px solid #EEF2F6;
+  border:1px solid #F4F4F5;
   border-radius:24px;
-  background:linear-gradient(112deg,#EEF2F6 0%,#FAF8F5 55%,#EEF2F6 100%);
-  box-shadow:0 12px 35px rgba(30, 41, 59,.045);
+  background:linear-gradient(112deg,#F4F4F5 0%,#FAFAFA 55%,#F4F4F5 100%);
+  box-shadow:0 12px 35px rgba(24, 24, 27,.045);
 }
 body.tc-blog-home .tb-hero:after {
   content:"";
@@ -40,9 +40,9 @@ body.tc-blog-home .tb-hero:after {
   z-index:-1;
   width:390px;height:390px;
   right:4%;top:-45%;
-  border:1px solid rgba(30, 41, 59,.13);
+  border:1px solid rgba(24, 24, 27,.13);
   border-radius:50%;
-  box-shadow:0 0 0 32px rgba(30, 41, 59,.035),0 0 0 68px rgba(30, 41, 59,.025),0 0 0 108px rgba(30, 41, 59,.018);
+  box-shadow:0 0 0 32px rgba(24, 24, 27,.035),0 0 0 68px rgba(24, 24, 27,.025),0 0 0 108px rgba(24, 24, 27,.018);
 }
 body.tc-blog-home .tb-kicker {font-size:10px;letter-spacing:1.8px}
 body.tc-blog-home .tb-hero h1 {
@@ -54,30 +54,30 @@ body.tc-blog-home .tb-hero h1 {
 }
 body.tc-blog-home .tb-hero p {max-width:570px;font-size:15px;line-height:1.75}
 body.tc-blog-home .tb-button {padding:12px 18px;border-radius:999px;font-size:12px;transition:transform .18s ease,box-shadow .18s ease}
-body.tc-blog-home .tb-button:hover {transform:translateY(-2px);box-shadow:0 7px 18px rgba(30, 41, 59,.15)}
+body.tc-blog-home .tb-button:hover {transform:translateY(-2px);box-shadow:0 7px 18px rgba(24, 24, 27,.15)}
 body.tc-blog-home .tb-router-art {
   width:min(100%,300px);
   height:250px;
   justify-self:center;
-  border:1px solid rgba(30, 41, 59,.12);
-  background:radial-gradient(circle at 50% 42%,#DDD6FE 0,#EEF2F6 43%,rgba(238, 242, 246,.25) 70%);
-  color:#1E293B;
+  border:1px solid rgba(24, 24, 27,.12);
+  background:radial-gradient(circle at 50% 42%,#F4F4F5 0,#F4F4F5 43%,rgba(238, 242, 246,.25) 70%);
+  color:#18181B;
 }
-body.tc-blog-home .tb-router-art span {font-size:104px;color:#86EFAC}
+body.tc-blog-home .tb-router-art span {font-size:104px;color:#FACC15}
 body.tc-blog-home .tb-router-art b {font-size:15px;letter-spacing:2px}
 body.tc-blog-home .tb-feature {
   grid-template-columns:.78fr 1.22fr;
   margin:0 0 64px;
   border:1px solid var(--tb-line);
   border-radius:18px;
-  background:#FAF8F5;
-  box-shadow:0 8px 24px rgba(30, 41, 59,.035);
+  background:#FAFAFA;
+  box-shadow:0 8px 24px rgba(24, 24, 27,.035);
 }
 body.tc-blog-home .tb-feature-art {
   position:relative;
   overflow:hidden;
   min-height:220px;
-  background:radial-gradient(circle at 75% 25%,#1E293B 0,#1E293B 38%,#1E293B 82%);
+  background:radial-gradient(circle at 75% 25%,#18181B 0,#18181B 38%,#18181B 82%);
   font-size:25px;letter-spacing:2.8px;
 }
 body.tc-blog-home .tb-feature-art:after {
@@ -100,21 +100,21 @@ body.tc-blog-home .tb-category {
   padding:19px 17px;
   border:1px solid var(--tb-line);
   border-radius:14px;
-  background:#FAF8F5;
+  background:#FAFAFA;
   transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
 }
-body.tc-blog-home .tb-category:hover {transform:translateY(-3px);border-color:#DDD6FE;box-shadow:0 9px 20px rgba(30, 41, 59,.055)}
+body.tc-blog-home .tb-category:hover {transform:translateY(-3px);border-color:#F4F4F5;box-shadow:0 9px 20px rgba(24, 24, 27,.055)}
 body.tc-blog-home .tb-category b {font-size:13px;line-height:1.4}
 body.tc-blog-home .tb-category small {font-size:11px;line-height:1.55}
 body.tc-blog-home .tb-grid {grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 body.tc-blog-home .tb-card {
   border:1px solid var(--tb-line);
   border-radius:16px;
-  background:#FAF8F5;
-  box-shadow:0 5px 18px rgba(30, 41, 59,.025);
+  background:#FAFAFA;
+  box-shadow:0 5px 18px rgba(24, 24, 27,.025);
   transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
 }
-body.tc-blog-home .tb-card:hover {transform:translateY(-4px);border-color:#DDD6FE;box-shadow:0 13px 28px rgba(30, 41, 59,.09)}
+body.tc-blog-home .tb-card:hover {transform:translateY(-4px);border-color:#F4F4F5;box-shadow:0 13px 28px rgba(24, 24, 27,.09)}
 body.tc-blog-home .tb-card-art {aspect-ratio:16/9}
 body.tc-blog-home .tb-card-art img {transition:transform .35s ease}
 body.tc-blog-home .tb-card-copy {display:flex;flex-direction:column;align-items:flex-start;min-height:190px;padding:18px 19px 17px}
@@ -122,7 +122,7 @@ body.tc-blog-home .tb-card-copy small {font-size:9px;letter-spacing:.8px}
 body.tc-blog-home .tb-card-copy h3 {font-size:17px;line-height:1.35;letter-spacing:-.25px;margin:8px 0}
 body.tc-blog-home .tb-card-copy p {font-size:12px;line-height:1.65}
 body.tc-blog-home .tb-status {margin-top:auto;padding:5px 0 0;background:transparent;color:var(--tb-blue);font-size:11px;font-weight:750}
-body.tc-blog-home .tb-note {margin:0 0 58px;padding:23px 26px;border-color:#EEF2F6;background:#EEF2F6;border-radius:14px}
+body.tc-blog-home .tb-note {margin:0 0 58px;padding:23px 26px;border-color:#F4F4F5;background:#F4F4F5;border-radius:14px}
 body.tc-blog-home .tb-note strong {color:var(--tb-navy);font-size:14px}
 body.tc-blog-home .tb-note p {font-size:12px;line-height:1.7}
 body.tc-blog-home .tb-footer {padding-top:40px;padding-bottom:40px}
@@ -175,25 +175,27 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 
 
 /* TEZZ CONNECT shared pastel brand palette */
-:root{--tb-navy:#1E293B;--tb-blue:#A5B4FC;--tb-cyan:#86EFAC;--tb-ink:#1E293B;--tb-muted:#1E293B;--tb-line:#DDD6FE;--tb-cream:#FAF8F5;--tb-mist:#EEF2F6;--tb-periwinkle:#A5B4FC;--tb-matcha:#86EFAC;--tb-peach:#FDA4AF;--tb-lilac:#DDD6FE}
+:root{--tb-navy:#18181B;--tb-blue:#EF4444;--tb-cyan:#FACC15;--tb-ink:#18181B;--tb-muted:#18181B;--tb-line:#F4F4F5;--tb-cream:#FAFAFA;--tb-mist:#F4F4F5;--tb-periwinkle:#EF4444;--tb-matcha:#FACC15;--tb-peach:#FF9E7D;--tb-lilac:#F4F4F5}
 .tc-blog{background:var(--tb-cream)!important;color:var(--tb-ink)!important}
 .tb-header{background:var(--tb-cream)!important;border-color:var(--tb-line)!important}
 .tb-brand,.tb-brand strong,.tb-brand b,.tb-hero h1,.tb-feature h2,.tb-section h2,.tb-card-copy h3,.tb-listing h1,.tb-article h1{color:var(--tb-navy)!important}
-.tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small{color:#A5B4FC!important}
-.tb-hero{background:linear-gradient(120deg,var(--tb-mist),var(--tb-cream) 62%,#FAF8F5)!important;border-color:var(--tb-line)!important}
-.tb-hero h1 em{color:#A5B4FC!important}
+.tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small{color:#EF4444!important}
+.tb-hero{background:linear-gradient(120deg,var(--tb-mist),var(--tb-cream) 62%,#FAFAFA)!important;border-color:var(--tb-line)!important}
+.tb-hero h1 em{color:#EF4444!important}
 .tb-router-art{background:radial-gradient(circle,var(--tb-lilac),var(--tb-mist) 65%,transparent 72%)!important;color:var(--tb-navy)!important}
 .tb-feature,.tb-card,.tb-category,.tb-note,.tb-draft{background:var(--tb-cream)!important;border-color:var(--tb-line)!important}
-.tb-feature-art,.tb-card-art{background:linear-gradient(135deg,var(--tb-periwinkle),var(--tb-lilac))!important;color:var(--tb-deep,#1E293B)!important}
+.tb-feature-art,.tb-card-art{background:linear-gradient(135deg,var(--tb-periwinkle),var(--tb-lilac))!important;color:var(--tb-deep,#18181B)!important}
 .tb-button{background:var(--tb-periwinkle)!important;color:var(--tb-navy)!important}
 .tb-light{background:var(--tb-mist)!important;color:var(--tb-navy)!important;border-color:var(--tb-line)!important}
 .tb-status{background:var(--tb-lilac)!important;color:var(--tb-navy)!important}
 .tb-footer{background:var(--tb-navy)!important;color:var(--tb-cream)!important}
-.tb-footer p,.tb-footer>div>a:not(.tb-brand){color:#DDD6FE!important}
-.tb-header nav a{color:#1E293B!important}
+.tb-footer p,.tb-footer>div>a:not(.tb-brand){color:#F4F4F5!important}
+.tb-header nav a{color:#18181B!important}
 .tb-header form,.tb-header input{background:var(--tb-mist)!important;border-color:var(--tb-line)!important}
 .tb-header button{background:var(--tb-lilac)!important;color:var(--tb-navy)!important}
 
 
 /* Readability pass: use Deep Slate for accent text on light Blog surfaces. */
-.tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small,.tb-hero h1 em{color:#1E293B!important}
+.tb-brand strong span,.tb-kicker,.tb-feature a,.tb-draft a,.tb-crumb a,.tb-card-copy small,.tb-hero h1 em{color:#18181B!important}
+
+body.tc-blog-home{--tb-navy:#18181B;--tb-blue:#EF4444;--tb-cyan:#FACC15;--tb-ink:#18181B;--tb-muted:#18181B;--tb-line:#F4F4F5;background:#FAFAFA}body.tc-blog-home .tb-hero{background:linear-gradient(112deg,#F4F4F5 0%,#FAFAFA 58%,#FFF7ED 100%);border-color:#F4F4F5}body.tc-blog-home .tb-hero h1 em{color:#EF4444}body.tc-blog-home .tb-button{background:#EF4444;color:#FAFAFA!important}body.tc-blog-home .tb-kicker{color:#EF4444}
