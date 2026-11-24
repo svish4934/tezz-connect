@@ -5643,3 +5643,48 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
     padding:12px!important;
   }
 }
+
+
+/* Compact FAQ retained for homepage visitors and visible-content SEO parity. */
+.tezz-main .homepage-quick-faq{
+  margin-top:24px!important;
+  padding-top:20px!important;
+  border-top:1px solid #E4E4E7!important;
+}
+.tezz-main .homepage-quick-faq .homepage-section-heading{
+  margin-bottom:12px!important;
+}
+.tezz-main .homepage-quick-faq .homepage-section-heading h2{
+  color:#18181B!important;
+}
+.tezz-main .homepage-quick-faq-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+.tezz-main .homepage-quick-faq-list details{
+  min-width:0!important;
+  padding:13px 15px!important;
+  border:1px solid #E4E4E7!important;
+  border-radius:12px!important;
+  background:#FFFFFF!important;
+}
+.tezz-main .homepage-quick-faq-list summary{
+  color:#18181B!important;
+  font-weight:650!important;
+  cursor:pointer!important;
+}
+.tezz-main .homepage-quick-faq-list p{
+  margin:9px 0 0!important;
+  color:#52525B!important;
+  line-height:1.6!important;
+}
+@media(max-width:767px){
+  .tezz-main .homepage-quick-faq{
+    margin-top:18px!important;
+    padding-top:16px!important;
+  }
+  .tezz-main .homepage-quick-faq-list{
+    grid-template-columns:1fr!important;
+  }
+}
