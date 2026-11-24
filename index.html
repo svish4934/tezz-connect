@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#FAF8F5" />
+    <meta name="theme-color" content="#FAFAFA" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -194,13 +194,13 @@
           };
         }
         var style = document.createElement('style');
-        style.textContent = '#tezz-cookie-panel{position:fixed;z-index:99999;left:10px;right:10px;bottom:8px;font:12px/1.4 system-ui,sans-serif;color:#FAF8F5}#tezz-cookie-panel .tezz-cookie-card{max-width:1200px;margin:auto;background:rgba(30, 41, 59,.96);backdrop-filter:blur(12px);border:1px solid #1E293B;border-radius:18px;box-shadow:0 8px 28px #1E293B55;padding:9px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between}#tezz-cookie-panel .tezz-cookie-icon{font-size:22px;color:#DDD6FE;flex:0 0 auto}#tezz-cookie-panel .tezz-cookie-copy{flex:1;min-width:0}#tezz-cookie-panel .tezz-cookie-copy strong{font-size:13px;margin-right:5px}#tezz-cookie-panel .tezz-cookie-copy a{color:#DDD6FE;white-space:nowrap;margin-left:5px}#tezz-cookie-panel button{border:1px solid #A5B4FC;background:transparent;color:#FAF8F5;border-radius:12px;padding:7px 12px;font:600 12px system-ui,sans-serif;white-space:nowrap;cursor:pointer}#tezz-cookie-panel button[data-action=accept],#tezz-cookie-panel [data-save]{background:#A5B4FC;color:#FAF8F5;border-color:#A5B4FC}.tezz-cookie-actions{display:flex;gap:7px;flex:0 0 auto}.tezz-cookie-settings{border-top:1px solid #1E293B;margin-top:9px;padding-top:9px;flex-basis:100%;color:#FAF8F5}.tezz-cookie-settings label{display:inline-block;margin:5px 14px 5px 0}.tezz-cookie-settings small{color:#DDD6FE;margin-left:5px}.tezz-cookie-settings button{margin:6px 7px 0 0}#tezz-cookie-panel .tezz-cookie-card:has(.tezz-cookie-settings){flex-wrap:wrap}@media(max-width:650px){#tezz-cookie-panel{left:6px;right:6px;bottom:6px}#tezz-cookie-panel .tezz-cookie-card{padding:8px 10px;gap:7px;border-radius:13px;flex-wrap:wrap}#tezz-cookie-panel .tezz-cookie-icon{font-size:18px}#tezz-cookie-panel .tezz-cookie-copy{font-size:11px;flex:1 1 calc(100% - 32px)}#tezz-cookie-panel .tezz-cookie-copy strong{font-size:12px}#tezz-cookie-panel .tezz-cookie-actions{width:100%;gap:5px}#tezz-cookie-panel button{padding:7px 8px;font-size:11px;flex:1}.tezz-cookie-settings{font-size:12px}}';
+        style.textContent = '#tezz-cookie-panel{position:fixed;z-index:99999;left:10px;right:10px;bottom:8px;font:12px/1.4 system-ui,sans-serif;color:#FAFAFA}#tezz-cookie-panel .tezz-cookie-card{max-width:1200px;margin:auto;background:rgba(24, 24, 27,.96);backdrop-filter:blur(12px);border:1px solid #18181B;border-radius:18px;box-shadow:0 8px 28px #18181B55;padding:9px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between}#tezz-cookie-panel .tezz-cookie-icon{font-size:22px;color:#F4F4F5;flex:0 0 auto}#tezz-cookie-panel .tezz-cookie-copy{flex:1;min-width:0}#tezz-cookie-panel .tezz-cookie-copy strong{font-size:13px;margin-right:5px}#tezz-cookie-panel .tezz-cookie-copy a{color:#F4F4F5;white-space:nowrap;margin-left:5px}#tezz-cookie-panel button{border:1px solid #EF4444;background:transparent;color:#FAFAFA;border-radius:12px;padding:7px 12px;font:600 12px system-ui,sans-serif;white-space:nowrap;cursor:pointer}#tezz-cookie-panel button[data-action=accept],#tezz-cookie-panel [data-save]{background:#EF4444;color:#FAFAFA;border-color:#EF4444}.tezz-cookie-actions{display:flex;gap:7px;flex:0 0 auto}.tezz-cookie-settings{border-top:1px solid #18181B;margin-top:9px;padding-top:9px;flex-basis:100%;color:#FAFAFA}.tezz-cookie-settings label{display:inline-block;margin:5px 14px 5px 0}.tezz-cookie-settings small{color:#F4F4F5;margin-left:5px}.tezz-cookie-settings button{margin:6px 7px 0 0}#tezz-cookie-panel .tezz-cookie-card:has(.tezz-cookie-settings){flex-wrap:wrap}@media(max-width:650px){#tezz-cookie-panel{left:6px;right:6px;bottom:6px}#tezz-cookie-panel .tezz-cookie-card{padding:8px 10px;gap:7px;border-radius:13px;flex-wrap:wrap}#tezz-cookie-panel .tezz-cookie-icon{font-size:18px}#tezz-cookie-panel .tezz-cookie-copy{font-size:11px;flex:1 1 calc(100% - 32px)}#tezz-cookie-panel .tezz-cookie-copy strong{font-size:12px}#tezz-cookie-panel .tezz-cookie-actions{width:100%;gap:5px}#tezz-cookie-panel button{padding:7px 8px;font-size:11px;flex:1}.tezz-cookie-settings{font-size:12px}}';
         document.head.appendChild(style);
         var manage = document.createElement('button');
         manage.type = 'button'; manage.id = 'tezz-cookie-reopen'; manage.textContent = 'Cookie settings';
         manage.textContent = '◉ Cookie settings';
         manage.setAttribute('aria-label', 'Open cookie settings');
-        manage.style.cssText = 'position:fixed;z-index:9998;left:8px;bottom:8px;padding:6px 9px;border:1px solid #1E293B;border-radius:999px;background:rgba(30, 41, 59,.94);color:#FAF8F5;font:11px system-ui;cursor:pointer;box-shadow:0 3px 12px #1E293B33';
+        manage.style.cssText = 'position:fixed;z-index:9998;left:8px;bottom:8px;padding:6px 9px;border:1px solid #18181B;border-radius:999px;background:rgba(24, 24, 27,.94);color:#FAFAFA;font:11px system-ui;cursor:pointer;box-shadow:0 3px 12px #18181B33';
         manage.onclick = function(){ render(true); };
         document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(manage); });
         // Resolve Cloudflare country before selecting the consent interface or loading AdSense.
@@ -305,7 +305,7 @@
         function setupPanel() {
           panel = document.createElement('section');
           panel.id = 'tezz-cmp-diagnostic';
-          panel.style.cssText = 'position:fixed;z-index:2147483647;inset:8px;background:#FAF8F5;color:#1E293B;padding:14px;overflow:auto;font:12px/1.45 monospace;border:3px solid #1E293B;border-radius:12px;box-shadow:0 4px 30px #1E293B88';
+          panel.style.cssText = 'position:fixed;z-index:2147483647;inset:8px;background:#FAFAFA;color:#18181B;padding:14px;overflow:auto;font:12px/1.45 monospace;border:3px solid #18181B;border-radius:12px;box-shadow:0 4px 30px #18181B88';
           var heading = document.createElement('strong');
           heading.textContent = 'TEZZ CONNECT — Google CMP diagnostic (local only)';
           var note = document.createElement('p');
