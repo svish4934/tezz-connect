@@ -1266,7 +1266,6 @@ function App() {
             <button onClick={()=>navigateTo('Internet Doctor')}><Stethoscope/><strong>{speedText(language, 'Internet Doctor')}</strong><span>{speedText(language, 'Find and fix internet problems')}</span><b>›</b></button>
             <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>{speedText(language, 'Network Tools')}</strong><span>{speedText(language, 'Explore network diagnostics')}</span><b>›</b></button>
             <button onClick={()=>navigateTo('Network')}><Wifi/><strong>{language === 'en' ? 'Wi-Fi Troubleshooting' : speedText(language, 'Wi-Fi Test')}</strong><span>{language === 'en' ? 'Explore common Wi-Fi problems' : speedText(language, 'Test your Wi-Fi performance')}</span><b>›</b></button>
-
           </section>
             </div>
           {language === 'en' && <section className="homepage-editorial homepage-quick-explainer" aria-labelledby="homepage-results-title">
