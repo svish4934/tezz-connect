@@ -1,7 +1,7 @@
 /* TEZZ CONNECT Blog homepage refresh — scoped to the Blog landing page */
 body.tc-blog-home {
   --tb-navy:#1E293B;
-  --tb-blue:#1E293B;
+  --tb-#A5B4FC:#1E293B;
   --tb-cyan:#86EFAC;
   --tb-ink:#1E293B;
   --tb-muted:#1E293B;
@@ -17,7 +17,7 @@ body.tc-blog-home .tb-header {
 }
 body.tc-blog-home .tb-brand strong {font-size:21px;letter-spacing:-.8px}
 body.tc-blog-home .tb-header nav a {font-size:13px;font-weight:650;color:#1E293B}
-body.tc-blog-home .tb-header nav a:hover {color:var(--tb-blue)}
+body.tc-blog-home .tb-header nav a:hover {color:var(--tb-#A5B4FC)}
 body.tc-blog-home .tb-header form {background:#FAF8F5;border-color:#EEF2F6;border-radius:999px}
 body.tc-blog-home .tb-header input {width:190px;padding:10px 14px;background:transparent}
 body.tc-blog-home .tb-header button {width:40px;background:#EEF2F6}
@@ -32,7 +32,7 @@ body.tc-blog-home .tb-hero {
   border:1px solid #EEF2F6;
   border-radius:24px;
   background:linear-gradient(112deg,#EEF2F6 0%,#FAF8F5 55%,#EEF2F6 100%);
-  box-shadow:0 12px 35px rgba(16,43,69,.045);
+  box-shadow:0 12px 35px rgba(30, 41, 59,.045);
 }
 body.tc-blog-home .tb-hero:after {
   content:"";
@@ -40,9 +40,9 @@ body.tc-blog-home .tb-hero:after {
   z-index:-1;
   width:390px;height:390px;
   right:4%;top:-45%;
-  border:1px solid rgba(8,126,174,.13);
+  border:1px solid rgba(30, 41, 59,.13);
   border-radius:50%;
-  box-shadow:0 0 0 32px rgba(8,126,174,.035),0 0 0 68px rgba(8,126,174,.025),0 0 0 108px rgba(8,126,174,.018);
+  box-shadow:0 0 0 32px rgba(30, 41, 59,.035),0 0 0 68px rgba(30, 41, 59,.025),0 0 0 108px rgba(30, 41, 59,.018);
 }
 body.tc-blog-home .tb-kicker {font-size:10px;letter-spacing:1.8px}
 body.tc-blog-home .tb-hero h1 {
@@ -54,13 +54,13 @@ body.tc-blog-home .tb-hero h1 {
 }
 body.tc-blog-home .tb-hero p {max-width:570px;font-size:15px;line-height:1.75}
 body.tc-blog-home .tb-button {padding:12px 18px;border-radius:999px;font-size:12px;transition:transform .18s ease,box-shadow .18s ease}
-body.tc-blog-home .tb-button:hover {transform:translateY(-2px);box-shadow:0 7px 18px rgba(8,126,174,.15)}
+body.tc-blog-home .tb-button:hover {transform:translateY(-2px);box-shadow:0 7px 18px rgba(30, 41, 59,.15)}
 body.tc-blog-home .tb-router-art {
   width:min(100%,300px);
   height:250px;
   justify-self:center;
-  border:1px solid rgba(8,126,174,.12);
-  background:radial-gradient(circle at 50% 42%,#DDD6FE 0,#EEF2F6 43%,rgba(234,247,250,.25) 70%);
+  border:1px solid rgba(30, 41, 59,.12);
+  background:radial-gradient(circle at 50% 42%,#DDD6FE 0,#EEF2F6 43%,rgba(238, 242, 246,.25) 70%);
   color:#1E293B;
 }
 body.tc-blog-home .tb-router-art span {font-size:104px;color:#86EFAC}
@@ -71,7 +71,7 @@ body.tc-blog-home .tb-feature {
   border:1px solid var(--tb-line);
   border-radius:18px;
   background:#FAF8F5;
-  box-shadow:0 8px 24px rgba(16,43,69,.035);
+  box-shadow:0 8px 24px rgba(30, 41, 59,.035);
 }
 body.tc-blog-home .tb-feature-art {
   position:relative;
@@ -84,9 +84,9 @@ body.tc-blog-home .tb-feature-art:after {
   content:"";
   position:absolute;
   width:190px;height:190px;
-  border:1px solid rgba(255,255,255,.22);
+  border:1px solid rgba(250, 248, 245,.22);
   border-radius:50%;
-  box-shadow:0 0 0 24px rgba(255,255,255,.055),0 0 0 50px rgba(255,255,255,.035);
+  box-shadow:0 0 0 24px rgba(250, 248, 245,.055),0 0 0 50px rgba(250, 248, 245,.035);
 }
 body.tc-blog-home .tb-feature>div:last-child {padding:34px 42px}
 body.tc-blog-home .tb-feature h2 {font-size:clamp(23px,2.5vw,31px);letter-spacing:-.8px}
@@ -103,7 +103,7 @@ body.tc-blog-home .tb-category {
   background:#FAF8F5;
   transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
 }
-body.tc-blog-home .tb-category:hover {transform:translateY(-3px);border-color:#DDD6FE;box-shadow:0 9px 20px rgba(16,43,69,.055)}
+body.tc-blog-home .tb-category:hover {transform:translateY(-3px);border-color:#DDD6FE;box-shadow:0 9px 20px rgba(30, 41, 59,.055)}
 body.tc-blog-home .tb-category b {font-size:13px;line-height:1.4}
 body.tc-blog-home .tb-category small {font-size:11px;line-height:1.55}
 body.tc-blog-home .tb-grid {grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -111,17 +111,17 @@ body.tc-blog-home .tb-card {
   border:1px solid var(--tb-line);
   border-radius:16px;
   background:#FAF8F5;
-  box-shadow:0 5px 18px rgba(16,43,69,.025);
+  box-shadow:0 5px 18px rgba(30, 41, 59,.025);
   transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
 }
-body.tc-blog-home .tb-card:hover {transform:translateY(-4px);border-color:#DDD6FE;box-shadow:0 13px 28px rgba(16,43,69,.09)}
+body.tc-blog-home .tb-card:hover {transform:translateY(-4px);border-color:#DDD6FE;box-shadow:0 13px 28px rgba(30, 41, 59,.09)}
 body.tc-blog-home .tb-card-art {aspect-ratio:16/9}
 body.tc-blog-home .tb-card-art img {transition:transform .35s ease}
 body.tc-blog-home .tb-card-copy {display:flex;flex-direction:column;align-items:flex-start;min-height:190px;padding:18px 19px 17px}
 body.tc-blog-home .tb-card-copy small {font-size:9px;letter-spacing:.8px}
 body.tc-blog-home .tb-card-copy h3 {font-size:17px;line-height:1.35;letter-spacing:-.25px;margin:8px 0}
 body.tc-blog-home .tb-card-copy p {font-size:12px;line-height:1.65}
-body.tc-blog-home .tb-status {margin-top:auto;padding:5px 0 0;background:transparent;color:var(--tb-blue);font-size:11px;font-weight:750}
+body.tc-blog-home .tb-status {margin-top:auto;padding:5px 0 0;background:transparent;color:var(--tb-#A5B4FC);font-size:11px;font-weight:750}
 body.tc-blog-home .tb-note {margin:0 0 58px;padding:23px 26px;border-color:#EEF2F6;background:#EEF2F6;border-radius:14px}
 body.tc-blog-home .tb-note strong {color:var(--tb-navy);font-size:14px}
 body.tc-blog-home .tb-note p {font-size:12px;line-height:1.7}
@@ -175,7 +175,7 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 
 
 /* TEZZ CONNECT shared pastel brand palette */
-:root{--tb-navy:#1E293B;--tb-blue:#A5B4FC;--tb-cyan:#86EFAC;--tb-ink:#1E293B;--tb-muted:#1E293B;--tb-line:#DDD6FE;--tb-cream:#FAF8F5;--tb-mist:#EEF2F6;--tb-periwinkle:#A5B4FC;--tb-matcha:#86EFAC;--tb-peach:#FDA4AF;--tb-lilac:#DDD6FE}
+:root{--tb-navy:#1E293B;--tb-#A5B4FC:#A5B4FC;--tb-cyan:#86EFAC;--tb-ink:#1E293B;--tb-muted:#1E293B;--tb-line:#DDD6FE;--tb-cream:#FAF8F5;--tb-mist:#EEF2F6;--tb-periwinkle:#A5B4FC;--tb-matcha:#86EFAC;--tb-peach:#FDA4AF;--tb-lilac:#DDD6FE}
 .tc-blog{background:var(--tb-cream)!important;color:var(--tb-ink)!important}
 .tb-header{background:var(--tb-cream)!important;border-color:var(--tb-line)!important}
 .tb-brand,.tb-brand strong,.tb-brand b,.tb-hero h1,.tb-feature h2,.tb-section h2,.tb-card-copy h3,.tb-listing h1,.tb-article h1{color:var(--tb-navy)!important}
