@@ -1161,9 +1161,11 @@ function App() {
             <div className="tezz-meter-wrap tezz-digital-wrap" id="tezz-speed-test">
               <span className="tezz-meter-heading">{speedText(language, 'INTERNET SPEED TEST')}</span>
               <div className="tezz-digital-meter signature-live-meter" aria-live="polite">
-                <div className="tezz-meter-topline"><span className="tezz-digital-label">{state === 'running' && testPhase.toLowerCase().includes('upload') ? speedText(language, 'UPLOAD') : state === 'running' && testPhase.toLowerCase().includes('download') ? speedText(language, 'DOWNLOAD') : speedText(language, 'DOWNLOAD SPEED')}</span><span className={`tezz-meter-status ${state === 'running' ? 'active' : result ? 'complete' : ''}`}><i/>{state === 'running' ? speedText(language, 'TESTING') : result ? speedText(language, 'MEASURED') : speedText(language, 'READY')}</span></div>
-                <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
-                <div className="tezz-digital-caption">{state === 'running' ? speedText(language, 'Live measurement in progress') : result ? speedText(language, 'Latest download measurement') : speedText(language, 'Your connection speed, measured live')}</div>
+                <div className="tezz-gauge-wrap">
+                  <div className="tezz-meter-topline"><span className="tezz-digital-label">{state === 'running' && testPhase.toLowerCase().includes('upload') ? speedText(language, 'UPLOAD') : state === 'running' && testPhase.toLowerCase().includes('download') ? speedText(language, 'DOWNLOAD') : speedText(language, 'DOWNLOAD SPEED')}</span><span className={`tezz-meter-status ${state === 'running' ? 'active' : result ? 'complete' : ''}`}><i/>{state === 'running' ? speedText(language, 'TESTING') : result ? speedText(language, 'MEASURED') : speedText(language, 'READY')}</span></div>
+                  <div className="tezz-digital-reading"><strong>{state === 'running' ? testPhase.toLowerCase().includes('upload') ? uploadLiveSpeed.toFixed(1) : testPhase.toLowerCase().includes('download') ? liveSpeed.toFixed(1) : '—' : result ? result.download.toFixed(1) : '—'}</strong><span>Mbps</span></div>
+                  <div className="tezz-digital-caption">{state === 'running' ? speedText(language, 'Live measurement in progress') : result ? speedText(language, 'Latest download measurement') : speedText(language, 'Your connection speed, measured live')}</div>
+                </div>
                 <div className="tezz-meter-scale" aria-hidden="true"><div className="tezz-meter-scale-track"><span className="tezz-meter-scale-sweep"/></div><div className="tezz-meter-scale-caption"><span>CONNECTION THROUGHPUT</span><span>{state === 'running' ? 'LIVE' : result ? 'RECORDED' : 'READY'}</span></div></div>
                 <div className={`tezz-throughput-chart ${state === 'running' ? 'is-live' : 'is-idle'}`} role="img" aria-label="Live throughput trace">
                   <svg viewBox="0 0 320 52" preserveAspectRatio="none" role="img" aria-hidden="true">
@@ -1187,10 +1189,10 @@ function App() {
               </div>}
               {state==='error'&&<div className="tezz-live-progress error-note" role="alert">{testError || 'The test could not complete. Please try again.'}</div>}
           <section className="tezz-stat-grid">
-            <div className="tezz-stat cyan"><ArrowDown/><span>{speedText(language, 'Download')}</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
-            <div className="tezz-stat violet"><ArrowUp/><span>{speedText(language, 'Upload')}</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
-            <div className="tezz-stat green"><ArrowLeftRight/><span>{speedText(language, 'HTTP latency')}</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
-            <div className="tezz-stat red"><Activity/><span>{speedText(language, 'HTTP variation')}</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
+            <div className="tezz-stat cyan"><div className="tezz-stat-icon"><ArrowDown size={18}/></div><span>{speedText(language, 'Download')}</span><strong>{result?result.download.toFixed(2):'—'} <small>Mbps</small></strong></div>
+            <div className="tezz-stat violet"><div className="tezz-stat-icon"><ArrowUp size={18}/></div><span>{speedText(language, 'Upload')}</span><strong>{result?result.upload.toFixed(2):'—'} <small>Mbps</small></strong></div>
+            <div className="tezz-stat green"><div className="tezz-stat-icon"><ArrowLeftRight size={18}/></div><span>{speedText(language, 'HTTP latency')}</span><strong>{result?result.ping:'—'} <small>ms</small></strong></div>
+            <div className="tezz-stat red"><div className="tezz-stat-icon"><Activity size={18}/></div><span>{speedText(language, 'HTTP variation')}</span><strong>{result?result.jitter.toFixed(1):'—'} <small>ms</small></strong></div>
           </section>
             </div>
           </section>
