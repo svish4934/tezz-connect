@@ -2,7 +2,7 @@ name: Build TEZZ CONNECT
 
 on:
   push:
-    branches: [main]
+    branches: [main, homepage-balanced-layout-2026-11-24]
   pull_request:
     branches: [main]
 
