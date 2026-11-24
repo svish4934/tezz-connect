@@ -5272,3 +5272,80 @@ footer,.tezz-site-footer,.tezz-footer,.site-footer{
 .signature-live-meter .tezz-meter-scale-track{
   box-shadow:inset 0 1px 4px rgba(24,24,27,.06)!important;
 }
+
+
+/* Site-wide final palette enforcement for every route and legacy component.
+   Color-only declarations: no dimensions, spacing, typography sizing or layout. */
+:root{
+  --tezz-navy:#18181B!important;
+  --tezz-cyan:#EF4444!important;
+  --tezz-violet:#FF9E7D!important;
+  --tezz-mint:#FACC15!important;
+  --tezz-red:#EF4444!important;
+  --tezz-white:#FFFFFF!important;
+  --tezz-slate:#52525B!important;
+  --tezz-bg:#FAFAFA!important;
+  --tezz-border:#E4E4E7!important;
+  --tezz-peach:#FF9E7D!important;
+  --tezz-yellow:#FACC15!important;
+}
+html,body,#root,.app-shell,.main,.content,main{
+  background-color:#FAFAFA!important;color:#18181B!important;
+}
+[class*="panel"],[class*="card"],[class*="tile"],[class*="section"],
+[class*="report"],[class*="insight"],[class*="knowledge-hub"]{
+  border-color:#E4E4E7!important;
+}
+[class*="panel"],[class*="card"],[class*="tile"],[class*="report"],
+[class*="insight"],[class*="knowledge-hub"]{
+  background-color:#FFFFFF!important;
+  color:#18181B!important;
+}
+[class*="panel"] p,[class*="card"] p,[class*="tile"] p,
+[class*="section"] p,[class*="report"] p,[class*="insight"] p,
+[class*="panel"] small,[class*="card"] small,[class*="tile"] small{
+  color:#52525B!important;
+}
+[class*="panel"] h1,[class*="panel"] h2,[class*="panel"] h3,
+[class*="card"] h1,[class*="card"] h2,[class*="card"] h3,
+[class*="tile"] h1,[class*="tile"] h2,[class*="tile"] h3,
+[class*="report"] h1,[class*="report"] h2,[class*="report"] h3{
+  color:#18181B!important;
+}
+[class*="icon"],[class*="badge"],[class*="tag"]{
+  border-color:#E4E4E7!important;
+}
+[class*="icon"].download,[class*="icon"].cyan,
+.metric-icon.cyan,.tezz-stat.cyan .tezz-stat-icon{
+  background:rgba(239,68,68,.12)!important;color:#EF4444!important;
+}
+[class*="icon"].upload,[class*="icon"].violet,
+.metric-icon.violet,.tezz-stat.violet .tezz-stat-icon{
+  background:rgba(255,158,125,.20)!important;color:#FF9E7D!important;
+}
+[class*="icon"].latency,[class*="icon"].variation,
+.metric-icon.mint,.metric-icon.amber,
+.tezz-stat.green .tezz-stat-icon,.tezz-stat.red .tezz-stat-icon{
+  background:rgba(250,204,21,.28)!important;color:#18181B!important;
+}
+[class*="progress"] [class*="fill"],
+[class*="progress"]>span,[class*="bar"]>span{
+  background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
+}
+[class*="button"].primary,[class*="button"].start,
+button[class*="primary"],button[class*="start"]{
+  background:#EF4444!important;border-color:#EF4444!important;color:#FFFFFF!important;
+}
+[class*="button"].primary:hover,[class*="button"].start:hover,
+button[class*="primary"]:hover,button[class*="start"]:hover{
+  background:#DC2626!important;border-color:#DC2626!important;color:#FFFFFF!important;
+}
+[class*="footer"],footer{
+  background-color:#FFF7ED!important;
+  border-top-color:#FF9E7D!important;color:#52525B!important;
+}
+[class*="footer"] a,footer a{color:#EF4444!important}
+[class*="footer"] strong,footer strong{color:#18181B!important}
+[class*="footer"] [class*="gradient"]{
+  background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
+}
