@@ -3601,3 +3601,19 @@ a{ text-underline-offset:3px }
 .home-content .homepage-editorial small {
   color:#1E293B!important;
 }
+
+
+/* Screenshot-driven contrast correction: target the exact homepage copy elements. */
+html body .content.home-content .tezz-feature-grid button span,
+html body .content.home-content .tezz-social-panel .services-heading p,
+html body .content.home-content .tezz-social-panel .service-note,
+html body .content.home-content .home-knowledge-hub .knowledge-hub-card-copy small,
+html body .content.home-content .home-knowledge-hub .knowledge-hub-heading p,
+html body .content.home-content .home-knowledge-hub .knowledge-hub-all,
+html body .content.home-content .benchmark-consent-panel p,
+html body .content.home-content .benchmark-consent-panel .benchmark-consent-toggle,
+html body .content.home-content .benchmark-consent-panel .benchmark-consent-toggle span,
+html body .content.home-content .homepage-editorial p,
+html body .content.home-content .homepage-editorial small {
+  color:#1E293B!important;
+}
