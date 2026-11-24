@@ -5500,3 +5500,97 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
   background:#FFFFFF!important;border-color:#E4E4E7!important;color:#52525B!important;
 }
 .network-intel-panel .doctor-disclaimer svg{color:#EF4444!important}
+
+
+/* Mobile navigation fix: keep the dropdown wholly inside the visible viewport.
+   The previous centred transform could shift/clamp the panel off-screen on
+   Android Chrome's desktop-site/coarse-pointer viewport. */
+@media (max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-mobile-nav{
+    position:fixed!important;
+    top:calc(env(safe-area-inset-top,0px) + 76px)!important;
+    left:12px!important;
+    right:12px!important;
+    bottom:auto!important;
+    width:auto!important;
+    max-width:520px!important;
+    max-height:calc(100vh - 100px)!important;
+    max-height:calc(100dvh - 100px)!important;
+    box-sizing:border-box!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    transform:none!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    z-index:2005!important;
+    padding:12px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:5px!important;
+    border:1.5px solid #E4E4E7!important;
+    border-radius:18px!important;
+    background:rgba(255,255,255,.99)!important;
+    box-shadow:0 16px 40px rgba(24,24,27,.16)!important;
+  }
+  .tezz-main .tezz-mobile-nav>a,
+  .tezz-main .tezz-mobile-nav-group>summary{
+    box-sizing:border-box!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:46px!important;
+    padding:0 14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    border:0!important;
+    border-radius:11px!important;
+    background:transparent!important;
+    color:#18181B!important;
+    font:600 13px/1.35 'Plus Jakarta Sans',sans-serif!important;
+    text-align:left!important;
+    text-decoration:none!important;
+  }
+  .tezz-main .tezz-mobile-nav>a.selected,
+  .tezz-main .tezz-mobile-nav>a:hover,
+  .tezz-main .tezz-mobile-nav-group[open]>summary{
+    background:#FFF7ED!important;
+    color:#EF4444!important;
+  }
+  .tezz-main .tezz-mobile-nav .tezz-mobile-nav-submenu{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:2px!important;
+    padding:3px 0 5px 12px!important;
+  }
+  .tezz-main .tezz-mobile-nav .tezz-mobile-nav-submenu a{
+    display:flex!important;
+    align-items:center!important;
+    min-width:0!important;
+    min-height:42px!important;
+    padding:0 12px!important;
+    color:#52525B!important;
+    font:500 12px/1.35 'Plus Jakarta Sans',sans-serif!important;
+  }
+  .tezz-main .tezz-mobile-nav .tezz-mobile-controls{
+    display:flex!important;
+    width:100%!important;
+    box-sizing:border-box!important;
+    margin:6px 0 0!important;
+    padding:10px 0 0!important;
+    border-top:1px solid #E4E4E7!important;
+  }
+  .tezz-main .tezz-mobile-nav .tezz-mobile-controls .tezz-header-search{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:46px!important;
+    flex:1 1 auto!important;
+    border:1.5px solid #18181B!important;
+    border-radius:9999px!important;
+    background:#FFFFFF!important;
+    color:#18181B!important;
+    font:700 13px 'Plus Jakarta Sans',sans-serif!important;
+  }
+}
