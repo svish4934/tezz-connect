@@ -1,7 +1,7 @@
 /* TEZZ CONNECT Blog homepage refresh — scoped to the Blog landing page */
 body.tc-blog-home {
   --tb-navy:#1E293B;
-  --tb-#A5B4FC:#1E293B;
+  --tb-blue:#1E293B;
   --tb-cyan:#86EFAC;
   --tb-ink:#1E293B;
   --tb-muted:#1E293B;
@@ -17,7 +17,7 @@ body.tc-blog-home .tb-header {
 }
 body.tc-blog-home .tb-brand strong {font-size:21px;letter-spacing:-.8px}
 body.tc-blog-home .tb-header nav a {font-size:13px;font-weight:650;color:#1E293B}
-body.tc-blog-home .tb-header nav a:hover {color:var(--tb-#A5B4FC)}
+body.tc-blog-home .tb-header nav a:hover {color:var(--tb-blue)}
 body.tc-blog-home .tb-header form {background:#FAF8F5;border-color:#EEF2F6;border-radius:999px}
 body.tc-blog-home .tb-header input {width:190px;padding:10px 14px;background:transparent}
 body.tc-blog-home .tb-header button {width:40px;background:#EEF2F6}
@@ -121,7 +121,7 @@ body.tc-blog-home .tb-card-copy {display:flex;flex-direction:column;align-items:
 body.tc-blog-home .tb-card-copy small {font-size:9px;letter-spacing:.8px}
 body.tc-blog-home .tb-card-copy h3 {font-size:17px;line-height:1.35;letter-spacing:-.25px;margin:8px 0}
 body.tc-blog-home .tb-card-copy p {font-size:12px;line-height:1.65}
-body.tc-blog-home .tb-status {margin-top:auto;padding:5px 0 0;background:transparent;color:var(--tb-#A5B4FC);font-size:11px;font-weight:750}
+body.tc-blog-home .tb-status {margin-top:auto;padding:5px 0 0;background:transparent;color:var(--tb-blue);font-size:11px;font-weight:750}
 body.tc-blog-home .tb-note {margin:0 0 58px;padding:23px 26px;border-color:#EEF2F6;background:#EEF2F6;border-radius:14px}
 body.tc-blog-home .tb-note strong {color:var(--tb-navy);font-size:14px}
 body.tc-blog-home .tb-note p {font-size:12px;line-height:1.7}
@@ -175,7 +175,7 @@ body.tc-blog-home a:focus-visible,body.tc-blog-home button:focus-visible,body.tc
 
 
 /* TEZZ CONNECT shared pastel brand palette */
-:root{--tb-navy:#1E293B;--tb-#A5B4FC:#A5B4FC;--tb-cyan:#86EFAC;--tb-ink:#1E293B;--tb-muted:#1E293B;--tb-line:#DDD6FE;--tb-cream:#FAF8F5;--tb-mist:#EEF2F6;--tb-periwinkle:#A5B4FC;--tb-matcha:#86EFAC;--tb-peach:#FDA4AF;--tb-lilac:#DDD6FE}
+:root{--tb-navy:#1E293B;--tb-blue:#A5B4FC;--tb-cyan:#86EFAC;--tb-ink:#1E293B;--tb-muted:#1E293B;--tb-line:#DDD6FE;--tb-cream:#FAF8F5;--tb-mist:#EEF2F6;--tb-periwinkle:#A5B4FC;--tb-matcha:#86EFAC;--tb-peach:#FDA4AF;--tb-lilac:#DDD6FE}
 .tc-blog{background:var(--tb-cream)!important;color:var(--tb-ink)!important}
 .tb-header{background:var(--tb-cream)!important;border-color:var(--tb-line)!important}
 .tb-brand,.tb-brand strong,.tb-brand b,.tb-hero h1,.tb-feature h2,.tb-section h2,.tb-card-copy h3,.tb-listing h1,.tb-article h1{color:var(--tb-navy)!important}
