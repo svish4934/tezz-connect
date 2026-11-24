@@ -92,3 +92,5 @@ body{background:linear-gradient(135deg,var(--wash),var(--cream) 58%,#FAF8F5)!imp
 .hub-hero h1 span,.topic-kicker,.topic-link,.text-link{color:#A5B4FC!important}
 .topic-icon,.topic-feature .topic-icon{background:var(--lilac)!important;color:var(--ink)!important}
 .topic-card:hover,.guide-card:hover{border-color:var(--periwinkle)!important}
+
+/* Palette lock: use only #FAF8F5 #EEF2F6 #A5B4FC #86EFAC #FDA4AF #DDD6FE #1E293B. */
