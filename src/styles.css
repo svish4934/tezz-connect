@@ -5160,3 +5160,115 @@ footer,.tezz-site-footer,.tezz-footer,.site-footer{
 .tezz-footer-gradient{
   background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444)!important;
 }
+
+
+/* Palette audit follow-up: cover homepage sections and legacy diagnostic
+   components that retained blue/teal styling in the mobile preview. */
+.homepage-hero-intro,
+.homepage-hero-benefits li,
+.tezz-feature-grid button,
+.benchmark-consent-panel,
+.homepage-editorial>section,
+.homepage-measurement-grid article,
+.homepage-causes-grid article,
+.homepage-link-grid a,
+.homepage-faq-list article,
+.home-knowledge-hub,
+.knowledge-hub-card,
+.knowledge-hub-card-copy{
+  background:#FFFFFF!important;
+  color:#18181B!important;
+  border-color:#E4E4E7!important;
+}
+.homepage-hero-intro-copy h1,
+.homepage-editorial h2,.homepage-editorial h3,
+.knowledge-hub-card strong,
+.tezz-feature-grid button strong,
+.benchmark-consent-panel h2{
+  color:#18181B!important;
+}
+.homepage-hero-intro-copy h1 em,
+.homepage-hero-intro-copy h1 span{
+  color:#EF4444!important;
+}
+.homepage-hero-intro-copy p,
+.homepage-editorial p,
+.homepage-hero-benefits li,
+.tezz-feature-grid button span,
+.knowledge-hub-card small,
+.benchmark-consent-panel p{
+  color:#52525B!important;
+}
+.homepage-hero-benefits li svg,
+.tezz-feature-grid button>svg,
+.knowledge-hub-arrow,
+.knowledge-hub-all{
+  color:#EF4444!important;
+}
+.homepage-measurement-number,
+.knowledge-hub-icon{
+  background:#FFF7ED!important;
+  border-color:#FF9E7D!important;
+  color:#EF4444!important;
+}
+.homepage-measurement-grid article:nth-child(2) .homepage-measurement-number,
+.knowledge-hub-icon.wifi{
+  background:rgba(255,158,125,.20)!important;color:#FF9E7D!important;
+}
+.homepage-measurement-grid article:nth-child(3) .homepage-measurement-number,
+.homepage-measurement-grid article:nth-child(4) .homepage-measurement-number,
+.knowledge-hub-icon.signal,.knowledge-hub-icon.gaming{
+  background:rgba(250,204,21,.28)!important;color:#18181B!important;
+}
+.home-content .benchmark-consent-toggle input{
+  accent-color:#EF4444!important;
+}
+.home-content .benchmark-consent-status{
+  color:#52525B!important;
+}
+.tezz-feature-grid button:hover,
+.knowledge-hub-card:hover,
+.homepage-link-grid a:hover{
+  background:#FFF7ED!important;border-color:#FF9E7D!important;
+}
+
+/* Remaining diagnostics and secondary tools */
+.doctor-panel,.doctor-status,.doctor-finding,
+.performance-report-card,.performance-report-section,
+.services-panel,.service-tile,.usage-insight-card{
+  background:#FFFFFF!important;color:#18181B!important;
+  border-color:#E4E4E7!important;box-shadow:0 8px 24px rgba(24,24,27,.045)!important;
+}
+.doctor-panel .section-kicker,.doctor-heading h2,
+.doctor-status strong,.doctor-finding strong,
+.performance-report-card strong,.performance-report-section h3{
+  color:#18181B!important;
+}
+.doctor-heading p,.doctor-status p,.doctor-finding p,
+.doctor-evidence,.doctor-disclaimer,.service-note,
+.usage-insight-card p{
+  color:#52525B!important;
+}
+.doctor-symbol,.service-logo,.usage-insight-icon{
+  background:#FFF7ED!important;border-color:#E4E4E7!important;color:#EF4444!important;
+}
+.doctor-disclaimer svg,.service-status.reachable{
+  color:#EF4444!important;
+}
+.doctor-panel .doctor-run-test{
+  background:#EF4444!important;border-color:#EF4444!important;color:#FFFFFF!important;
+  box-shadow:0 5px 14px rgba(239,68,68,.18)!important;
+}
+.doctor-panel .doctor-run-test:hover{
+  background:#DC2626!important;border-color:#DC2626!important;
+}
+.tezz-meter-heading{color:#18181B!important}
+.signature-live-meter .tezz-throughput-chart.is-idle .tezz-chart-idle-line{
+  stroke:#EF4444!important;filter:drop-shadow(0 0 4px rgba(239,68,68,.18))!important;
+}
+.signature-live-meter .tezz-throughput-chart .tezz-chart-line{
+  stroke:#EF4444!important;
+}
+.signature-live-meter .tezz-meter-scale-track{
+  box-shadow:inset 0 1px 4px rgba(24,24,27,.06)!important;
+}
