@@ -19,23 +19,23 @@
 <p>Different tools measure these things in different ways. A browser speed test cannot tell you exactly how your game server is behaving. Use the game's own network display or diagnostics when available.</p>
 <section class="game-lab" id="gaming-network-lab" aria-labelledby="gaming-lab-title">
 <style>
-.game-lab{margin:28px 0;padding:clamp(16px,3vw,24px);border:1px solid #d8e5ed;border-radius:18px;background:linear-gradient(145deg,#f0f7fb,#fff 75%);color:#20384e}
-.game-lab h2{margin:5px 0 8px;font-size:clamp(21px,3vw,27px)}.game-lab-intro{max-width:720px;color:#5d7184;line-height:1.65}
+.game-lab{margin:28px 0;padding:clamp(16px,3vw,24px);border:1px solid #DDD6FE;border-radius:18px;background:linear-gradient(145deg,#EEF2F6,#FAF8F5 75%);color:#1E293B}
+.game-lab h2{margin:5px 0 8px;font-size:clamp(21px,3vw,27px)}.game-lab-intro{max-width:720px;color:#1E293B;line-height:1.65}
 .game-lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.8fr);gap:14px;margin-top:17px}
-.game-lab-controls,.game-lab-display{padding:15px;border:1px solid #dce7ef;border-radius:13px;background:#fff;min-width:0}
+.game-lab-controls,.game-lab-display{padding:15px;border:1px solid #EEF2F6;border-radius:13px;background:#FAF8F5;min-width:0}
 .game-control{display:grid;gap:7px;margin-bottom:17px}.game-control:last-child{margin-bottom:0}
 .game-control label{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:750}
-.game-control output{color:#126f8d;font-variant-numeric:tabular-nums}
-.game-control input{width:100%;accent-color:#147c96}
-.game-control small{color:#687d8f;font-size:11px;line-height:1.5}
+.game-control output{color:#1E293B;font-variant-numeric:tabular-nums}
+.game-control input{width:100%;accent-color:#1E293B}
+.game-control small{color:#86EFAC;font-size:11px;line-height:1.5}
 .game-packets{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;margin:15px 0}
-.game-packet{height:34px;border-radius:6px;background:#d9eee6;border:1px solid #acd6c6;display:grid;place-items:center;font-size:10px;font-weight:800;color:#17694f}
-.game-packet.late{background:#fff0cf;border-color:#e7c477;color:#805b13;transform:translateY(4px)}
-.game-packet.lost{background:#f8dfdc;border-color:#e7b3ac;color:#98483d;text-decoration:line-through}
-.game-metric{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #edf1f4;font-size:12px}
+.game-packet{height:34px;border-radius:6px;background:#EEF2F6;border:1px solid #86EFAC;display:grid;place-items:center;font-size:10px;font-weight:800;color:#1E293B}
+.game-packet.late{background:#FAF8F5;border-color:#FDA4AF;color:#1E293B;transform:translateY(4px)}
+.game-packet.lost{background:#EEF2F6;border-color:#FDA4AF;color:#1E293B;text-decoration:line-through}
+.game-metric{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #EEF2F6;font-size:12px}
 .game-metric:last-of-type{border-bottom:0}.game-metric strong{font-variant-numeric:tabular-nums}
-.game-verdict{margin-top:12px;padding:11px;border-radius:9px;background:#f1f6fa;color:#405c70;font-size:12px;line-height:1.6}
-.game-lab-note{margin:12px 0 0;color:#6b7e8e;font-size:10px;line-height:1.55}
+.game-verdict{margin-top:12px;padding:11px;border-radius:9px;background:#EEF2F6;color:#1E293B;font-size:12px;line-height:1.6}
+.game-lab-note{margin:12px 0 0;color:#86EFAC;font-size:10px;line-height:1.55}
 @media(max-width:650px){.game-lab-grid{grid-template-columns:1fr}.game-packet{height:30px}}
 @media(prefers-reduced-motion:reduce){.game-packet{transform:none}}
 </style>
