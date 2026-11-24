@@ -1269,17 +1269,7 @@ function App() {
 
           </section>
             </div>
-          {language === 'en' && <div className="homepage-editorial">
-            <section className="homepage-explainer" aria-labelledby="homepage-results-title">
-              <div className="homepage-section-heading"><span className="section-kicker">MAKE SENSE OF YOUR RESULTS</span><h2 id="homepage-results-title">What does each speed test result mean?</h2><p>Four measurements give you a useful snapshot of how your browser connects to TEZZ CONNECT. Each one describes a different part of that test.</p></div>
-              <div className="homepage-measurement-grid">
-                <article><span className="homepage-measurement-number">01</span><h3>Download speed</h3><p>How quickly data travels from the TEZZ CONNECT test endpoint to your device. It can affect how quickly pages, files and media load.</p></article>
-                <article><span className="homepage-measurement-number">02</span><h3>Upload speed</h3><p>How quickly your device sends data to the test endpoint. Upload capacity matters when sharing files, backing up data and sending video.</p></article>
-                <article><span className="homepage-measurement-number">03</span><h3>HTTP response time</h3><p>How long a browser request takes to receive a response from TEZZ CONNECT. It is a browser-based measurement, not an ICMP ping.</p></article>
-                <article><span className="homepage-measurement-number">04</span><h3>Response variation</h3><p>How much successive HTTP response-time samples differ during the test. Large changes can indicate an inconsistent test path, but are not a packet-loss measurement.</p></article>
-              </div>
-            </section>
-            <section className="homepage-explainer" aria-labelledby="homepage-causes-tit          {language === 'en' && <section className="homepage-editorial homepage-quick-explainer" aria-labelledby="homepage-results-title">
+          {language === 'en' && <section className="homepage-editorial homepage-quick-explainer" aria-labelledby="homepage-results-title">
             <div className="homepage-section-heading"><span className="section-kicker">UNDERSTAND YOUR RESULTS</span><h2 id="homepage-results-title">What does each speed test result mean?</h2><p>Four measurements give you a useful snapshot of how your browser connects to TEZZ CONNECT.</p></div>
             <div className="homepage-measurement-grid">
               <article><span className="homepage-measurement-number">01</span><h3>Download speed</h3><p>How quickly data travels from the TEZZ CONNECT test endpoint to your device. It can affect how quickly pages, files and media load.</p></article>
@@ -1288,7 +1278,19 @@ function App() {
               <article><span className="homepage-measurement-number">04</span><h3>Response variation</h3><p>How much successive HTTP response-time samples differ during the test. It is not a packet-loss measurement.</p></article>
             </div>
             <div className="homepage-method"><span className="section-kicker">MEASUREMENT METHOD</span><p>Download and upload tests run in your browser against TEZZ CONNECT endpoints. Response time and variation use HTTP request-and-response timing to the TEZZ CONNECT edge—not traditional ICMP ping and not a measurement of every route, website or service on the public internet.</p><a href="/about">Read our measurement approach and privacy information →</a></div>
-          </section>}ion estimates, from your browser.</p></article>
+          </section>}
+          </>}
+          {activeTab === 'About' && <section className="about-page">
+            <div className="about-hero">
+              <span className="tezz-pill">ABOUT TEZZ CONNECT</span>
+              <h1>Understand your <em>connection.</em></h1>
+              <p>TEZZ CONNECT is a free, browser-based toolkit that helps you measure internet performance, understand network behaviour and make more informed connectivity decisions.</p>
+              <div className="about-hero-meta"><span><CheckCircle2 size={15}/> Free to use</span><span><Activity size={15}/> Independent measurements</span><span><ShieldCheck size={15}/> Privacy-conscious design</span></div>
+            </div>
+            <div className="about-section-heading"><span className="section-kicker">WHAT WE DO</span><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p></div>
+            <div className="about-origin"><span className="about-origin-mark" aria-hidden="true">🇮🇳</span><div><span className="section-kicker">OUR ROOTS, GLOBAL VISION</span><h2>Proudly built in India. Connecting the world.</h2><p>TEZZ CONNECT is an independent digital platform built with an international audience in mind.</p></div></div>
+            <div className="about-feature-grid">
+              <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Zap size={20}/></span><h3 style={{color:'#142B45'}}>Measure performance</h3><p style={{color:'#53677D'}}>Run download and upload throughput tests, plus HTTP response-time and variation estimates, from your browser.</p></article>
               <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Stethoscope size={20}/></span><h3 style={{color:'#142B45'}}>Understand issues</h3><p style={{color:'#53677D'}}>Use Internet Doctor recommendations to investigate common causes such as congestion, weak Wi-Fi conditions and competing traffic. Where supported, it also considers browser-reported network estimates such as effective connection type, estimated downlink and estimated RTT. These values can be approximate or stale, and cannot reliably identify whether you are using Wi-Fi or mobile data.</p></article>
               <article style={{background:'#F0F7FC',border:'1px solid #D4E4EF',color:'#142B45',boxShadow:'0 8px 24px rgba(20,48,76,.07)'}}><span className="about-feature-icon" style={{background:'#DFF5F7',borderColor:'#B9E7EB',color:'#087F91'}}><Globe2 size={20}/></span><h3 style={{color:'#142B45'}}>Explore your network</h3><p style={{color:'#53677D'}}>Review available network-edge information, connection signals and public website endpoint checks.</p></article>
             </div>
@@ -1561,14 +1563,14 @@ function App() {
               </a>
             </div>
           </section>
-          <section className="homepage-blog-promo" aria-labelledby="homepage-blog-title">
+          {language === 'en' && <section className="homepage-blog-promo" aria-labelledby="homepage-blog-title">
             <div className="homepage-blog-promo-copy">
               <span className="section-kicker">TEZZ CONNECT EDITORIAL</span>
               <h2 id="homepage-blog-title">Technology, explained beyond the basics.</h2>
               <p>Read original reporting, analysis and perspectives on the technologies shaping how people connect.</p>
             </div>
             <a href="/blog/" className="homepage-blog-promo-link">Explore the Blog <span aria-hidden="true">→</span></a>
-          </section>
+          </section>}
             <section className="homepage-faq" aria-labelledby="homepage-faq-title">
               <div className="homepage-section-heading"><span className="section-kicker">QUICK ANSWERS</span><h2 id="homepage-faq-title">Internet speed test questions, answered</h2><p>Short explanations to help you interpret your results and decide what to do next.</p></div>
               <div className="homepage-faq-list">
