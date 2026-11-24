@@ -4430,3 +4430,53 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
 .tezz-main .tezz-hero .tezz-stat.red>strong{color:#18181B!important}
 .tezz-main .tezz-hero .tezz-stat>span{color:#52525B!important}
 .tezz-main .tezz-hero .tezz-stat>strong{font-family:'Space Mono',monospace!important}
+
+
+/* PR #282 small spacing and cookie-control polish.
+   CSS-only overrides: preserve all React markup, IDs, attributes and test logic. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+  margin-top:36px!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong{
+  font-size:clamp(46px,6.2vw,82px)!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+  font-size:14px!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale{
+  margin-top:24px!important;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+    margin-top:31px!important;
+    min-height:94px!important;
+  }
+  .tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong{
+    font-size:clamp(42px,11vw,64px)!important;
+  }
+  .tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+    font-size:12px!important;
+  }
+  .tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale{
+    margin-top:24px!important;
+  }
+}
+/* Google Funding Choices / consent privacy control floating pill. */
+.fc-privacy-button,
+#fc-privacy-button,
+.fc-privacy-button button,
+button[aria-label*="Cookie settings" i],
+button[title*="Cookie settings" i],
+[data-testid*="cookie-settings" i]{
+  background:#FFFFFF!important;
+  color:#18181B!important;
+  border:1.5px solid #E4E4E7!important;
+  box-shadow:0 4px 14px rgba(24,24,27,.10)!important;
+}
+.fc-privacy-button *,
+#fc-privacy-button *,
+button[aria-label*="Cookie settings" i] *,
+button[title*="Cookie settings" i] *,
+[data-testid*="cookie-settings" i] *{
+  color:#18181B!important;
+}
