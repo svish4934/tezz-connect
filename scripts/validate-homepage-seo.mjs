@@ -54,5 +54,9 @@ assert.equal((app.match(/<button onClick=\{\(\)=>navigateTo\('Network'\)\}/g) ||
 assert.doesNotMatch(app, /homepage-causes-grid|homepage-next-steps/, 'Removed duplicate homepage sections should not return')
 console.log('Homepage-only scope and simplified-section regression checks passed.')
 
-assert.ok(app.includes("{activeTab === 'Overview' && <>\\n          <section className=\"home-knowledge-hub\""), 'Knowledge Hub must be inside the homepage-only render branch')
-assert.ok(app.includes("</section>\\n          </>}\\n          <footer>"), 'Homepage destinations and consent must close before the shared footer')
+
+const hubPosition = app.indexOf('className="home-knowledge-hub"')
+const homepageGuardPosition = app.lastIndexOf("{activeTab === 'Overview' && <>", hubPosition)
+const homepageGuardEnd = app.indexOf("</>}", hubPosition)
+assert.ok(homepageGuardPosition >= 0 && homepageGuardEnd > hubPosition, 'Hub, Blog, FAQ and benchmark panel must be scoped to the homepage')
+assert.ok(homepageGuardEnd < app.indexOf('<footer>', hubPosition), 'Homepage sections must close before the shared footer')
