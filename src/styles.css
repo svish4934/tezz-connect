@@ -4908,3 +4908,47 @@ button[title*="Cookie settings" i] *,
     animation:none!important;
   }
 }
+
+
+/* Final dial animation and readout alignment: both circular layers rotate
+   continuously, with distinct speeds/directions; readout stays above them. */
+.tezz-main .tezz-hero .signature-live-meter::before,
+.tezz-main .tezz-hero .signature-live-meter::after{
+  top:10px!important;
+  left:50%!important;
+  transform:translateX(-50%) rotate(0deg)!important;
+  transform-origin:50% 50%!important;
+  will-change:transform;
+  animation:tezzBlueTickOrbit 28s linear infinite!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::after{
+  animation:tezzSunsetDialOrbit 12s linear infinite!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-gauge-wrap{
+  position:relative!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+  top:50%!important;
+  left:50%!important;
+  transform:translate(-50%,-50%)!important;
+  z-index:5!important;
+  text-align:center!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong,
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+  width:auto!important;
+  text-align:center!important;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-hero .signature-live-meter::before,
+  .tezz-main .tezz-hero .signature-live-meter::after{
+    top:8px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .tezz-main .tezz-hero .signature-live-meter::before,
+  .tezz-main .tezz-hero .signature-live-meter::after{
+    animation:none!important;
+    will-change:auto!important;
+  }
+}
