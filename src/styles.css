@@ -3518,3 +3518,44 @@ footer a{color:#b7c6d8}
  .homepage-hero-support .tezz-feature-grid{grid-template-columns:1fr}
 }
 @media(max-width:420px){.homepage-quick-explainer .homepage-measurement-grid{grid-template-columns:1fr}}
+
+
+/* TEZZ CONNECT pastel palette rollout — shared site-wide surfaces and controls */
+:root{
+ --tezz-cream:#FAF8F5;--tezz-mist:#EEF2F6;--tezz-periwinkle:#A5B4FC;
+ --tezz-matcha:#86EFAC;--tezz-peach:#FDA4AF;--tezz-lilac:#DDD6FE;--tezz-deep:#1E293B;
+ --tezz-navy:var(--tezz-deep);--tezz-cyan:#A5B4FC;--tezz-violet:#DDD6FE;
+ --tezz-mint:#86EFAC;--tezz-red:#FDA4AF;--tezz-white:#FAF8F5;--tezz-slate:#64748B;
+ color:var(--tezz-deep);background:var(--tezz-cream);color-scheme:light;
+}
+html,body{background:var(--tezz-cream)!important;color:var(--tezz-deep)}
+body{background:linear-gradient(135deg,var(--tezz-mist),var(--tezz-cream) 58%,#fff)!important}
+.sidebar,.topbar{background:rgba(250,248,245,.96)!important;border-color:#dbe2ea!important;color:var(--tezz-deep)}
+.brand,.brand-light,.profile strong,.privacy-card strong{color:var(--tezz-deep)!important}
+.workspace-label,.section-kicker,.eyebrow,.breadcrumb,.topbar-right,.profile span,.privacy-card span{color:#64748b!important}
+.nav-item{color:#475569!important}
+.nav-item.active,.desktop-nav .nav-item.active{background:var(--tezz-lilac)!important;border-color:#c4b5fd!important;color:var(--tezz-deep)!important}
+.nav-item.active svg,.desktop-nav .nav-item.active svg{color:#5968c9!important}
+.brand-mark{background:linear-gradient(135deg,var(--tezz-periwinkle),var(--tezz-matcha))!important;color:var(--tezz-deep)!important;box-shadow:0 5px 18px #a5b4fc55!important}
+.privacy-card,.test-panel,.info-card,.history-strip,.doctor-panel,.doctor-status,.doctor-finding,.metric{background:var(--tezz-mist)!important;border-color:#d8e0e9!important;color:var(--tezz-deep)!important;box-shadow:0 10px 28px #1e293b0c!important}
+.test-panel h2,.info-card h3,.history-heading h3,.panel-heading h2,.doctor-heading h2,.doctor-finding strong,.metric strong,.network-row strong,.welcome h1{color:var(--tezz-deep)!important}
+.welcome h1 span,.welcome p,.panel-heading p,.metric div:nth-child(2)>span,.panel-foot,.network-row,.network-note,.health-score span,.history-item,.doctor-heading p,.doctor-status p,.doctor-finding p{color:#64748b!important}
+.gauge-halo{background:conic-gradient(from 220deg,var(--tezz-matcha) 0 28%,var(--tezz-periwinkle) 62%,#dbe2ea 62% 78%,transparent 78%)!important;box-shadow:0 0 28px #a5b4fc35!important}
+.gauge-inner{background:radial-gradient(circle at 50% 30%,#fff,var(--tezz-mist) 72%)!important;border-color:#dbe2ea!important}
+.gauge-label,.gauge-unit{color:#64748b!important}
+.run-button,.cta,.tb-button{background:var(--tezz-periwinkle)!important;color:var(--tezz-deep)!important;box-shadow:0 6px 18px #a5b4fc44!important}
+.run-button:hover,.cta:hover,.tb-button:hover{background:#929ff0!important}
+.metric-icon.cyan,.metric-icon.violet,.metric-icon.mint,.metric-icon.amber,.card-icon,.card-icon.health,.topic-icon{background:var(--tezz-lilac)!important;color:var(--tezz-deep)!important;border-color:#c4b5fd!important}
+.metric-icon.mint,.card-icon.health{background:#dcfce7!important;color:#166534!important;border-color:#bbf7d0!important}
+.metric-icon.amber{background:#ffe4e8!important;color:#9f1239!important;border-color:#fecdd3!important}
+.health-score strong,.health-bar span,.progress-track span,.live-dot{color:#166534!important;background:var(--tezz-matcha)!important;box-shadow:none!important}
+.health-bar,.progress-track{background:#dbe2ea!important}
+.orbit-ring{border-color:#cbd5e1!important}.orbit-core{background:var(--tezz-lilac)!important;color:var(--tezz-deep)!important;border-color:#c4b5fd!important;box-shadow:0 0 30px #ddd6fe66!important}
+.dot-one,.dot-two{background:var(--tezz-periwinkle)!important;box-shadow:none!important}
+.doctor-panel{background:linear-gradient(135deg,var(--tezz-mist),var(--tezz-cream))!important}
+.doctor-symbol{background:var(--tezz-lilac)!important;color:var(--tezz-deep)!important;border-color:#c4b5fd!important}
+.doctor-status strong{color:#166534!important}
+button,input,select,textarea{accent-color:#7c8ce8}
+input,select,textarea{color:var(--tezz-deep)}
+footer{color:#64748b!important;border-color:#dbe2ea!important}
+a{ text-underline-offset:3px }
