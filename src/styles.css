@@ -3784,3 +3784,44 @@ html,body{overflow-x:hidden!important;background:var(--tezz-sunset-cloud)!import
   }
   .tezz-main .tezz-header-actions .tezz-menu{display:none!important}
 }
+
+
+/* Android Chrome desktop-site mode reports a coarse pointer; at tablet/desktop
+   CSS widths it must use the desktop navigation, not the mobile hamburger. */
+@media (min-width:768px) and (max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-header{
+    display:grid!important;
+    grid-template-columns:minmax(105px, .8fr) minmax(0, 3.4fr) minmax(78px, .7fr)!important;
+    align-items:center!important;
+    column-gap:5px!important;
+    width:calc(100% - 24px)!important;
+    min-height:58px!important;height:auto!important;
+    padding:6px 9px!important;
+    border-radius:9999px!important;
+  }
+  .tezz-main .tezz-logo{grid-column:1;justify-self:start;min-width:0!important;gap:5px!important}
+  .tezz-main .tezz-logo i{width:27px!important;height:27px!important}
+  .tezz-main .tezz-logo-word{font-size:12px!important;letter-spacing:-.5px!important}
+  .tezz-main .tezz-nav{
+    grid-column:2!important;display:flex!important;visibility:visible!important;
+    opacity:1!important;position:static!important;justify-self:center!important;
+    align-items:center!important;justify-content:center!important;
+    flex:0 1 auto!important;min-width:0!important;gap:0!important;
+  }
+  .tezz-main .tezz-nav>a,
+  .tezz-main .tezz-nav>details>summary{
+    display:inline-flex!important;visibility:visible!important;
+    min-height:36px!important;padding:6px 4px!important;
+    font-size:clamp(8px,.95vw,10px)!important;letter-spacing:-.2px!important;
+  }
+  .tezz-main .tezz-header-actions{
+    grid-column:3!important;display:flex!important;justify-self:end!important;
+    margin:0!important;gap:0!important;
+  }
+  .tezz-main .tezz-header-actions>.tezz-header-search{
+    display:inline-flex!important;min-height:34px!important;
+    padding:6px 9px!important;font-size:10px!important;
+  }
+  .tezz-main .tezz-header-actions .tezz-menu{display:none!important}
+  .tezz-main .tezz-mobile-nav{display:none!important}
+}
