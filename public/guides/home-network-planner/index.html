@@ -7,15 +7,15 @@
 <meta property="og:type" content="article"><meta property="og:title" content="Home Network Planner: Wi-Fi &amp; Ethernet | TEZZ CONNECT"><meta property="og:description" content="Build a simple home network plan using your layout, devices and Ethernet options.">
 <link rel="stylesheet" href="/guides/guides.css">
 <style>
-.planner{margin:25px 0;padding:clamp(16px,3vw,25px);border:1px solid #DDD6FE;border-radius:18px;background:linear-gradient(145deg,#EEF2F6,#FAF8F5 75%);color:#1E293B}
-.planner h2{margin:5px 0 8px;font-size:clamp(21px,3vw,28px)}.planner-intro{max-width:740px;color:#1E293B;line-height:1.65}
+.planner{margin:25px 0;padding:clamp(16px,3vw,25px);border:1px solid #F4F4F5;border-radius:18px;background:linear-gradient(145deg,#F4F4F5,#FAFAFA 75%);color:#18181B}
+.planner h2{margin:5px 0 8px;font-size:clamp(21px,3vw,28px)}.planner-intro{max-width:740px;color:#18181B;line-height:1.65}
 .planner-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:18px}
-.planner-field{display:grid;gap:6px;min-width:0}.planner-field label{font-size:12px;font-weight:800}.planner-field select{width:100%;min-height:44px;padding:9px;border:1px solid #DDD6FE;border-radius:9px;background:#FAF8F5;color:#1E293B;font:inherit;font-size:13px}
-.planner-field select:focus-visible,.planner-button:focus-visible{outline:3px solid #A5B4FC;outline-offset:3px}
-.planner-button{margin-top:15px;min-height:42px;padding:10px 16px;border:0;border-radius:9px;background:#1E293B;color:#FAF8F5;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
-.planner-result{margin-top:18px;padding:16px;border:1px solid #DDD6FE;border-radius:13px;background:#FAF8F5}.planner-result h3{margin:4px 0 8px;font-size:20px}.planner-result h3:focus{outline:3px solid #A5B4FC;outline-offset:4px;border-radius:3px}.planner-result p,.planner-result li{font-size:13px;line-height:1.65;color:#1E293B}
-.plan-flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:14px 0}.plan-node{padding:10px 12px;border:1px solid #DDD6FE;border-radius:9px;background:#FAF8F5;color:#1E293B;font-size:12px;font-weight:800}.plan-arrow{color:#1E293B;font-weight:900}
-.planner-result[hidden]{display:none}.planner-note{margin:13px 0 0;padding:10px;border-radius:9px;background:#EEF2F6;color:#1E293B;font-size:11px;line-height:1.55}
+.planner-field{display:grid;gap:6px;min-width:0}.planner-field label{font-size:12px;font-weight:800}.planner-field select{width:100%;min-height:44px;padding:9px;border:1px solid #F4F4F5;border-radius:9px;background:#FAFAFA;color:#18181B;font:inherit;font-size:13px}
+.planner-field select:focus-visible,.planner-button:focus-visible{outline:3px solid #EF4444;outline-offset:3px}
+.planner-button{margin-top:15px;min-height:42px;padding:10px 16px;border:0;border-radius:9px;background:#18181B;color:#FAFAFA;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.planner-result{margin-top:18px;padding:16px;border:1px solid #F4F4F5;border-radius:13px;background:#FAFAFA}.planner-result h3{margin:4px 0 8px;font-size:20px}.planner-result h3:focus{outline:3px solid #EF4444;outline-offset:4px;border-radius:3px}.planner-result p,.planner-result li{font-size:13px;line-height:1.65;color:#18181B}
+.plan-flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:14px 0}.plan-node{padding:10px 12px;border:1px solid #F4F4F5;border-radius:9px;background:#FAFAFA;color:#18181B;font-size:12px;font-weight:800}.plan-arrow{color:#18181B;font-weight:900}
+.planner-result[hidden]{display:none}.planner-note{margin:13px 0 0;padding:10px;border-radius:9px;background:#F4F4F5;color:#18181B;font-size:11px;line-height:1.55}
 @media(max-width:560px){.planner-grid{grid-template-columns:1fr}.plan-flow{gap:5px}.plan-node{font-size:11px;padding:9px}}
 </style>  <!-- Analytics is omitted until this page uses the shared consent-aware loader. -->
 <script type="application/ld+json">
