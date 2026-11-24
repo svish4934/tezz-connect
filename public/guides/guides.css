@@ -77,3 +77,18 @@
 /* Keyboard-accessible skip navigation */
 .skip-link{position:absolute;top:8px;left:8px;z-index:10000;transform:translateY(-160%);padding:11px 15px;border:2px solid #0b4d68;border-radius:9px;background:#fff;color:#102a40;font:700 14px/1.3 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.18)}
 .skip-link:focus,.skip-link:focus-visible{transform:translateY(0);outline:3px solid #1683b5;outline-offset:3px}
+
+
+/* TEZZ CONNECT shared pastel brand palette */
+:root{color-scheme:light;--ink:#1E293B;--muted:#64748B;--blue:#6878d8;--line:#dbe2ea;--wash:#EEF2F6;--cream:#FAF8F5;--periwinkle:#A5B4FC;--matcha:#86EFAC;--peach:#FDA4AF;--lilac:#DDD6FE}
+body{background:linear-gradient(135deg,var(--wash),var(--cream) 58%,#fff)!important;color:var(--ink)!important}
+.site-head,.site-foot{background:var(--ink)!important}
+.brand span,.site-foot a{color:var(--periwinkle)!important}
+.hero .eyebrow,.eyebrow,.hub-promise span:before{color:#6878d8!important}
+.cta{background:var(--periwinkle)!important;color:var(--ink)!important}
+.toc,.note,.tool-card,.guide-card,.topic-card,.topic-feature,.article table{background:var(--cream)!important;border-color:var(--line)!important;color:var(--ink)!important}
+.article th{background:var(--lilac)!important;color:var(--ink)!important}
+.hub-hero{background:linear-gradient(125deg,var(--wash),var(--cream) 58%,#e8eaff)!important;border-color:var(--line)!important}
+.hub-hero h1 span,.topic-kicker,.topic-link,.text-link{color:#6878d8!important}
+.topic-icon,.topic-feature .topic-icon{background:var(--lilac)!important;color:var(--ink)!important}
+.topic-card:hover,.guide-card:hover{border-color:var(--periwinkle)!important}
