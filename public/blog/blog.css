@@ -71,3 +71,114 @@ body.tc-blog .tb-author-heading{min-width:0}
 body.tc-blog .tb-author-heading .tb-kicker{display:block;margin:0 0 8px}
 body.tc-blog .tb-author-heading h1{margin:0;font-size:clamp(32px,7vw,48px);line-height:1.1;letter-spacing:-1.2px;overflow-wrap:anywhere}
 @media(max-width:650px){body.tc-blog .tb-author-hero{gap:12px;margin:22px 0 25px}body.tc-blog .tb-author-portrait{width:144px;height:144px}body.tc-blog .tb-author-heading h1{font-size:clamp(30px,8vw,38px)}}
+
+
+/* TEZZ CONNECT Blog — Dopamine Sunset palette.
+   Color-only overrides; retain all existing layout, spacing and typography. */
+body.tc-blog{
+  --tb-navy:#18181B;
+  --tb-blue:#EF4444;
+  --tb-cyan:#FF9E7D;
+  --tb-ink:#18181B;
+  --tb-muted:#52525B;
+  --tb-line:#E4E4E7;
+  background:#FAFAFA!important;
+  color:#18181B!important;
+}
+body.tc-blog .tb-header{
+  background:rgba(255,255,255,.94)!important;
+  border:1.5px solid #E4E4E7!important;
+}
+body.tc-blog .tb-brand,
+body.tc-blog .tb-brand strong,
+body.tc-blog .tb-header nav a,
+body.tc-blog .tb-listing h1,
+body.tc-blog .tb-article h1,
+body.tc-blog .tb-article-body h2,
+body.tc-blog .tb-section h2,
+body.tc-blog .tb-category b,
+body.tc-blog .tb-card-copy h3,
+body.tc-blog .tb-feature h2{color:#18181B!important}
+body.tc-blog .tb-brand strong span,
+body.tc-blog .tb-brand b,
+body.tc-blog .tb-header nav a:hover,
+body.tc-blog .tb-feature a,
+body.tc-blog .tb-draft a,
+body.tc-blog .tb-crumb a,
+body.tc-blog .tb-byline a,
+body.tc-blog .tb-article-body a,
+body.tc-blog .tb-card-copy small{color:#EF4444!important}
+body.tc-blog .tb-header form,
+body.tc-blog .tb-category,
+body.tc-blog .tb-card,
+body.tc-blog .tb-feature,
+body.tc-blog .tb-article-body .tb-sources,
+body.tc-blog .tb-note,
+body.tc-blog .tb-draft{
+  background:#FFFFFF!important;border-color:#E4E4E7!important;
+}
+body.tc-blog .tb-header button{
+  background:#F4F4F5!important;color:#18181B!important;
+}
+body.tc-blog .tb-header button:hover,
+body.tc-blog .tb-light:hover{background:#FACC15!important;color:#18181B!important}
+body.tc-blog .tb-hero{
+  background:linear-gradient(115deg,#FFFFFF 0%,#FFF7ED 58%,#FFFFFF 100%)!important;
+  border:1px solid #E4E4E7!important;
+}
+body.tc-blog .tb-kicker,
+body.tc-blog .tb-card-copy small{color:#52525B!important}
+body.tc-blog .tb-hero h1,
+body.tc-blog .tb-hero h1 em{color:#18181B!important}
+body.tc-blog .tb-hero h1 em{ text-decoration-color:#FF9E7D!important}
+body.tc-blog .tb-hero p,
+body.tc-blog .tb-feature p,
+body.tc-blog .tb-listing>p,
+body.tc-blog .tb-deck,
+body.tc-blog .tb-category small,
+body.tc-blog .tb-card-copy p,
+body.tc-blog .tb-note p,
+body.tc-blog .tb-draft p,
+body.tc-blog .tb-article-body>p,
+body.tc-blog .tb-article-body section p{color:#52525B!important}
+body.tc-blog .tb-button{
+  background:#EF4444!important;color:#FFFFFF!important;border-color:#EF4444!important;
+}
+body.tc-blog .tb-button:hover{background:#DC2626!important;color:#FFFFFF!important}
+body.tc-blog .tb-button.tb-light{
+  background:#FFFFFF!important;color:#18181B!important;border:1px solid #E4E4E7!important;
+}
+body.tc-blog .tb-button.tb-light:hover{background:#FACC15!important;border-color:#FACC15!important}
+body.tc-blog .tb-router-art{
+  background:radial-gradient(circle,#FFF7ED 0%,#FFFFFF 58%,transparent 72%)!important;
+  border-color:#E4E4E7!important;color:#18181B!important;
+}
+body.tc-blog .tb-router-art span{color:#FF9E7D!important}
+body.tc-blog .tb-feature-art{
+  background:linear-gradient(135deg,#FFF7ED,#FF9E7D)!important;color:#18181B!important;
+}
+body.tc-blog .tb-feature-art:after{border-color:rgba(24,24,27,.15)!important;box-shadow:0 0 0 24px rgba(239,68,68,.045),0 0 0 50px rgba(250,204,21,.06)!important}
+body.tc-blog .tb-status{
+  background:#FFF7ED!important;color:#18181B!important;border-color:#FF9E7D!important;
+}
+body.tc-blog .tb-note,
+body.tc-blog .tb-draft{background:#FFF7ED!important;border-color:#E4E4E7!important}
+body.tc-blog .tb-note strong,
+body.tc-blog .tb-draft strong{color:#18181B!important}
+body.tc-blog .tb-footer{
+  background:#FFF7ED!important;color:#52525B!important;border-top:1.5px solid #FF9E7D!important;
+}
+body.tc-blog .tb-footer p,
+body.tc-blog .tb-footer>div>a:not(.tb-brand){color:#52525B!important}
+body.tc-blog .tb-footer>div>strong{color:#18181B!important}
+body.tc-blog .tb-footer a{color:#EF4444!important}
+body.tc-blog .tb-footer:after{
+  content:"";display:block;grid-column:1/-1;height:5px;
+  background:linear-gradient(90deg,#FACC15,#FF9E7D,#EF4444);
+}
+body.tc-blog .tb-article-body .tb-sources{background:#F4F4F5!important;border-color:#E4E4E7!important}
+body.tc-blog[data-blog-page="category"]{background:#FAFAFA!important}
+body.tc-blog[data-blog-page="category"] .tb-listing>h1+p{color:#52525B!important}
+body.tc-blog[data-blog-page="category"] .tb-listing>.tb-kicker{background:#FFF7ED!important;border-color:#E4E4E7!important;color:#52525B!important}
+body.tc-blog[data-blog-page="category"] #tb-articles .tb-card{background:#FFFFFF!important;border-color:#E4E4E7!important}
+body.tc-blog[data-blog-page="category"] #tb-articles .tb-status{color:#EF4444!important}
