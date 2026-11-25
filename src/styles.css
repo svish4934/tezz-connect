@@ -5945,3 +5945,19 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 .tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart circle{
   vector-effect:non-scaling-stroke!important;
 }
+
+
+/* The live trace is data-driven; do not reveal it with a partial dash animation.
+   That animation made the red plot appear to stop before the track's right edge.
+   Keep the SVG plot full-width (0..320) and let new real samples reshape it. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart.is-live .tezz-chart-line{
+  stroke-dasharray:none!important;
+  stroke-dashoffset:0!important;
+  animation:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart svg{
+  preserveAspectRatio:none;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart .tezz-chart-grid{
+  stroke-dasharray:2 4!important;
+}
