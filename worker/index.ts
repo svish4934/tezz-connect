@@ -475,6 +475,9 @@ const app: ExportedHandler<Env> = {
     const appShellPaths = new Set([
       "/",
       "/about",
+      "/contact",
+      "/privacy-policy",
+      "/terms-of-use",
       "/internet-doctor",
       "/tools",
       "/global-network",
@@ -706,6 +709,9 @@ const app: ExportedHandler<Env> = {
       const pageByPath: Record<string, string> = {
         "/": "Overview",
         "/about": "About",
+        "/contact": "Contact",
+        "/privacy-policy": "Privacy",
+        "/terms-of-use": "Terms",
         "/internet-doctor": "Internet Doctor",
         "/tools": "Network",
         "/global-network": "Global Network",
@@ -718,6 +724,9 @@ const app: ExportedHandler<Env> = {
           Network: { title: "Free Network Tools & Diagnostics | TEZZ CONNECT", description: "Explore free IP, DNS, Wi-Fi and browser-based network diagnostic tools from TEZZ CONNECT." },
           "Global Network": { title: "Global Network Benchmarks | TEZZ CONNECT", description: "Explore opt-in regional internet performance benchmarks and understand what participating TEZZ CONNECT test samples can show." },
           About: { title: "About TEZZ CONNECT | Internet Performance Tools", description: "Learn how TEZZ CONNECT measures internet performance with free browser-based tools and practical network guides." },
+          Contact: { title: "Contact TEZZ CONNECT Support", description: "Contact TEZZ CONNECT support about the internet speed test, website, privacy or technical issues." },
+          Privacy: { title: "Privacy Policy | TEZZ CONNECT", description: "Read how TEZZ CONNECT handles test data, cookies, Google AdSense advertising and third-party services." },
+          Terms: { title: "Terms & Disclaimer | TEZZ CONNECT", description: "Read the terms, measurement limitations and disclaimer for TEZZ CONNECT internet diagnostics." },
         }
         let localeMeta: { title?: string; description?: string; pageTitles?: Record<string, string>; pageDescriptions?: Record<string, string> } = {}
         try {
