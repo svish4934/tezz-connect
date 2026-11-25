@@ -15,12 +15,11 @@ assert.match(html, /rel="canonical" href="https:\/\/tezzconnect\.online\/" /)
 assert.match(html, /"@type": "FAQPage"/, 'Homepage should expose FAQ structured data')
 
 const questions = [
-  'What does an internet speed test measure?',
-  'Why is my internet slow when the speed test looks good?',
-  'What is the difference between download and upload speed?',
-  'Is TEZZ CONNECT latency the same as a traditional ping test?',
-  'Can an internet speed test measure my Wi-Fi signal strength?',
-  'Why do I get different results each time I test?',
+  "Why is my Wi-Fi speed different from the speed in my ISP plan?",
+  "What ping is ideal for gaming or video calls?",
+  "What causes high jitter or inconsistent response times?",
+  "How can I improve my broadband speed?",
+  "How does the Tezz internet speed test work?"
 ]
 for (const question of questions) {
   assert.ok(app.includes(question), `Visible homepage FAQ missing: ${question}`)

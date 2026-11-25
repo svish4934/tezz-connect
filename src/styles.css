@@ -5979,3 +5979,53 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
   color:#EF4444!important;
   stroke:#EF4444!important;
 }
+
+
+/* AdSense trust pages and expanded homepage education: Dopamine Sunset theme. */
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid article{padding:20px!important;background:#FFFFFF!important;border:1px solid #E4E4E7!important;border-radius:16px!important}
+.tezz-main .homepage-quick-explainer .homepage-measurement-grid p{font-size:14px!important;line-height:1.75!important;color:#52525B!important}
+.tezz-main .homepage-measurement-note{margin:16px 0 0!important;color:#52525B!important;font-size:13px!important;line-height:1.65!important}
+.tezz-main .homepage-quick-faq-list{grid-template-columns:1fr!important;gap:11px!important}
+.tezz-main .homepage-quick-faq-list details{padding:17px 19px!important;border-radius:14px!important}
+.tezz-main .homepage-quick-faq-list summary{font-size:15px!important;line-height:1.5!important}
+.tezz-main .homepage-quick-faq-list p{font-size:14px!important;line-height:1.75!important}
+.tezz-main .trust-page{max-width:1040px;margin:12px auto 42px;color:#18181B}
+.tezz-main .trust-page-hero{padding:30px 0 22px}
+.tezz-main .trust-page-hero h1{font-size:clamp(32px,5vw,48px);line-height:1.12;letter-spacing:-1.7px;margin:14px 0;color:#18181B}
+.tezz-main .trust-page-hero>p{max-width:760px;color:#52525B;line-height:1.75;font-size:15px}
+.tezz-main .trust-page-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px;align-items:start}
+.tezz-main .trust-page-card{background:#FFFFFF;border:1px solid #E4E4E7;border-radius:18px;padding:24px;margin:14px 0;color:#18181B;box-shadow:0 8px 24px rgba(24,24,27,.035)}
+.tezz-main .trust-page-card h2{font-size:20px;margin:0 0 12px;color:#18181B}
+.tezz-main .trust-page-card h2:not(:first-child){margin-top:28px}
+.tezz-main .trust-page-card p{font-size:14px;line-height:1.8;color:#52525B}
+.tezz-main .trust-page-card a{color:#EF4444;text-decoration:underline;text-underline-offset:3px}
+.tezz-main .trust-page-card .trust-email{font-size:18px;font-weight:800;overflow-wrap:anywhere}
+.tezz-main .trust-muted,.tezz-main .tezz-contact-form small{color:#71717A;font-size:12px;line-height:1.6}
+.tezz-main .tezz-contact-form{display:grid;gap:14px}
+.tezz-main .tezz-contact-form label{display:grid;gap:7px;font-size:13px;font-weight:700;color:#18181B}
+.tezz-main .tezz-contact-form input,.tezz-main .tezz-contact-form textarea{width:100%;border:1px solid #D4D4D8;border-radius:10px;background:#FAFAFA;color:#18181B;padding:12px 13px;font:inherit;outline-color:#EF4444}
+.tezz-main .tezz-contact-form button{justify-self:start;border:0;border-radius:999px;background:#EF4444;color:#FFFFFF;font-weight:800;padding:12px 20px;cursor:pointer}
+.tezz-main .tezz-contact-form button:hover{background:#DC2626}
+.tezz-main .legal-page .trust-page-card{padding:clamp(20px,4vw,34px)}
+.tezz-main .legal-page .trust-page-card p{font-size:14px}
+@media(max-width:767px){
+ .tezz-main .homepage-quick-explainer .homepage-measurement-grid{grid-template-columns:1fr!important}
+ .tezz-main .trust-page{margin-top:0}
+ .tezz-main .trust-page-grid{grid-template-columns:1fr}
+ .tezz-main .trust-page-card{padding:19px}
+ .tezz-main .trust-page-hero{padding-top:18px}
+}
+
+/* Contextual internal-link modules */
+.tezz-main .homepage-related-links{margin:34px 0 12px}
+.tezz-main .homepage-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tezz-main .homepage-related-grid a{display:flex;flex-direction:column;gap:8px;min-height:142px;padding:18px;border:1px solid #E4E4E7;border-radius:15px;background:#FFFFFF;color:#18181B;text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+.tezz-main .homepage-related-grid a:hover{border-color:#FF9E7D;transform:translateY(-2px)}
+.tezz-main .homepage-related-grid strong{font-size:15px;line-height:1.4}
+.tezz-main .homepage-related-grid span{font-size:13px;line-height:1.65;color:#52525B}
+.tezz-main .homepage-related-grid i{margin-top:auto;font-size:12px;font-style:normal;font-weight:800;color:#EF4444}
+.tezz-main .trust-related-links{font-size:13px;line-height:1.8;color:#52525B;margin:18px 0}
+.tezz-main .trust-related-links a{color:#EF4444;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:767px){.tezz-main .homepage-related-grid{grid-template-columns:1fr 1fr}.tezz-main .homepage-related-grid a{min-height:150px;padding:15px}}
+@media(max-width:420px){.tezz-main .homepage-related-grid{grid-template-columns:1fr}}
