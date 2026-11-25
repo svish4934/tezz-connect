@@ -5770,3 +5770,129 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
   .tezz-main .tezz-footer-main{grid-template-columns:1fr!important}
   .tezz-main .tezz-footer-links{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+
+/* Speedometer final correction: centered readout and test-triggered sunset dial. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-gauge-wrap{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+  position:absolute!important;
+  inset:50% auto auto 50%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  width:max-content!important;
+  max-width:90%!important;
+  margin:0!important;
+  transform:translate(-50%,-50%)!important;
+  text-align:center!important;
+  z-index:6!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong,
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+  display:block!important;
+  width:auto!important;
+  margin:0!important;
+  text-align:center!important;
+  line-height:1.08!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+  margin-top:8px!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before,
+.tezz-main .tezz-hero .signature-live-meter::after{
+  animation:none!important;
+  will-change:auto!important;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::before{
+  animation:tezzBlueTickOrbit 24s linear infinite!important;
+  will-change:transform;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+  animation:tezzSunsetDialOrbit 8s linear infinite!important;
+  will-change:transform;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong{
+    font-size:clamp(34px,9vw,44px)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .tezz-main .tezz-hero.is-testing .signature-live-meter::before,
+  .tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+    animation:none!important;
+  }
+}
+
+
+/* Correct dial motion: animate the independent CSS rotate property.
+   The dial's translateX(-50%) transform is intentionally !important for
+   centering, so transform-based keyframes cannot override it. */
+@keyframes tezzTickLayerSpin{
+  from{rotate:0deg}
+  to{rotate:-360deg}
+}
+@keyframes tezzSunsetArcSpin{
+  from{rotate:0deg}
+  to{rotate:360deg}
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::before{
+  animation:tezzTickLayerSpin 24s linear infinite!important;
+  will-change:rotate;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+  animation:tezzSunsetArcSpin 8s linear infinite!important;
+  will-change:rotate;
+}
+
+
+/* Final positioning correction: anchor both dial layers to the same box.
+   Use the individual translate property so rotation cannot displace the rings. */
+.tezz-main .tezz-hero .signature-live-meter{
+  position:relative!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before,
+.tezz-main .tezz-hero .signature-live-meter::after{
+  position:absolute!important;
+  top:20px!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:min(76%,240px)!important;
+  height:auto!important;
+  aspect-ratio:1/1!important;
+  translate:-50% 0!important;
+  transform:none!important;
+  transform-origin:50% 50%!important;
+  pointer-events:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before{
+  z-index:0!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::after{
+  z-index:0!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-gauge-wrap{
+  position:relative!important;
+  z-index:1!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+  position:absolute!important;
+  top:50%!important;
+  left:50%!important;
+  translate:-50% -50%!important;
+  transform:none!important;
+  z-index:3!important;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::before{
+  animation:tezzTickLayerSpin 24s linear infinite!important;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+  animation:tezzSunsetArcSpin 8s linear infinite!important;
+}
