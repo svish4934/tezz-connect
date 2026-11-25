@@ -1126,7 +1126,7 @@ function App() {
             <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
             <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>{copy[2]}</a>
             <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>{copy[3]}</a>
-            <details className={`tezz-nav-dropdown ${['Global Network', 'History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`}>
+            <details className={`tezz-nav-dropdown ${['Global Network', 'History', 'Report', 'About', 'Contact', 'Privacy', 'Terms'].includes(activeTab) ? 'has-active' : ''}`}>
               <summary aria-label="Global Network menu">Global Network <span aria-hidden="true">▾</span></summary>
               <div className="tezz-nav-dropdown-menu">
                 <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network') }}>{copy[4]}</a>
@@ -1157,7 +1157,7 @@ function App() {
           <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
           <a className={activeTab === 'Internet Doctor' ? 'selected' : ''} href="/internet-doctor" onClick={event => { event.preventDefault(); navigateTo('Internet Doctor') }}>Internet Doctor</a>
           <a className={activeTab === 'Network' ? 'selected' : ''} href="/tools" onClick={event => { event.preventDefault(); navigateTo('Network') }}>Network Tools</a>
-          <details className={`tezz-mobile-nav-group ${['Global Network', 'History', 'Report', 'About'].includes(activeTab) ? 'has-active' : ''}`} open={['Global Network', 'History', 'Report', 'About'].includes(activeTab)}>
+          <details className={`tezz-mobile-nav-group ${['Global Network', 'History', 'Report', 'About', 'Contact', 'Privacy', 'Terms'].includes(activeTab) ? 'has-active' : ''}`} open={['Global Network', 'History', 'Report', 'About'].includes(activeTab)}>
             <summary>Global Network <span aria-hidden="true">▾</span></summary>
             <div className="tezz-mobile-nav-submenu">
               <a className={activeTab === 'Global Network' ? 'selected' : ''} href="/global-network" onClick={event => { event.preventDefault(); navigateTo('Global Network'); setMobileMenuOpen(false) }}>Global Network overview</a>
@@ -1315,7 +1315,7 @@ function App() {
               <span className="section-kicker" style={{color:'#087F91'}}>CONTACT US</span>
               <h2 style={{color:'#142B45',margin:'8px 0'}}>We’d like to hear from you.</h2>
               <p style={{color:'#53677D',margin:'0 0 14px'}}>Have a question, spotted an issue, or want to share an idea? Send the TEZZ CONNECT team a message.</p>
-              <a href="mailto:tezzconnect.contact@gmail.com" style={{color:'#087F91',fontWeight:700,textDecoration:'underline',overflowWrap:'anywhere'}}>tezzconnect.contact@gmail.com</a>
+              <a href="mailto:support@tezzconnect.online" style={{color:'#087F91',fontWeight:700,textDecoration:'underline',overflowWrap:'anywhere'}}>support@tezzconnect.online</a>
             </div>
             <div className="about-cta"><div><span className="section-kicker">READY TO CHECK YOUR CONNECTION?</span><h2 style={{color:'#F7FBFF'}}>Start with a fresh speed test.</h2></div><button onClick={() => { navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 0) }}>Go to speed test <span aria-hidden="true">→</span></button></div>
           </section>}
