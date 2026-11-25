@@ -47,7 +47,8 @@ assert.ok(html.includes("tcData.eventStatus === 'tcloaded'"), 'Stored TCF decisi
 assert.ok(html.includes("tcData.eventStatus === 'useractioncomplete'"), 'New TCF decisions must be recognized before resuming AdSense');
 assert.ok(html.includes("tcData.purpose.consents[1] === true"), 'European AdSense requests must require explicit TCF Purpose 1 consent');
 assert.ok(html.includes('decisionReady && purposeOneAllowed ? 0 : 1'), 'European AdSense requests must remain paused unless the completed TCF decision grants Purpose 1');
-assert.ok(v.includes('window.adsbygoogle.pauseAdRequests = 1;'), 'Ad requests must be paused before any regulated CMP bootstrap');
+assert.notEqual(pauseBeforeTag, -1, 'Ad requests must be paused by default before any regulated CMP bootstrap');
+assert.ok(pauseBeforeTag < regulatedAdsBootstrap, 'Ad requests must be paused before the regulated CMP bootstrap');
 assert.equal(html.split(adsUrl).length - 1, 1, 'AdSense loader URL must appear exactly once in the dynamic loader');
 assert.notEqual(regulatedGuard, -1, 'Local preferences must not update Google signals in regulated regions');
 assert.ok(html.includes("'CONSENT_API_READY': function() {"), 'European privacy settings must wait for Google CMP consent API readiness');
