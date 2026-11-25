@@ -5961,3 +5961,21 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 .tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart .tezz-chart-grid{
   stroke-dasharray:2 4!important;
 }
+
+
+/* Keep Download and Upload metric cards visually consistent.
+   Both use the primary TEZZ CONNECT red accent; layout and values unchanged. */
+.tezz-main .tezz-hero .tezz-stat.cyan .tezz-stat-icon,
+.tezz-main .tezz-hero .tezz-stat.violet .tezz-stat-icon{
+  background:rgba(239,68,68,.12)!important;
+  color:#EF4444!important;
+}
+.tezz-main .tezz-hero .tezz-stat.cyan>strong,
+.tezz-main .tezz-hero .tezz-stat.violet>strong{
+  color:#EF4444!important;
+}
+.tezz-main .tezz-hero .tezz-stat.cyan .tezz-stat-icon svg,
+.tezz-main .tezz-hero .tezz-stat.violet .tezz-stat-icon svg{
+  color:#EF4444!important;
+  stroke:#EF4444!important;
+}
