@@ -5829,3 +5829,28 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
     animation:none!important;
   }
 }
+
+
+/* Correct dial motion: animate the independent CSS rotate property.
+   The dial's translateX(-50%) transform is intentionally !important for
+   centering, so transform-based keyframes cannot override it. */
+@keyframes tezzTickLayerSpin{
+  from{rotate:0deg}
+  to{rotate:-360deg}
+}
+@keyframes tezzSunsetArcSpin{
+  from{rotate:0deg}
+  to{rotate:360deg}
+}
+.tezz-main .tezz-hero .signature-live-meter::before,
+.tezz-main .tezz-hero .signature-live-meter::after{
+  rotate:0deg!important;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::before{
+  animation:tezzTickLayerSpin 24s linear infinite!important;
+  will-change:rotate;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+  animation:tezzSunsetArcSpin 8s linear infinite!important;
+  will-change:rotate;
+}
