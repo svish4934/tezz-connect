@@ -2,7 +2,11 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 
-const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const pageHtml = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const sharedConsent = fs.readFileSync(new URL('../public/ads/tezz-consent.js', import.meta.url), 'utf8');
+// The shared consent manager executes synchronously from the head before the
+// page's static AdSense tag, so validate the effective execution order.
+const html = sharedConsent + '\\n' + pageHtml;
 const defaults = html.indexOf("gtag('consent', 'default'");
 const adsUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
 const adsTag = html.indexOf(adsUrl);
