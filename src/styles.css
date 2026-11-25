@@ -5688,3 +5688,26 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* Brand consistency fix: dropdown must follow the light Dopamine Sunset header. */
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu,
+.tezz-main .tezz-nav-dropdown-menu{
+  background:#FFFFFF!important;
+  border:1.5px solid #E4E4E7!important;
+  border-radius:15px!important;
+  box-shadow:0 12px 30px rgba(24,24,27,.12)!important;
+}
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a,
+.tezz-main .tezz-nav-dropdown-menu a{
+  color:#18181B!important;
+  background:transparent!important;
+  font-family:'Plus Jakarta Sans',sans-serif!important;
+}
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a:hover,
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a.selected,
+.tezz-main .tezz-nav-dropdown-menu a:hover,
+.tezz-main .tezz-nav-dropdown-menu a.selected{
+  color:#EF4444!important;
+  background:#FFF7ED!important;
+}
