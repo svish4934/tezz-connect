@@ -6029,3 +6029,61 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 .tezz-main .trust-related-links a{color:#EF4444;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:767px){.tezz-main .homepage-related-grid{grid-template-columns:1fr 1fr}.tezz-main .homepage-related-grid a{min-height:150px;padding:15px}}
 @media(max-width:420px){.tezz-main .homepage-related-grid{grid-template-columns:1fr}}
+
+
+/* Minimal About page: align trust content with the light homepage palette. */
+.about-page-minimal .about-origin{
+  margin-top:18px!important;
+  background:#FFFFFF!important;
+  border:1px solid #E4E4E7!important;
+  border-radius:16px!important;
+  box-shadow:0 8px 24px rgba(24,24,27,.04)!important;
+}
+.about-page-minimal .about-origin h2{color:#18181B!important}
+.about-page-minimal .about-origin p{color:#52525B!important}
+.about-page-minimal .about-feature-grid{gap:12px!important;margin-top:14px!important}
+.about-page-minimal .about-feature-grid article{
+  padding:20px!important;
+  border:1px solid #E4E4E7!important;
+  border-radius:15px!important;
+  background:#FFFFFF!important;
+  color:#18181B!important;
+  box-shadow:0 6px 18px rgba(24,24,27,.035)!important;
+}
+.about-page-minimal .about-feature-icon{
+  background:#FFF7ED!important;
+  border:1px solid #FFDDC9!important;
+  color:#EF4444!important;
+}
+.about-page-minimal .about-feature-grid h3{color:#18181B!important}
+.about-page-minimal .about-feature-grid p{color:#52525B!important}
+.about-page-minimal .about-method-note{
+  align-items:flex-start!important;
+  padding:14px 16px!important;
+  border:1px solid #D7EDE6!important;
+  border-radius:12px!important;
+  background:#F0FAF6!important;
+  color:#365D53!important;
+  font-size:11px!important;
+  line-height:1.7!important;
+}
+.about-page-minimal .about-method-note svg{color:#0F8A75!important}
+.about-page-minimal .about-contact-card{
+  margin:16px 0!important;
+  padding:20px!important;
+  border:1px solid #E4E4E7!important;
+  border-radius:15px!important;
+  background:#FFFFFF!important;
+  color:#18181B!important;
+}
+.about-page-minimal .about-contact-card h2{color:#18181B!important;font-size:20px!important}
+.about-page-minimal .about-contact-card p{color:#52525B!important}
+.about-page-minimal .about-contact-card a{color:#D93636!important;font-weight:700!important}
+.about-page-minimal .trust-related-links{color:#52525B!important}
+.about-page-minimal .trust-related-links a{color:#D93636!important}
+@media(max-width:760px){
+  .about-page-minimal .about-origin{padding:16px!important}
+  .about-page-minimal .about-feature-grid{grid-template-columns:1fr!important}
+  .about-page-minimal .about-feature-grid article{padding:17px!important}
+  .about-page-minimal .about-contact-card{padding:17px!important}
+}
