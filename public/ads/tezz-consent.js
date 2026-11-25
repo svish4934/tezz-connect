@@ -12,6 +12,13 @@ window.dataLayer = window.dataLayer || [];
       var regionReadyResolve;
       var regionReady = new Promise(function(resolve) { regionReadyResolve = resolve; });
       var isRegulatedRegion = false;
+      function onDomReady(callback) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', callback, { once: true });
+        } else {
+          callback();
+        }
+      }
       function ensureAdSenseTag() {
         if (document.getElementById('tezz-ads')) return;
         var ads = document.createElement('script');
@@ -117,7 +124,7 @@ window.dataLayer = window.dataLayer || [];
         manage.setAttribute('aria-label', 'Open cookie settings');
         manage.style.cssText = 'position:fixed;z-index:9998;left:8px;bottom:8px;padding:6px 9px;border:1px solid #47617f;border-radius:999px;background:rgba(10,25,48,.94);color:#f4f7ff;font:11px system-ui;cursor:pointer;box-shadow:0 3px 12px #0003';
         manage.onclick = function(){ render(true); };
-        document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(manage); });
+        onDomReady(function(){ document.body.appendChild(manage); });
         // Resolve Cloudflare country before selecting the consent interface or loading AdSense.
         // A failed lookup is treated as unknown and remains fail-closed.
         fetch('/locale-country', { cache: 'no-store', credentials: 'same-origin' })
@@ -156,7 +163,7 @@ window.dataLayer = window.dataLayer || [];
               return;
             }
             if (current && current.necessary === true) loadScripts(current);
-            else document.addEventListener('DOMContentLoaded', function(){ render(true); });
+            else onDomReady(function(){ render(true); });
           })
           .catch(function() {
             // Unknown region: do not let a generic local choice grant Google consent.
