@@ -14,7 +14,7 @@ migrations_dir = "./migrations"
 [assets]
 directory = "./dist"
 binding = "ASSETS"
-run_worker_first = ["/", "/robots.txt", "/sitemap.xml", "/locale-country", "/api/*", "/about", "/about/", "/internet-doctor", "/internet-doctor/", "/tools", "/tools/", "/global-network", "/global-network/", "/history", "/history/", "/report", "/report/", "/privacy-policy", "/privacy-policy/", "/terms-of-use", "/terms-of-use/", "/guides/*", "/hi", "/hi/*", "/mr", "/mr/*", "/bn", "/bn/*", "/zh-CN", "/zh-CN/*", "/pt-BR", "/pt-BR/*", "/es", "/es/*", "/fr", "/fr/*", "/ar", "/ar/*"]
+run_worker_first = ["/", "/robots.txt", "/sitemap.xml", "/locale-country", "/api/*", "/about", "/about/", "/internet-doctor", "/internet-doctor/", "/tools", "/tools/", "/global-network", "/global-network/", "/history", "/history/", "/report", "/report/", "/privacy-policy", "/privacy-policy/", "/terms-of-use", "/terms-of-use/", "/guides/*", "/blog", "/blog/*", "/hi", "/hi/*", "/mr", "/mr/*", "/bn", "/bn/*", "/zh-CN", "/zh-CN/*", "/pt-BR", "/pt-BR/*", "/es", "/es/*", "/fr", "/fr/*", "/ar", "/ar/*"]
 not_found_handling = "none"
 
 [[ratelimits]]
