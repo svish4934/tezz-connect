@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How the TEZZ CONNECT Speed Test Works | Measurement Methodology</title>
+<meta name="description" content="Learn how TEZZ CONNECT measures browser-to-edge download and upload throughput, HTTP response time and response variation, including test steps and limitations.">
+<link rel="canonical" href="https://tezzconnect.online/guides/speed-test-methodology/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How the TEZZ CONNECT Speed Test Works">
+<meta property="og:description" content="A transparent explanation of the test process, calculations, data use and measurement limitations.">
+<meta property="og:url" content="https://tezzconnect.online/guides/speed-test-methodology/">
+<link rel="stylesheet" href="/guides/guides.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How the TEZZ CONNECT Speed Test Works","description":"A transparent explanation of TEZZ CONNECT browser-to-edge throughput and HTTP response-time measurements.","author":{"@type":"Organization","name":"TEZZ CONNECT"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"mainEntityOfPage":"https://tezzconnect.online/guides/speed-test-methodology/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tezzconnect.online/"},{"@type":"ListItem","position":2,"name":"Internet Knowledge Hub","item":"https://tezzconnect.online/guides/"},{"@type":"ListItem","position":3,"name":"Speed test methodology","item":"https://tezzconnect.online/guides/speed-test-methodology/"}]}
+</script>
+<script defer src="/language.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-head"><div class="head-inner"><a class="brand" href="/">TEZZ<span>CONNECT</span></a><nav class="article-nav" aria-label="Guide navigation"><a href="/guides/">Knowledge Hub</a><a href="/#tezz-speed-test">Speed test</a></nav></div></header>
+<main class="wrap" id="main-content">
+<div class="crumb"><a href="/">Home</a> / <a href="/guides/">Internet Knowledge Hub</a> / Speed test methodology</div>
+<header class="hero">
+<div class="eyebrow">MEASUREMENT TRANSPARENCY</div>
+<h1>How the TEZZ CONNECT speed test works</h1>
+<p class="lede">A speed-test result is a measurement between a particular device, browser, network path and test endpoint at a particular time. This page explains what TEZZ CONNECT measures, how the figures are calculated and what the results cannot tell you.</p>
+<p class="meta">TEZZ CONNECT · Measurement methodology</p>
+<a class="cta" href="/#tezz-speed-test">Run the speed test</a>
+</header>
+<nav class="toc" aria-label="On this page"><h2>On this page</h2><ul>
+<li><a href="#scope">What the test measures</a></li><li><a href="#latency">HTTP response time and variation</a></li><li><a href="#download">Download throughput</a></li><li><a href="#upload">Upload throughput</a></li><li><a href="#results">How to interpret results</a></li><li><a href="#limits">Limitations</a></li><li><a href="#fair-test">How to run a fair comparison</a></li><li><a href="#privacy">Test data and privacy</a></li>
+</ul></nav>
+<article class="article">
+<h2 id="scope">What the test measures</h2>
+<p>TEZZ CONNECT runs measurement requests from your browser to TEZZ CONNECT speed-test endpoints hosted on its network edge. The test reports download throughput, upload throughput, and browser-measured HTTP response timing and variation. These measurements describe the path used by this test between your device and the TEZZ CONNECT endpoint.</p>
+<p>They are not a measurement of every route across the public internet. A result can differ from the performance you experience with a particular game server, video platform, cloud-storage service or website because those services use different destinations and network paths.</p>
+<h2 id="latency">HTTP response time and response variation</h2>
+<p>Before the transfer tests, the browser sends one warm-up request to the TEZZ CONNECT latency endpoint. It then makes seven additional sequential HTTP requests. The browser records the elapsed time for each request using its high-resolution timing clock.</p>
+<p>The displayed latency figure is the median of those seven measured request-response times. The response-variation figure is calculated as the mean of the absolute differences between each consecutive pair of measured times. In other words, it describes how much the successive HTTP timings varied during this short test.</p>
+<aside class="note"><h3>Important terminology</h3><p>These are browser-based HTTP request-and-response timings to the TEZZ CONNECT edge. They are not ICMP echo-request ping measurements, and the variation figure is not a direct packet-level jitter measurement. Browser scheduling, device load, Wi-Fi, routing and endpoint conditions can all influence the timings.</p></aside>
+<h2 id="download">Download throughput</h2>
+<p>The browser requests a streamed download from the TEZZ CONNECT endpoint. It reads the response body in chunks and counts the bytes received. Throughput is calculated from the number of bits received divided by the elapsed time, then expressed in megabits per second (Mbps).</p>
+<p>The current test runs three download samples. Each sample is limited to 2.5 seconds and a maximum response size of 8,333,333 bytes. The final download result is the median of the three sample results. Using the median reduces the influence of one unusually high or low sample, but it does not remove every source of measurement variation.</p>
+<h2 id="upload">Upload throughput</h2>
+<p>The browser first sends a 1,000,000-byte calibration payload. Based on that calibration rate, the test selects the measured upload payload size:</p>
+<ul><li>Below 25 Mbps: 2 MB</li><li>From 25 Mbps to below 100 Mbps: 5 MB</li><li>100 Mbps or above: 10 MB</li></ul>
+<p>The browser creates the payload, sends it to the TEZZ CONNECT upload endpoint and measures the time until the browser reports that the upload has completed. The server response must confirm that it received the full payload. The reported throughput uses the browser's upload-complete timing, not the server's processing duration.</p>
+<p>The test runs three measured samples for the 2 MB payload size and two samples for the 5 MB or 10 MB payload sizes. The final upload result is the median of those samples. The calibration and measured payloads are test traffic; actual data transferred can vary if a test fails or is repeated.</p>
+<h2 id="results">How to interpret your results</h2>
+<ul>
+<li><strong>Download Mbps:</strong> the rate at which data reached your browser from the test endpoint during the download samples.</li>
+<li><strong>Upload Mbps:</strong> the rate at which your browser sent the test payload to the endpoint, with full receipt confirmed by the server.</li>
+<li><strong>HTTP latency:</strong> the median time for a browser request to receive a response from the TEZZ CONNECT endpoint.</li>
+<li><strong>HTTP response variation:</strong> the average absolute change between consecutive response-time samples in this test.</li>
+</ul>
+<p>Mbps means megabits per second, not megabytes per second. To convert a rate in Mbps to an approximate megabytes-per-second rate, divide by eight. This is a unit conversion, not a promise of the exact file-transfer rate you will see in another app.</p>
+<h2 id="limits">What the test cannot diagnose by itself</h2>
+<p>A speed test cannot identify the exact cause of a poor result. It does not independently prove that an internet provider is at fault, measure the quality of every internet route, certify Wi-Fi coverage throughout a home, or guarantee performance for a specific application.</p>
+<p>The result can be influenced by your phone or computer, browser, background activity, Wi-Fi signal and interference, router, Ethernet adapter, other people using the connection, local network congestion, ISP routing, endpoint load and wider network conditions. The test is a short sample, not continuous monitoring.</p>
+<p>TEZZ CONNECT's HTTP response measurements should not be described as ICMP ping, packet loss or packet-level jitter. Separate diagnostic tools are needed when those specific measurements are required.</p>
+<h2 id="fair-test">How to make a fair comparison</h2>
+<ol>
+<li>Use the same device and browser for each comparison.</li>
+<li>Pause large downloads, uploads, cloud backups and streaming where practical.</li>
+<li>Record whether the device is connected by Wi-Fi or Ethernet.</li>
+<li>For a Wi-Fi check, test near the router first, then repeat in the room where you notice the problem.</li>
+<li>Repeat measurements at different times and compare patterns rather than relying on one result.</li>
+<li>If you are investigating a provider issue, keep the dates, times, connection method and results, and follow your provider's published complaint-testing procedure.</li>
+</ol>
+<h2 id="privacy">Test data and privacy</h2>
+<p>Speed-test requests are processed by the TEZZ CONNECT network edge to deliver the measurement. Cloudflare processes connection information, including the request IP address, for network delivery and security. Your local test history is stored in your browser and is not automatically synced to an account.</p>
+<p>Regional benchmark contribution is a separate optional feature. A completed test is not automatically a public benchmark contribution: the user must explicitly choose to share the limited measurement summary. Read the <a href="/privacy-policy/">Privacy Policy</a> for details about processing, browser storage and optional benchmark sharing.</p>
+<h2>Questions or corrections</h2>
+<p>If you find a technical explanation that needs correction, contact TEZZ CONNECT through the <a href="/contact">Contact page</a>. For general learning, continue with the <a href="/guides/internet-speed-explained/">internet speed guide</a>, <a href="/guides/latency-and-jitter/">latency and jitter guide</a> and <a href="/guides/upload-speed-explained/">upload speed guide</a>.</p>
+<div class="tool-card"><h2>Measure your connection</h2><p>Run the browser-based test and use this methodology page to understand what the results represent.</p><a href="/#tezz-speed-test">Open TEZZ CONNECT speed test →</a></div>
+</article>
+</main>
+<footer class="site-foot"><div class="wrap"><span>© 2026 TEZZ CONNECT · Proudly built in India</span><span><a href="/">Home</a> · <a href="/guides/">Knowledge Hub</a> · <a href="/privacy-policy/">Privacy</a></span></div></footer>
+</body>
+</html>
