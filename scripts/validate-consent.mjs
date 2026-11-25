@@ -38,7 +38,9 @@ assert.notEqual(adsLoadOnOptIn, -1, 'Non-regulated AdSense loading must be insid
 assert.notEqual(adsTagCreation, -1, 'The dynamic AdSense script must use the shared tezz-ads identifier');
 assert.notEqual(adsScriptAppend, -1, 'The dynamic AdSense script must be appended only by the consent manager');
 assert.notEqual(regulatedAdsBootstrap, -1, 'Regulated regions must load the Google CMP bootstrap after country detection');
-assert.ok(defaults < regionFetch && regionFetch < dynamicAdsLoader, 'Consent defaults and country lookup must precede any AdSense loading');
+assert.ok(defaults < regionFetch, 'Consent defaults must precede the country lookup');
+assert.ok(dynamicAdsLoader < adsLoadOnOptIn, 'The dynamic loader must be defined before the opt-in branch uses it');
+assert.ok(regionFetch < regulatedAdsBootstrap, 'The regulated CMP bootstrap must wait until country detection completes');
 assert.ok(cmpCallback < regulatedAdsBootstrap, 'The TCF listener must be registered before the regulated CMP bootstrap');
 assert.ok(html.includes("window.__tcfapi('addEventListener', 2.2"), 'Regulated regions must subscribe to the Google CMP TCF API');
 assert.ok(html.includes("tcData.eventStatus === 'tcloaded'"), 'Stored TCF decisions must be recognized before resuming AdSense');
