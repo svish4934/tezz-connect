@@ -847,6 +847,27 @@ const app: ExportedHandler<Env> = {
       }
     }
 
+    // Add the shared, consent-aware AdSense loader to Blog and Knowledge Hub
+    // HTML pages. Auto ads are controlled by the publisher's AdSense settings;
+    // no ad slots are inserted into interactive tools or speed-test controls.
+    const isContentPage = url.pathname === "/blog" || url.pathname.startsWith("/blog/") ||
+      url.pathname === "/guides" || url.pathname.startsWith("/guides/")
+    const contentType = response.headers.get("content-type") ?? ""
+    if (isContentPage && request.method === "GET" && response.ok && contentType.includes("text/html")) {
+      const withContentAds = new HTMLRewriter()
+        .on("head", { element(element) {
+          element.append('<script defer src="/ads/tezz-content-ads.js"></script>', { html: true })
+        } })
+        .transform(response)
+      const headers = new Headers(withContentAds.headers)
+      headers.set("Cache-Control", "no-store")
+      return new Response(withContentAds.body, {
+        status: withContentAds.status,
+        statusText: withContentAds.statusText,
+        headers,
+      })
+    }
+
     if (apiPath) {
       const headers = new Headers(response.headers)
       headers.set("X-API-Version", "v1")
