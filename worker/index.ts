@@ -514,7 +514,7 @@ const app: ExportedHandler<Env> = {
     if (isEditorialPage && request.method === "GET" && response.ok && editorialType.includes("text/html")) {
       const editorialResponse = new HTMLRewriter()
         .on("head", { element(element) {
-          element.append('<script src="/ads/tezz-consent.js"></script><script async id="tezz-ads" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886"></script>', { html: true })
+          element.append('<script src="/ads/tezz-consent.js"></script>', { html: true })
         } })
         .transform(response)
       const headers = new Headers(editorialResponse.headers)
