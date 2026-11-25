@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import NetworkEdgeMap from './NetworkEdgeMap'
 import {
   Activity, ArrowDown, ArrowUp, CheckCircle2, ClipboardCopy, MonitorPlay, Video, Gamepad2, Globe2,
-  History, Monitor, Stethoscope, ArrowLeftRight, Grid2X2, Search,
+  History, Monitor, Stethoscope, ArrowLeftRight, Search,
   ShieldCheck, Signal, Wifi, Zap, Home
 } from 'lucide-react'
 
@@ -418,8 +418,8 @@ function App() {
   const [testError, setTestError] = useState('')
   const [history, setHistory] = useState<TestResult[]>(loadHistory)
   const [result, setResult] = useState<TestResult | null>(null)
-  const [benchmarkConsent, setBenchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
-  const [benchmarkStatus, setBenchmarkStatus] = useState('')
+  const [benchmarkConsent] = useState(() => { try { return localStorage.getItem('tezz_benchmark_consent_v1') === 'true' } catch { return false } })
+  const [, setBenchmarkStatus] = useState('')
   type BenchmarkRegion = { country_code: string; region_code: string; sample_count: number; download_avg_mbps: number | null; upload_avg_mbps: number | null; latency_avg_ms: number | null; jitter_avg_ms: number | null }
   const [benchmarkRegions, setBenchmarkRegions] = useState<BenchmarkRegion[]>([])
   const [benchmarkLoading, setBenchmarkLoading] = useState(false)
@@ -1221,75 +1221,59 @@ function App() {
             <div className="homepage-hero-support">
           <section className="tezz-feature-grid">
             <button onClick={()=>navigateTo('Internet Doctor')}><Stethoscope/><strong>{speedText(language, 'Internet Doctor')}</strong><span>{speedText(language, 'Find and fix internet problems')}</span><b>›</b></button>
-            <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>{speedText(language, 'Latency Test')}</strong><span>{speedText(language, 'Check browser response time')}</span><b>›</b></button>
+            <button onClick={()=>navigateTo('Network')}><ArrowLeftRight/><strong>{speedText(language, 'Network Tools')}</strong><span>{speedText(language, 'Explore network diagnostics')}</span><b>›</b></button>
             <button onClick={()=>navigateTo('Network')}><Wifi/><strong>{language === 'en' ? 'Wi-Fi Troubleshooting' : speedText(language, 'Wi-Fi Test')}</strong><span>{language === 'en' ? 'Explore common Wi-Fi problems' : speedText(language, 'Test your Wi-Fi performance')}</span><b>›</b></button>
-            <button onClick={()=>navigateTo('History')}><Grid2X2/><strong>{speedText(language, 'More Tools')}</strong><span>{speedText(language, 'Explore all network tools')}</span><b>›</b></button>
           </section>
             </div>
-          <section className="benchmark-consent-panel" aria-label="Global benchmark sharing">
-            <div>
-              <div className="section-kicker">{speedText(language, 'HELP BUILD A BETTER INTERNET PICTURE')}</div>
-              <h2>{speedText(language, 'Contribute to global benchmarks')}</h2>
-              <p>Optional. When enabled, a completed speed test shares only download, upload, browser HTTP latency, response variation, and coarse country/region with TEZZ CONNECT. We store hourly regional aggregates—not individual test records, IP addresses, device IDs, or precise location. Public comparisons appear only after at least 30 contributions in a region. HTTP latency is measured to the TEZZ CONNECT edge, not your ISP's full network.</p>
-              <label className="benchmark-consent-toggle">
-                <input type="checkbox" checked={benchmarkConsent} onChange={event => {
-                  const enabled = event.target.checked
-                  setBenchmarkConsent(enabled)
-                  setBenchmarkStatus(enabled ? 'Opt-in enabled. Your next completed speed test can contribute.' : 'Opt-out enabled. No future benchmark contributions will be sent.')
-                  try { localStorage.setItem('tezz_benchmark_consent_v1', String(enabled)) } catch { /* Consent remains active for this page session. */ }
-                }} />
-                <span>{speedText(language, 'Yes, I agree to share anonymous aggregate measurements from my completed speed tests.')}</span>
-              </label>
-              <div className="benchmark-consent-status" role="status">{benchmarkStatus || (benchmarkConsent ? 'Opt-in is enabled.' : 'Benchmark sharing is off by default.')}</div>
+          <section className="services-panel tezz-social-panel">
+            <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
+            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Responding' ? 'reachable' : item?.status === 'Could not verify' ? 'inconclusive' : ''}`}>{item ? item.status === 'Responding' ? `Replied in ${((item.ms ?? 0) / 1000).toFixed(1)} sec` : item.status === 'Checking' ? 'Checking…' : 'Could not verify' : 'Not checked'}</div></div> })}</div>
+            <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
+          </section>
+
+          <section className="home-knowledge-hub" aria-labelledby="knowledge-hub-title">
+            <div className="knowledge-hub-heading">
+              <div>
+                <div className="section-kicker">LEARN • EXPLORE • CONNECT</div>
+                <h2 id="knowledge-hub-title">Internet Knowledge Hub</h2>
+                <p>New to the internet? Explore simple, practical guides to understand your connection and make better choices.</p>
+              </div>
+              <a className="knowledge-hub-all" href="/guides/">Explore all guides <span aria-hidden="true">→</span></a>
+            </div>
+            <div className="knowledge-hub-grid">
+              <a className="knowledge-hub-card" href="/guides/what-is-the-internet/">
+                <span className="knowledge-hub-icon" aria-hidden="true">◎</span>
+                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Learn what the internet is and how websites reach your device.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/improve-wifi-speed/">
+                <span className="knowledge-hub-icon wifi" aria-hidden="true">⌁</span>
+                <span className="knowledge-hub-card-copy"><strong>Wi-Fi &amp; Routers</strong><small>Learn about router placement, Wi-Fi coverage and interference.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/latency-and-jitter/">
+                <span className="knowledge-hub-icon signal" aria-hidden="true">⌁</span>
+                <span className="knowledge-hub-card-copy"><strong>Signals &amp; Performance</strong><small>Discover latency, jitter and what affects network response.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/internet-speed-for-gaming/">
+                <span className="knowledge-hub-icon gaming" aria-hidden="true">◈</span>
+                <span className="knowledge-hub-card-copy"><strong>Everyday Internet Tips</strong><small>Get practical advice for gaming and a smoother connection.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
             </div>
           </section>
-          {language === 'en' && <div className="homepage-editorial">
-            <section className="homepage-explainer" aria-labelledby="homepage-results-title">
-              <div className="homepage-section-heading"><span className="section-kicker">MAKE SENSE OF YOUR RESULTS</span><h2 id="homepage-results-title">What does each speed test result mean?</h2><p>Four measurements give you a useful snapshot of how your browser connects to TEZZ CONNECT. Each one describes a different part of that test.</p></div>
-              <div className="homepage-measurement-grid">
-                <article><span className="homepage-measurement-number">01</span><h3>Download speed</h3><p>How quickly data travels from the TEZZ CONNECT test endpoint to your device. It can affect how quickly pages, files and media load.</p></article>
-                <article><span className="homepage-measurement-number">02</span><h3>Upload speed</h3><p>How quickly your device sends data to the test endpoint. Upload capacity matters when sharing files, backing up data and sending video.</p></article>
-                <article><span className="homepage-measurement-number">03</span><h3>HTTP response time</h3><p>How long a browser request takes to receive a response from TEZZ CONNECT. It is a browser-based measurement, not an ICMP ping.</p></article>
-                <article><span className="homepage-measurement-number">04</span><h3>Response variation</h3><p>How much successive HTTP response-time samples differ during the test. Large changes can indicate an inconsistent test path, but are not a packet-loss measurement.</p></article>
-              </div>
-            </section>
-            <section className="homepage-explainer" aria-labelledby="homepage-causes-title">
-              <div className="homepage-section-heading"><span className="section-kicker">UNDERSTAND THE CONNECTION</span><h2 id="homepage-causes-title">Why can your internet speed change?</h2><p>A speed test is a snapshot, not a permanent rating of your internet service. Results can change for several practical reasons.</p></div>
-              <div className="homepage-causes-grid">
-                <article><h3>Wi-Fi conditions</h3><p>Distance from the router, walls, interference and the Wi-Fi band can affect the connection between your device and router.</p></article>
-                <article><h3>Other activity</h3><p>Downloads, cloud backups, video streams and other connected devices can use capacity while you test.</p></article>
-                <article><h3>Device and browser</h3><p>Older hardware, background tasks, browser extensions and power-saving settings can affect measured performance.</p></article>
-                <article><h3>Network route and timing</h3><p>Congestion, ISP routing, distance to the test endpoint and changing network conditions can affect results.</p></article>
-              </div>
-            </section>
-            <section className="homepage-next-steps" aria-labelledby="homepage-next-title">
-              <div className="homepage-section-heading"><span className="section-kicker">FROM MEASUREMENT TO ACTION</span><h2 id="homepage-next-title">What should you check next?</h2><p>Use the result as a starting point. Choose a focused check based on what you are experiencing.</p></div>
-              <div className="homepage-link-grid">
-                <a href="/internet-doctor"><strong>Internet Doctor</strong><span>Work through common causes of slow or unstable connections.</span><b>Explore diagnostics →</b></a>
-                <a href="/tools"><strong>Network tools</strong><span>Check browser-accessible network information and DNS records.</span><b>Explore tools →</b></a>
-                <a href="/guides/improve-wifi-speed/"><strong>Improve Wi-Fi</strong><span>Learn about router placement, coverage and wireless interference.</span><b>Read the guide →</b></a>
-                <a href="/guides/latency-and-jitter/"><strong>Latency and jitter</strong><span>Understand response time, variation and what they can tell you.</span><b>Read the guide →</b></a>
-              </div>
-            </section>
-            <section className="homepage-method" aria-labelledby="homepage-method-title">
-              <span className="section-kicker">HOW TEZZ CONNECT MEASURES</span><h2 id="homepage-method-title">Know what the test measures—and what it does not.</h2>
-              <p>Download and upload tests run in your browser against TEZZ CONNECT endpoints. They estimate throughput between your browser/device and our network edge; they do not measure every route, website or service on the public internet.</p>
-              <p>Response time and variation use HTTP request-and-response timing to the TEZZ CONNECT edge. They are not traditional ICMP ping measurements and do not tell you the exact latency to a game server or another website. Results can vary with your device, browser activity, Wi-Fi, local network use, routing and test conditions.</p>
-              <p>Standard browser APIs do not expose your router's radio signal strength or full gateway details to this page. Our Wi-Fi guidance is troubleshooting advice, not a direct radio-strength reading.</p>
-              <a href="/about">Read our measurement approach and privacy information →</a>
-            </section>
-            <section className="homepage-faq" aria-labelledby="homepage-faq-title">
-              <div className="homepage-section-heading"><span className="section-kicker">QUICK ANSWERS</span><h2 id="homepage-faq-title">Internet speed test questions, answered</h2><p>Short explanations to help you interpret your results and decide what to do next.</p></div>
-              <div className="homepage-faq-list">
-                <article><h3>What does an internet speed test measure?</h3><p>An internet speed test estimates how quickly data moves between your device and a test endpoint. Download measures data received, upload measures data sent, and response-time checks show how quickly that endpoint responds.</p></article>
-                <article><h3>Why is my internet slow when the speed test looks good?</h3><p>A good result to one test endpoint does not guarantee that every app or website will feel fast. Wi-Fi interference, device limits, busy networks, upload activity and the route to a particular service can all affect the experience.</p></article>
-                <article><h3>What is the difference between download and upload speed?</h3><p>Download speed describes how quickly your device receives data, such as when loading a website or watching a video. Upload speed describes how quickly it sends data, such as when sharing a file or sending a video-call stream.</p></article>
-                <article><h3>Is TEZZ CONNECT latency the same as a traditional ping test?</h3><p>No. TEZZ CONNECT measures browser HTTP request-and-response time to its own network edge. It does not send ICMP ping packets and does not measure the complete route to your ISP, a game server or every website.</p></article>
-                <article><h3>Can an internet speed test measure my Wi-Fi signal strength?</h3><p>Not directly. Standard browser APIs do not provide a webpage with the router's Wi-Fi radio signal strength. You can compare test results in different locations, then use Wi-Fi troubleshooting guidance to investigate possible coverage or interference issues.</p></article>
-                <article><h3>Why do I get different results each time I test?</h3><p>Results are snapshots. Device activity, Wi-Fi conditions, other users, network congestion, routing and test-endpoint conditions can change between runs. Compare tests taken under similar conditions to look for a pattern.</p></article>
-              </div>
-            </section>
-          </div>}
+
+          {language === 'en' && <section className="homepage-editorial homepage-quick-explainer" aria-labelledby="homepage-results-title">
+            <div className="homepage-section-heading"><span className="section-kicker">UNDERSTAND YOUR RESULTS</span><h2 id="homepage-results-title">What does each speed test result mean?</h2><p>Four measurements give you a useful snapshot of how your browser connects to TEZZ CONNECT.</p></div>
+            <div className="homepage-measurement-grid">
+              <article><span className="homepage-measurement-number">01</span><h3>Download speed</h3><p>How quickly data travels from the TEZZ CONNECT test endpoint to your device. It can affect how quickly pages, files and media load.</p></article>
+              <article><span className="homepage-measurement-number">02</span><h3>Upload speed</h3><p>How quickly your device sends data to the test endpoint. Upload capacity matters when sharing files, backing up data and sending video.</p></article>
+              <article><span className="homepage-measurement-number">03</span><h3>HTTP response time</h3><p>How long a browser request takes to receive a response from TEZZ CONNECT. It is a browser-based measurement, not an ICMP ping.</p></article>
+              <article><span className="homepage-measurement-number">04</span><h3>Response variation</h3><p>How much successive HTTP response-time samples differ during the test. It is not a packet-loss measurement.</p></article>
+            </div>
+
+          </section>}
           </>}
           {activeTab === 'About' && <section className="about-page">
             <div className="about-hero">
@@ -1488,11 +1472,7 @@ function App() {
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> This report combines the latest available measurements. It does not diagnose an ISP fault. HTTP latency is not ICMP ping, and HTTP request failures are not packet loss. Report data is stored locally and is not synced across devices.</div>
           </section>}
           {activeTab === 'Overview' && <>
-          <section className="services-panel tezz-social-panel">
-            <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
-            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Responding' ? 'reachable' : item?.status === 'Could not verify' ? 'inconclusive' : ''}`}>{item ? item.status === 'Responding' ? `Replied in ${((item.ms ?? 0) / 1000).toFixed(1)} sec` : item.status === 'Checking' ? 'Checking…' : 'Could not verify' : 'Not checked'}</div></div> })}</div>
-            <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
-          </section>
+          
 
           <section className="usage-insights-panel">
             <div className="section-kicker">MAKE THE MOST OF YOUR CONNECTION</div>
@@ -1542,38 +1522,19 @@ function App() {
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
           </>}
-          <section className="home-knowledge-hub" aria-labelledby="knowledge-hub-title">
-            <div className="knowledge-hub-heading">
-              <div>
-                <div className="section-kicker">LEARN • EXPLORE • CONNECT</div>
-                <h2 id="knowledge-hub-title">Internet Knowledge Hub</h2>
-                <p>New to the internet? Explore simple, practical guides to understand your connection and make better choices.</p>
-              </div>
-              <a className="knowledge-hub-all" href="/guides/">Explore all guides <span aria-hidden="true">→</span></a>
-            </div>
-            <div className="knowledge-hub-grid">
-              <a className="knowledge-hub-card" href="/guides/what-is-the-internet/">
-                <span className="knowledge-hub-icon" aria-hidden="true">◎</span>
-                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Learn what the internet is and how websites reach your device.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a className="knowledge-hub-card" href="/guides/improve-wifi-speed/">
-                <span className="knowledge-hub-icon wifi" aria-hidden="true">⌁</span>
-                <span className="knowledge-hub-card-copy"><strong>Wi-Fi &amp; Routers</strong><small>Learn about router placement, Wi-Fi coverage and interference.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a className="knowledge-hub-card" href="/guides/latency-and-jitter/">
-                <span className="knowledge-hub-icon signal" aria-hidden="true">⌁</span>
-                <span className="knowledge-hub-card-copy"><strong>Signals &amp; Performance</strong><small>Discover latency, jitter and what affects network response.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a className="knowledge-hub-card" href="/guides/internet-speed-for-gaming/">
-                <span className="knowledge-hub-icon gaming" aria-hidden="true">◈</span>
-                <span className="knowledge-hub-card-copy"><strong>Everyday Internet Tips</strong><small>Get practical advice for gaming and a smoother connection.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
+          {language === 'en' && (
+          <section className="homepage-quick-faq" aria-labelledby="homepage-faq-title">
+            <div className="homepage-section-heading"><span className="section-kicker">QUICK ANSWERS</span><h2 id="homepage-faq-title">Internet speed test questions, answered</h2></div>
+            <div className="homepage-quick-faq-list">
+              <details><summary>What does an internet speed test measure?</summary><p>It estimates download and upload throughput and measures browser HTTP response time to the TEZZ CONNECT test endpoint.</p></details>
+              <details><summary>Why is my internet slow when the speed test looks good?</summary><p>A test to one endpoint cannot represent every app or website. Wi-Fi interference, device limits, congestion and the route to a service can affect performance.</p></details>
+              <details><summary>What is the difference between download and upload speed?</summary><p>Download is data received by your device. Upload is data sent from your device to the test endpoint.</p></details>
+              <details><summary>Is TEZZ CONNECT latency the same as a traditional ping test?</summary><p>No. It uses browser HTTP request-and-response timing to the TEZZ CONNECT edge, not ICMP ping packets.</p></details>
+              <details><summary>Can an internet speed test measure my Wi-Fi signal strength?</summary><p>No. Standard browser APIs do not expose your router's Wi-Fi radio signal strength to a webpage.</p></details>
+              <details><summary>Why do I get different results each time I test?</summary><p>Results are snapshots and can change with Wi-Fi conditions, device activity, network congestion, routing and endpoint conditions.</p></details>
             </div>
           </section>
+          )}
           <footer className="tezz-site-footer">
             <div className="tezz-footer-main">
               <div className="tezz-footer-brand"><a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a><p>Fast, clear insights into your internet connection.</p><small>Made in India</small></div>
