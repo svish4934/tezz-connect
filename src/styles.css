@@ -6016,3 +6016,16 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
  .tezz-main .trust-page-card{padding:19px}
  .tezz-main .trust-page-hero{padding-top:18px}
 }
+
+/* Contextual internal-link modules */
+.tezz-main .homepage-related-links{margin:34px 0 12px}
+.tezz-main .homepage-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tezz-main .homepage-related-grid a{display:flex;flex-direction:column;gap:8px;min-height:142px;padding:18px;border:1px solid #E4E4E7;border-radius:15px;background:#FFFFFF;color:#18181B;text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+.tezz-main .homepage-related-grid a:hover{border-color:#FF9E7D;transform:translateY(-2px)}
+.tezz-main .homepage-related-grid strong{font-size:15px;line-height:1.4}
+.tezz-main .homepage-related-grid span{font-size:13px;line-height:1.65;color:#52525B}
+.tezz-main .homepage-related-grid i{margin-top:auto;font-size:12px;font-style:normal;font-weight:800;color:#EF4444}
+.tezz-main .trust-related-links{font-size:13px;line-height:1.8;color:#52525B;margin:18px 0}
+.tezz-main .trust-related-links a{color:#EF4444;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:767px){.tezz-main .homepage-related-grid{grid-template-columns:1fr 1fr}.tezz-main .homepage-related-grid a{min-height:150px;padding:15px}}
+@media(max-width:420px){.tezz-main .homepage-related-grid{grid-template-columns:1fr}}
