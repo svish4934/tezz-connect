@@ -1231,6 +1231,39 @@ function App() {
             <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
           </section>
 
+          <section className="home-knowledge-hub" aria-labelledby="knowledge-hub-title">
+            <div className="knowledge-hub-heading">
+              <div>
+                <div className="section-kicker">LEARN • EXPLORE • CONNECT</div>
+                <h2 id="knowledge-hub-title">Internet Knowledge Hub</h2>
+                <p>New to the internet? Explore simple, practical guides to understand your connection and make better choices.</p>
+              </div>
+              <a className="knowledge-hub-all" href="/guides/">Explore all guides <span aria-hidden="true">→</span></a>
+            </div>
+            <div className="knowledge-hub-grid">
+              <a className="knowledge-hub-card" href="/guides/what-is-the-internet/">
+                <span className="knowledge-hub-icon" aria-hidden="true">◎</span>
+                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Learn what the internet is and how websites reach your device.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/improve-wifi-speed/">
+                <span className="knowledge-hub-icon wifi" aria-hidden="true">⌁</span>
+                <span className="knowledge-hub-card-copy"><strong>Wi-Fi &amp; Routers</strong><small>Learn about router placement, Wi-Fi coverage and interference.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/latency-and-jitter/">
+                <span className="knowledge-hub-icon signal" aria-hidden="true">⌁</span>
+                <span className="knowledge-hub-card-copy"><strong>Signals &amp; Performance</strong><small>Discover latency, jitter and what affects network response.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a className="knowledge-hub-card" href="/guides/internet-speed-for-gaming/">
+                <span className="knowledge-hub-icon gaming" aria-hidden="true">◈</span>
+                <span className="knowledge-hub-card-copy"><strong>Everyday Internet Tips</strong><small>Get practical advice for gaming and a smoother connection.</small></span>
+                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </section>
+
           {language === 'en' && <section className="homepage-editorial homepage-quick-explainer" aria-labelledby="homepage-results-title">
             <div className="homepage-section-heading"><span className="section-kicker">UNDERSTAND YOUR RESULTS</span><h2 id="homepage-results-title">What does each speed test result mean?</h2><p>Four measurements give you a useful snapshot of how your browser connects to TEZZ CONNECT.</p></div>
             <div className="homepage-measurement-grid">
@@ -1489,38 +1522,6 @@ function App() {
             {history.length === 0 ? <div className="empty-history"><History size={18} /><span>Your recent tests will appear here after your first run.</span></div> : history.slice(0, 3).map((item, i) => <div className="history-item" key={item.date}><span className="history-index">0{i + 1}</span><span>{new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span><strong>{item.download} Mbps</strong><span>{item.ping} ms latency</span><span className="history-good">{item.download >= 25 ? 'Good' : 'Fair'}</span></div>)}
           </section>
           </>}
-          <section className="home-knowledge-hub" aria-labelledby="knowledge-hub-title">
-            <div className="knowledge-hub-heading">
-              <div>
-                <div className="section-kicker">LEARN • EXPLORE • CONNECT</div>
-                <h2 id="knowledge-hub-title">Internet Knowledge Hub</h2>
-                <p>New to the internet? Explore simple, practical guides to understand your connection and make better choices.</p>
-              </div>
-              <a className="knowledge-hub-all" href="/guides/">Explore all guides <span aria-hidden="true">→</span></a>
-            </div>
-            <div className="knowledge-hub-grid">
-              <a className="knowledge-hub-card" href="/guides/what-is-the-internet/">
-                <span className="knowledge-hub-icon" aria-hidden="true">◎</span>
-                <span className="knowledge-hub-card-copy"><strong>Internet Basics</strong><small>Learn what the internet is and how websites reach your device.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a className="knowledge-hub-card" href="/guides/improve-wifi-speed/">
-                <span className="knowledge-hub-icon wifi" aria-hidden="true">⌁</span>
-                <span className="knowledge-hub-card-copy"><strong>Wi-Fi &amp; Routers</strong><small>Learn about router placement, Wi-Fi coverage and interference.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a className="knowledge-hub-card" href="/guides/latency-and-jitter/">
-                <span className="knowledge-hub-icon signal" aria-hidden="true">⌁</span>
-                <span className="knowledge-hub-card-copy"><strong>Signals &amp; Performance</strong><small>Discover latency, jitter and what affects network response.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a className="knowledge-hub-card" href="/guides/internet-speed-for-gaming/">
-                <span className="knowledge-hub-icon gaming" aria-hidden="true">◈</span>
-                <span className="knowledge-hub-card-copy"><strong>Everyday Internet Tips</strong><small>Get practical advice for gaming and a smoother connection.</small></span>
-                <span className="knowledge-hub-arrow" aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </section>
           {language === 'en' && (
           <section className="homepage-quick-faq" aria-labelledby="homepage-faq-title">
             <div className="homepage-section-heading"><span className="section-kicker">QUICK ANSWERS</span><h2 id="homepage-faq-title">Internet speed test questions, answered</h2></div>
