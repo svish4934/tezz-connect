@@ -5896,3 +5896,68 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 .tezz-main .tezz-hero.is-testing .signature-live-meter::after{
   animation:tezzSunsetArcSpin 8s linear infinite!important;
 }
+
+
+/* Throughput trace alignment: make the plot share the exact centered
+   track width and a fixed, clipped SVG viewport. Keep the real trace data. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-meter-scale{
+  display:block!important;
+  width:82%!important;
+  max-width:560px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  align-self:center!important;
+  box-sizing:border-box!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart{
+  display:block!important;
+  position:relative!important;
+  inset:auto!important;
+  float:none!important;
+  clear:both!important;
+  width:82%!important;
+  max-width:560px!important;
+  height:56px!important;
+  min-height:56px!important;
+  margin:10px auto 0!important;
+  padding:0!important;
+  align-self:center!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  transform:none!important;
+  contain:layout paint!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart svg{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  transform:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart polyline,
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart path,
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart circle{
+  vector-effect:non-scaling-stroke!important;
+}
+
+
+/* The live trace is data-driven; do not reveal it with a partial dash animation.
+   That animation made the red plot appear to stop before the track's right edge.
+   Keep the SVG plot full-width (0..320) and let new real samples reshape it. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart.is-live .tezz-chart-line{
+  stroke-dasharray:none!important;
+  stroke-dashoffset:0!important;
+  animation:none!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart svg{
+  preserveAspectRatio:none;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-throughput-chart .tezz-chart-grid{
+  stroke-dasharray:2 4!important;
+}
