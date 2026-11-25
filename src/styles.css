@@ -5770,3 +5770,62 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
   .tezz-main .tezz-footer-main{grid-template-columns:1fr!important}
   .tezz-main .tezz-footer-links{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+
+/* Speedometer final correction: centered readout and test-triggered sunset dial. */
+.tezz-main .tezz-hero .signature-live-meter .tezz-gauge-wrap{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading{
+  position:absolute!important;
+  inset:50% auto auto 50%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  width:max-content!important;
+  max-width:90%!important;
+  margin:0!important;
+  transform:translate(-50%,-50%)!important;
+  text-align:center!important;
+  z-index:6!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong,
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+  display:block!important;
+  width:auto!important;
+  margin:0!important;
+  text-align:center!important;
+  line-height:1.08!important;
+}
+.tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading span{
+  margin-top:8px!important;
+}
+.tezz-main .tezz-hero .signature-live-meter::before,
+.tezz-main .tezz-hero .signature-live-meter::after{
+  animation:none!important;
+  will-change:auto!important;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::before{
+  animation:tezzBlueTickOrbit 24s linear infinite!important;
+  will-change:transform;
+}
+.tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+  animation:tezzSunsetDialOrbit 8s linear infinite!important;
+  will-change:transform;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-hero .signature-live-meter .tezz-digital-reading strong{
+    font-size:clamp(34px,9vw,44px)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .tezz-main .tezz-hero.is-testing .signature-live-meter::before,
+  .tezz-main .tezz-hero.is-testing .signature-live-meter::after{
+    animation:none!important;
+  }
+}
