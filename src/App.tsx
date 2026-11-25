@@ -1296,7 +1296,7 @@ function App() {
             <div className="about-hero">
               <span className="tezz-pill">ABOUT TEZZ CONNECT</span>
               <h1>Understand your <em>connection.</em></h1>
-              <p>TEZZ CONNECT is a free, browser-based toolkit that helps you measure internet performance, understand network behaviour and make more informed connectivity decisions.</p>
+              <p>TEZZ CONNECT's mission is to provide a fast, ad-light and transparent internet speed diagnostic tool, supported by a practical technical resource hub. We help people understand download and upload throughput, browser response time and connection stability, then turn those measurements into clear guidance for everyday network decisions.</p>
               <div className="about-hero-meta"><span><CheckCircle2 size={15}/> Free to use</span><span><Activity size={15}/> Independent measurements</span><span><ShieldCheck size={15}/> Privacy-conscious design</span></div>
             </div>
             <div className="about-section-heading"><span className="section-kicker">WHAT WE DO</span><h2>Useful network insight, without the guesswork.</h2><p>Simple tools turn technical measurements into information you can act on.</p></div>
