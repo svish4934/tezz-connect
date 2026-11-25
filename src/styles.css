@@ -5688,3 +5688,85 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* Brand consistency fix: dropdown must follow the light Dopamine Sunset header. */
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu,
+.tezz-main .tezz-nav-dropdown-menu{
+  background:#FFFFFF!important;
+  border:1.5px solid #E4E4E7!important;
+  border-radius:15px!important;
+  box-shadow:0 12px 30px rgba(24,24,27,.12)!important;
+}
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a,
+.tezz-main .tezz-nav-dropdown-menu a{
+  color:#18181B!important;
+  background:transparent!important;
+  font-family:'Plus Jakarta Sans',sans-serif!important;
+}
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a:hover,
+.tezz-main .tezz-nav .tezz-nav-dropdown-menu a.selected,
+.tezz-main .tezz-nav-dropdown-menu a:hover,
+.tezz-main .tezz-nav-dropdown-menu a.selected{
+  color:#EF4444!important;
+  background:#FFF7ED!important;
+}
+
+
+/* Footer alignment correction: keep the brand and all link columns on a shared left grid. */
+.tezz-main .tezz-footer-main{
+  display:grid!important;
+  grid-template-columns:minmax(220px,.9fr) minmax(0,1.6fr)!important;
+  align-items:start!important;
+  justify-items:stretch!important;
+}
+.tezz-main .tezz-footer-brand{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-self:start!important;
+  min-width:0!important;
+  width:100%!important;
+  text-align:left!important;
+}
+.tezz-main .tezz-footer-brand .tezz-logo{
+  align-self:flex-start!important;
+  justify-content:flex-start!important;
+  margin:0!important;
+}
+.tezz-main .tezz-footer-brand p{
+  width:100%!important;
+  max-width:280px!important;
+  margin:14px 0 8px!important;
+  text-align:left!important;
+}
+.tezz-main .tezz-footer-brand small{
+  align-self:flex-start!important;
+  text-align:left!important;
+}
+.tezz-main .tezz-footer-links{
+  width:100%!important;
+  min-width:0!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:start!important;
+  justify-items:stretch!important;
+  text-align:left!important;
+}
+.tezz-main .tezz-footer-links>div{
+  min-width:0!important;
+  display:grid!important;
+  justify-items:start!important;
+  align-content:start!important;
+  text-align:left!important;
+}
+.tezz-main .tezz-footer-links strong,
+.tezz-main .tezz-footer-links a{
+  justify-content:flex-start!important;
+  justify-self:stretch!important;
+  width:100%!important;
+  text-align:left!important;
+}
+@media(max-width:767px){
+  .tezz-main .tezz-footer-main{grid-template-columns:1fr!important}
+  .tezz-main .tezz-footer-links{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
