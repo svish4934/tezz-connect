@@ -105,8 +105,9 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-<url><loc>https://tezzconnect.online/privacy-policy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://tezzconnect.online/terms-of-use/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://tezzconnect.online/contact</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+<url><loc>https://tezzconnect.online/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://tezzconnect.online/terms-of-use</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://tezzconnect.online/cookie-policy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://tezzconnect.online/affiliate-disclosure/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
