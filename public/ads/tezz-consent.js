@@ -12,6 +12,15 @@ window.dataLayer = window.dataLayer || [];
       var regionReadyResolve;
       var regionReady = new Promise(function(resolve) { regionReadyResolve = resolve; });
       var isRegulatedRegion = false;
+      function ensureAdSenseTag() {
+        if (document.getElementById('tezz-ads')) return;
+        var ads = document.createElement('script');
+        ads.id = 'tezz-ads';
+        ads.async = true;
+        ads.crossOrigin = 'anonymous';
+        ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893813894265886';
+        document.head.appendChild(ads);
+      }
       window.googlefc.callbackQueue.push({
         'CONSENT_API_READY': function() {
           regionReady.then(function() {
@@ -43,9 +52,13 @@ window.dataLayer = window.dataLayer || [];
         function loadScripts(prefs) {
           // European choices come only from Google's CMP; never translate the site's generic checkbox into Google signals.
           if (!regionResolved || isRegulatedRegion) return;
-          // Resume ad requests only after the visitor has explicitly allowed advertising.
+          // Do not load the advertising library until this visitor opts in.
           window.adsbygoogle = window.adsbygoogle || [];
-          window.adsbygoogle.pauseAdRequests = prefs.ads ? 0 : 1;
+          window.adsbygoogle.pauseAdRequests = 1;
+          if (prefs.ads) {
+            window.adsbygoogle.pauseAdRequests = 0;
+            ensureAdSenseTag();
+          }
           gtag('consent', 'update', {
             analytics_storage: prefs.analytics ? 'granted' : 'denied',
             ad_storage: prefs.ads ? 'granted' : 'denied',
@@ -60,8 +73,7 @@ window.dataLayer = window.dataLayer || [];
             ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-SL6RDF7GHX';
             document.head.appendChild(ga);
           }
-          // The AdSense tag is installed at page startup (after consent defaults).
-          // Keep this function responsible only for updating consent signals and analytics.
+          // The AdSense library is inserted only after an explicit local ads opt-in.
         }
         function save(prefs) {
           prefs = { necessary: true, analytics: !!prefs.analytics, ads: !!prefs.ads, updatedAt: new Date().toISOString() };
@@ -120,6 +132,9 @@ window.dataLayer = window.dataLayer || [];
             isRegulatedRegion = REGULATED_COUNTRIES.has(country);
             regionReadyResolve();
             if (isRegulatedRegion) {
+              // Load AdSense only to bootstrap Google's configured certified CMP.
+              // Ad requests remain paused until the CMP supplies a completed TCF decision.
+              ensureAdSenseTag();
               // Google's CMP owns European consent; the pre-registered TCF listener
               // becomes active once both the CMP API and country lookup are ready.
               render(false);
