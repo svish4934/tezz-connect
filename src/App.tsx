@@ -1225,6 +1225,12 @@ function App() {
             <button onClick={()=>navigateTo('Network')}><Wifi/><strong>{language === 'en' ? 'Wi-Fi Troubleshooting' : speedText(language, 'Wi-Fi Test')}</strong><span>{language === 'en' ? 'Explore common Wi-Fi problems' : speedText(language, 'Test your Wi-Fi performance')}</span><b>›</b></button>
           </section>
             </div>
+          <section className="services-panel tezz-social-panel">
+            <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
+            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Responding' ? 'reachable' : item?.status === 'Could not verify' ? 'inconclusive' : ''}`}>{item ? item.status === 'Responding' ? `Replied in ${((item.ms ?? 0) / 1000).toFixed(1)} sec` : item.status === 'Checking' ? 'Checking…' : 'Could not verify' : 'Not checked'}</div></div> })}</div>
+            <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
+          </section>
+
           {language === 'en' && <section className="homepage-editorial homepage-quick-explainer" aria-labelledby="homepage-results-title">
             <div className="homepage-section-heading"><span className="section-kicker">UNDERSTAND YOUR RESULTS</span><h2 id="homepage-results-title">What does each speed test result mean?</h2><p>Four measurements give you a useful snapshot of how your browser connects to TEZZ CONNECT.</p></div>
             <div className="homepage-measurement-grid">
@@ -1443,11 +1449,7 @@ function App() {
             <div className="doctor-disclaimer"><ShieldCheck size={15}/> This report combines the latest available measurements. It does not diagnose an ISP fault. HTTP latency is not ICMP ping, and HTTP request failures are not packet loss. Report data is stored locally and is not synced across devices.</div>
           </section>}
           {activeTab === 'Overview' && <>
-          <section className="services-panel tezz-social-panel">
-            <div className="services-heading"><div><div className="section-kicker">SOCIAL MEDIA & APP CONNECTIVITY</div><h2>Check your social media status.</h2><p>Quick public-endpoint checks for the apps and platforms you use every day.</p></div><div className="social-heading-actions"><span className="services-live">{servicePhase === 'running' ? 'SCANNING' : servicePhase === 'complete' ? 'SCAN COMPLETE' : 'READY'}</span><button className="social-check-button" onClick={runServiceChecks} disabled={servicePhase === 'running'}>{servicePhase === 'running' ? 'Checking…' : 'Check now'} <span aria-hidden="true">→</span></button></div></div>
-            <div className="services-grid">{services.map(service => { const item = serviceResults.find(result => result.name === service.name); return <div className="service-tile" key={service.name}><div className="service-logo"><img src={service.icon} alt="" loading="lazy" /></div><div className="service-name">{service.name}</div><div className={`service-status ${item?.status === 'Responding' ? 'reachable' : item?.status === 'Could not verify' ? 'inconclusive' : ''}`}>{item ? item.status === 'Responding' ? `Replied in ${((item.ms ?? 0) / 1000).toFixed(1)} sec` : item.status === 'Checking' ? 'Checking…' : 'Could not verify' : 'Not checked'}</div></div> })}</div>
-            <div className="service-note">Checks test whether each platform's public website responds from this browser. They do not verify login, feeds, messages or playback. A timeout may be caused by browser restrictions, privacy tools, network filters or the platform itself, so it is shown as “Could not verify” rather than confirmed outage.</div>
-          </section>
+          
 
           <section className="usage-insights-panel">
             <div className="section-kicker">MAKE THE MOST OF YOUR CONNECTION</div>
