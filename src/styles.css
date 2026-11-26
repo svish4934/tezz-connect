@@ -6090,4 +6090,49 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 
 
 /* TEZZ CONNECT refreshed responsive wordmark */
-.tezz-logo{min-width:0!important;max-width:none!important;gap:0!important}.tezz-brand-image{display:block;width:clamp(168px,20vw,230px);height:auto;max-height:48px;object-fit:contain}.tezz-footer-brand .tezz-brand-image{width:190px;max-height:48px;mix-blend-mode:multiply}@media(max-width:720px){.tezz-brand-image{width:clamp(176px,42vw,198px);max-height:46px}.tezz-footer-brand .tezz-brand-image{width:174px;max-height:44px}}
+.tezz-logo{min-width:0!important;max-width:none!important;gap:0!important}.tezz-brand-image{display:block;width:clamp(168px,20vw,230px);height:auto;max-height:48px;object-fit:contain}.tezz-header .tezz-brand-image{width:clamp(260px,30vw,320px);max-height:70px}.tezz-footer-brand .tezz-brand-image{width:clamp(230px,25vw,280px);max-height:68px;mix-blend-mode:multiply}@media(max-width:720px){.tezz-brand-image{width:clamp(176px,42vw,198px);max-height:46px}.tezz-header .tezz-brand-image{width:clamp(240px,62vw,270px);max-height:64px}.tezz-footer-brand .tezz-brand-image{width:clamp(210px,58vw,245px);max-height:60px}}
+
+/* Mobile header: anchor the brand wordmark to the left edge beside the menu. */
+@media(max-width:767px){
+  .tezz-main .tezz-header>.tezz-logo{
+    width:auto!important;
+    flex:0 1 auto!important;
+    align-self:center!important;
+    justify-content:flex-start!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+    text-align:left!important;
+  }
+  .tezz-main .tezz-header>.tezz-logo .tezz-brand-image{
+    margin-left:0!important;
+    margin-right:auto!important;
+    object-position:left center!important;
+  }
+}
+
+/* Pin the mobile brand mark to the left edge of the header pill. */
+@media(max-width:767px),(max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-header{position:relative!important}
+  .tezz-main .tezz-header>.tezz-logo{
+    position:absolute!important;
+    left:22px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:auto!important;
+    max-width:calc(100% - 100px)!important;
+    margin:0!important;
+    padding:0!important;
+    justify-content:flex-start!important;
+    z-index:2!important;
+  }
+  .tezz-main .tezz-header>.tezz-logo .tezz-brand-image{
+    display:block!important;
+    width:clamp(205px,48vw,240px)!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:56px!important;
+    margin:0!important;
+    object-position:left center!important;
+  }
+  .tezz-main .tezz-header>.tezz-header-actions{position:relative!important;z-index:3!important}
+}
