@@ -6136,3 +6136,21 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
   }
   .tezz-main .tezz-header>.tezz-header-actions{position:relative!important;z-index:3!important}
 }
+
+/* Mobile header: place the logo to the right of the left-side menu button. */
+@media(max-width:767px),(max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-header>.tezz-logo{
+    left:100px!important;
+    right:64px!important;
+    width:auto!important;
+    max-width:none!important;
+    justify-content:flex-start!important;
+  }
+  .tezz-main .tezz-header>.tezz-logo .tezz-brand-image{
+    width:clamp(175px,48vw,225px)!important;
+    max-width:100%!important;
+    max-height:54px!important;
+    object-fit:contain!important;
+    object-position:left center!important;
+  }
+}
