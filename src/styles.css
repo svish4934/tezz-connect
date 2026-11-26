@@ -6109,3 +6109,30 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
     object-position:left center!important;
   }
 }
+
+/* Pin the mobile brand mark to the left edge of the header pill. */
+@media(max-width:767px),(max-width:1100px) and (pointer:coarse){
+  .tezz-main .tezz-header{position:relative!important}
+  .tezz-main .tezz-header>.tezz-logo{
+    position:absolute!important;
+    left:22px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:auto!important;
+    max-width:calc(100% - 100px)!important;
+    margin:0!important;
+    padding:0!important;
+    justify-content:flex-start!important;
+    z-index:2!important;
+  }
+  .tezz-main .tezz-header>.tezz-logo .tezz-brand-image{
+    display:block!important;
+    width:clamp(205px,48vw,240px)!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:56px!important;
+    margin:0!important;
+    object-position:left center!important;
+  }
+  .tezz-main .tezz-header>.tezz-header-actions{position:relative!important;z-index:3!important}
+}
