@@ -6087,3 +6087,7 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
   .about-page-minimal .about-feature-grid article{padding:17px!important}
   .about-page-minimal .about-contact-card{padding:17px!important}
 }
+
+
+/* TEZZ CONNECT refreshed responsive wordmark */
+.tezz-logo{min-width:0!important;max-width:none!important;gap:0!important}.tezz-brand-image{display:block;width:clamp(132px,17vw,218px);height:auto;max-height:42px;object-fit:contain}.tezz-footer-brand .tezz-brand-image{width:190px;max-height:40px}@media(max-width:720px){.tezz-brand-image{width:clamp(126px,35vw,166px);max-height:34px}.tezz-footer-brand .tezz-brand-image{width:174px}}
