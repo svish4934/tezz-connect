@@ -1120,7 +1120,7 @@ function App() {
     <div className="app-shell">
       <main className="main tezz-main" id="tezz-top">
         <header className="tezz-header">
-          <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a>
+          <a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><img className="tezz-brand-image" src="/tezz-connect-logo.webp?v=20261126" alt="TEZZ CONNECT" /></a>
           <nav className="tezz-nav">
             <a className={activeTab === 'Overview' ? 'selected' : ''} href="/" onClick={event => { event.preventDefault(); navigateTo('Overview') }}><Home size={15}/> {copy[0]}</a>
             <a href="/#tezz-speed-test" onClick={event => { event.preventDefault(); navigateTo('Overview'); window.setTimeout(() => document.getElementById('tezz-speed-test')?.scrollIntoView({ behavior: 'smooth' }), 50) }}>{copy[1]}</a>
@@ -1576,7 +1576,7 @@ function App() {
           )}
           <footer className="tezz-site-footer">
             <div className="tezz-footer-main">
-              <div className="tezz-footer-brand"><a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><span className="tezz-logo-word">TEZZ<span>CONNECT</span></span><i /></a><p>Fast, clear insights into your internet connection.</p><small>Made in India</small></div>
+              <div className="tezz-footer-brand"><a className="tezz-logo" href="#tezz-top" onClick={() => navigateTo('Overview')} aria-label="TEZZ CONNECT"><img className="tezz-brand-image" src="/tezz-connect-logo.webp?v=20261126" alt="TEZZ CONNECT" /></a><p>Fast, clear insights into your internet connection.</p><small>Made in India</small></div>
               <div className="tezz-footer-links"><div><strong>Explore</strong><a href="/">Home</a><a href="/#tezz-speed-test">Free Speed Test</a><a href="/internet-doctor">Internet Doctor</a><a href="/tools">Network Tools</a></div><div><strong>Discover</strong><a href="/global-network">Global Network</a><a href="/blog/">Blog</a><a href="/guides/">Internet Knowledge Hub</a><a href="/about">About Us</a><a href="/contact">Contact Us</a></div><div><strong>Legal</strong><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms &amp; Disclaimer</a><a href="/cookie-policy/">Cookie Policy</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a></div></div>
             </div>
             <div className="tezz-footer-bottom"><span>© 2026 TEZZCONNECT. All rights reserved.</span><span className="tezz-systems-status"><i/> Systems Operational</span></div>
