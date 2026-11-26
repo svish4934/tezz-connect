@@ -6090,4 +6090,4 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 
 
 /* TEZZ CONNECT refreshed responsive wordmark */
-.tezz-logo{min-width:0!important;max-width:none!important;gap:0!important}.tezz-brand-image{display:block;width:clamp(168px,20vw,230px);height:auto;max-height:48px;object-fit:contain}.tezz-footer-brand .tezz-brand-image{width:190px;max-height:48px}@media(max-width:720px){.tezz-brand-image{width:clamp(176px,42vw,198px);max-height:46px}.tezz-footer-brand .tezz-brand-image{width:174px;max-height:44px}}
+.tezz-logo{min-width:0!important;max-width:none!important;gap:0!important}.tezz-brand-image{display:block;width:clamp(168px,20vw,230px);height:auto;max-height:48px;object-fit:contain}.tezz-footer-brand .tezz-brand-image{width:190px;max-height:48px};mix-blend-mode:multiply@media(max-width:720px){.tezz-brand-image{width:clamp(176px,42vw,198px);max-height:46px}.tezz-footer-brand .tezz-brand-image{width:174px;max-height:44px}}
