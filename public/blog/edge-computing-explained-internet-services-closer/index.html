@@ -118,6 +118,91 @@
 <p>But the edge is not a magic location and it does not eliminate the cloud. A nearby server may still be slow if the application depends on distant services or the network path is congested. Distributed infrastructure also creates new costs, security responsibilities and operational work.</p>
 <p>The useful question is not “Is edge faster than cloud?” It is “Which part of this application needs to be close, what should remain central, and how will the complete system behave when either side is unavailable?” When those choices are made carefully, edge and cloud can work as one connected computing system.</p></section>
 
+<section><h2>15. Which workloads belong at the edge?</h2>
+<p>A workload is a good candidate for edge placement when proximity changes the outcome in a measurable way. The question is not whether an application can run on a small server. It is whether moving a particular function closer improves response time, reduces data movement, supports local operation or meets a practical data-handling requirement enough to justify the extra operating complexity.</p>
+<table><thead><tr><th>Workload pattern</th><th>Possible edge role</th><th>What may remain central</th></tr></thead><tbody>
+<tr><td>High-volume camera feeds</td><td>Detect events locally and transmit selected clips or metadata.</td><td>Long-term archive, cross-site analytics and model training.</td></tr>
+<tr><td>Factory equipment monitoring</td><td>Filter sensor readings, raise local alerts and support bounded local workflows.</td><td>Fleet-wide reporting, maintenance history and planning.</td></tr>
+<tr><td>Retail branches</td><td>Keep selected store systems responsive and process local device events.</td><td>Central inventory, finance, identity and consolidated reporting.</td></tr>
+<tr><td>Interactive media or gaming</td><td>Place selected compute or cached content closer to users.</td><td>Accounts, matchmaking policy, persistent state and global coordination.</td></tr>
+<tr><td>Connected buildings</td><td>Coordinate local sensors and controllers when the WAN link is interrupted.</td><td>Portfolio-wide energy analytics, reporting and software distribution.</td></tr>
+<tr><td>Remote sites with intermittent links</td><td>Store-and-forward data, run approved local functions and synchronise later.</td><td>Central records, policy management and heavy analysis.</td></tr>
+</tbody></table>
+<p>These are design patterns, not universal prescriptions. A safety-critical machine control loop should use a properly engineered local control system with deterministic behaviour and validated fail-safe mechanisms. A general-purpose edge application should not be inserted into a safety function merely because it is nearby.</p>
+<p>Some workloads are poor edge candidates. Batch reports that can wait, large model training jobs, applications that need a single global view, and services that depend on frequent calls to central databases may gain little from moving a small component outward. In those cases, a regional or central cloud service may be simpler and more reliable.</p></section>
+
+<section><h2>16. A practical decision framework before buying edge infrastructure</h2>
+<p>Start with the problem and a baseline, not with a product brochure. Document how the application works today, where its data is created, which network paths it uses, how long a response takes and what happens when connectivity is interrupted. Then test whether a local or nearby deployment changes those outcomes.</p>
+<ol>
+<li><strong>Describe the user or operational problem.</strong> Is the issue delayed response, expensive data transfer, poor connectivity at a remote site, privacy constraints or too much dependence on a central link?</li>
+<li><strong>Identify the exact function to move.</strong> It may be video filtering, a local cache, a rules engine, inference, protocol translation or a store-and-forward queue—not the whole application.</li>
+<li><strong>Map dependencies.</strong> List databases, identity systems, DNS, APIs, message brokers, time sources, licence servers and management platforms the edge function still needs.</li>
+<li><strong>Set measurable targets.</strong> Define response-time percentiles, maximum data loss, offline operating time, local capacity and recovery objectives before the pilot begins.</li>
+<li><strong>Choose the placement.</strong> Compare on-device, on-premises, provider edge and regional cloud locations using real network paths and operational constraints.</li>
+<li><strong>Design safe degraded behaviour.</strong> Decide what the system may do when the edge node loses cloud access, receives stale data or cannot synchronise.</li>
+<li><strong>Run a representative pilot.</strong> Test real traffic patterns, busy periods, link failures, power interruptions, software updates and recovery—not just a demonstration on an empty network.</li>
+<li><strong>Compare total cost and risk.</strong> Include hardware, space, power, cooling, connectivity, software, security, spares, support and staff time.</li>
+</ol>
+<p>A pilot should have a clear stop condition. If the edge placement does not improve the agreed outcome, or if the added security and operations burden outweighs the benefit, keep the workload central or redesign the application.</p></section>
+
+<section><h2>17. How to measure edge performance correctly</h2>
+<p>One ping result is not enough to prove an edge deployment is faster. Measure the full application journey and compare like with like. Use the same client, workload, data size, network conditions and time windows for the baseline and edge tests. Where possible, collect measurements over several days and include busy periods.</p>
+<table><thead><tr><th>Metric</th><th>What it tells you</th><th>How to use it</th></tr></thead><tbody>
+<tr><td>Round-trip time (RTT)</td><td>Time for a probe to travel to a target and return.</td><td>Compare the path to the edge and central endpoints, but do not treat ping as the whole application response.</td></tr>
+<tr><td>Application response time</td><td>Elapsed time from user action to usable result.</td><td>Measure percentiles such as median and 95th percentile under representative load.</td></tr>
+<tr><td>Jitter</td><td>Variation in packet delay.</td><td>Useful for interactive audio, video and real-time traffic where consistent timing matters.</td></tr>
+<tr><td>Packet loss</td><td>Packets that do not reach the destination.</td><td>Track loss across access, transport and application paths; even low levels can harm some workloads.</td></tr>
+<tr><td>Edge hit or placement rate</td><td>Share of requests actually served by the intended edge location.</td><td>Verify traffic steering and cache behaviour; users may silently fall back to a central origin.</td></tr>
+<tr><td>Processing time</td><td>Time spent executing work at the edge node.</td><td>Separate compute delay from network delay to find the real bottleneck.</td></tr>
+<tr><td>Availability and failover</td><td>Whether the local function remains usable and how it recovers.</td><td>Test loss of power, WAN, node, storage and control-plane connectivity.</td></tr>
+</tbody></table>
+<p>Report distributions rather than a single best-case number. A median can hide slow outliers; a 95th or 99th percentile can reveal delays that affect users during congestion. Keep the test endpoints and measurement method documented so future comparisons remain meaningful.</p>
+<p>Also measure the central dependency path. If the edge function makes a synchronous call to a distant database for every request, the database round trip may dominate. In that case, local compute alone may not improve the user-visible response.</p></section>
+
+<section><h2>18. Security checklist for distributed edge sites</h2>
+<p>Every edge node is part of the organisation's production environment. A small device in a branch office or remote cabinet should not be treated as a harmless appliance. It can hold credentials, process sensitive information and provide a route into other systems.</p>
+<ul>
+<li><strong>Unique device identity:</strong> give each node a managed identity; avoid shared default passwords and hard-coded credentials.</li>
+<li><strong>Secure boot and integrity:</strong> use supported mechanisms to verify trusted firmware and detect unauthorised changes.</li>
+<li><strong>Encryption:</strong> protect management, application and data traffic in transit; encrypt stored data where the threat model requires it.</li>
+<li><strong>Least privilege:</strong> separate administrators, workloads and tenants; restrict access to only the services each component needs.</li>
+<li><strong>Patch lifecycle:</strong> maintain an inventory, supported software versions, update windows and a recovery plan if an update fails.</li>
+<li><strong>Physical protection:</strong> consider tampering, theft, environmental exposure and who can access the room, cabinet or device.</li>
+<li><strong>Monitoring:</strong> collect security logs and health metrics centrally, with safeguards for privacy and limited-connectivity periods.</li>
+<li><strong>Data minimisation:</strong> avoid retaining raw personal or operational data longer than necessary; define what synchronises to central systems.</li>
+<li><strong>Incident response:</strong> be able to isolate a compromised node without disabling unrelated sites, and know how to rebuild it from a trusted image.</li>
+<li><strong>Supplier and dependency review:</strong> understand remote-management services, update channels, hardware support and third-party software dependencies.</li>
+</ul>
+<p>Zero-trust principles are relevant because edge sites may sit outside a traditional data-centre perimeter. Authenticate devices and users explicitly, authorise each service connection and continuously evaluate trust rather than assuming that traffic from a branch or private network is safe.</p></section>
+
+<section><h2>19. The cost model: compare total cost, not just server price</h2>
+<p>Edge deployments can reduce some network costs, but they can also add many small infrastructure and support obligations. A fair comparison should use the same workload and service target for both designs.</p>
+<ul>
+<li><strong>Initial equipment:</strong> servers, gateways, accelerators, racks, enclosures, storage and network interfaces.</li>
+<li><strong>Site costs:</strong> rack space, physical security, cooling, electricity, UPS and backup power.</li>
+<li><strong>Connectivity:</strong> access circuits, private links, backup paths, data transfer and interconnection.</li>
+<li><strong>Software:</strong> operating systems, orchestration, observability, security tools, licences and support contracts.</li>
+<li><strong>Operations:</strong> deployment, patching, monitoring, incident response, travel, spares and replacement logistics.</li>
+<li><strong>Resilience:</strong> duplicate nodes, backup storage, recovery locations and testing time.</li>
+<li><strong>Exit and refresh:</strong> hardware replacement, data migration, secure disposal and workload relocation.</li>
+</ul>
+<p>Compare cost per successful transaction, per processed video hour, per connected site or another workload-specific unit. Include the cost of outages and the value of local continuity where it can be reasonably estimated. Do not assume that reduced bandwidth automatically makes edge cheaper: the economics depend on data volume, site count, utilisation, power, support and the price of central services.</p></section>
+
+<section><h2>20. Edge computing terms worth understanding</h2>
+<ul>
+<li><strong>Edge node:</strong> a device or compute system that hosts processing or storage near a data source, user or network.</li>
+<li><strong>Edge location:</strong> the physical or network location where an edge workload runs.</li>
+<li><strong>MEC:</strong> Multi-access Edge Computing, an ETSI framework for cloud capabilities and services at the edge of an access network.</li>
+<li><strong>Cloud region:</strong> a provider's geographic area containing one or more data-centre facilities and services.</li>
+<li><strong>CDN:</strong> a content delivery network that distributes content and may offer programmable edge functions.</li>
+<li><strong>Workload orchestration:</strong> deployment, scheduling, scaling, update and lifecycle management of applications across compute locations.</li>
+<li><strong>Data locality:</strong> the location where data is stored or processed, which can matter for latency, governance and transfer cost.</li>
+<li><strong>Store-and-forward:</strong> temporarily retaining data locally and sending it to another system when a connection becomes available.</li>
+<li><strong>Failover:</strong> switching a service or workload to an alternate component or location after a fault.</li>
+<li><strong>Tail latency:</strong> the slower end of a response-time distribution, often represented by high percentiles such as p95 or p99.</li>
+</ul>
+<p>These terms describe different aspects of architecture. They should not be treated as interchangeable product labels.</p></section>
+
 <section><h2>Frequently asked questions</h2>
 <h3>What is edge computing in simple words?</h3><p>Edge computing means processing or storing some data near the device, user or place where it is created, rather than sending every task to a distant central data centre.</p>
 <h3>What is the main purpose of edge computing?</h3><p>It can reduce network travel time, process data near its source, limit unnecessary data transfers and support local functions when connectivity to a central service is interrupted.</p>
