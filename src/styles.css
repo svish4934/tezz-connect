@@ -6091,3 +6091,21 @@ button[class*="primary"]:hover,button[class*="start"]:hover{
 
 /* TEZZ CONNECT refreshed responsive wordmark */
 .tezz-logo{min-width:0!important;max-width:none!important;gap:0!important}.tezz-brand-image{display:block;width:clamp(168px,20vw,230px);height:auto;max-height:48px;object-fit:contain}.tezz-header .tezz-brand-image{width:clamp(260px,30vw,320px);max-height:70px}.tezz-footer-brand .tezz-brand-image{width:clamp(230px,25vw,280px);max-height:68px;mix-blend-mode:multiply}@media(max-width:720px){.tezz-brand-image{width:clamp(176px,42vw,198px);max-height:46px}.tezz-header .tezz-brand-image{width:clamp(240px,62vw,270px);max-height:64px}.tezz-footer-brand .tezz-brand-image{width:clamp(210px,58vw,245px);max-height:60px}}
+
+/* Mobile header: anchor the brand wordmark to the left edge beside the menu. */
+@media(max-width:767px){
+  .tezz-main .tezz-header>.tezz-logo{
+    width:auto!important;
+    flex:0 1 auto!important;
+    align-self:center!important;
+    justify-content:flex-start!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+    text-align:left!important;
+  }
+  .tezz-main .tezz-header>.tezz-logo .tezz-brand-image{
+    margin-left:0!important;
+    margin-right:auto!important;
+    object-position:left center!important;
+  }
+}
