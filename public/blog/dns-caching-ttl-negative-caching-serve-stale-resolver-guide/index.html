@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/blog/blog.css"><script defer src="/blog/blog-data.js"></script><script defer src="/blog/blog.js"></script>
+<link rel="canonical" href="https://tezzconnect.online/blog/dns-caching-ttl-negative-caching-serve-stale-resolver-guide/"><meta name="robots" content="index,follow,max-image-preview:large">
+<title>How DNS Caching Works: TTL, Negative Caching &amp; More | TEZZ CONNECT</title>
+<meta name="description" content="Learn how DNS caches speed up lookups, how TTL expiry works, why NXDOMAIN can persist, and how resolver caches, serve-stale and troubleshooting fit together.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="TEZZ CONNECT Blog"><meta property="og:title" content="How DNS Caching Works: TTL, Negative Caching and Resolver Behaviour"><meta property="og:description" content="Learn how DNS caches speed up lookups, how TTL expiry works, why NXDOMAIN can persist, and how resolver caches, serve-stale and troubleshooting fit together."><meta property="og:url" content="https://tezzconnect.online/blog/dns-caching-ttl-negative-caching-serve-stale-resolver-guide/"><meta property="og:image" content="https://images.unsplash.com/photo-1745847768408-b7b83796cae6?auto=format&fit=crop&entropy=1&fm=jpg&q=82&w=1600&h=900"><meta property="og:image:width" content="1600"><meta property="og:image:height" content="900"><meta property="og:image:alt" content="Close-up of a wireless router and its antennas">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How DNS Caching Works: TTL, Negative Caching and Resolver Behaviour"><meta name="twitter:description" content="Learn how DNS caches speed up lookups, how TTL expiry works, why NXDOMAIN can persist, and how resolver caches, serve-stale and troubleshooting fit together."><meta name="twitter:image" content="https://images.unsplash.com/photo-1745847768408-b7b83796cae6?auto=format&fit=crop&entropy=1&fm=jpg&q=82&w=1600&h=900">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How DNS Caching Works: TTL, Negative Caching and Resolver Behaviour","description":"Learn how DNS caches speed up lookups, how TTL expiry works, why NXDOMAIN can persist, and how resolver caches, serve-stale and troubleshooting fit together.","image":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1745847768408-b7b83796cae6?auto=format&fit=crop&entropy=1&fm=jpg&q=82&w=1600&h=900","width":1600,"height":900},"mainEntityOfPage":{"@type":"WebPage","@id":"https://tezzconnect.online/blog/dns-caching-ttl-negative-caching-serve-stale-resolver-guide/"},"url":"https://tezzconnect.online/blog/dns-caching-ttl-negative-caching-serve-stale-resolver-guide/","author":{"@type":"Person","name":"Suraj Vishwakarma","url":"https://tezzconnect.online/blog/author/suraj-vishwakarma/"},"publisher":{"@type":"Organization","name":"TEZZ CONNECT"},"articleSection":"Internet Technology & Updates","inLanguage":"en","datePublished":"2026-11-27","dateModified":"2026-11-27"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DNS caching in simple terms?","acceptedAnswer":{"@type":"Answer","text":"DNS caching is the temporary storage of DNS answers so a resolver or device can reuse them instead of repeating the lookup. It usually reduces lookup time and unnecessary DNS traffic."}},{"@type":"Question","name":"What does TTL mean in DNS?","acceptedAnswer":{"@type":"Answer","text":"TTL means Time to Live. It is the number of seconds a DNS record may be reused from a cache before the cache should obtain fresh information. The remaining TTL generally decreases as the record stays cached."}},{"@type":"Question","name":"How long does DNS propagation take?","acceptedAnswer":{"@type":"Answer","text":"There is no single global propagation timer. Existing positive or negative cache entries can remain until their applicable TTL expires, and resolver policies, delegation changes and stale-answer behaviour can affect what different users see."}},{"@type":"Question","name":"Why does NXDOMAIN continue after I create a DNS record?","acceptedAnswer":{"@type":"Answer","text":"A resolver may have cached an earlier NXDOMAIN response. Negative caching is defined by RFC 2308, and the negative TTL is derived from the authoritative zone's SOA information. Check the authoritative answer and wait for the cached negative entry to expire."}},{"@type":"Question","name":"What is the difference between NXDOMAIN and NODATA?","acceptedAnswer":{"@type":"Answer","text":"NXDOMAIN means the queried name does not exist. NODATA means the name exists but does not have the requested record type, such as an AAAA record. Their negative-cache matching rules are different."}},{"@type":"Question","name":"Does flushing DNS clear every DNS cache?","acceptedAnswer":{"@type":"Answer","text":"No. Flushing a local device cache does not clear caches held by a router, ISP, public recursive resolver, browser-specific resolver or other network service. Each cache has its own lifecycle."}},{"@type":"Question","name":"Can DNS resolvers use expired records?","acceptedAnswer":{"@type":"Answer","text":"Under the serve-stale mechanism in RFC 8767, a recursive resolver may use expired data in specified circumstances when it cannot refresh information from authoritative servers. The resolver's configuration controls the operational policy."}},{"@type":"Question","name":"Does a lower DNS TTL make changes instant?","acceptedAnswer":{"@type":"Answer","text":"No. Lowering a TTL does not retroactively shorten the lifetime of entries already cached with the old TTL. It can help future cache entries expire sooner after the previous cache window has passed."}},{"@type":"Question","name":"What is negative caching in DNS?","acceptedAnswer":{"@type":"Answer","text":"Negative caching stores answers that say a name or requested record does not exist, and modern standards also require caching resolution failures. It reduces repeated upstream queries but can temporarily delay recognition of newly created records."}},{"@type":"Question","name":"How can I check the DNS TTL for a domain?","acceptedAnswer":{"@type":"Answer","text":"Use a DNS query tool such as dig and inspect the answer section. Commands such as dig example.com A +noall +answer display the record and its remaining TTL when the resolver returns an answer."}}]}</script>
+</head>
+<body class="tc-blog" data-blog-page="article" data-article="dns-caching-ttl-negative-caching-serve-stale-resolver-guide">
+<header class="tb-header"><a class="tb-brand" href="/blog/"><strong>TEZZ <span>CONNECT</span></strong><i></i><b>Blog</b></a><nav aria-label="Blog navigation"><a href="/">Home</a><a href="/blog/#topics">Categories</a><a href="/blog/#articles">All Articles</a></nav><form id="tb-search" role="search"><label class="sr" for="tb-q">Search Blog articles</label><input id="tb-q" type="search" placeholder="Search Blog articles…"><button aria-label="Search">⌕</button></form></header>
+<main class="tb-article">
+<p class="tb-crumb"><a href="/blog/">Blog</a> / <a href="/blog/category/internet-technology-updates/">Internet Technology &amp; Updates</a> / DNS Caching</p>
+<span class="tb-kicker">THE TEZZ CONNECT NETWORKING SERIES</span>
+<h1>How DNS Caching Works: TTL, Negative Caching and Resolver Behaviour</h1>
+<p class="tb-deck">DNS caching makes the internet faster and more resilient, but it can also explain why a DNS change is not visible everywhere at once. Learn how TTLs, positive and negative answers, resolver caches and serve-stale behaviour work—and how to troubleshoot them.</p>
+<p class="tb-byline">By <a href="/blog/author/suraj-vishwakarma/">Suraj Vishwakarma</a> · Published by <a href="/blog/about/">TEZZ CONNECT</a> · Published 27 November 2026 · Updated 27 November 2026</p>
+<figure class="tb-article-image"><img src="https://images.unsplash.com/photo-1745847768408-b7b83796cae6?auto=format&fit=crop&entropy=1&fm=jpg&q=82&w=1600&h=900" alt="Close-up of a wireless router and its antennas" width="1600" height="900" fetchpriority="high" decoding="async"><figcaption>Photo: Unsplash · <a href="https://unsplash.com/" rel="noopener">Image source</a></figcaption></figure>
+<article class="tb-article-body">
+<p>When you open a website for the second time, it often feels faster than the first. One reason may be that your device or a DNS resolver already knows the answer to the domain-name lookup. Instead of asking the DNS hierarchy to find the same information again, a cache can reuse data that is still valid.</p>
+<p>DNS caching is one of the quiet mechanisms that makes the internet practical at global scale. It reduces repeated queries, lowers response time, limits unnecessary traffic to authoritative name servers and can help services remain available during temporary upstream problems. But caching also explains a familiar frustration: after a website owner changes a DNS record, one person sees the new destination while another still reaches the old one.</p>
+<p>The key concept is the <strong>Time to Live (TTL)</strong>. A DNS record's TTL tells a cache how long it may reuse that record before it must obtain fresh information. The real picture is more involved: different record sets can have different TTLs; recursive resolvers, operating systems, browsers and applications may maintain separate caches; negative answers can also be cached; and some resolvers can deliberately serve expired data during an outage.</p>
+<p>This guide explains the complete lifecycle in practical language. It distinguishes standards-defined behaviour from implementation choices, shows how to reason about common DNS symptoms, and provides examples for website owners, network administrators and everyday users. It is an original educational explanation, not a substitute for the documentation of a particular DNS provider or resolver.</p>
+
+<section><h2>1. What is DNS caching?</h2>
+<p>The Domain Name System (DNS) maps names such as <code>example.com</code> to records that applications need. An A record can provide an IPv4 address; an AAAA record can provide an IPv6 address; an MX record identifies mail exchangers; a CNAME record creates an alias; and other record types support services and policies.</p>
+<p>A recursive resolver performs the work of finding an answer on behalf of a client. It may contact root, top-level-domain and authoritative name servers, follow referrals and assemble the response. If it stored no answers, it would repeat much of this work for every request. Popular names would generate enormous volumes of repetitive traffic.</p>
+<p>A cache stores DNS information temporarily so it can be reused. If another client asks for the same relevant information while the cache entry remains valid, the resolver can answer locally instead of repeating the entire lookup. The result is often lower lookup latency and fewer upstream queries.</p>
+<p>For example, imagine a recursive resolver receives a query for <code>www.example.net</code>. It obtains an A record with a TTL of 600 seconds. A second user behind the same resolver asks for the same record 20 seconds later. The resolver may return the cached address with approximately 580 seconds remaining, rather than starting from the root again.</p>
+<p>DNS caching is not a single computer-wide memory. There may be several layers:</p>
+<ul>
+<li><strong>Recursive resolver cache:</strong> maintained by a home router, ISP, enterprise DNS server or public DNS service.</li>
+<li><strong>Operating-system cache:</strong> some operating systems keep recently resolved names locally.</li>
+<li><strong>Browser or application cache:</strong> browsers and software may retain DNS results or use their own resolution mechanisms.</li>
+<li><strong>Intermediate network caches:</strong> enterprise gateways and specialised DNS infrastructure may add additional layers.</li>
+</ul>
+<p>Not every device uses every layer. A browser may use the operating system's resolver, a configured encrypted-DNS service, or an application-specific networking stack. This is why clearing one cache does not necessarily clear all cached DNS information.</p></section>
+
+<section><h2>2. What does DNS TTL mean?</h2>
+<p>TTL means Time to Live. In DNS, it is a duration expressed in seconds that indicates how long a resource record may be cached. It is not the time until a domain registration expires, the age of a website, or a promise that a DNS change will become visible to everyone at the same instant.</p>
+<p>Consider an A record configured with a TTL of 3,600 seconds. A resolver that receives the record can generally reuse it for up to one hour. As time passes, the remaining TTL decreases. If the record is cached for 15 minutes, a later response might show approximately 2,700 seconds remaining.</p>
+<table><thead><tr><th>Configured TTL</th><th>Approximate duration</th><th>Common interpretation</th></tr></thead><tbody>
+<tr><td>60 seconds</td><td>1 minute</td><td>Short caching window; useful for some planned changes, but creates more refresh traffic.</td></tr>
+<tr><td>300 seconds</td><td>5 minutes</td><td>A relatively short operational window.</td></tr>
+<tr><td>900 seconds</td><td>15 minutes</td><td>A moderate short-term cache duration.</td></tr>
+<tr><td>3,600 seconds</td><td>1 hour</td><td>A common general-purpose duration.</td></tr>
+<tr><td>86,400 seconds</td><td>24 hours</td><td>A long cache window; changes may take longer to be reflected by caches that already hold the old answer.</td></tr>
+</tbody></table>
+<p>These are examples, not universal recommendations. The appropriate TTL depends on how frequently records change, how much query volume the authoritative service must handle, the provider's own limits and the operational consequences of stale data.</p>
+<p>TTL is attached to DNS resource records, not to an entire domain as one indivisible timer. An A record, AAAA record, MX record and TXT record may have different TTL values. Even records returned in one DNS response can have different TTLs.</p>
+<p>A TTL of zero means the record should not be retained for later cache reuse; it can still be used for the transaction in progress. In practice, resolver policies and provider limits can affect the effective cache lifetime. Some services impose minimum or maximum TTLs, so the value configured at an authoritative provider may not be the only value that matters.</p></section>
+
+<section><h2>3. How a recursive resolver uses its cache</h2>
+<p>A recursive resolver typically checks its cache before doing a fresh iterative lookup. A simplified sequence looks like this:</p>
+<ol>
+<li>A client asks the configured resolver for a record, such as the A record for <code>shop.example.com</code>.</li>
+<li>The resolver checks whether it has a usable cached answer for the relevant name, record type and class.</li>
+<li>If a valid answer exists, the resolver returns it and reports the remaining TTL.</li>
+<li>If there is no usable answer, the resolver performs the necessary DNS resolution steps, following referrals and contacting authoritative servers.</li>
+<li>The resolver stores eligible response data according to DNS rules and its cache policy.</li>
+<li>Later queries can reuse the cached data until it expires or is otherwise removed.</li>
+</ol>
+<p>DNS caching is more sophisticated than simply remembering one IP address per domain. A resolver can cache delegation information, name-server addresses, aliases, address records, DNSSEC-related records and negative answers. The cache key and the way records are combined depend on DNS semantics, including the queried name, type and class.</p>
+<p>For example, an application asking for an AAAA record is not necessarily asking the same question as one asking for an A record. A cached A record does not automatically answer an AAAA query. Likewise, a CNAME chain may require several records, each with its own TTL and cache state.</p>
+<p>Resolvers can also keep infrastructure information such as name-server reachability or failure state. Those entries are not ordinary positive DNS answers, and standards place specific limits on some failure-caching behaviours.</p></section>
+
+<section><h2>4. Positive caching: when a DNS answer exists</h2>
+<p>Positive caching means caching a response that contains the requested data. Suppose <code>www.example.com</code> resolves to <code>203.0.113.25</code> and the A record has a TTL of 300 seconds. A resolver can reuse the answer during the valid caching period.</p>
+<p>When a cached response is returned, its TTL should reflect the remaining lifetime, not restart from the original configured value. If a resolver received a 300-second record 100 seconds ago, it should not normally tell a downstream cache that the record has a fresh 300 seconds remaining. Doing so could extend the data's life unintentionally.</p>
+<p>Positive caching is useful for performance, but it creates a trade-off during changes. If an administrator changes an address while caches still hold the previous answer, some clients may continue using the old destination until their cached entry expires. The authoritative server can publish the new answer immediately, but it cannot reach into every independent cache and erase an entry already stored elsewhere.</p>
+<p>This is the reason DNS changes are often described as needing time to propagate. DNS does not usually push a global update to every resolver. Instead, caches age out and refresh when necessary. The phrase propagation is convenient shorthand, but it can hide the fact that each cache has its own query history and expiry time.</p></section>
+
+<section><h2>5. Negative caching: why a missing record can remain missing</h2>
+<p>DNS can return a useful answer even when the requested data does not exist. Two important negative outcomes are <strong>NXDOMAIN</strong> and <strong>NODATA</strong>.</p>
+<ul>
+<li><strong>NXDOMAIN:</strong> the queried domain name does not exist in the relevant DNS context.</li>
+<li><strong>NODATA:</strong> the name exists, but it has no record of the requested type. For example, a name may have an A record but no AAAA record.</li>
+</ul>
+<p>Negative caching stores these answers temporarily. Without it, a client repeatedly asking for a name that does not exist could force resolvers to repeat the same upstream work. Negative caching reduces unnecessary queries and helps protect authoritative infrastructure.</p>
+<p>RFC 2308 defines negative caching for DNS. For authoritative NXDOMAIN and NODATA responses, the authority section includes the zone's Start of Authority (SOA) record. The negative TTL is derived from the lower of the SOA record's TTL and the SOA MINIMUM field. The resolver decrements that lifetime as it caches the negative answer.</p>
+<p>This has a practical consequence for new records. Imagine an administrator checks <code>new.example.com</code> before creating it. The resolver receives NXDOMAIN and caches that negative answer. The administrator then creates the A record. The authoritative zone now contains the record, but the resolver may continue returning the cached NXDOMAIN until the negative cache entry expires.</p>
+<p>The user may describe this as DNS refusing to recognise a newly created record. The authoritative data may already be correct; the resolver is following the negative answer it previously cached. Waiting for the negative TTL or checking through a resolver that has not cached the old answer can help identify the difference.</p>
+<p>NXDOMAIN and NODATA are not interchangeable. NXDOMAIN concerns the name's existence, while NODATA concerns the requested record type. Their cache matching rules differ, which is important for correct resolver behaviour.</p></section>
+
+<section><h2>6. DNS resolution failures are also cached</h2>
+<p>A negative answer is not the same as a resolution failure. If a resolver receives an authoritative NXDOMAIN response, it has information that the name does not exist. If the resolver times out because an authoritative server is unreachable, it has not learned whether the name exists.</p>
+<p>RFC 9520, published in December 2023, addresses caching of DNS resolution failures. It requires resolvers to implement a cache for resolution failures so repeated queries do not continuously trigger upstream attempts that are already known to be failing. It requires failures to be cached for at least one second and limits their caching duration to no more than five minutes, consistent with RFC 2308. The implementation may distinguish failure types and cache them differently.</p>
+<p>This matters during incidents. A resolver may temporarily remember that a particular server or validation path is failing. A user can therefore see a short-lived error even after the underlying network condition begins to recover. Conversely, caching can reduce pressure on an already struggling DNS infrastructure.</p>
+<p>Do not assume every SERVFAIL is cached in exactly the same way by every resolver. The standards define requirements and limits, while implementations determine some details of the cache key and failure categories. Resolver documentation is important when diagnosing persistent or unusual behaviour.</p></section>
+
+<section><h2>7. Serve-stale: when a resolver uses expired DNS data</h2>
+<p>Ordinarily, once a cached record's TTL expires, a resolver should obtain fresh authoritative information before continuing to use it. But what if every authoritative server is temporarily unreachable? Strictly discarding all expired data can turn a short DNS infrastructure outage into a complete service outage—even when the previously cached address is still correct.</p>
+<p>RFC 8767 defines a mechanism commonly called <strong>serve-stale</strong>. Under the conditions described in the standard, a recursive resolver may use expired DNS data when it cannot refresh that information from authoritative servers. It can return the stale answer with a positive TTL while continuing to attempt refresh in the background.</p>
+<p>Serve-stale is a resilience mechanism, not a way to ignore TTLs indefinitely. It balances two risks: serving data that may no longer be current and failing to resolve a name when authoritative infrastructure is temporarily unavailable. A resolver's configured stale-data policy determines how long expired information may remain available.</p>
+<p>For a stable website address, a short period of stale service during a nameserver outage may be better than no answer at all. For a rapidly changing record, a stale answer could direct users to an obsolete server. Resolver operators must consider the application and the consequences of outdated data.</p>
+<p>Serve-stale also explains why two resolvers may behave differently after a TTL expires. One may fail to refresh and return an error; another may serve stale data while retrying. Both can be following their configured policies and the relevant standard.</p></section>
+
+<section><h2>8. DNS TTL versus browser cache and web cache</h2>
+<p>People often use the word cache for several unrelated mechanisms. A DNS cache stores name-resolution data. A browser HTTP cache stores web resources such as images, scripts, stylesheets and documents. A content delivery network (CDN) may cache copies of web content at edge locations. These systems have different keys, expiry rules and invalidation mechanisms.</p>
+<table><thead><tr><th>Cache type</th><th>What it stores</th><th>Typical control</th></tr></thead><tbody>
+<tr><td>DNS cache</td><td>DNS records and related resolution data.</td><td>DNS record TTL and resolver policy.</td></tr>
+<tr><td>Browser HTTP cache</td><td>Web responses and static assets.</td><td>HTTP Cache-Control, Expires, validators and browser policy.</td></tr>
+<tr><td>CDN or reverse-proxy cache</td><td>Copies of content served near users.</td><td>CDN cache rules, origin headers and purge/invalidation tools.</td></tr>
+<tr><td>Application cache</td><td>App-specific data or responses.</td><td>Application logic and local storage policy.</td></tr>
+</tbody></table>
+<p>Changing a DNS record does not automatically clear a browser's cached JavaScript file. Purging a CDN does not necessarily flush the ISP's DNS resolver. Clearing browser history may not clear the operating system's DNS cache. A correct troubleshooting process identifies which layer is actually stale.</p>
+<p>For example, if a domain resolves to the new server but the browser still displays an old logo, the issue may be an HTTP or CDN cache rather than DNS. If the browser cannot connect and different resolvers return different IP addresses, DNS caching is a stronger suspect.</p></section>
+
+<section><h2>9. Why DNS changes do not update everywhere at once</h2>
+<p>Suppose a website owner plans to move a domain from one hosting provider to another. The owner changes the A and AAAA records at the authoritative DNS provider. Some users reach the new host quickly; others continue reaching the old host.</p>
+<p>Several reasons can explain this:</p>
+<ul>
+<li><strong>Existing positive cache entries:</strong> a recursive resolver may still hold the previous address until its TTL expires.</li>
+<li><strong>Different query times:</strong> resolvers queried the old answer at different moments, so their expiry times are not identical.</li>
+<li><strong>Different record types:</strong> A and AAAA records may have different values and TTLs. Some clients prefer IPv6 while others use IPv4.</li>
+<li><strong>CNAME chains:</strong> an alias and its target may each have separate cache lifetimes.</li>
+<li><strong>Negative cache entries:</strong> a resolver that previously received NXDOMAIN may continue returning it temporarily after a record is created.</li>
+<li><strong>Resolver policies:</strong> providers may enforce TTL floors, caps or stale-answer behaviour.</li>
+<li><strong>Delegation changes:</strong> changing authoritative name servers can involve parent-zone delegation and glue information, which are separate from ordinary host records.</li>
+</ul>
+<p>A useful migration strategy is to plan ahead. If a record's TTL is currently one day, lowering it five minutes before a move does not instantly shorten the lifetime of answers already cached with the old one-day TTL. Reduce the TTL sufficiently in advance, wait for the previous longer cache window to pass, then make the change during a controlled period.</p>
+<p>After the move, verify A, AAAA, CNAME and any service-related records from multiple independent resolvers. Keep the old server available for an overlap period where possible. Restore a longer TTL after the new destination is stable. The exact schedule depends on the current TTLs and the operational risk.</p></section>
+
+<section><h2>10. How to inspect DNS TTL values</h2>
+<p>You can inspect DNS answers with command-line tools. The examples below are illustrative; the command options and output format can vary by operating system and tool version.</p>
+<h3>Using dig</h3>
+<pre><code>dig example.com A
+dig example.com AAAA
+dig example.com MX
+dig example.com A +noall +answer
+dig @1.1.1.1 example.com A +noall +answer
+dig @8.8.8.8 example.com A +noall +answer</code></pre>
+<p>The answer section commonly displays the remaining TTL next to the record class and type. Querying two different resolvers can show whether they currently hold different answers or different remaining TTL values.</p>
+<h3>Using nslookup</h3>
+<pre><code>nslookup example.com
+nslookup -type=AAAA example.com
+nslookup -type=MX example.com</code></pre>
+<p><code>nslookup</code> is widely available, but its output does not always make TTL inspection as straightforward as <code>dig</code>. On Windows, PowerShell's <code>Resolve-DnsName</code> can also query record types and selected servers:</p>
+<pre><code>Resolve-DnsName example.com -Type A
+Resolve-DnsName example.com -Type AAAA
+Resolve-DnsName example.com -Server 1.1.1.1</code></pre>
+<p>To check an authoritative server directly, first identify the domain's authoritative name servers, then query the relevant server. This helps separate authoritative data from what a recursive resolver has cached. Be careful to compare the same name, record type and DNS view; split-horizon DNS can intentionally return different answers to different networks.</p></section>
+
+<section><h2>11. How to troubleshoot a DNS cache problem</h2>
+<p>Start by describing the symptom precisely. Is the domain not resolving, resolving to an old IP address, returning NXDOMAIN, returning SERVFAIL, or resolving correctly while the website itself shows old content? These are different problems.</p>
+<ol>
+<li><strong>Check the authoritative answer.</strong> Query the authoritative name server to see what it currently publishes. Confirm the record name, type, value and TTL.</li>
+<li><strong>Compare recursive resolvers.</strong> Ask the resolver configured on the affected network and one or two independent resolvers. Different answers can indicate cache differences, DNS views or propagation of a delegation change.</li>
+<li><strong>Check both A and AAAA.</strong> A browser may use IPv6 when available. An incorrect AAAA record can create a problem even when the IPv4 A record looks correct.</li>
+<li><strong>Check aliases and dependencies.</strong> Follow CNAME targets and relevant service records. The stale information may be in a target record rather than the first name.</li>
+<li><strong>Look for negative caching.</strong> If a name was recently created, a previously cached NXDOMAIN or NODATA response may still be active.</li>
+<li><strong>Inspect DNSSEC validation.</strong> A broken DS/DNSKEY relationship or expired signature can produce validation failures. Do not disable validation as a first response; identify the actual error.</li>
+<li><strong>Check the local device and browser path.</strong> Determine which resolver the application is using and whether a local cache or secure-DNS setting changes that path.</li>
+<li><strong>Separate DNS from HTTP and CDN caching.</strong> If the domain resolves to the expected destination, inspect web cache headers, CDN rules, application deployment and origin behaviour.</li>
+</ol>
+<p>On Windows, an administrator can flush the Windows DNS client cache using:</p>
+<pre><code>ipconfig /flushdns</code></pre>
+<p>On macOS, the cache-flush command depends on the operating-system version and service configuration. On Linux, behaviour depends on whether a local caching service such as systemd-resolved, dnsmasq or another resolver is active. Restarting a particular local resolver may clear its cache, but do not run commands blindly on production servers. Identify the service first and consult its documentation.</p>
+<p>Flushing a local cache only affects that local cache. It does not erase entries held by an ISP resolver, public recursive resolver, enterprise DNS service, browser-specific resolver or CDN. If the stale answer is upstream, waiting for its TTL or using the provider's supported cache-management process may be necessary.</p></section>
+
+<section><h2>12. Choosing a TTL: speed, control and operational risk</h2>
+<p>There is no single best TTL for every record. A short TTL can make planned changes visible sooner after old entries expire, but it increases the frequency of refresh queries. A long TTL can reduce repeated lookups and provide more stable caching, but it can make changes take longer to be reflected by caches that already hold an older answer.</p>
+<p>Consider the purpose of the record:</p>
+<ul>
+<li><strong>Stable website address:</strong> a longer TTL may be appropriate when the destination rarely changes and the operator values cache efficiency.</li>
+<li><strong>Planned migration:</strong> a temporarily reduced TTL can help, provided it is lowered early enough for old cached values to expire before the cutover.</li>
+<li><strong>Failover design:</strong> TTL is only one part of failover. Health checks, load balancers, routing, application retries and resolver behaviour also affect recovery time.</li>
+<li><strong>Mail records:</strong> MX and related records should be managed carefully because mail delivery depends on more than a single web address.</li>
+<li><strong>Dynamic services:</strong> frequent changes may justify shorter TTLs, but the authoritative DNS provider's limits and query capacity must be considered.</li>
+</ul>
+<p>Do not promise users that a 60-second TTL guarantees a global update in 60 seconds. A client may have cached the previous value before the TTL was reduced; an intermediate resolver may enforce a minimum; a negative answer may have its own TTL; and some resolvers may serve stale data during upstream failures.</p>
+<p>TTL is a cache-control input, not a global synchronisation command.</p></section>
+
+<section><h2>13. DNS caching, privacy and security</h2>
+<p>Caching changes how often a resolver receives a query, but it does not automatically make DNS private. A recursive resolver that receives a query can generally observe the name being requested. Encrypted DNS transports such as DNS over HTTPS (DoH) and DNS over TLS (DoT) protect the connection between a client and its chosen resolver, but the resolver still processes the query.</p>
+<p>DNSSEC protects the authenticity and integrity of signed DNS data; it does not encrypt queries. These technologies address different layers. DNS cache poisoning defences, resolver hardening, DNSSEC validation, encrypted transport, access controls and careful key management can complement each other.</p>
+<p>Cache contents can also be security-sensitive. A shared resolver must isolate clients appropriately and implement DNS protocol rules correctly. Incorrect cache-key handling, stale data, poisoning vulnerabilities or misconfigured split-horizon policies can cause unexpected answers. Administrators should keep resolver software updated and monitor for unusual query patterns or validation errors.</p>
+<p>Negative caching has security implications too. It can reduce repeated upstream work during attacks or outages, but a cached negative answer can also delay visibility of a newly created record. Operational teams should understand their resolver's failure caching and logging behaviour rather than treating every repeated failure as proof that authoritative DNS is still broken.</p></section>
+
+<section><h2>14. Common DNS caching myths</h2>
+<h3>Myth: Changing a record updates every resolver immediately.</h3>
+<p>False. Resolvers may continue using previously cached data until its remaining TTL expires. DNS does not generally push a purge to every independent cache.</p>
+<h3>Myth: A TTL is the time a domain takes to propagate.</h3>
+<p>Not exactly. TTL is the permitted cache lifetime for a record. Different caches have different expiry times, and negative answers and resolver policies also matter.</p>
+<h3>Myth: Flushing browser history clears all DNS caches.</h3>
+<p>False. Browser history, HTTP cache, local DNS cache and recursive resolver caches are separate systems.</p>
+<h3>Myth: A short TTL always makes a website faster to update.</h3>
+<p>It can shorten the cache window for new queries after the lower TTL is published and old entries expire. It does not retroactively shorten existing cached entries.</p>
+<h3>Myth: NXDOMAIN means the domain owner has not created the record.</h3>
+<p>It may mean that, but a resolver could also be returning a cached NXDOMAIN from before the record was created. Check the authoritative server and negative TTL.</p>
+<h3>Myth: Expired DNS data can never be used.</h3>
+<p>RFC 8767 defines serve-stale behaviour that allows resolvers to use expired data in specified circumstances when authoritative refresh is not possible. Resolver policy matters.</p></section>
+
+<section><h2>15. A practical checklist for website owners and administrators</h2>
+<ul>
+<li>List every DNS record that matters to the service: A, AAAA, CNAME, MX, TXT, SRV and relevant delegation records.</li>
+<li>Record the current TTLs before making changes.</li>
+<li>Lower TTLs sufficiently in advance of a planned migration; do not expect an immediate effect.</li>
+<li>Verify both IPv4 and IPv6 answers.</li>
+<li>Check authoritative data separately from recursive answers.</li>
+<li>Understand negative caching before testing newly created names.</li>
+<li>Confirm DNSSEC signing and DS data if the zone is signed.</li>
+<li>Document the DNS provider's TTL floors, caps, cache purge tools and failover behaviour.</li>
+<li>Test from multiple networks and resolvers without assuming every resolver must return the same answer at the same moment.</li>
+<li>Keep the old service available during a migration where feasible.</li>
+<li>Separate DNS symptoms from browser, CDN, reverse-proxy and application caches.</li>
+<li>Monitor authoritative server health and resolver validation errors.</li>
+</ul>
+<p>For home users, the practical approach is simpler: compare the result from another network or resolver, restart the local connection only when appropriate, and avoid changing advanced router DNS settings unless you understand the effect. If only one device has the issue, investigate its local resolver path. If many devices on the same network have the same issue, inspect the router or upstream DNS service.</p></section>
+
+<section><h2>16. The bigger picture: caching is a balance, not a bug</h2>
+<p>DNS caching is sometimes blamed when a change appears slow, but caching is a core part of how the DNS scales. It prevents every device from repeatedly asking the authoritative hierarchy for the same records. It improves lookup performance, reduces load and can support resilience.</p>
+<p>The same mechanism creates a temporary gap between an authoritative change and what a particular client sees. Positive TTLs, negative caching, failure caching, local caches and serve-stale policies each contribute to the result. Once these mechanisms are understood, DNS behaviour becomes much easier to diagnose.</p>
+<p>The most useful question is not simply, “Why has DNS not updated?” It is: “Which resolver answered, what exact record type was queried, what answer did the authoritative server publish, and how much cache lifetime remains?” That turns a vague waiting problem into a sequence of testable checks.</p></section>
+
+<section class="tb-sources"><h2>Standards and further reading</h2>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc1034" rel="noopener">RFC 1034 — Domain Names: Concepts and Facilities</a>: the DNS architecture and resolver concepts.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc1035" rel="noopener">RFC 1035 — Domain Names: Implementation and Specification</a>: DNS message format and resource-record TTL semantics.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc2181" rel="noopener">RFC 2181 — Clarifications to the DNS Specification</a>: clarifications to DNS resource records and TTL handling.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc2308" rel="noopener">RFC 2308 — Negative Caching of DNS Queries</a>: NXDOMAIN, NODATA and negative TTL calculation.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8767" rel="noopener">RFC 8767 — Serving Stale Data to Improve DNS Resiliency</a>: serve-stale behaviour.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9520" rel="noopener">RFC 9520 — Negative Caching of DNS Resolution Failures</a>: caching timeouts and other resolution failures.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4035" rel="noopener">RFC 4035 — Protocol Modifications for the DNS Security Extensions</a>: DNSSEC validation and related processing.</li>
+</ul>
+<p>Standards describe protocol requirements; individual resolver products may expose additional settings and operational policies. Consult the current documentation for the resolver and authoritative DNS provider you operate.</p></section>
+
+<section class="tb-faq"><h2>Frequently asked questions</h2>
+<details><summary>1. What is DNS caching in simple terms?</summary><p>DNS caching is the temporary storage of DNS answers so a resolver or device can reuse them instead of repeating the lookup. It usually reduces lookup time and unnecessary DNS traffic.</p></details>
+<details><summary>2. What does TTL mean in DNS?</summary><p>TTL means Time to Live. It is the number of seconds a DNS record may be reused from a cache before the cache should obtain fresh information. The remaining TTL generally decreases as the record stays cached.</p></details>
+<details><summary>3. How long does DNS propagation take?</summary><p>There is no single global propagation timer. Existing positive or negative cache entries can remain until their applicable TTL expires, and resolver policies, delegation changes and stale-answer behaviour can affect what different users see.</p></details>
+<details><summary>4. Why does NXDOMAIN continue after I create a DNS record?</summary><p>A resolver may have cached an earlier NXDOMAIN response. Negative caching is defined by RFC 2308, and the negative TTL is derived from the authoritative zone's SOA information. Check the authoritative answer and wait for the cached negative entry to expire.</p></details>
+<details><summary>5. What is the difference between NXDOMAIN and NODATA?</summary><p>NXDOMAIN means the queried name does not exist. NODATA means the name exists but does not have the requested record type, such as an AAAA record. Their negative-cache matching rules are different.</p></details>
+<details><summary>6. Does flushing DNS clear every DNS cache?</summary><p>No. Flushing a local device cache does not clear caches held by a router, ISP, public recursive resolver, browser-specific resolver or other network service. Each cache has its own lifecycle.</p></details>
+<details><summary>7. Can DNS resolvers use expired records?</summary><p>Under the serve-stale mechanism in RFC 8767, a recursive resolver may use expired data in specified circumstances when it cannot refresh information from authoritative servers. The resolver's configuration controls the operational policy.</p></details>
+<details><summary>8. Does a lower DNS TTL make changes instant?</summary><p>No. Lowering a TTL does not retroactively shorten the lifetime of entries already cached with the old TTL. It can help future cache entries expire sooner after the previous cache window has passed.</p></details>
+<details><summary>9. What is negative caching in DNS?</summary><p>Negative caching stores answers that say a name or requested record does not exist, and modern standards also require caching resolution failures. It reduces repeated upstream queries but can temporarily delay recognition of newly created records.</p></details>
+<details><summary>10. How can I check the DNS TTL for a domain?</summary><p>Use a DNS query tool such as dig and inspect the answer section. Commands such as <code>dig example.com A +noall +answer</code> display the record and its remaining TTL when the resolver returns an answer.</p></details>
+</section>
+</article>
+</main>
+<footer class="tb-footer"><a href="/blog/">TEZZ CONNECT Blog</a> · <a href="/blog/about/">About</a> · <a href="/privacy/">Privacy</a></footer>
+</body></html>
